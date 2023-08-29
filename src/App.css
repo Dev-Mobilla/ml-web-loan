@@ -1,4 +1,4 @@
-.App {
+/* .App {
   text-align: center;
 }
 
@@ -35,4 +35,8 @@
   to {
     transform: rotate(360deg);
   }
+} */
+:root {
+  --x00-on-surface-medium-emphasis: rgba(0, 0, 0, 0.6);
 }
+

@@ -1,0 +1,10 @@
+.top-bar {
+    background-image: url(https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e41e67e1c2a81b98b3c871/img/logo@2x.png);
+    background-position: 50% 50%;
+    background-size: cover;
+    height: 34px;
+    left: 37px;
+    position: absolute;
+    top: 19px;
+    width: 200px;
+}

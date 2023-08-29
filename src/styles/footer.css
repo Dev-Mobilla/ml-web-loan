@@ -1,0 +1,35 @@
+.footer {
+    background-color: #ff0000;
+    height: 62px;
+    left: 0;
+    position: absolute;
+    top: 962px;
+    width: 100%;
+}
+
+.reserved {
+    height: 31px;
+    left: 51px;
+    object-fit: cover;
+    position: absolute;
+    top: 15px;
+    width: 505px;
+}
+
+.aboutus {
+    height: 35px;
+    left: 1160px;
+    object-fit: cover;
+    position: absolute;
+    top: 11px;
+    width: 81px;
+}
+
+.privacynotice {
+    height: 38px;
+    left: 1271px;
+    object-fit: cover;
+    position: absolute;
+    top: 11px;
+    width: 112px;
+}
