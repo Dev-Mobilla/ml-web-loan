@@ -1,11 +1,15 @@
 import React from "react";
 import "../styles/manageloans.css";
+import { TopbarComponent, CustomHeader, FooterComponent, CustomButton, CustomPrevBtn } from "./index";
 
 const ManageLoanComponent = () => {
   return (
     <div className="manage-loans">
       <div className="div">
-        <footer className="footer">
+      <TopbarComponent/>
+      <CustomHeader title="Manage Existing Loans"/>
+      <CustomPrevBtn/>
+        {/* <footer className="footer">
           <img
             className="reserved"
             alt="Reserved"
@@ -21,28 +25,11 @@ const ManageLoanComponent = () => {
             alt="Privacynotice"
             src="https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e41e67e1c2a81b98b3c871/img/screenshot-2023-05-31-102043-1@2x.png"
           />
-        </footer>
+        </footer> */}
         <div className="body-bg">
-          <div className="past-loan-card">
-            <div className="overlap">
-              <div className="overlap-group">
-                <div className="pastloantxtt">Ref. no. 0000000000</div>
-                <div className="pastloantxt">Vehicle Loan</div>
-              </div>
-              <img
-                className="pastloan-icon"
-                alt="Pastloan icon"
-                src="https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e41e67e1c2a81b98b3c871/img/v-icon@2x.png"
-              />
-              <div className="pastloan-btn">
-                <div className="div-wrapper">
-                  <div className="text-wrapper">Details</div>
-                </div>
-              </div>
-            </div>
-            <div className="pastloanstxt">Past Loans</div>
-          </div>
           <div className="current-loan-card">
+            <CustomButton name="Add"/>
+            <div className="currentloanstxt">Current Loans</div>
             <div className="quick-cash-loan-card">
               <div className="overlap-2">
                 <div className="qclmng-btn">
@@ -143,27 +130,33 @@ const ManageLoanComponent = () => {
                 </div>
               </div>
             </div>
-            <div className="add-btn">
+            {/* <div className="add-btn">
               <div className="addtxt-wrapper">
                 <div className="addtxt">Add</div>
               </div>
-            </div>
-            <div className="currentloanstxt">Current Loans</div>
+            </div> */}
           </div>
-          <div className="prevpagebtn">
-            <img
-              className="arrow"
-              alt="Arrow"
-              src="https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e5956d9f04124e98dc5ac7/img/arrow-2@2x.png"
-            />
+          <div className="past-loan-card">
+            <div className="pastloanstxt">Past Loans</div>
+            <div className="overlap">
+              <div className="overlap-group">
+                <div className="pastloantxtt">Ref. no. 0000000000</div>
+                <div className="pastloantxt">Vehicle Loan</div>
+              </div>
+              <img
+                className="pastloan-icon"
+                alt="Pastloan icon"
+                src="https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e41e67e1c2a81b98b3c871/img/v-icon@2x.png"
+              />
+              <div className="pastloan-btn">
+                <div className="div-wrapper">
+                  <div className="text-wrapper">Details</div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-        <header className="header">
-          <div className="overlap-5">
-            <div className="text-wrapper-3">Manage Existing Loans</div>
-          </div>
-        </header>
-        <div className="top-bar" />
+        <FooterComponent/>
       </div>
     </div>
   );
