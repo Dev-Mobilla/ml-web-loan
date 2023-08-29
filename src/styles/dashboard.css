@@ -1,0 +1,469 @@
+.dashboard {
+    background-color: #fbfbfb;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+}
+
+.dashboard .div {
+    background-color: #fbfbfb;
+    height: 1024px;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+}
+
+.dashboard .overlap {
+    height: 707px;
+    /* left: -20px; */
+    position: absolute;
+    top: 71px;
+    width: 100%;
+}
+
+.dashboard .body-bg {
+    height: 425px;
+    left: 0;
+    position: absolute;
+    top: 282px;
+    width: 100%;
+}
+
+.dashboard .floating-diamond {
+    height: 287px;
+    /* left: 20px; */
+    position: absolute;
+    top: 25px;
+    width: 1005;
+}
+
+.dashboard .img {
+    height: 287px;
+    left: 1325px;
+    position: absolute;
+    top: 0;
+    width: 135px;
+}
+
+.dashboard .salary {
+    height: 143px;
+    left: 957px;
+    position: absolute;
+    top: 282px;
+    width: 306px;
+}
+
+.dashboard .overlap-group-3 {
+    background-image: url(https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e492714fd92dc35e55a22f/img/scard-5@2x.png);
+    background-size: 100% 100%;
+    height: 151px;
+    left: -4px;
+    position: relative;
+    width: 310px;
+}
+
+.dashboard .overlap-4 {
+    height: 74px;
+    left: 26px;
+    position: absolute;
+    top: 13px;
+    width: 217px;
+}
+
+.dashboard .stitle {
+    color: #ff2800;
+    font-family: "Roboto", Helvetica;
+    font-size: 22px;
+    font-weight: 700;
+    left: 0;
+    letter-spacing: -0.33px;
+    line-height: normal;
+    position: absolute;
+    top: 48px;
+    white-space: nowrap;
+    width: 217px;
+}
+
+.dashboard .s-icon {
+    height: 50px;
+    left: 0;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    width: 50px;
+}
+
+.dashboard .s-desc {
+    color: #555555;
+    font-family: "Roboto", Helvetica;
+    font-size: 18px;
+    font-weight: 400;
+    left: 29px;
+    letter-spacing: -0.33px;
+    line-height: normal;
+    position: absolute;
+    top: 94px;
+    width: 268px;
+}
+
+.dashboard .pensioner {
+    height: 143px;
+    left: 582px;
+    position: absolute;
+    top: 282px;
+    width: 306px;
+}
+
+.dashboard .ptitle {
+    color: #ff2800;
+    font-family: "Roboto", Helvetica;
+    font-size: 22px;
+    font-weight: 700;
+    left: 19px;
+    letter-spacing: -0.33px;
+    line-height: normal;
+    position: absolute;
+    top: 68px;
+    white-space: nowrap;
+    width: 217px;
+}
+
+.dashboard .p-desc {
+    color: #555555;
+    font-family: "Roboto", Helvetica;
+    font-size: 18px;
+    font-weight: 400;
+    left: 24px;
+    letter-spacing: -0.33px;
+    line-height: normal;
+    position: absolute;
+    top: 94px;
+    width: 268px;
+}
+
+.dashboard .p-icon {
+    height: 50px;
+    left: 19px;
+    object-fit: cover;
+    position: absolute;
+    top: 13px;
+    width: 50px;
+}
+
+.dashboard .SBL {
+    height: 143px;
+    left: 206px;
+    position: absolute;
+    top: 282px;
+    width: 306px;
+}
+
+.dashboard .SB-ltitle {
+    color: #ff2800;
+    font-family: "Roboto", Helvetica;
+    font-size: 22px;
+    font-weight: 700;
+    left: 25px;
+    letter-spacing: -0.33px;
+    line-height: normal;
+    position: absolute;
+    top: 68px;
+    white-space: nowrap;
+    width: 217px;
+}
+
+.dashboard .SBL-desc {
+    color: #555555;
+    font-family: "Roboto", Helvetica;
+    font-size: 18px;
+    font-weight: 400;
+    left: 25px;
+    letter-spacing: -0.33px;
+    line-height: normal;
+    position: absolute;
+    top: 94px;
+    width: 268px;
+}
+
+.dashboard .SBL-icon {
+    height: 50px;
+    left: 25px;
+    object-fit: cover;
+    position: absolute;
+    top: 13px;
+    width: 50px;
+}
+
+.dashboard .QCL {
+    height: 143px;
+    left: 957px;
+    position: absolute;
+    top: 82px;
+    width: 306px;
+}
+
+.dashboard .QC-ltitle {
+    color: #ff2800;
+    font-family: "Roboto", Helvetica;
+    font-size: 22px;
+    font-weight: 700;
+    left: 26px;
+    letter-spacing: -0.33px;
+    line-height: normal;
+    position: absolute;
+    top: 65px;
+    white-space: nowrap;
+    width: 163px;
+}
+
+.dashboard .QCL-desc {
+    color: #555555;
+    font-family: "Roboto", Helvetica;
+    font-size: 18px;
+    font-weight: 400;
+    left: 29px;
+    letter-spacing: -0.33px;
+    line-height: normal;
+    position: absolute;
+    top: 93px;
+    width: 268px;
+}
+
+.dashboard .QCL-icon {
+    height: 50px;
+    left: 26px;
+    object-fit: cover;
+    position: absolute;
+    top: 7px;
+    width: 50px;
+}
+
+.dashboard .housing {
+    height: 143px;
+    left: 582px;
+    position: absolute;
+    top: 82px;
+    width: 306px;
+}
+
+.dashboard .hltitle {
+    color: #ff2800;
+    font-family: "Roboto", Helvetica;
+    font-size: 22px;
+    font-weight: 700;
+    left: 19px;
+    letter-spacing: -0.33px;
+    line-height: normal;
+    position: absolute;
+    top: 65px;
+    white-space: nowrap;
+    width: 136px;
+}
+
+.dashboard .h-desc {
+    color: #555555;
+    font-family: "Roboto", Helvetica;
+    font-size: 18px;
+    font-weight: 400;
+    left: 24px;
+    letter-spacing: -0.33px;
+    line-height: normal;
+    position: absolute;
+    top: 93px;
+    width: 268px;
+}
+
+.dashboard .h-icon {
+    height: 50px;
+    left: 19px;
+    position: absolute;
+    top: 7px;
+    width: 50px;
+}
+
+.dashboard .overlap-group-4 {
+    height: 52px;
+    position: relative;
+    top: -1px;
+    width: 51px;
+}
+
+.dashboard .vector {
+    height: 52px;
+    left: 12px;
+    position: absolute;
+    top: 0;
+    width: 39px;
+}
+
+.dashboard .rectangle {
+    background-color: #d9d9d9;
+    border: 2px solid;
+    border-color: #ff2800;
+    height: 5px;
+    left: 17px;
+    position: absolute;
+    top: 3px;
+    width: 29px;
+}
+
+.dashboard .vector-2 {
+    height: 2px;
+    left: 26px;
+    position: absolute;
+    top: 12px;
+    width: 22px;
+}
+
+.dashboard .vector-3 {
+    height: 2px;
+    left: 26px;
+    position: absolute;
+    top: 16px;
+    width: 22px;
+}
+
+.dashboard .vector-4 {
+    height: 2px;
+    left: 26px;
+    position: absolute;
+    top: 20px;
+    width: 22px;
+}
+
+.dashboard .vector-5 {
+    height: 2px;
+    left: 15px;
+    position: absolute;
+    top: 27px;
+    width: 32px;
+}
+
+.dashboard .vector-6 {
+    height: 2px;
+    left: 17px;
+    position: absolute;
+    top: 30px;
+    width: 30px;
+}
+
+.dashboard .vector-7 {
+    height: 2px;
+    left: 21px;
+    position: absolute;
+    top: 33px;
+    width: 27px;
+}
+
+.dashboard .vector-8 {
+    height: 2px;
+    left: 22px;
+    position: absolute;
+    top: 35px;
+    width: 26px;
+}
+
+.dashboard .vector-9 {
+    height: 2px;
+    left: 21px;
+    position: absolute;
+    top: 38px;
+    width: 27px;
+}
+
+.dashboard .vector-10 {
+    height: 2px;
+    left: 20px;
+    position: absolute;
+    top: 41px;
+    width: 27px;
+}
+
+.dashboard .shape-copy {
+    height: 1px;
+    left: 15px;
+    position: absolute;
+    top: 16px;
+    width: 11px;
+}
+
+.dashboard .p {
+    height: 12px;
+    left: 18px;
+    position: absolute;
+    top: 13px;
+    width: 5px;
+}
+
+.dashboard .ellipse {
+    background-color: #e2b5b5;
+    border: 2px solid;
+    border-color: #ff2800;
+    border-radius: 11.9px/10.14px;
+    height: 20px;
+    left: 0;
+    position: absolute;
+    top: 26px;
+    width: 24px;
+}
+
+.dashboard .group {
+    height: 12px;
+    left: 4px;
+    position: absolute;
+    top: 29px;
+    width: 15px;
+}
+
+.dashboard .vehicle {
+    height: 143px;
+    left: 206px;
+    position: absolute;
+    top: 82px;
+    transition: all 0.2s ease-in;
+    width: 306px;
+}
+
+.dashboard .overlap-5 {
+    background-image: url(https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e41e67e1c2a81b98b3c871/img/vlcard.png);
+    background-size: 100% 100%;
+    height: 151px;
+    left: -4px;
+    position: relative;
+    width: 310px;
+}
+
+.dashboard .v-desc {
+    color: #555555;
+    font-family: "Roboto", Helvetica;
+    font-size: 18px;
+    font-weight: 400;
+    left: 25px;
+    letter-spacing: -0.33px;
+    line-height: normal;
+    position: absolute;
+    top: 93px;
+}
+
+.dashboard .vltitle {
+    color: #ff2800;
+    font-family: "Roboto", Helvetica;
+    font-size: 22px;
+    font-weight: 700;
+    left: 25px;
+    letter-spacing: -0.33px;
+    line-height: normal;
+    position: absolute;
+    top: 65px;
+    white-space: nowrap;
+}
+
+.dashboard .v-icon {
+    height: 50px;
+    left: 25px;
+    object-fit: cover;
+    position: absolute;
+    top: 7px;
+    width: 50px;
+}
