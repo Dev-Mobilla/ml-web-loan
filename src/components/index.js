@@ -6,6 +6,7 @@ import TopbarComponent from "./layout/TopbarComponent";
 import LoginComponent from "./LoginComponent";
 import ManageLoanComponent from "./ManageLoansComponent";
 import QuickCashLoanComponent from "./QuickCashLoanComponent";
+import QuickCashHeaderComponent from "./layout/QuickCashHeaderComponent";
 
 // CUSTOM COMPONENTS
 import CustomHeader from "./custom/Custom.header";
@@ -23,6 +24,7 @@ export {
     ManageLoanComponent,
     HousingLoanComponent,
     QuickCashLoanComponent,
+    QuickCashHeaderComponent
     CustomHeader,
     CustomButton,
     CustomPrevBtn,

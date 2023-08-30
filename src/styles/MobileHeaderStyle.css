@@ -1,0 +1,13 @@
+.mobileheader{
+    background-color: white;
+    height: 79px;
+    left: 0;
+    position: fixed;
+    width: 1442px;
+    z-index: 999;
+}
+.div-mobile{
+    background-color: white;
+    position: fixed;
+    z-index: 999;
+}
