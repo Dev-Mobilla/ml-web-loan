@@ -31,22 +31,6 @@
   padding: 20px;
 }
 
-.hl-current {
-  justify-content: center;
-  background-color: #009900;
-  height: 34px;
-  width: 169px;
-  color: white;
-  font-weight: 700;
-  font-size: 20px;
-  letter-spacing: normal;
-  margin: 50px 0 0 0;
-  padding: 8px 16px;
-  border-radius: 5px;
-  display: flex;
-  align-items: center;
-}
-
 .h-card-text {
   max-width: 300px;
 }
@@ -142,21 +126,6 @@
   margin: 50px 5px 30px 0;
 }
 
-.payment-schedule-btn,
-.collateral-details-btn {
-  background-color: #ff2800;
-  font-size: 18px;
-  font-weight: 500;
-  border-radius: 5px;
-  padding: 8px 16px;
-  color: #ffffff;
-  border: none;
-  cursor: pointer;
-}
-
-.collateral-details-btn {
-  margin-left: 35px;
-}
 .note {
   display: flex;
 }
@@ -203,10 +172,12 @@
   .housing-content {
     padding: 10px;
   }
+  
   .card img {
     width: 50px;
     height: 50px;
   }
+
   .h-card-header {
     padding: 10px;
   }
@@ -214,23 +185,15 @@
   .hl-inputs {
     margin-top: 30px;
   }
+
   .h-ltxt {
     font-size: 20px;
   }
+
   .h-lrefno {
     font-size: 16px;
   }
-  .hl-current {
-    height: 16px;
-    width: 94px;
-    margin: 35px 0 0 0;
-    padding: 10px 16px;
-    display: flex;
-    font-size: 16px;
-    font-weight: 500;
-    line-height: 19px;
-    letter-spacing: -0.3px;
-  }
+
   .input-label {
     font-size: 18px;
     width: 180px;
@@ -259,18 +222,6 @@
     margin-right: 8px;
     width: 31px;
     height: 27px;
-  }
-
-  .payment-schedule-btn,
-  .collateral-details-btn {
-    width: 167px;
-    height: 31px;
-    font-size: 14px;
-    padding: 8px;
-  }
-
-  .collateral-details-btn {
-    margin-left: 20px;
   }
 
   .rec-payment-txt {

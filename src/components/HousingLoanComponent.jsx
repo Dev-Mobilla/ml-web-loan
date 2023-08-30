@@ -1,9 +1,11 @@
 import React from "react";
 import "../styles/housingloan.css";
 import {
-  FooterComponent,
+  CustomButton,
   CustomHeader,
   CustomPrevBtn,
+  CustomStatus,
+  FooterComponent,
   TopbarComponent,
 } from "./index";
 
@@ -17,12 +19,6 @@ const HousingLoanComponent = () => {
     { date: "03-15-2023", time: "10:30", amount: "30,625.00" },
     { date: "02-09-2023", time: "08:15", amount: "30,625.00" },
     { date: "01-10-2023", time: "22:04", amount: "30,625.00" },
-  ];
-
-  // not yet implemented
-  const statuses = [
-    { title: "Current", color: "success" },
-    { title: "Past Due", color: "warning" },
   ];
 
   return (
@@ -41,9 +37,7 @@ const HousingLoanComponent = () => {
                   <div className="h-lrefno">Ref. no. 00000000000</div>
                 </div>
               </div>
-              <div className="hl-current">
-                Current
-              </div>
+              <CustomStatus status="Current" styles="custom-current" />
             </div>
 
             <div className="hl-inputs">
@@ -79,14 +73,15 @@ const HousingLoanComponent = () => {
                   </button>
                 </div>
               </div>
-
               <div className="btns">
-                <button className="payment-schedule-btn">
-                  Payment Schedule
-                </button>
-                <button className="collateral-details-btn">
-                  Collateral Details
-                </button>
+                <CustomButton
+                  name="Payment Schedule"
+                  styles="payment-schedule-btn"
+                />
+                <CustomButton
+                  name=" Collateral Details"
+                  styles="collateral-details-btn"
+                />
               </div>
 
               <div className="hl-buttom">
