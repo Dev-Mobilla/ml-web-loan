@@ -25,13 +25,13 @@
   padding: 0 20px;
 }
 
-.custom-button.add-btn {
+/* .custom-button.add-btn {
   height: 34px;
   left: 565px;
   position: absolute;
   top: 0;
   width: 171px;
-}
+} */
 
 .custom-button .addtxt-wrapper {
   background-image: url(https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e492714fd92dc35e55a22f/img/addbtn-card-1@2x.png);

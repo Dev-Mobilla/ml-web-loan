@@ -8,7 +8,7 @@
 
 .manage-loans .div {
   background-color: #fbfbfb;
-  height: 1024px;
+  /* height: 1024px; */
   overflow: hidden;
   position: relative;
   width: 100%;
@@ -30,6 +30,7 @@
   /* top: 560px; */
   width: 100%;
   margin-top: 150px;
+  margin: 100px auto auto auto;
 }
 
 .manage-loans .overlap {
@@ -496,4 +497,60 @@
   font-weight: 500;
   padding: 7px 60px;
   margin-right: 40px;
+}
+
+/* MOBILE RESPONSIVE */
+
+@media screen and (min-width: 320px) and (max-width: 480px)  {
+    .manage-loans .body-bg{
+      /* margin: 20px 10px; */
+    }
+    .manage-loans .container{
+      width: 100%;
+      margin-top: 20px;
+    }
+    .manage-loans .custom-prevbtn.prevpagebtn{
+      position:initial;
+    }
+    .manage-loans .prev-btn{
+      margin: auto 10px;
+    }
+    .manage-loans .current-loan-btn-container, .manage-loans .past-loan-btn-container{
+      margin: auto 20px;
+    }
+    .manage-loans .custom-button.add-btn{
+      padding: 5px 30px;
+      font-size: 16px;
+    }
+    .manage-loans .currentloanstxt, .manage-loans .pastloanstxt{
+      font-size: 22px;
+    }
+    .manage-loans .housing-loan-card, .manage-loans .quick-cash-loan-card, .manage-loans .past-loan-card{
+      width: 95%;
+    }
+    .manage-loans .overlap-2, .manage-loans .overlap{
+      display: grid;
+      grid-template-columns: 50% auto;
+    }
+    .manage-loans .icon-content{
+      margin:auto 0px auto 20px;
+    }
+    .manage-loans .overlap-3, .manage-loans .overlap-group{
+      margin: auto 5px auto 15px;
+    }
+    .manage-loans .custom-button.manage-btn, .manage-loans .custom-button.details-btn{
+      padding: 7px 10px;
+      margin-right: 15px;
+      font-size: 15px;
+    }
+    .manage-loans .hlmngtxt , .manage-loans .QC-lmngtxt, .manage-loans .pastloantxt{
+      font-size: 20px;
+    }
+    .manage-loans .hlmngtxtt, .manage-loans .QC-lmngtxtt, .manage-loans .pastloantxtt{
+      font-size: 17px;
+    }
+    .manage-loans .footer{
+      display: none;
+    }
+    
 }

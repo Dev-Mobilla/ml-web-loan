@@ -3,6 +3,9 @@
   color: #fff;
   padding: 10px;
   font-family: "Roboto", Helvetica;
+  /* bottom: 0; */
+  /* position: absolute; */
+  width: 100%;
 }
 
 .footer-content {

@@ -8,7 +8,7 @@
 
 .dashboard .div {
     background-color: #fbfbfb;
-    height: 1024px;
+    /* height: 1024px; */
     overflow: hidden;
     position: relative;
     width: 100%;
@@ -17,16 +17,17 @@
 .dashboard .overlap {
     height: 707px;
     /* left: -20px; */
-    position: absolute;
+    /* position: absolute; */
     top: 71px;
     width: 100%;
+    margin-bottom: 150px;
 }
 
 .dashboard .body-bg {
     height: 425px;
     /* left: 11%; */
     position: absolute;
-    top: 282px;
+    /* top: 282px; */
     width: 100%;
 }
 /* .dashboard .content-card--wrapper{
