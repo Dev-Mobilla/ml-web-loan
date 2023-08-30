@@ -4,7 +4,8 @@
     background-size: cover;
     height: 34px;
     left: 37px;
-    position: absolute;
+    /* position: absolute; */
     top: 19px;
-    width: 200px;
+    width: 14%;
+    margin: 20px 20px;
 }

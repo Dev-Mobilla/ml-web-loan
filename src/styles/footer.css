@@ -5,31 +5,38 @@
     position: absolute;
     top: 962px;
     width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .reserved {
-    height: 31px;
+    /* height: 31px; */
     left: 51px;
     object-fit: cover;
-    position: absolute;
-    top: 15px;
+    /* position: absolute; */
+    /* top: 15px; */
     width: 505px;
 }
 
 .aboutus {
-    height: 35px;
-    left: 1160px;
+    /* height: 35px; */
+    /* left: 1160px; */
     object-fit: cover;
-    position: absolute;
-    top: 11px;
+    /* position: absolute; */
+    /* top: 11px; */
     width: 81px;
 }
 
 .privacynotice {
-    height: 38px;
-    left: 1271px;
+    /* height: 38px; */
+    /* left: 1271px; */
     object-fit: cover;
-    position: absolute;
-    top: 11px;
+    /* position: absolute; */
+    /* top: 11px; */
     width: 112px;
+}
+
+.footer .col-1, .footer .col-2{
+    margin: 0px 40px;
 }

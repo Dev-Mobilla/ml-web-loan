@@ -2,7 +2,7 @@
     background-color: transparent;
     height: 307px;
     /* left: 20px; */
-    position: absolute;
+    /* position: absolute; */
     top: 0;
     width: 100%;
 }
@@ -50,7 +50,7 @@
 
 .overlap-2 {
     height: 35px;
-    left: 82px;
+    /* left: 82px; */
     position: absolute;
     top: 5px;
     width: 109px;

@@ -5,7 +5,7 @@ const CustomHeader = (props) => {
     const { title } = props;
 
   return (
-    <header className="custom-header header">
+    <header className="custom-header">
         <div className="overlap-5">
             <div className="text-wrapper-3">{title}</div>
         </div>
