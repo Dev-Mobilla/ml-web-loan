@@ -8,7 +8,7 @@
 
 .dashboard .div {
     background-color: #fbfbfb;
-    height: 1024px;
+    /* height: 1024px; */
     overflow: hidden;
     position: relative;
     width: 100%;
@@ -17,18 +17,26 @@
 .dashboard .overlap {
     height: 707px;
     /* left: -20px; */
-    position: absolute;
+    /* position: absolute; */
     top: 71px;
     width: 100%;
+    margin-bottom: 150px;
 }
 
 .dashboard .body-bg {
     height: 425px;
-    left: 0;
+    /* left: 11%; */
     position: absolute;
-    top: 282px;
+    /* top: 282px; */
     width: 100%;
 }
+/* .dashboard .content-card--wrapper{
+    width: 100%;
+    margin: auto;
+    justify-content: center;
+    left: 0;
+
+} */
 
 .dashboard .floating-diamond {
     height: 287px;
@@ -36,11 +44,12 @@
     position: absolute;
     top: 25px;
     width: 1005;
+    
 }
 
 .dashboard .img {
     height: 287px;
-    left: 1325px;
+    left: 93%;
     position: absolute;
     top: 0;
     width: 135px;
@@ -48,7 +57,7 @@
 
 .dashboard .salary {
     height: 143px;
-    left: 957px;
+    left: 65%;
     position: absolute;
     top: 282px;
     width: 306px;
@@ -109,7 +118,7 @@
 
 .dashboard .pensioner {
     height: 143px;
-    left: 582px;
+    left: 43%;
     position: absolute;
     top: 282px;
     width: 306px;
@@ -153,7 +162,7 @@
 
 .dashboard .SBL {
     height: 143px;
-    left: 206px;
+    left: 20%;
     position: absolute;
     top: 282px;
     width: 306px;
@@ -197,7 +206,7 @@
 
 .dashboard .QCL {
     height: 143px;
-    left: 957px;
+    left: 65%;
     position: absolute;
     top: 82px;
     width: 306px;
@@ -241,7 +250,7 @@
 
 .dashboard .housing {
     height: 143px;
-    left: 582px;
+    left: 43%;
     position: absolute;
     top: 82px;
     width: 306px;
@@ -418,7 +427,7 @@
 
 .dashboard .vehicle {
     height: 143px;
-    left: 206px;
+    left: 20%;
     position: absolute;
     top: 82px;
     transition: all 0.2s ease-in;
@@ -466,4 +475,8 @@
     position: absolute;
     top: 7px;
     width: 50px;
+}
+
+@media screen and (min-width: 769px) and (max-width: 1024px)  {
+    
 }

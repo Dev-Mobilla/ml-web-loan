@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import "../../styles/footer.css";
 
 const FooterComponent = () => {
@@ -14,5 +14,15 @@ const FooterComponent = () => {
     </footer>
   )
 }
-
+      <div className="footer-content">
+        <div className="left-side">
+          Copyright &copy; 2023 Financial Services, Inc. All Rights Reserved
+        </div>
+        <div className="right-side">
+          <a href="/">About Us</a> &nbsp;&nbsp; <a href="/">Privacy Policy</a>
+        </div>
+      </div>
+    </footer>
+  );
+};
 export default FooterComponent;

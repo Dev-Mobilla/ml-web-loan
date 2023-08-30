@@ -8,6 +8,13 @@ import ManageLoanComponent from "./ManageLoansComponent";
 import QuickCashLoanComponent from "./QuickCashLoanComponent";
 import QuickCashHeaderComponent from "./layout/QuickCashHeaderComponent";
 
+// CUSTOM COMPONENTS
+import CustomHeader from "./custom/Custom.header";
+import CustomButton from "./custom/Custom.button";
+import CustomPrevBtn from "./custom/Custom.prevbtn";
+import CustomStatus from "./custom/Custom.status";
+
+
 export {
     DashboardComponent,
     FooterComponent,
@@ -18,4 +25,8 @@ export {
     HousingLoanComponent,
     QuickCashLoanComponent,
     QuickCashHeaderComponent
+    CustomHeader,
+    CustomButton,
+    CustomPrevBtn,
+    CustomStatus
 }

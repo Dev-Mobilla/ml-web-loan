@@ -1,641 +1,247 @@
-.housing-loan {
-    background-color: #fbfbfb;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    width: 100%;
+.housing-content {
+  padding: 30px;
+  font-family: "Roboto", Helvetica;
 }
 
-.housing-loan .div {
-    background-color: #fbfbfb;
-    height: 1024px;
-    overflow: hidden;
-    position: relative;
-    width: 1440px;
+.card {
+  border: 2px solid #ff2800;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 20px auto;
+  max-width: 1024px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-.housing-loan .footer {
-    background-color: #ff0000;
-    height: 62px;
-    left: 0;
-    position: absolute;
-    top: 962px;
-    width: 1440px;
+.card img {
+  width: 80px;
+  height: 80px;
+  margin-right: 20px;
 }
 
-.housing-loan .screenshot {
-    height: 31px;
-    left: 51px;
-    object-fit: cover;
-    position: absolute;
-    top: 15px;
-    width: 505px;
+.h-card {
+  display: flex;
+  justify-content: space-around;
 }
 
-.housing-loan .img {
-    height: 35px;
-    left: 1160px;
-    object-fit: cover;
-    position: absolute;
-    top: 11px;
-    width: 81px;
+.h-card-header {
+  display: flex;
+  align-items: center;
+  padding: 20px;
 }
 
-.housing-loan .screenshot-2 {
-    height: 38px;
-    left: 1271px;
-    object-fit: cover;
-    position: absolute;
-    top: 10px;
-    width: 112px;
+.h-card-text {
+  max-width: 300px;
 }
 
-.housing-loan .body-bg {
-    height: 774px;
-    left: 68px;
-    position: absolute;
-    top: 160px;
-    width: 1186px;
+.h-ltxt {
+  color: #ff2800;
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.33px;
+  line-height: normal;
+  white-space: nowrap;
+  width: 170px;
 }
 
-.housing-loan .overlap {
-    background-image: url(https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e492714fd92dc35e55a22f/img/bodycard-2.png);
-    background-size: 100% 100%;
-    height: 757px;
-    left: 118px;
-    position: absolute;
-    top: 25px;
-    width: 1068px;
+.h-lrefno {
+  color: #555555;
+  font-size: 20px;
+  font-weight: 400;
+  letter-spacing: -0.33px;
+  line-height: normal;
+  white-space: nowrap;
 }
 
-.housing-loan .existing-housing {
-    height: 569px;
-    left: 320px;
-    position: absolute;
-    top: 156px;
-    width: 362px;
+.hl-inputs {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.housing-loan .recentpay-card {
-    height: 228px;
-    left: 0;
-    position: absolute;
-    top: 341px;
-    width: 355px;
+.input-group {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 30px;
+  align-items: center;
 }
 
-.housing-loan .recpaytxt {
-    color: #ff2800;
-    font-family: "Roboto", Helvetica;
-    font-size: 22px;
-    font-weight: 700;
-    left: 13px;
-    letter-spacing: -0.33px;
-    line-height: normal;
-    position: absolute;
-    top: 0;
-    white-space: nowrap;
+.input-label {
+  width: 240px;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 21px;
+  letter-spacing: -0.3px;
+  text-align: right;
+  padding-right: 20px;
+  color: #555555;
 }
 
-.housing-loan .detailsph {
-    color: #555555;
-    font-family: "Roboto", Helvetica;
+.input-wrapper {
+  flex-grow: 1;
+}
+
+.input-wrapper input {
+  width: 157px;
+  height: 38px;
+  padding: 10px;
+  border-radius: 6px;
+  margin-right: 10px;
+  border: 1px solid;
+  border-color: #848484;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 30px;
+  text-align: right;
+}
+
+.input-wrapper input::placeholder {
+  color: #555555;
+}
+
+.pay-now-button {
+  background-color: #ff0000;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  border: 1px solid;
+  width: 136px;
+  height: 35px;
+}
+
+.pay-now-button img {
+  margin-right: 8px;
+  width: 31px;
+  height: 27px;
+}
+
+.btns {
+  display: flex;
+  justify-content: space-between;
+  margin: 50px 5px 30px 0;
+}
+
+.note {
+  display: flex;
+}
+
+.note .paynote {
+  width: 250px;
+  font-weight: 400;
+  font-style: italic;
+  font-size: 14px;
+  color: #888888;
+  line-height: 16px;
+  letter-spacing: -0.3px;
+}
+.rec-payment-txt {
+  color: #ff2800;
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 26px;
+}
+.rc-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.hl-transactions {
+  display: flex;
+  margin-left: 30px;
+  padding: 10px;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 21px;
+  color: #555555;
+}
+
+.hl-transactions .time {
+  margin-left: 30px;
+}
+
+.hl-transactions .ammount {
+  margin-left: 110px;
+}
+
+@media screen and (min-width: 320px) and (max-width: 480px) {
+  .housing-content {
+    padding: 10px;
+  }
+
+  .card img {
+    width: 50px;
+    height: 50px;
+    margin: 0px 10px 0 0;
+  }
+  .h-card-text {
+    max-width: 130px;
+  }
+
+  .h-card-header {
+    padding: 5px;
+  }
+
+  .hl-inputs {
+    margin-top: 20px;
+  }
+
+  .h-ltxt {
     font-size: 18px;
-    font-weight: 400;
-    left: 0;
-    letter-spacing: -0.33px;
-    line-height: normal;
-    position: absolute;
-    text-align: right;
-    top: 35px;
-    width: 351px;
-}
+  }
 
-.housing-loan .coldetails-btn {
-    height: 31px;
-    left: 184px;
-    position: absolute;
-    top: 272px;
-    width: 169px;
-}
-
-.housing-loan .overlap-group {
-    background-image: url(https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e492714fd92dc35e55a22f/img/coldetailscard-1@2x.png);
-    background-size: 100% 100%;
-    height: 31px;
-    position: relative;
-    width: 167px;
-}
-
-.housing-loan .coldetailstxt {
-    color: #ffffff;
-    font-family: "Roboto", Helvetica;
-    font-size: 18px;
-    font-weight: 500;
-    height: 19px;
-    left: 13px;
-    letter-spacing: -0.33px;
-    line-height: normal;
-    position: absolute;
-    text-align: center;
-    top: 6px;
-    white-space: nowrap;
-    width: 146px;
-}
-
-.housing-loan .paysched-btn {
-    height: 31px;
-    left: 0;
-    position: absolute;
-    top: 272px;
-    width: 169px;
-}
-
-.housing-loan .payschedtxt {
-    color: #ffffff;
-    font-family: "Roboto", Helvetica;
-    font-size: 18px;
-    font-weight: 500;
-    height: 19px;
-    left: 10px;
-    letter-spacing: -0.33px;
-    line-height: normal;
-    position: absolute;
-    text-align: center;
-    top: 6px;
-    white-space: nowrap;
-    width: 146px;
-}
-
-.housing-loan .paynow {
-    height: 35px;
-    left: 6px;
-    position: absolute;
-    top: 168px;
-    width: 358px;
-}
-
-.housing-loan .paynow-btn {
-    height: 35px;
-    left: 220px;
-    position: absolute;
-    top: 0;
-    width: 138px;
-}
-
-.housing-loan .overlap-group-2 {
-    background-image: url(https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e492714fd92dc35e55a22f/img/paynow-btn-1@2x.png);
-    background-size: 100% 100%;
-    height: 35px;
-    position: relative;
-    width: 136px;
-}
-
-.housing-loan .text-wrapper {
-    color: #ffffff;
-    font-family: "Roboto", Helvetica;
-    font-size: 20px;
-    font-weight: 500;
-    height: 23px;
-    left: 46px;
-    letter-spacing: -0.33px;
-    line-height: normal;
-    position: absolute;
-    text-align: center;
-    top: 6px;
-    white-space: nowrap;
-    width: 87px;
-}
-
-.housing-loan .paynow-icn {
-    height: 27px;
-    left: 11px;
-    object-fit: cover;
-    position: absolute;
-    top: 4px;
-    width: 32px;
-}
-
-.housing-loan .paynownote {
-    color: #888888;
-    font-family: "Roboto", Helvetica;
+  .h-lrefno {
     font-size: 14px;
-    font-style: italic;
-    font-weight: 400;
-    left: 0;
-    letter-spacing: -0.33px;
-    line-height: normal;
-    position: absolute;
-    top: 3px;
-}
+  }
 
-.housing-loan .past-due {
+  .input-label {
+    font-size: 16px;
+    width: 150px;
+    padding-right: 10px;
+  }
+
+  .input-wrapper input {
+    width: 130px;
     height: 32px;
-    left: 60px;
-    position: absolute;
-    top: 104px;
-    width: 295px;
-}
+    font-size: 16px;
+    font-weight: 400;
+  }
 
-.housing-loan .paymentdueph-wrapper {
-    background-color: #ffffff;
-    border: 1px solid;
-    border-color: #848484;
+  .note .paynote {
+    min-width: 140px;
+    max-width: 210px;
+    width: fit-content;
+    margin-right: 10px;
+    font-size: 14px;
+  }
+
+  .pay-now-button {
     border-radius: 5px;
-    height: 32px;
-    left: 134px;
-    position: absolute;
-    top: 0;
-    width: 157px;
-}
-
-.housing-loan .paymentdueph {
-    background-color: transparent;
-    border: 0;
-    color: #555555;
-    font-family: "Lato", Helvetica;
-    font-size: 18px;
-    font-weight: 400;
+    width: 126px;
     height: 30px;
-    left: 10px;
-    letter-spacing: 0;
-    line-height: 27px;
-    padding: 0;
-    position: relative;
-    text-align: right;
-    top: 1px;
-    white-space: nowrap;
-    width: 138px;
-}
+    font-size: 14px;
+  }
 
-.housing-loan .text-wrapper-2 {
-    color: #555555;
-    font-family: "Roboto", Helvetica;
-    font-size: 18px;
-    font-weight: 400;
-    left: 0;
-    letter-spacing: -0.33px;
-    line-height: normal;
-    position: absolute;
-    top: 7px;
-    white-space: nowrap;
-}
-
-.housing-loan .late-fees-charges {
-    height: 32px;
-    left: 32px;
-    position: absolute;
-    top: 52px;
-    width: 323px;
-}
-
-.housing-loan .feesph-wrapper {
-    background-color: #ffffff;
-    border: 1px solid;
-    border-color: #848484;
-    border-radius: 5px;
-    height: 32px;
-    left: 162px;
-    position: absolute;
-    top: 0;
-    width: 157px;
-}
-
-.housing-loan .feesph {
-    background-color: transparent;
-    border: 0;
-    color: #555555;
-    font-family: "Lato", Helvetica;
-    font-size: 20px;
-    font-weight: 400;
-    height: 30px;
-    left: 10px;
-    letter-spacing: 0;
-    line-height: 30px;
-    padding: 0;
-    position: relative;
-    text-align: right;
-    top: 1px;
-    white-space: nowrap;
-    width: 138px;
-}
-
-.housing-loan .due-month {
-    height: 32px;
-    left: 66px;
-    position: absolute;
-    top: 0;
-    width: 289px;
-}
-
-.housing-loan .dueamountph-wrapper {
-    background-color: #ffffff;
-    border: 1px solid;
-    border-color: #848484;
-    border-radius: 5px;
-    height: 32px;
-    left: 128px;
-    position: absolute;
-    top: 0;
-    width: 157px;
-}
-
-.housing-loan .dueamountph {
-    background-color: transparent;
-    border: 0;
-    color: #555555;
-    font-family: "Lato", Helvetica;
-    font-size: 20px;
-    font-weight: 400;
-    height: 30px;
-    left: 10px;
-    letter-spacing: 0;
-    line-height: 30px;
-    padding: 0;
-    position: relative;
-    text-align: right;
-    white-space: nowrap;
-    width: 138px;
-}
-
-.housing-loan .text-wrapper-3 {
-    color: #555555;
-    font-family: "Roboto", Helvetica;
-    font-size: 18px;
-    font-weight: 400;
-    left: 0;
-    letter-spacing: -0.33px;
-    line-height: normal;
-    position: absolute;
-    top: 6px;
-    white-space: nowrap;
-}
-
-.housing-loan .h-lcurrentcard {
-    height: 34px;
-    left: 732px;
-    position: absolute;
-    top: 53px;
-    transform: rotate(-0.11deg);
-    width: 171px;
-}
-
-.housing-loan .overlap-2 {
-    height: 35px;
-    position: relative;
-    width: 169px;
-}
-
-.housing-loan .h-lcurrentcard-2 {
-    height: 34px;
-    left: 0;
-    position: absolute;
-    top: 0;
-    transform: rotate(0.11deg);
-    width: 169px;
-}
-
-.housing-loan .h-lcurrenttxt {
-    color: #ffffff;
-    font-family: "Roboto", Helvetica;
-    font-size: 22px;
-    font-weight: 500;
-    height: 26px;
-    left: 23px;
-    letter-spacing: -0.33px;
-    line-height: normal;
-    position: absolute;
-    text-align: center;
-    top: 6px;
-    white-space: nowrap;
-    width: 124px;
-}
-
-.housing-loan .current-h-lrefno {
-    color: #555555;
-    font-family: "Roboto", Helvetica;
-    font-size: 20px;
-    font-weight: 400;
-    left: 184px;
-    letter-spacing: -0.33px;
-    line-height: normal;
-    position: absolute;
-    top: 69px;
-    white-space: nowrap;
-}
-
-.housing-loan .current-h-ltxt {
-    color: #ff2800;
-    font-family: "Roboto", Helvetica;
-    font-size: 24px;
-    font-weight: 700;
-    left: 184px;
-    letter-spacing: -0.33px;
-    line-height: normal;
-    position: absolute;
-    top: 40px;
-    white-space: nowrap;
-    width: 170px;
-}
-
-.housing-loan .hl-icon {
-    height: 50px;
-    left: 104px;
-    position: absolute;
-    top: 39px;
-    width: 50px;
-}
-
-.housing-loan .overlap-3 {
-    height: 52px;
-    position: relative;
-    top: -1px;
-    width: 51px;
-}
-
-.housing-loan .vector {
-    height: 52px;
-    left: 12px;
-    position: absolute;
-    top: 0;
-    width: 39px;
-}
-
-.housing-loan .rectangle {
-    background-color: #d9d9d9;
-    border: 2px solid;
-    border-color: #ff2800;
-    height: 5px;
-    left: 17px;
-    position: absolute;
-    top: 3px;
-    width: 29px;
-}
-
-.housing-loan .vector-2 {
-    height: 2px;
-    left: 26px;
-    position: absolute;
-    top: 12px;
-    width: 22px;
-}
-
-.housing-loan .vector-3 {
-    height: 2px;
-    left: 26px;
-    position: absolute;
-    top: 16px;
-    width: 22px;
-}
-
-.housing-loan .vector-4 {
-    height: 2px;
-    left: 26px;
-    position: absolute;
-    top: 20px;
-    width: 22px;
-}
-
-.housing-loan .vector-5 {
-    height: 2px;
-    left: 15px;
-    position: absolute;
-    top: 27px;
-    width: 32px;
-}
-
-.housing-loan .vector-6 {
-    height: 2px;
-    left: 17px;
-    position: absolute;
-    top: 30px;
-    width: 30px;
-}
-
-.housing-loan .vector-7 {
-    height: 2px;
-    left: 21px;
-    position: absolute;
-    top: 33px;
-    width: 27px;
-}
-
-.housing-loan .vector-8 {
-    height: 2px;
-    left: 22px;
-    position: absolute;
-    top: 35px;
+  .pay-now-button img {
+    margin-right: 8px;
     width: 26px;
-}
-
-.housing-loan .vector-9 {
-    height: 2px;
-    left: 21px;
-    position: absolute;
-    top: 38px;
-    width: 27px;
-}
-
-.housing-loan .vector-10 {
-    height: 2px;
-    left: 20px;
-    position: absolute;
-    top: 41px;
-    width: 27px;
-}
-
-.housing-loan .shape-copy {
-    height: 1px;
-    left: 15px;
-    position: absolute;
-    top: 16px;
-    width: 11px;
-}
-
-.housing-loan .p {
-    height: 12px;
-    left: 18px;
-    position: absolute;
-    top: 13px;
-    width: 5px;
-}
-
-.housing-loan .ellipse {
-    background-color: #e2b5b5;
-    border: 2px solid;
-    border-color: #ff2800;
-    border-radius: 11.9px/10.14px;
-    height: 20px;
-    left: 0;
-    position: absolute;
-    top: 26px;
-    width: 24px;
-}
-
-.housing-loan .group {
-    height: 12px;
-    left: 4px;
-    position: absolute;
-    top: 29px;
-    width: 15px;
-}
-
-.housing-loan .prevpagebtn {
-    background-color: #fbfbfb;
-    border: 1px solid;
-    border-color: #ff2800;
-    border-radius: 25px;
-    height: 50px;
-    left: 0;
-    position: absolute;
-    top: 0;
-    width: 50px;
-}
-
-.housing-loan .arrow {
     height: 22px;
-    left: 10px;
-    position: absolute;
-    top: 13px;
-    width: 25px;
-}
+  }
 
-.housing-loan .header {
-    background-color: transparent;
-    height: 79px;
-    left: 0;
-    position: absolute;
-    top: 63px;
-    width: 1442px;
-}
+  .rec-payment-txt {
+    font-size: 18px;
+  }
 
-.housing-loan .div-wrapper {
-    background: linear-gradient(180deg, rgb(255, 0, 0) 0%, rgba(217, 217, 217, 0) 100%);
-    height: 79px;
-    position: relative;
-    width: 1440px;
-}
+  .hl-transactions {
+    margin-left: 15px;
+    font-size: 14px;
+  }
 
-.housing-loan .text-wrapper-4 {
-    color: #ffffff;
-    font-family: "Roboto", Helvetica;
-    font-size: 24px;
-    font-weight: 600;
-    left: 58px;
-    letter-spacing: -0.33px;
-    line-height: normal;
-    position: absolute;
-    top: 22px;
-    white-space: nowrap;
-}
-
-.housing-loan .top-bar {
-    background-image: url(https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e41e67e1c2a81b98b3c871/img/logo@2x.png);
-    background-position: 50% 50%;
-    background-size: cover;
-    height: 34px;
-    left: 37px;
-    position: absolute;
-    top: 19px;
-    width: 200px;
+  .hl-transactions .ammount {
+    margin-left: 50px;
+  }
 }
