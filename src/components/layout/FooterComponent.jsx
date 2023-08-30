@@ -1,30 +1,19 @@
-import React from 'react';
+import React from "react";
 import "../../styles/footer.css";
 
 const FooterComponent = () => {
   return (
     <footer className="footer">
-          <div className='col-1'>
-            <img
-              className="reserved"
-              alt="Reserved"
-              src="https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e41e67e1c2a81b98b3c871/img/screenshot-2023-05-31-101930-1.png"
-            />
-          </div>
-          <div className='col-2'>
-            <img
-              className="aboutus"
-              alt="Aboutus"
-              src="https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e41e67e1c2a81b98b3c871/img/screenshot-2023-05-31-102020-1@2x.png"
-            />
-            <img
-              className="privacynotice"
-              alt="Privacynotice"
-              src="https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e41e67e1c2a81b98b3c871/img/screenshot-2023-05-31-102043-1@2x.png"
-            />
-          </div>
-        </footer>
-  )
-}
+      <div className="footer-content">
+        <div className="left-side">
+          Copyright &copy; 2023 Financial Services, Inc. All Rights Reserved
+        </div>
+        <div className="right-side">
+          <a href="/">About Us</a> &nbsp;&nbsp; <a href="/">Privacy Policy</a>
+        </div>
+      </div>
+    </footer>
+  );
+};
 
 export default FooterComponent;
