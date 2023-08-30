@@ -1,35 +1,57 @@
 .footer {
     background-color: #ff0000;
     height: 62px;
-    left: 0;
     position: absolute;
-    top: 962px;
+    top: 900px;
     width: 100%;
+    margin-right: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
 }
 
-.reserved {
-    height: 31px;
-    left: 51px;
-    object-fit: cover;
-    position: absolute;
-    top: 15px;
-    width: 505px;
+.footer p {
+    font-size: 15px;
+    color: white;
+    margin-top: 10px;
+    margin-left: 5%;
 }
 
 .aboutus {
-    height: 35px;
-    left: 1160px;
+    color: white;
+    height: 38px;
+    left: 1100px;
     object-fit: cover;
     position: absolute;
-    top: 11px;
-    width: 81px;
+    top: 10px;
+    width: 100%;
+}
+.privacynotice {
+    color: white;
+    height: 38px;
+    left: 1200px;
+    object-fit: cover;
+    position: absolute;
+    top: 10px;
+    width: 100%;
 }
 
-.privacynotice {
-    height: 38px;
-    left: 1271px;
-    object-fit: cover;
-    position: absolute;
-    top: 11px;
-    width: 112px;
+@media only screen and (min-width: 320px) and (max-width: 480px) {
+    .footer p{
+        font-size: 11px;
+        font-weight: 10;
+    }
+    .column-2{
+        text-align: left;
+        font-size: 13px;
+    }
+    .column-2{
+        text-align: right;
+    }
+    .column-2 .aboutus{
+        left: -20px;
+    }
+    .column-2 .privacynotice{
+        left: -20px;
+        margin-top: 20px;
+    }
 }

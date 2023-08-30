@@ -6,6 +6,7 @@ import TopbarComponent from "./layout/TopbarComponent";
 import LoginComponent from "./LoginComponent";
 import ManageLoanComponent from "./ManageLoansComponent";
 import QuickCashLoanComponent from "./QuickCashLoanComponent";
+import QuickCashHeaderComponent from "./layout/QuickCashHeaderComponent";
 
 export {
     DashboardComponent,
@@ -15,5 +16,6 @@ export {
     LoginComponent,
     ManageLoanComponent,
     HousingLoanComponent,
-    QuickCashLoanComponent
+    QuickCashLoanComponent,
+    QuickCashHeaderComponent
 }

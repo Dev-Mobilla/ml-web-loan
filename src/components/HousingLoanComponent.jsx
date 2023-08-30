@@ -3,6 +3,7 @@ import "../styles/housingloan.css";
 
 const HousingLoanComponent = () => {
   return (
+    
     <div className="housing-loan">
       <div className="div">
         <footer className="footer">
