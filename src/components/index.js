@@ -11,6 +11,7 @@ import QuickCashLoanComponent from "./QuickCashLoanComponent";
 import CustomHeader from "./custom/Custom.header";
 import CustomButton from "./custom/Custom.button";
 import CustomPrevBtn from "./custom/Custom.prevbtn";
+import CustomStatus from "./custom/Custom.status";
 
 
 export {
@@ -24,5 +25,6 @@ export {
     QuickCashLoanComponent,
     CustomHeader,
     CustomButton,
-    CustomPrevBtn
+    CustomPrevBtn,
+    CustomStatus
 }

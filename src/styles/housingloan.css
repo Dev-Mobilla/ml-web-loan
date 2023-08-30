@@ -31,22 +31,6 @@
   padding: 20px;
 }
 
-.hl-current {
-  justify-content: center;
-  background-color: #009900;
-  height: 34px;
-  width: 169px;
-  color: white;
-  font-weight: 700;
-  font-size: 20px;
-  letter-spacing: normal;
-  margin: 50px 0 0 0;
-  padding: 8px 16px;
-  border-radius: 5px;
-  display: flex;
-  align-items: center;
-}
-
 .h-card-text {
   max-width: 300px;
 }
@@ -142,21 +126,6 @@
   margin: 50px 5px 30px 0;
 }
 
-.payment-schedule-btn,
-.collateral-details-btn {
-  background-color: #ff2800;
-  font-size: 18px;
-  font-weight: 500;
-  border-radius: 5px;
-  padding: 8px 16px;
-  color: #ffffff;
-  border: none;
-  cursor: pointer;
-}
-
-.collateral-details-btn {
-  margin-left: 35px;
-}
 .note {
   display: flex;
 }
@@ -192,101 +161,87 @@
 }
 
 .hl-transactions .time {
-  margin-left: 20px;
+  margin-left: 30px;
 }
 
 .hl-transactions .ammount {
-  margin-left: 120px;
+  margin-left: 110px;
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (min-width: 320px) and (max-width: 480px) {
   .housing-content {
     padding: 10px;
   }
+
   .card img {
     width: 50px;
     height: 50px;
+    margin: 0px 10px 0 0;
   }
+  .h-card-text {
+    max-width: 130px;
+  }
+
   .h-card-header {
-    padding: 10px;
+    padding: 5px;
   }
 
   .hl-inputs {
-    margin-top: 30px;
+    margin-top: 20px;
   }
+
   .h-ltxt {
-    font-size: 20px;
-  }
-  .h-lrefno {
-    font-size: 16px;
-  }
-  .hl-current {
-    height: 16px;
-    width: 94px;
-    margin: 35px 0 0 0;
-    padding: 10px 16px;
-    display: flex;
-    font-size: 16px;
-    font-weight: 500;
-    line-height: 19px;
-    letter-spacing: -0.3px;
-  }
-  .input-label {
     font-size: 18px;
-    width: 180px;
+  }
+
+  .h-lrefno {
+    font-size: 14px;
+  }
+
+  .input-label {
+    font-size: 16px;
+    width: 150px;
     padding-right: 10px;
   }
 
   .input-wrapper input {
-    width: 157px;
+    width: 130px;
     height: 32px;
     font-size: 16px;
     font-weight: 400;
   }
 
   .note .paynote {
-    width: 210px;
-    margin-right: 20px;
+    min-width: 140px;
+    max-width: 210px;
+    width: fit-content;
+    margin-right: 10px;
+    font-size: 14px;
   }
 
   .pay-now-button {
     border-radius: 5px;
-    width: 136px;
-    height: 35px;
+    width: 126px;
+    height: 30px;
+    font-size: 14px;
   }
 
   .pay-now-button img {
     margin-right: 8px;
-    width: 31px;
-    height: 27px;
-  }
-
-  .payment-schedule-btn,
-  .collateral-details-btn {
-    width: 167px;
-    height: 31px;
-    font-size: 14px;
-    padding: 8px;
-  }
-
-  .collateral-details-btn {
-    margin-left: 20px;
+    width: 26px;
+    height: 22px;
   }
 
   .rec-payment-txt {
-    font-size: 20px;
+    font-size: 18px;
   }
 
   .hl-transactions {
-    margin-left: 25px;
-    font-size: 16px;
-  }
-
-  .hl-transactions .time {
-    margin-left: 20px;
+    margin-left: 15px;
+    font-size: 14px;
   }
 
   .hl-transactions .ammount {
-    margin-left: 80px;
+    margin-left: 50px;
   }
 }
