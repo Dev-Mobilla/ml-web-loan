@@ -1,4 +1,4 @@
-.header {
+/* .header {
     background-color: transparent;
     height: 79px;
     left: 0;
@@ -6,7 +6,7 @@
     top: 63px;
     width: 1442px;
     z-index: 999;
-}
+} */
 
 .div-wrapper {
     background: linear-gradient(to right, rgb(255, 0, 0) 0%, rgba(217, 100, 200, 0) 100%);

@@ -22,7 +22,6 @@ const HousingLoanComponent = () => {
   ];
 
   return (
-    
     <div className="housing-loan">
       <div className="div">
         <TopbarComponent />

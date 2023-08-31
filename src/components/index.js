@@ -14,7 +14,6 @@ import CustomButton from "./custom/Custom.button";
 import CustomPrevBtn from "./custom/Custom.prevbtn";
 import CustomStatus from "./custom/Custom.status";
 
-
 export {
     DashboardComponent,
     FooterComponent,
@@ -24,7 +23,7 @@ export {
     ManageLoanComponent,
     HousingLoanComponent,
     QuickCashLoanComponent,
-    QuickCashHeaderComponent
+    QuickCashHeaderComponent,
     CustomHeader,
     CustomButton,
     CustomPrevBtn,
