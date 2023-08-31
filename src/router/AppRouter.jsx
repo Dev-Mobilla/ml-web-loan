@@ -1,6 +1,6 @@
 import React from "react";
 import { createBrowserRouter } from 'react-router-dom';
-import {Dashboard, Error, HousingLoan, ManageLoans, QuickCashLoan} from "../pages";
+import {Dashboard, Error, HousingLoan, ManageLoans, QuickCashLoan, PersonalDetails } from "../pages";
 
 const Router = createBrowserRouter([
     {
@@ -21,6 +21,11 @@ const Router = createBrowserRouter([
     {
         path: '/manage-loans/quick-cash-loan',
         element: <QuickCashLoan/>,
+        errorElement: <Error/>
+    },
+    {
+        path: '/manage-details/personal-details',
+        element: <PersonalDetails/>,
         errorElement: <Error/>
     }
 ])

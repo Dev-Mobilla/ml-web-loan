@@ -1,0 +1,475 @@
+.personal-details {
+    background-color: #fbfbfb;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    height: 2300px;
+}
+
+.personal-details .div {
+    background-color: #fbfbfb;
+    height: 1430px;
+    overflow: hidden;
+    position: relative;
+    width: 1440px;
+}
+
+
+.personal-details .div .body {
+    height: 90%;
+    left: 68px;
+    top: 0%;
+    width: 1000px;
+    z-index: -999;
+}
+
+.personal-details .div .body .overlap1 {
+    border-color: #ff2800;
+    border-width: 1px;
+    border-radius: 15px;
+    border-style: solid;
+    height: 150px;
+    left: 25%;
+    position: absolute;
+    top: 12%;
+    width: 50%;
+}
+
+.personal-details .contactdetailstxt {
+    color: #ff2800;
+    font-family: "Roboto", Helvetica;
+    font-size: 22px;
+    font-weight: 700;
+    left: 80px;
+    letter-spacing: -0.33px;
+    line-height: normal;
+    position: absolute;
+    top: 20px;
+    white-space: nowrap;
+    width: 170px;
+}
+.personal-details #mobile_number{
+    margin-top: 50px;
+    margin-left: 35%;
+    width: 40%;
+    height: 30px;
+    border-color: gray;
+    border-style: solid;
+    border-radius: 5px;
+}
+.personal-details #email{
+    margin-top: 10px;
+    margin-left: 35%;
+    width: 40%;
+    height: 30px;
+    border-color: gray;
+    border-style: solid;
+    border-radius: 5px;
+}
+
+.personal-details .overlap2 {
+    height: 48%;
+    left: 25%;
+    position: absolute;
+    top: 25%;
+    width: 50%;
+    border-color: #ff2800;
+    border-width: 1px;
+    border-radius: 15px;
+    border-style: solid;
+}
+
+.personal-details .personal{
+    color: #ff2800;
+    font-family: "Roboto", Helvetica;
+    font-size: 22px;
+    font-weight: 700;
+    left: 72px;
+    letter-spacing: -0.33px;
+    line-height: normal;
+    position: absolute;
+    top: 20px;
+    white-space: nowrap;
+    width: 170px;
+}
+.personal-details .overlap2 input{
+    margin-top: 15px;
+    margin-left: 35%;
+    width: 40%;
+    height: 32px;
+    border-radius: 5px;
+    border-style: solid;
+    border-color: gray;
+}
+.personal-details #firstname{
+    margin-top: 10%;
+}
+.personal-details #nationality{
+    margin-top: 10px;
+    margin-left: 35%;
+    width: 40%;
+    height: 32px;
+    border-radius: 5px;
+    border-style: solid;
+    border-color: gray;
+    color: gray;
+}
+.personal-details #sourceOfIncome {
+    margin-top: 10px;
+    margin-left: 35%;
+    width: 40%;
+    height: 32px;
+    border-radius: 5px;
+    border-style: solid;
+    border-color: gray;
+    color: gray;
+}
+.personal-details .overlap3 {
+    height: 20%;
+    left: 25%;
+    position: absolute;
+    top: 76%;
+    width: 50%;
+    border-color: #ff2800;
+    border-width: 1px;
+    border-radius: 15px;
+    border-style: solid;
+}
+
+.personal-details .preferred-title{
+    color: #ff2800;
+    font-family: "Roboto", Helvetica;
+    font-size: 22px;
+    font-weight: 700;
+    left: 72px;
+    letter-spacing: -0.33px;
+    line-height: normal;
+    position: absolute;
+    top: 20px;
+    white-space: nowrap;
+    width: 170px;
+}
+.personal-details .sub-preferred-title{
+    color: gray;
+    font-family: "Roboto", Helvetica;
+    font-size: 13px;
+    font-weight: 900;
+    margin-top: 7%;
+    margin-left: 11%;
+}
+.radius-options input[type="radio"] {
+    margin-left: 20px;
+}
+
+
+
+
+
+
+/* @media only screen and (min-width: 360px) and (max-width: 480px) {
+    .personal-details .div>.footer {
+        display: none;
+    }
+
+    .personal-details .div {
+        height: 1100px;
+    }
+
+    .personal-details .overlap {
+        top: 17%;
+        height: 80%;
+    }
+
+    .personal-details .QuickCash-currentcard {
+        top: 60px;
+        left: 60%;
+        width: 10px;
+    }
+
+    .personal-details .QuickCash-currentcard-2 {
+        margin-top: 5px;
+        width: 70px;
+        height: 15px;
+        margin-left: 30px;
+        border-radius: 5px;
+    }
+
+    .personal-details .QuickCash-currentText {
+        left: 1px;
+        font-size: 12px;
+    }
+
+    .radius-options {
+        font-size: 12px;
+    }
+
+    .housing_loan_logo {
+        width: 30px;
+        margin-left: 5%;
+    }
+
+    .personal-details .current-Quick-Cash-ltxt {
+        font-size: 15px;
+        font-weight: 600;
+        left: 50px;
+    }
+
+    .personal-details .referencen-number {
+        font-size: 15px;
+        font-weight: 400;
+        margin-top: -4px;
+        left: 50px;
+    }
+
+    .personal-details .existing-loan {
+        right: 1500px;
+    }
+
+    .inline-input-label {
+        margin-left: -90%;
+    }
+
+    .inline-input-label .principalph,
+    .amountdueph,
+    .interest,
+    .service_charge,
+    .net_proceeds {
+        width: 135px;
+        font-size: 10px;
+    }
+
+    .personal-details .renewpawntxt {
+        font-size: 19px;
+        margin-left: -25%;
+    }
+
+    .radius-options input[type="radio"] {
+        margin-left: -130%;
+    }
+
+    .payment_amount_due {
+        margin-left: -80%;
+        margin-right: 10%;
+    }
+
+
+    .personal-details .payment_due_before,
+    .amount_due {
+        font-weight: 200;
+    }
+
+    .payment_amount_due label {
+        font-size: 14px;
+    }
+
+    .payment_amount_due input {
+        margin-top: 10px;
+        margin-right: 150px;
+        width: 20%;
+    }
+
+    .personal-details .renewnowtxt {
+        margin-left: 1%;
+        width: 45%;
+    }
+}
+
+
+@media only screen and (min-width: 481px) and (max-width: 768px) {
+
+    .personal-details .div>.footer {
+        display: none;
+    }
+
+    .personal-details .div {
+        height: 1100px;
+    }
+
+    .personal-details .overlap {
+        top: 17%;
+        height: 80%;
+    }
+
+    .personal-details .QuickCash-currentcard {
+        top: 60px;
+        left: 60%;
+        width: 10px;
+    }
+
+    .personal-details .QuickCash-currentcard-2 {
+        margin-top: 5px;
+        width: 70px;
+        height: 15px;
+        margin-left: 60px;
+        border-radius: 5px;
+    }
+
+    .personal-details .QuickCash-currentText {
+        left: 30px;
+        font-size: 12px;
+    }
+
+    .radius-options {
+        font-size: 12px;
+    }
+
+    .housing_loan_logo {
+        width: 50px;
+        margin-left: 15%;
+    }
+
+    .personal-details .current-Quick-Cash-ltxt {
+        font-size: 20px;
+        font-weight: 600;
+        left: 23%;
+    }
+
+    .personal-details .referencen-number {
+        font-size: 18px;
+        font-weight: 400;
+        margin-top: -4px;
+        left: 23%;
+    }
+
+    .personal-details .existing-loan {
+        left: 15%;
+    }
+
+    .inline-input-label .principalph,
+    .amountdueph,
+    .interest,
+    .service_charge,
+    .net_proceeds {
+        width: 180px;
+        font-size: 10px;
+    }
+
+    .personal-details .renewpawntxt {
+        font-size: 20px;
+        margin-left: -10px;
+    }
+
+    .personal-details .payment_due_before,
+    .amount_due {
+        font-weight: 200;
+    }
+
+    .payment_amount_due label {
+        font-size: 14px;
+    }
+
+    .payment_amount_due input {
+        margin-right: 46px;
+        width: 52%;
+    }
+
+    .personal-details .renewnowtxt {
+        margin-left: 28%;
+        width: 60%;
+    }
+}
+
+@media only screen and (min-width: 769px) and (max-width: 1024px) {
+
+    .personal-details .div>.footer {
+        display: none;
+    }
+
+    .personal-details .div {
+        height: 1100px;
+    }
+
+    .personal-details .overlap {
+        top: 17%;
+        height: 80%;
+    }
+
+    .personal-details .QuickCash-currentcard {
+        top: 60px;
+        left: 70%;
+        width: 10px;
+    }
+
+    .personal-details .QuickCash-currentcard-2 {
+        margin-top: 5px;
+        width: 70px;
+        height: 15px;
+        margin-left: 60px;
+        border-radius: 5px;
+    }
+
+    .personal-details .QuickCash-currentText {
+        left: 30px;
+        font-size: 12px;
+    }
+
+    .personal-details .renewpawn {
+        width: 500px;
+    }
+
+    .radius-options {
+        font-size: 14px;
+        margin-left: 14%;
+    }
+
+    .housing_loan_logo {
+        width: 50px;
+        margin-left: 15%;
+    }
+
+    .personal-details .current-Quick-Cash-ltxt {
+        font-size: 25px;
+        font-weight: 600;
+        left: 15%;
+    }
+
+    .personal-details .referencen-number {
+        font-size: 20px;
+        font-weight: 400;
+        margin-top: -4px;
+        left: 15%;
+    }
+
+    .personal-details .existing-loan {
+        left: 15%;
+    }
+
+    .inline-input-label {
+        margin-left: 100px;
+    }
+
+    .inline-input-label .principalph,
+    .amountdueph,
+    .interest,
+    .service_charge,
+    .net_proceeds {
+        width: 180px;
+        font-size: 10px;
+
+    }
+
+    .personal-details .renewpawntxt {
+        font-size: 25px;
+        margin-left: 70px;
+    }
+
+    .personal-details .payment_due_before,
+    .amount_due {
+        font-weight: 200;
+    }
+
+    .payment_amount_due label {
+        font-size: 14px;
+    }
+
+    .payment_amount_due input {
+        margin-right: 110px;
+        width: 40%;
+    }
+
+    .personal-details .renewnowtxt {
+        margin-left: 30%;
+        width: 50%;
+    }
+} */

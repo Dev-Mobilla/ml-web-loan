@@ -3,10 +3,14 @@ import HousingLoanComponent from "./HousingLoanComponent";
 import FooterComponent from "./layout/FooterComponent";
 import HeaderComponent from "./layout/HeaderComponent";
 import TopbarComponent from "./layout/TopbarComponent";
+import QuickCashHeaderComponent from "./layout/QuickCashHeaderComponent";
+import PersonalDetailsHeaderComponent from "./layout/PersonalDetailsHeaderComponent";
 import LoginComponent from "./LoginComponent";
 import ManageLoanComponent from "./ManageLoansComponent";
 import QuickCashLoanComponent from "./QuickCashLoanComponent";
-import QuickCashHeaderComponent from "./layout/QuickCashHeaderComponent";
+import PersonalDetailsComponent from "./PersonalDetailsComponent";
+
+
 
 export {
     DashboardComponent,
@@ -17,5 +21,7 @@ export {
     ManageLoanComponent,
     HousingLoanComponent,
     QuickCashLoanComponent,
-    QuickCashHeaderComponent
+    QuickCashHeaderComponent,
+    PersonalDetailsHeaderComponent,
+    PersonalDetailsComponent
 }
