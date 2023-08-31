@@ -6,49 +6,11 @@ import { FooterComponent, HeaderComponent, TopbarComponent } from "./index";
 
 const DashboardComponent = () => {
   return (
-    // <div className={style.index}>
-    // <div className={style.div}>
-    //   <div className={style.top_bar} />
-    //   <div className={style.overlap}>
-    //     <header className={style.header}>
-    //       <div className="overlap-group">
-    //         <div className={style.bannertitle}>Loan Marketplace</div>
     <div className="dashboard">
-      <div className="div">
-        {/* <div className="top-bar" /> */}
+      <div className="dashboard-div">
         <TopbarComponent/>
         <div className="overlap">
           <HeaderComponent/>
-          {/* <header className="header">
-            <div className="overlap-group">
-              <div className="bannertitle">Loan Marketplace</div>
-              <div className="existing-loan-btn">
-                <div className="overlap-group-2">
-                  <div className="overlap-2">
-                    <div className="m-ltxtt">Manage</div>
-                    <div className="m-ltxt">Existing Loans</div>
-                  </div>
-                  <img
-                    className="ml-btn"
-                    alt="Ml btn"
-                    src="https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e492714fd92dc35e55a22f/img/ml-btn-5@2x.png"
-                  />
-                </div>
-              </div>
-              <div className="download-btn">
-                <div className="overlap-3">
-                  <div className="dlcard" />
-                  <div className="dltxtt">Download on</div>
-                  <div className="dltxt">Google Play</div>
-                  <img
-                    className="dl-btn"
-                    alt="Dl btn"
-                    src="https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e41e67e1c2a81b98b3c871/img/dl-btn@2x.png"
-                  />
-                </div>
-              </div>
-            </div>
-          </header> */}
           <div className="body-bg">
             <img
               className="floating-diamond"
@@ -64,11 +26,10 @@ const DashboardComponent = () => {
             <div className="content-card--wrapper">
               <div className="vehicle">
                   <div className="overlap-5">
-                    <p className="v-desc">
-                      New/Used Cars or Motorcycles
-                      <br />
-                      Refinance your owned vehicle
-                    </p>
+                    <div className="v-desc">
+                      <li>New/Used Cars or Motorcycles</li>
+                      <li>Refinance your owned vehicle</li>
+                    </div>
                     <div className="vltitle">Vehicle Loan</div>
                     <img
                       className="v-icon"
@@ -81,9 +42,8 @@ const DashboardComponent = () => {
                 <div className="overlap-group-3">
                   <div className="hltitle">Housing Loan</div>
                   <div className="h-desc">
-                    House/Lot/Condo
-                    <br />
-                    Refinance an owned house
+                    <li>House/Lot/Condo</li>
+                    <li>Refinance an owned house</li>
                   </div>
                   <div className="h-icon">
                     <div className="overlap-group-4">
@@ -159,13 +119,12 @@ const DashboardComponent = () => {
                 </div>
               </div>
               <div className="QCL">
-                <div className="overlap-group-3">
+                <div className="overlap-group-qcl">
                   <div className="QC-ltitle">Quick Cash Loan</div>
-                  <p className="QCL-desc">
-                    Pawn Jewelry, Watches, Others
-                    <br />
-                    Renew Online
-                  </p>
+                  <div className="QCL-desc">
+                    <li>Pawn Jewelry, Watches, Others</li>
+                    <li> Renew Online</li> 
+                  </div>
                   <img
                     className="QCL-icon"
                     alt="Qcl icon"
@@ -174,12 +133,11 @@ const DashboardComponent = () => {
                 </div>
               </div>
               <div className="SBL">
-                <div className="overlap-group-3">
+                <div className="overlap-group-sbl">
                   <div className="SB-ltitle">Small Business Loan</div>
                   <div className="SBL-desc">
-                    Cash Loans
-                    <br />
-                    Small Business Owners
+                    <li>Cash Loans</li>
+                    <li> Small Business Owners</li>
                   </div>
                   <img
                     className="SBL-icon"
@@ -189,13 +147,12 @@ const DashboardComponent = () => {
                 </div>
               </div>
               <div className="pensioner">
-                <div className="overlap-group-3">
+                <div className="overlap-group-pensioner">
                   <div className="ptitle">Pensioners’ Loan</div>
-                  <p className="p-desc">
-                    Cash Loans for Pensioners
-                    <br />
-                    Online payments via ML Wallet
-                  </p>
+                  <div className="p-desc">
+                    <li>Cash Loans for Pensioners</li>
+                    <li>Online payments via ML Wallet</li>
+                  </div>
                   <img
                     className="p-icon"
                     alt="P icon"
@@ -204,7 +161,7 @@ const DashboardComponent = () => {
                 </div>
               </div>
               <div className="salary">
-                <div className="overlap-group-3">
+                <div className="overlap-group-salary">
                   <div className="overlap-4">
                     <div className="stitle">Salary Loan</div>
                     <img
@@ -213,34 +170,16 @@ const DashboardComponent = () => {
                       src="https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e41e67e1c2a81b98b3c871/img/s-icon@2x.png"
                     />
                   </div>
-                  <p className="s-desc">
-                    Cash Loans for Workers
-                    <br />
-                    Online payments via ML Wallet
-                  </p>
+                  <div className="s-desc">
+                    <li>Cash Loans for Workers</li>
+                    <li> Online payments via ML Wallet</li>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
         <FooterComponent/>
-        {/* <footer className="footer">
-          <img
-            className="reserved"
-            alt="Reserved"
-            src="https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e41e67e1c2a81b98b3c871/img/screenshot-2023-05-31-101930-1.png"
-          />
-          <img
-            className="aboutus"
-            alt="Aboutus"
-            src="https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e41e67e1c2a81b98b3c871/img/screenshot-2023-05-31-102020-1@2x.png"
-          />
-          <img
-            className="privacynotice"
-            alt="Privacynotice"
-            src="https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e41e67e1c2a81b98b3c871/img/screenshot-2023-05-31-102043-1@2x.png"
-          />
-        </footer> */}
       </div>
     </div>
   );
