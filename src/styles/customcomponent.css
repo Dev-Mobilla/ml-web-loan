@@ -68,19 +68,107 @@
   border: 1px solid;
   border-color: #ff2800;
   border-radius: 25.5px/25px;
-  /* height: 50px; */
   left: 0;
-  /* position: absolute; */
   top: 0;
   width: 51px;
   padding: 12px;
-  /* margin-top: 20px;s */
 }
 
 .custom-prevbtn .arrow {
-  /* height: 22px; */
   left: 11px;
-  /* position: absolute; */
   top: 13px;
   width: 25px;
+}
+.custom-current {
+  justify-content: center;
+  background-color: #009900;
+  height: 34px;
+  width: 169px;
+  color: white;
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: normal;
+  margin: 50px 0 0 0;
+  padding: 8px 16px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+}
+
+.custom-pastdue {
+  justify-content: center;
+  background-color: #ff7700;
+  height: 34px;
+  width: 169px;
+  color: white;
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: normal;
+  margin: 50px 0 0 0;
+  padding: 8px 16px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+}
+
+.payment-schedule-btn,
+.collateral-details-btn {
+  width: 167px;
+  height: 31px;
+  font-size: 14px;
+  padding: 8px;
+}
+
+.payment-schedule-btn,
+.collateral-details-btn {
+  background-color: #ff2800;
+  font-size: 18px;
+  font-weight: 500;
+  border-radius: 5px;
+  padding: 8px 16px;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+}
+
+.collateral-details-btn {
+  margin-left: 35px;
+}
+
+@media screen and (min-width: 320px) and (max-width: 480px) {
+  .custom-current,
+  .custom-pastdue {
+    height: 16px;
+    width: 94px;
+    margin: 28px 10px 0 10px;
+    padding: 10px 16px;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 19px;
+    letter-spacing: -0.3px;
+  }
+
+  .payment-schedule-btn,
+  .collateral-details-btn {
+    width: 127px;
+    height: 31px;
+    font-size: 12px;
+    padding: 4px;
+  }
+
+  .collateral-details-btn {
+    margin-left: 20px;
+  }
+
+  /* .custom-prevbtn.prevpagebtn {
+    height: 35px;
+    width: 35px;
+    top: 155px;
+    left: 20px;
+  } */
+
+  /* .custom-prevbtn .arrow {
+    height: 16px;
+    width: 20px;
+  } */
 }

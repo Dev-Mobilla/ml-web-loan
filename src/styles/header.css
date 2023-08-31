@@ -1,13 +1,12 @@
 .header {
     background-color: transparent;
-    /* height: 307px; */
-    /* left: 20px; */
-    /* position: absolute; */
+    height: 307px;
+    position: absolute;
     top: 0;
     width: 100%;
 }
 
-.overlap-group {
+.header .overlap-group {
     background-image: url(https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e41e67e1c2a81b98b3c871/img/banner-img.png);
     background-position: 50% 50%;
     background-size: cover;
@@ -16,7 +15,7 @@
     width: 100%;
 }
 
-.bannertitle {
+.header .bannertitle {
     color: #fbfbfb;
     font-family: "Montserrat", Helvetica;
     font-size: 47px;
@@ -30,7 +29,7 @@
     width: 1005;
 }
 
-.existing-loan-btn {
+.header .existing-loan-btn {
     height: 54px;
     left: 283px;
     position: absolute;
@@ -39,74 +38,15 @@
     width: 1005;
 }
 
-.overlap-group-2 {
-    background-color: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0px 4px 4px #00000040;
-    height: 54px;
-    position: relative;
-    width: 202px;
-}
-
-.overlap-2 {
-    height: 35px;
-    left: 82px;
-    position: absolute;
-    top: 5px;
-    width: 109px;
-}
-
-.m-ltxtt {
-    color: #000000;
-    font-family: "Roboto", Helvetica;
-    font-size: 13px;
-    font-weight: 400;
-    left: 0;
-    letter-spacing: -0.33px;
-    line-height: normal;
-    position: absolute;
-    top: 0;
-    width: 50px;
-}
-
-.m-ltxt {
-    color: #000000;
-    font-family: "Roboto", Helvetica;
-    font-size: 16px;
-    font-weight: 600;
-    left: 0;
-    letter-spacing: -0.33px;
-    line-height: normal;
-    position: absolute;
-    top: 17px;
-    white-space: nowrap;
-    width: 109px;
-}
-
-.ml-btn {
-    height: 43px;
-    left: 21px;
-    position: absolute;
-    top: 4px;
-    width: 46px;
-}
-
-.download-btn {
-    height: 54px;
-    left: 59px;
-    position: absolute;
-    top: 181px;
-    width: 206px;
-}
-
-.overlap-3 {
+.header .overlap-group-2 {
     border-radius: 12px;
     height: 54px;
     position: relative;
     width: 202px;
+
 }
 
-.dlcard {
+.header .overlap-2 {
     background-color: #ffffff;
     border-radius: 12px;
     box-shadow: 0px 4px 4px #00000040;
@@ -116,9 +56,14 @@
     top: 0;
     transition: all 0.2s ease;
     width: 202px;
+    cursor: pointer;
+    &:hover {
+        box-shadow: 0 0 10px #c0c0c0;
+        transform: scale(1.1);
+    }
 }
 
-.dltxtt {
+.header .m-ltxtt {
     color: #000000;
     font-family: "Roboto", Helvetica;
     font-size: 13px;
@@ -128,10 +73,10 @@
     line-height: normal;
     position: absolute;
     top: 5px;
-    width: 85px;
+    width: 50px;
 }
 
-.dltxt {
+.header .m-ltxt {
     color: #000000;
     font-family: "Roboto", Helvetica;
     font-size: 16px;
@@ -142,10 +87,75 @@
     position: absolute;
     top: 22px;
     white-space: nowrap;
-    width: 85px;
+    width: 109px;
 }
 
-.dl-btn {
+.header .ml-btn {
+    height: 43px;
+    left: 21px;
+    position: absolute;
+    top: 4px;
+    width: 46px;
+}
+
+.header .download-btn {
+    height: 54px;
+    left: 59px;
+    position: absolute;
+    top: 181px;
+    width: 206px;
+}
+
+.header .overlap-3 {
+    border-radius: 12px;
+    height: 54px;
+    position: relative;
+    width: 202px;
+}
+
+.header .dlcard {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0px 4px 4px #00000040;
+    height: 54px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    transition: all 0.2s ease;
+    width: 202px;
+    cursor: pointer;
+    &:hover {
+        box-shadow: 0 0 10px #c0c0c0;
+        transform: scale(1.1);
+    }
+}
+
+.header .dltxtt {
+    color: #000000;
+    font-family: "Roboto", Helvetica;
+    font-size: 13px;
+    font-weight: 400;
+    left: 84px;
+    letter-spacing: -0.33px;
+    line-height: normal;
+    position: absolute;
+    top: 5px;
+}
+
+.header .dltxt {
+    color: #000000;
+    font-family: "Roboto", Helvetica;
+    font-size: 16px;
+    font-weight: 600;
+    left: 84px;
+    letter-spacing: -0.33px;
+    line-height: normal;
+    position: absolute;
+    top: 22px;
+    white-space: nowrap;
+}
+
+.header .dl-btn {
     height: 40px;
     left: 13px;
     object-fit: cover;
@@ -153,65 +163,405 @@
     top: 7px;
     width: 53px;
 }
-@media screen and (min-width: 769px) and (max-width: 1024px)  {
+@media screen and (min-width: 360px) and (max-width: 480px)  {
     .header {
-        height:100%;
         width: 100%;
+        height: 120px;
+        top: 0;
+    }
+    .header .overlap-group {
+        width: 100%;
+        height: 120px;
+        background-size:120%;
+        background-repeat: no-repeat;
+        top: 0;
+    }
+    .header .bannertitle {
+        font-size: 24px;
+        left:30px;
+        top:20px;
+    }
+    .header .download-btn {
+        height: 100%;
+        left: 0;
+        top: 0;
+        width: 100%;
+        margin: auto;;
+    }
+    .header .overlap-3 {
+        position: relative;
+        top:55px;
+        left: 25px;
     }
     
-    .overlap-group {
+    .header .dlcard {
+        width: 50%;
+        height: 50%;
+        border-radius: 5px;
+    }
+    
+    .header .dltxtt {
+        font-size: 10px;
+        left: 30px;
+        margin: 0px 0px 0px 8px;
+        top:0;
+    }
+    
+    .header .dltxt {
+        font-size: 10px;
+        margin: 0px 0px 0px 8px;
+        left: 30px;
+        top: 10px;
+    }
+    
+    .header .dl-btn {
+        top:5px;
+        left: 10px;
+        height: 20px;
+        width: 15px;
+    }
+    .header .existing-loan-btn {
+        height: 100%;
+        left: 0;
+        top: 0;
+        width: 100%;
+        margin: auto;;
+    }
+    
+    .header .overlap-group-2 {
+        position: relative;
+        top:55px;
+        left: 135px;
+    
+    }
+    
+    .header .overlap-2 {
+        width: 50%;
+        height: 50%;
+        border-radius: 5px;
+    }
+    
+    .header .m-ltxtt {
+        font-size: 10px;
+        left: 30px;
+        margin: 0px 0px 0px 8px;
+        top:0;
+    }
+    
+    .header .m-ltxt {
+        font-size: 10px;
+        margin: 0px 0px 0px 8px;
+        left: 30px;
+        top: 10px;
+    }
+    
+    .header .ml-btn {
+        top:3px;
+        left: 5px;
+        height: 20px;
+        width: 25px;
+    }
+
+}
+ @media screen and (min-width: 481px) and (max-width: 768px)  {
+    .header {
+        width: 100%;
+        height: 500px;
+        top:0px;
+    }
+    .header .overlap-group {
         width: 100%;
         height: 30%;
         background-size:120%;
         background-repeat: no-repeat;
         top: 0;
     }
-    .bannertitle {
-        font-size: 40px;
+    .header .bannertitle {
+        font-size: 26px;
+        left:30px;
+        top:22px;
     }
-    .overlap-group-2 {
-        /* background-color: #ffffff;
-        border-radius: 12px; */
-        /* box-shadow: 0px 4px 4px #00000040; */
-        height: 54px;
-        /* position: relative; */
-        width: 202px;
+    .header .download-btn {
+        height: 100%;
+        left: 0;
+        top: 0;
+        width: 100%;
+        margin: auto;;
+    }
+    .header .overlap-3 {
+        position: relative;
+        top:70px;
+        left: 25px;
+    }
+    
+    .header .dlcard {
+        width: 60%;
+        height: 60%;
+        border-radius: 5px;
+    }
+    
+    .header .dltxtt {
+        font-size: 12px;
+        left: 30px;
+        margin: 2px 0px 0px 8px;
         top:0;
     }
     
-    .overlap-2 {
-        height: 35px;
-        left: 82px;
-        position: absolute;
-        top: 5px;
-        width: 109px;
+    .header .dltxt {
+        font-size: 12px;
+        margin: 0px 0px 0px 8px;
+        left: 30px;
+        top: 12px;
     }
     
-    .m-ltxtt {
-        color: #000000;
-        font-family: "Roboto", Helvetica;
-        font-size: 13px;
-        font-weight: 400;
+    .header .dl-btn {
+        top:5px;
+        left: 10px;
+        height: 20px;
+        width: 20px;
+    }
+    .header .existing-loan-btn {
+        height: 100%;
         left: 0;
-        letter-spacing: -0.33px;
-        line-height: normal;
-        position: absolute;
         top: 0;
-        width: 50px;
+        width: 100%;
+        margin: auto;;
     }
     
-    .m-ltxt {
-        color: #000000;
-        font-family: "Roboto", Helvetica;
-        font-size: 16px;
-        font-weight: 600;
+    .header .overlap-group-2 {
+        position: relative;
+        top:70px;
+        left: 155px;
+    
+    }
+    
+    .header .overlap-2 {
+        width: 60%;
+        height: 60%;
+        border-radius: 5px;
+    }
+    
+    .header .m-ltxtt {
+        font-size: 12px;
+        left: 30px;
+        margin: 2px 0px 0px 8px;
+        top:0;
+    }
+    
+    .header .m-ltxt {
+        font-size: 12px;
+        margin: 0px 0px 0px 8px;
+        left: 30px;
+        top: 12px;
+    }
+    
+    .header .ml-btn {
+        top:3px;
+        left: 5px;
+        height: 20px;
+        width: 25px;
+    }
+        
+}
+
+@media screen and (min-width: 769px) and (max-width: 1024px)  {
+    .header {
+        width: 100%;
+        height: 70%;
+        top:0px;
+    }
+    .header .overlap-group {
+        width: 100%;
+        height: 40%;
+        background-size:120%;
+        background-repeat: no-repeat;
+        top: 0;
+    }
+    .header .bannertitle {
+        font-size: 28px;
+        left:30px;
+        top:22px;
+    }
+    .header .download-btn {
+        height: 100%;
         left: 0;
-        letter-spacing: -0.33px;
-        line-height: normal;
-        position: absolute;
-        top: 17px;
-        white-space: nowrap;
-        width: 109px;
+        top: 0;
+        width: 100%;
+        margin: auto;;
+    }
+    .header .overlap-3 {
+        position: relative;
+        top:90px;
+        left: 25px;
+    }
+    
+    .header .dlcard {
+        width: 80%;
+        height: 80%;
+        border-radius: 6px;
+    }
+    
+    .header .dltxtt {
+        font-size: 14px;
+        left: 50px;
+        margin: 2px 0px 0px 8px;
+        top:0;
+    }
+    
+    .header .dltxt {
+        font-size: 14px;
+        margin: 0px 0px 0px 8px;
+        left: 50px;
+        top: 16px;
+    }
+    
+    .header .dl-btn {
+        top:5px;
+        left: 14px;
+        height: 30px;
+        width: 30px;
+    }
+    .header .existing-loan-btn {
+        height: 100%;
+        left: 0;
+        top: 0;
+        width: 100%;
+        margin: auto;;
+    }
+    
+    .header .overlap-group-2 {
+        position: relative;
+        top:90px;
+        left: 205px;
+    
+    }
+    
+    .header .overlap-2 {
+        width: 80%;
+        height: 80%;
+        border-radius: 6px;
+    }
+    
+    .header .m-ltxtt {
+        font-size: 14px;
+        left: 50px;
+        margin: 2px 0px 0px 8px;
+        top:0;
+    }
+    
+    .header .m-ltxt {
+        font-size: 14px;
+        margin: 0px 0px 0px 8px;
+        left: 50px;
+        top: 16px;
+    }
+    
+    .header .ml-btn {
+        top:3px;
+        left: 15px;
+        height: 30px;
+        width: 30px;
+    }
+        
+
+}
+@media screen and (min-width: 1025px) and (max-width: 1200px)  {
+    .header {
+        width: 100%;
+        height: 70%;
+        top:0px;
+    }
+    .header .overlap-group {
+        width: 100%;
+        height: 40%;
+        background-size:120%;
+        background-repeat: no-repeat;
+        top: 0;
+    }
+    .header .bannertitle {
+        font-size: 28px;
+        left:30px;
+        top:22px;
+    }
+    .header .download-btn {
+        height: 100%;
+        left: 0;
+        top: 0;
+        width: 100%;
+        margin: auto;;
+    }
+    .header .overlap-3 {
+        position: relative;
+        top:90px;
+        left: 25px;
+    }
+    
+    .header .dlcard {
+        width: 80%;
+        height: 80%;
+        border-radius: 6px;
+    }
+    
+    .header .dltxtt {
+        font-size: 14px;
+        left: 50px;
+        margin: 2px 0px 0px 8px;
+        top:0;
+    }
+    
+    .header .dltxt {
+        font-size: 14px;
+        margin: 0px 0px 0px 8px;
+        left: 50px;
+        top: 16px;
+    }
+    
+    .header .dl-btn {
+        top:5px;
+        left: 14px;
+        height: 30px;
+        width: 30px;
+    }
+    .header .existing-loan-btn {
+        height: 100%;
+        left: 0;
+        top: 0;
+        width: 100%;
+        margin: auto;;
+    }
+    
+    .header .overlap-group-2 {
+        position: relative;
+        top:90px;
+        left: 205px;
+    
+    }
+    
+    .header .overlap-2 {
+        width: 80%;
+        height: 80%;
+        border-radius: 6px;
+    }
+    
+    .header .m-ltxtt {
+        font-size: 14px;
+        left: 50px;
+        margin: 2px 0px 0px 8px;
+        top:0;
+    }
+    
+    .header .m-ltxt {
+        font-size: 14px;
+        margin: 0px 0px 0px 8px;
+        left: 50px;
+        top: 16px;
+    }
+    
+    .header .ml-btn {
+        top:3px;
+        left: 15px;
+        height: 30px;
+        width: 30px;
     }
     
 }
