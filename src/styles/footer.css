@@ -18,7 +18,7 @@
 
 .aboutus {
     height: 35px;
-    left: 1160px;
+    right: 180px;
     object-fit: cover;
     position: absolute;
     top: 11px;
@@ -27,7 +27,7 @@
 
 .privacynotice {
     height: 38px;
-    left: 1271px;
+    right:51px;
     object-fit: cover;
     position: absolute;
     top: 11px;

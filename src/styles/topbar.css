@@ -8,3 +8,33 @@
     top: 19px;
     width: 200px;
 }
+/* @media screen and (min-width: 360px) and (max-width: 480px)  {
+.top-bar{
+    height:25px;
+    width: 160px;
+}
+}
+@media screen and (min-width: 481px) and (max-width: 768px)  {
+    .top-bar{
+        height:30px;
+        width: 180px;
+    }
+}
+@media screen and (min-width: 769px) and (max-width: 1024px)  {
+    .top-bar{
+        height:34px;
+        width: 200px;
+    }
+}
+@media screen and (min-width: 1025px) and (max-width: 1200px)  {
+    .top-bar{
+        height:38px;
+        width: 210px;
+    }
+}
+@media screen and (min-width: 1201px){
+    .top-bar{
+        height:40px;
+        width: 220px;
+    }
+} */

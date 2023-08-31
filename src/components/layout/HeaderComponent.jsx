@@ -20,10 +20,9 @@ const HeaderComponent = () => {
               </div>
               <div className="existing-loan-btn">
                 <div className="overlap-group-2">
-                  <div className="overlap-2">
+                  <div className="overlap-2"/>
                     <div className="m-ltxtt">Manage</div>
                     <div className="m-ltxt">Existing Loans</div>
-                  </div>
                   <img
                     className="ml-btn"
                     alt="Ml btn"
