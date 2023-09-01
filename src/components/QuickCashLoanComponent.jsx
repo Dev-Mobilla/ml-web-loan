@@ -1,6 +1,6 @@
 import React from "react";
 import "../styles/quickcashloan.css";
-import { QuickCashHeaderComponent, FooterComponent, TopbarComponent, CustomHeader, CustomPrevBtn, CustomButton, CustomStatus } from "./index";
+import { FooterComponent, TopbarComponent, CustomHeader, CustomPrevBtn, CustomButton, CustomStatus } from "./index";
 import pawn_shop from '../assets/icons/pawn-shop.png';
 
 
@@ -55,7 +55,7 @@ const QuickCashLoanComponent = () => {
               
           </div>
           <div className="renewpawn">
-                <div className="renewpawntxt">Renew Pawn</div><br /><br />
+                <div className="renewpawntxt">Renew Pawn</div><br />
                 <div className="radius-options">
                  <div>
                   <input type="radio" value="1" />

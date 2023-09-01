@@ -7,6 +7,15 @@ import LoginComponent from "./LoginComponent";
 import ManageLoanComponent from "./ManageLoansComponent";
 import QuickCashLoanComponent from "./QuickCashLoanComponent";
 import QuickCashHeaderComponent from "./layout/QuickCashHeaderComponent";
+import LoanTypeNewComponent from "./loans/vehicle/LoanTypeNewComponent";
+import LoanTypeSecondHandComponent from "./loans/vehicle/LoanTypeSecondhandComponent";
+import CustomerDetailsComponent from "./CustomerDetailsComponent";
+import CustomerRequirementsComponent from "./CustomerRequirementsComponent";
+import LoanTypeRadiosComponent from "./loans/vehicle/LoanTypeRadiosComponent";
+import VehicleDocumentsComponent from "./loans/vehicle/VehicleDocumentsComponent";
+import RequiredDocumentsComponent from "./loans/vehicle/RequiredDocumentsComponent";
+import LoanTypeComponent from "./LoanTypeComponent";
+
 
 // CUSTOM COMPONENTS
 import CustomHeader from "./custom/Custom.header";
@@ -24,6 +33,14 @@ export {
     HousingLoanComponent,
     QuickCashLoanComponent,
     QuickCashHeaderComponent,
+    LoanTypeNewComponent,
+    LoanTypeSecondHandComponent,
+    CustomerDetailsComponent,
+    CustomerRequirementsComponent,
+    LoanTypeRadiosComponent,
+    RequiredDocumentsComponent,
+    VehicleDocumentsComponent,
+    LoanTypeComponent,
     CustomHeader,
     CustomButton,
     CustomPrevBtn,

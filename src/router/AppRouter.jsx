@@ -1,6 +1,9 @@
 import React from "react";
 import { createBrowserRouter } from 'react-router-dom';
 import {Dashboard, Error, HousingLoan, ManageLoans, QuickCashLoan} from "../pages";
+import LoanType from "../pages/LoanType.page";
+import CustomerDetails from "../pages/CustomerDetails.page";
+import CustomerRequirements from "../pages/CustomerRequirements.page";
 
 const Router = createBrowserRouter([
     {
@@ -21,6 +24,21 @@ const Router = createBrowserRouter([
     {
         path: '/manage-loans/quick-cash-loan',
         element: <QuickCashLoan/>,
+        errorElement: <Error/>
+    },
+    {
+        path: '/vehicle-loan/loan-type',
+        element: <LoanType/>,
+        errorElement: <Error/>
+    },
+    {
+        path: '/vehicle-loan/personal-details',
+        element: <CustomerDetails/>,
+        errorElement: <Error/>
+    },
+    {
+        path: '/vehicle-loan/requirements',
+        element: <CustomerRequirements/>,
         errorElement: <Error/>
     }
 ])

@@ -1,0 +1,733 @@
+.index {
+    background-color: #fbfbfb;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+  }
+  
+  .index .div {
+    background-color: #fbfbfb;
+    height: 1068px;
+    overflow: hidden;
+    position: relative;
+    width: 1440px;
+  }
+  
+  .index .top-bar {
+    background-image: url(https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64f13348e9f50c7315603815/img/logo@2x.png);
+    background-position: 50% 50%;
+    background-size: cover;
+    height: 34px;
+    left: 37px;
+    position: absolute;
+    top: 19px;
+    width: 200px;
+  }
+  
+  .index .header {
+    background-color: transparent;
+    height: 79px;
+    left: 0;
+    position: absolute;
+    top: 63px;
+    width: 1442px;
+  }
+  
+  .index .overlap-group {
+    background: linear-gradient(180deg, rgb(255, 0, 0) 0%, rgba(217, 217, 217, 0) 100%);
+    height: 79px;
+    position: relative;
+    width: 1440px;
+  }
+  
+  .index .text-wrapper {
+    color: #ffffff;
+    font-family: "Roboto", Helvetica;
+    font-size: 24px;
+    font-weight: 600;
+    left: 58px;
+    letter-spacing: -0.33px;
+    line-height: normal;
+    position: absolute;
+    top: 22px;
+    white-space: nowrap;
+  }
+  
+  .index .body-bg {
+    height: 730px;
+    left: 68px;
+    position: absolute;
+    top: 160px;
+    width: 1032px;
+  }
+  
+  .index .prevpagebtn {
+    background-color: #fbfbfb;
+    border: 1px solid;
+    border-color: #ff2800;
+    border-radius: 25px;
+    height: 50px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 50px;
+  }
+  
+  .index .arrow {
+    height: 1px;
+    left: 12px;
+    position: absolute;
+    top: 24px;
+    width: 23px;
+  }
+  
+  .index .vehicledocument {
+    height: 350px;
+    left: 272px;
+    position: absolute;
+    top: 32px;
+    width: 762px;
+  }
+  
+  .index .overlap {
+    background-image: url(https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64f13348e9f50c7315603815/img/vehicledocument-card.png);
+    background-size: 100% 100%;
+    height: 350px;
+    position: relative;
+    width: 760px;
+  }
+  
+  .index .vehicledocument-2 {
+    color: #d20101;
+    font-family: "Roboto", Helvetica;
+    font-size: 22px;
+    font-weight: 700;
+    left: 64px;
+    letter-spacing: -0.24px;
+    line-height: 24px;
+    position: absolute;
+    top: 14px;
+    white-space: nowrap;
+    width: 197px;
+  }
+  
+  .index .lcar {
+    height: 78px;
+    left: 219px;
+    position: absolute;
+    top: 260px;
+    width: 74px;
+  }
+  
+  .index .overlap-group-2 {
+    height: 58px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 65px;
+  }
+  
+  .index .img {
+    height: 55px;
+    left: 0;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    width: 55px;
+  }
+  
+  .index .lcartxt {
+    color: #333333;
+    font-family: "Roboto", Helvetica;
+    font-size: 14px;
+    font-weight: 400;
+    left: 19px;
+    letter-spacing: -0.33px;
+    line-height: normal;
+    position: absolute;
+    top: 44px;
+    white-space: nowrap;
+    width: 46px;
+  }
+  
+  .index .lcartxtt {
+    color: #666666;
+    font-family: "Roboto", Helvetica;
+    font-size: 12px;
+    font-style: italic;
+    font-weight: 400;
+    left: 0;
+    letter-spacing: -0.33px;
+    line-height: normal;
+    position: absolute;
+    top: 63px;
+    width: 70px;
+  }
+  
+  .index .rcar {
+    height: 74px;
+    left: 470px;
+    position: absolute;
+    top: 172px;
+    width: 63px;
+  }
+  
+  .index .rcartxt-wrapper {
+    background-image: url(https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64f13348e9f50c7315603815/img/rcaricon@2x.png);
+    background-position: 50% 50%;
+    background-size: cover;
+    height: 55px;
+    left: 2px;
+    position: absolute;
+    top: 0;
+    width: 55px;
+  }
+  
+  .index .rcartxt {
+    color: #333333;
+    font-family: "Roboto", Helvetica;
+    font-size: 14px;
+    font-weight: 400;
+    left: 14px;
+    letter-spacing: -0.33px;
+    line-height: normal;
+    position: absolute;
+    top: 41px;
+    white-space: nowrap;
+    width: 33px;
+  }
+  
+  .index .rcartxtt {
+    color: #666666;
+    font-family: "Roboto", Helvetica;
+    font-size: 12px;
+    font-style: italic;
+    font-weight: 400;
+    left: 0;
+    letter-spacing: -0.33px;
+    line-height: normal;
+    position: absolute;
+    top: 59px;
+    width: 59px;
+  }
+  
+  .index .bcar {
+    height: 78px;
+    left: 347px;
+    position: absolute;
+    top: 168px;
+    width: 64px;
+  }
+  
+  .index .overlap-2 {
+    height: 59px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 60px;
+  }
+  
+  .index .bcartxt {
+    color: #333333;
+    font-family: "Roboto", Helvetica;
+    font-size: 14px;
+    font-weight: 400;
+    left: 14px;
+    letter-spacing: -0.33px;
+    line-height: normal;
+    position: absolute;
+    top: 45px;
+    white-space: nowrap;
+    width: 46px;
+  }
+  
+  .index .bcartxtt {
+    color: #fc4624;
+    font-family: "Roboto", Helvetica;
+    font-size: 12px;
+    font-style: italic;
+    font-weight: 400;
+    left: 18px;
+    letter-spacing: -0.33px;
+    line-height: normal;
+    position: absolute;
+    top: 63px;
+    width: 32px;
+  }
+  
+  .index .fcar {
+    height: 78px;
+    left: 214px;
+    position: absolute;
+    top: 168px;
+    width: 62px;
+  }
+  
+  .index .overlap-3 {
+    height: 59px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 58px;
+  }
+  
+  .index .fcartxt {
+    color: #333333;
+    font-family: "Roboto", Helvetica;
+    font-size: 14px;
+    font-weight: 400;
+    left: 12px;
+    letter-spacing: -0.33px;
+    line-height: normal;
+    position: absolute;
+    top: 45px;
+    white-space: nowrap;
+    width: 46px;
+  }
+  
+  .index .fcartxtt {
+    color: #666666;
+    font-family: "Roboto", Helvetica;
+    font-size: 12px;
+    font-style: italic;
+    font-weight: 400;
+    left: 3px;
+    letter-spacing: -0.33px;
+    line-height: normal;
+    position: absolute;
+    top: 63px;
+    width: 55px;
+  }
+  
+  .index .carinsurance {
+    height: 90px;
+    left: 458px;
+    position: absolute;
+    top: 62px;
+    width: 87px;
+  }
+  
+  .index .carinsuranceicon {
+    height: 50px;
+    left: 17px;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    width: 50px;
+  }
+  
+  .index .carinsurancetxt {
+    color: #333333;
+    font-family: "Roboto", Helvetica;
+    font-size: 14px;
+    font-weight: 400;
+    left: 0;
+    letter-spacing: -0.33px;
+    line-height: normal;
+    position: absolute;
+    top: 55px;
+    white-space: nowrap;
+  }
+  
+  .index .carinsurancetxtt {
+    color: #666666;
+    font-family: "Roboto", Helvetica;
+    font-size: 12px;
+    font-style: italic;
+    font-weight: 400;
+    left: 6px;
+    letter-spacing: -0.33px;
+    line-height: normal;
+    position: absolute;
+    top: 76px;
+    white-space: nowrap;
+  }
+  
+  .index .stensil {
+    height: 83px;
+    left: 331px;
+    position: absolute;
+    top: 69px;
+    width: 100px;
+  }
+  
+  .index .stensilicon {
+    height: 45px;
+    left: 21px;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    width: 45px;
+  }
+  
+  .index .stensiltxt {
+    color: #333333;
+    font-family: "Roboto", Helvetica;
+    font-size: 14px;
+    font-weight: 400;
+    left: 12px;
+    letter-spacing: -0.33px;
+    line-height: normal;
+    position: absolute;
+    top: 48px;
+    white-space: nowrap;
+  }
+  
+  .index .text-wrapper-2 {
+    color: #666666;
+    font-family: "Roboto", Helvetica;
+    font-size: 12px;
+    font-style: italic;
+    font-weight: 400;
+    left: 0;
+    letter-spacing: -0.33px;
+    line-height: normal;
+    position: absolute;
+    top: 69px;
+    white-space: nowrap;
+  }
+  
+  .index .OR-CR {
+    height: 83px;
+    left: 196px;
+    position: absolute;
+    top: 69px;
+    width: 104px;
+  }
+  
+  .index .OR-cricon {
+    height: 45px;
+    left: 23px;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    width: 45px;
+  }
+  
+  .index .OR-crtxt {
+    color: #333333;
+    font-family: "Roboto", Helvetica;
+    font-size: 14px;
+    font-weight: 400;
+    left: 7px;
+    letter-spacing: -0.33px;
+    line-height: normal;
+    position: absolute;
+    top: 48px;
+    white-space: nowrap;
+  }
+  
+  .index .OR-crtxtt {
+    color: transparent;
+    font-family: "Roboto", Helvetica;
+    font-size: 12px;
+    font-weight: 400;
+    left: 0;
+    letter-spacing: -0.33px;
+    line-height: normal;
+    position: absolute;
+    top: 69px;
+    white-space: nowrap;
+  }
+  
+  .index .span {
+    color: #ff2800;
+    font-weight: 700;
+  }
+  
+  .index .text-wrapper-3 {
+    color: #666666;
+  }
+  
+  .index .text-wrapper-4 {
+    color: #666666;
+    font-style: italic;
+  }
+  
+  .index .requireddocumente {
+    height: 224px;
+    left: 272px;
+    position: absolute;
+    top: 416px;
+    width: 764px;
+  }
+  
+  .index .overlap-4 {
+    background-image: url(https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64f13348e9f50c7315603815/img/requireddocumente-card.png);
+    background-size: 100% 100%;
+    height: 224px;
+    position: relative;
+    width: 760px;
+  }
+  
+  .index .requireddocument {
+    color: #d20101;
+    font-family: "Roboto", Helvetica;
+    font-size: 22px;
+    font-weight: 700;
+    left: 64px;
+    letter-spacing: -0.24px;
+    line-height: 24px;
+    position: absolute;
+    top: 11px;
+    white-space: nowrap;
+  }
+  
+  .index .reqdocdetails {
+    color: #555555;
+    font-family: "Lato", Helvetica;
+    font-size: 16px;
+    font-weight: 400;
+    left: 64px;
+    letter-spacing: 0;
+    line-height: 24px;
+    position: absolute;
+    top: 35px;
+    white-space: nowrap;
+  }
+  
+  .index .employed {
+    height: 24px;
+    left: 196px;
+    position: absolute;
+    top: 67px;
+    width: 99px;
+  }
+  
+  .index .text-wrapper-5 {
+    color: #555555;
+    font-family: "Lato", Helvetica;
+    font-size: 16px;
+    font-weight: 400;
+    left: 27px;
+    letter-spacing: 0;
+    line-height: 24px;
+    position: absolute;
+    top: 0;
+    white-space: nowrap;
+  }
+  
+  .index .div-2 {
+    background-color: #ffffff;
+    border: 1px solid;
+    border-color: #fb0000;
+    border-radius: 8px;
+    height: 16px;
+    left: 0;
+    position: absolute;
+    top: 4px;
+    width: 16px;
+  }
+  
+  .index .ellipse {
+    height: 8px;
+    left: 3px;
+    position: absolute;
+    top: 3px;
+    width: 8px;
+  }
+  
+  .index .selfemployed {
+    height: 24px;
+    left: 338px;
+    position: absolute;
+    top: 67px;
+    width: 131px;
+  }
+  
+  .index .valid-ID {
+    height: 83px;
+    left: 219px;
+    position: absolute;
+    top: 111px;
+    width: 65px;
+  }
+  
+  .index .valid-i-dicon {
+    height: 50px;
+    left: 6px;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    width: 50px;
+  }
+  
+  .index .valid-i-dtxt {
+    color: #333333;
+    font-family: "Roboto", Helvetica;
+    font-size: 14px;
+    font-weight: 400;
+    left: 8px;
+    letter-spacing: -0.33px;
+    line-height: normal;
+    position: absolute;
+    top: 50px;
+    white-space: nowrap;
+  }
+  
+  .index .empcert {
+    height: 81px;
+    left: 341px;
+    position: absolute;
+    top: 111px;
+    width: 76px;
+  }
+  
+  .index .empcerticon {
+    height: 45px;
+    left: 18px;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    width: 45px;
+  }
+  
+  .index .empcerttxt {
+    color: #333333;
+    font-family: "Roboto", Helvetica;
+    font-size: 14px;
+    font-weight: 400;
+    left: 7px;
+    letter-spacing: -0.33px;
+    line-height: normal;
+    position: absolute;
+    top: 50px;
+    white-space: nowrap;
+  }
+  
+  .index .empcerttxtt {
+    color: #666666;
+    font-family: "Roboto", Helvetica;
+    font-size: 12px;
+    font-style: italic;
+    font-weight: 400;
+    left: 0;
+    letter-spacing: -0.33px;
+    line-height: normal;
+    position: absolute;
+    top: 67px;
+    white-space: nowrap;
+  }
+  
+  .index .payslip {
+    height: 87px;
+    left: 463px;
+    position: absolute;
+    top: 105px;
+    width: 72px;
+  }
+  
+  .index .payslipicon {
+    height: 51px;
+    left: 9px;
+    position: absolute;
+    top: 0;
+    width: 50px;
+  }
+  
+  .index .overlap-5 {
+    height: 51px;
+    position: relative;
+  }
+  
+  .index .payslipicon-2 {
+    height: 48px;
+    left: 0;
+    object-fit: cover;
+    position: absolute;
+    top: 3px;
+    width: 50px;
+  }
+  
+  .index .icon {
+    height: 23px;
+    left: 31px;
+    position: absolute;
+    top: 0;
+    width: 10px;
+  }
+  
+  .index .overlap-group-3 {
+    height: 23px;
+    position: relative;
+    width: 8px;
+  }
+  
+  .index .vector {
+    height: 1px;
+    left: 0;
+    position: absolute;
+    top: 10px;
+    width: 8px;
+  }
+  
+  .index .text-wrapper-6 {
+    color: #b04646;
+    font-family: "Roboto", Helvetica;
+    font-size: 11px;
+    font-weight: 400;
+    left: 0;
+    letter-spacing: 0.15px;
+    line-height: 24px;
+    position: absolute;
+    top: 0;
+    white-space: nowrap;
+    width: 7px;
+  }
+  
+  .index .paysliptxt {
+    color: #333333;
+    font-family: "Roboto", Helvetica;
+    font-size: 14px;
+    font-weight: 400;
+    left: 0;
+    letter-spacing: -0.33px;
+    line-height: normal;
+    position: absolute;
+    top: 56px;
+    white-space: nowrap;
+  }
+  
+  .index .paysliptxtt {
+    color: #666666;
+    font-family: "Roboto", Helvetica;
+    font-size: 12px;
+    font-style: italic;
+    font-weight: 400;
+    left: 2px;
+    letter-spacing: -0.33px;
+    line-height: normal;
+    position: absolute;
+    top: 73px;
+    white-space: nowrap;
+  }
+  
+  .index .submit-btn {
+    align-items: center;
+    background: linear-gradient(180deg, rgb(254, 0, 0) 0%, rgb(210, 1, 1) 100%);
+    border-radius: 4px;
+    display: flex;
+    gap: 10px;
+    height: 60px;
+    justify-content: center;
+    left: 476px;
+    padding: 16px;
+    position: absolute;
+    top: 670px;
+    width: 341px;
+  }
+  
+  .index .text-wrapper-7 {
+    color: #ffffff;
+    font-family: "Roboto", Helvetica;
+    font-size: 24px;
+    font-weight: 400;
+    letter-spacing: -0.26px;
+    line-height: 24px;
+    position: relative;
+    text-align: center;
+    white-space: nowrap;
+    width: fit-content;
+  }
+  

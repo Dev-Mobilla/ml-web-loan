@@ -436,7 +436,7 @@
         margin-top: 0px;
     }
     .quick-cash-loan .payment_due_before label{
-        margin:15px auto;
+        margin: 30px 5px 30px auto;
     }
 
     /* .inline-input-label {
@@ -468,7 +468,7 @@
     .payment_amount_due {
         /* margin-left: -80%;
         margin-right: 10%; */
-        margin: auto auto auto 50px;
+        margin: auto auto auto 40px;
     }
 
 
@@ -497,7 +497,8 @@
         width: 50%;
     }
     .quick-cash-loan .overlap-group{
-        text-align: left;
+        /* text-align: left; */
+        margin-right: 10px;
     }
     .quick-cash-loan .amount_due{
         margin-top: 10px;
@@ -507,10 +508,6 @@
 
 @media only screen and (min-width: 481px) and (max-width: 768px) {
 
-    .quick-cash-loan .div>.footer{
-        display: none;
-    }
-
     .quick-cash-loan .div {
         height: 1100px;
     }
@@ -518,6 +515,8 @@
         margin: auto 10px;
       }
     .quick-cash-loan .overlap {
+        /* top: 17%; */
+        /* height: 80%; */
         left: 2%;
         width: 95%;
         margin-top: 20px;
@@ -525,7 +524,7 @@
 
     .quick-cash-loan .QuickCash-currentcard {
         top: 60px;
-        left: 70%;
+        left: 60%;
         width: 10px;
     }
 
@@ -533,82 +532,111 @@
         margin-top: 5px;
         width: 70px;
         height: 15px;
-        margin-left: 60px;
+        margin-left: 30px;
         border-radius: 5px;
-    }
-    .quick-cash-loan .quick-cash-icon{
-        left: 40px;
     }
 
     .quick-cash-loan .QuickCash-currentText {
-        left: 30px;
+        left: 1px;
         font-size: 12px;
     }
 
     .radius-options {
         font-size: 12px;
         display: flex;
-        align-items: center ;
+        align-items: center;
     }
 
     .housing_loan_logo {
-        width: 70px;
-        margin-left: 15%;
+        width: 45px;
+        margin-left: 5%;
     }
 
     .quick-cash-loan .current-Quick-Cash-ltxt {
-        font-size: 20px;
+        font-size: 15px;
         font-weight: 600;
-        left: 23%;
+        left: 70px;
     }
 
     .quick-cash-loan .referencen-number {
-        font-size: 18px;
+        font-size: 15px;
         font-weight: 400;
         margin-top: -4px;
-        left: 23%;
+        left: 70px;
     }
 
     .quick-cash-loan .existing-loan {
-        /* left: 15%; */
+        /* right: 1500px; */
         width: 100%;
+        
     }
-    .inline-input-label{
-        margin-left: 100px;
-        grid-template-columns: 505 50%;
-        position: initial;
-        justify-content: center;
+    .quick-cash-loan .payment_due_before{
+        margin-top: 0px;
     }
+    .quick-cash-loan .payment_due_before label{
+        margin: 30px 5px 30px auto;
+    }
+
+    /* .inline-input-label {
+        margin-left: -90%;
+    } */
+
     .inline-input-label .principalph,
     .amountdueph,
     .interest,
     .service_charge,
     .net_proceeds {
-        width: 180px;
+        width: 135px;
         font-size: 10px;
     }
-    .quick-cash-loan .renewpawntxt {
-        font-size: 20px;
-        margin-left: -10px;
+
+    .quick-cash-loan .renewpawn{
+        width: 100%;
     }
+    .quick-cash-loan .renewpawntxt {
+        font-size: 19px;
+        /* margin-left: -25%; */
+        margin: auto 20px;
+    }
+
+    /* .radius-options input[type="radio"] {
+        margin-left: -130%;
+    } */
+
+    .payment_amount_due {
+        /* margin-left: -80%;
+        margin-right: 10%; */
+        margin: auto auto auto 40px;
+    }
+
 
     .quick-cash-loan .payment_due_before,
     .amount_due {
         font-weight: 200;
     }
+
     .payment_amount_due label {
         font-size: 14px;
     }
+
     .payment_amount_due input {
-        margin-right: 46px;
-        /* width: 52%; */
+        /* margin-top: 10px; */
+        /* margin-right: 140px; */
+        /* width: 25%; */
+        /* padding: 6px 10px;
+        margin:0px; */
     }
+    .quick-cash-loan .amount_due input{
+        margin: 10px 0px;
+    }
+
     .quick-cash-loan .renewnowtxt {
-        margin-left: 28%;
-        width: 60%;
+        margin-left: 1%;
+        width: 50%;
     }
     .quick-cash-loan .overlap-group{
-        text-align: left;
+        /* text-align: left; */
+        margin-right: 10px;
     }
     .quick-cash-loan .amount_due{
         margin-top: 10px;
@@ -617,22 +645,23 @@
 
 @media only screen and (min-width: 769px) and (max-width: 1024px) {
 
-    .quick-cash-loan .div>.footer{
-        display: none;
-    }
-
     .quick-cash-loan .div {
         height: 1100px;
     }
-
+    .quick-cash-loan .prev-btn{
+        margin: auto 10px;
+      }
     .quick-cash-loan .overlap {
-        top: 17%;
-        height: 80%;
+        /* top: 17%; */
+        /* height: 80%; */
+        left: 2%;
+        width: 95%;
+        margin-top: 20px;
     }
 
     .quick-cash-loan .QuickCash-currentcard {
         top: 60px;
-        left: 70%;
+        left: 60%;
         width: 10px;
     }
 
@@ -640,76 +669,113 @@
         margin-top: 5px;
         width: 70px;
         height: 15px;
-        margin-left: 60px;
+        margin-left: 30px;
         border-radius: 5px;
     }
 
     .quick-cash-loan .QuickCash-currentText {
-        left: 30px;
+        left: 1px;
         font-size: 12px;
     }
 
-    .quick-cash-loan .renewpawn {
-        width: 500px;
-    }
     .radius-options {
-        font-size: 14px;
-        margin-left: 14%;
+        font-size: 12px;
+        display: flex;
+        align-items: center;
     }
+
     .housing_loan_logo {
-        width: 50px;
-        margin-left: 15%;
+        width: 45px;
+        margin-left: 5%;
     }
 
     .quick-cash-loan .current-Quick-Cash-ltxt {
-        font-size: 25px;
+        font-size: 15px;
         font-weight: 600;
-        left: 15%;
+        left: 70px;
     }
 
     .quick-cash-loan .referencen-number {
-        font-size: 20px;
+        font-size: 15px;
         font-weight: 400;
         margin-top: -4px;
-        left: 15%;
+        left: 70px;
     }
 
     .quick-cash-loan .existing-loan {
-        left: 15%;
+        /* right: 1500px; */
+        width: 100%;
+        
     }
-    .inline-input-label{
-        margin-left: 100px;
-        grid-template-columns: 505 50%;
-        position: initial;
-        justify-content: center;
+    .quick-cash-loan .payment_due_before{
+        margin-top: 0px;
     }
+    .quick-cash-loan .payment_due_before label{
+        margin: 30px 5px 30px auto;
+    }
+
+    /* .inline-input-label {
+        margin-left: -90%;
+    } */
+
     .inline-input-label .principalph,
     .amountdueph,
     .interest,
     .service_charge,
     .net_proceeds {
-        width: 180px;
+        width: 135px;
         font-size: 10px;
-        
+    }
+
+    .quick-cash-loan .renewpawn{
+        width: 100%;
     }
     .quick-cash-loan .renewpawntxt {
-        font-size: 25px;
-        margin-left: 70px;
+        font-size: 19px;
+        /* margin-left: -25%; */
+        margin: auto 20px;
     }
+
+    /* .radius-options input[type="radio"] {
+        margin-left: -130%;
+    } */
+
+    .payment_amount_due {
+        /* margin-left: -80%;
+        margin-right: 10%; */
+        margin: auto auto auto 40px;
+    }
+
 
     .quick-cash-loan .payment_due_before,
     .amount_due {
         font-weight: 200;
     }
+
     .payment_amount_due label {
         font-size: 14px;
     }
+
     .payment_amount_due input {
-        margin-right:110px;
-        width: 40%;
+        /* margin-top: 10px; */
+        /* margin-right: 140px; */
+        /* width: 25%; */
+        /* padding: 6px 10px;
+        margin:0px; */
     }
+    .quick-cash-loan .amount_due input{
+        margin: 10px 0px;
+    }
+
     .quick-cash-loan .renewnowtxt {
-        margin-left: 30%;
+        margin-left: 1%;
         width: 50%;
+    }
+    .quick-cash-loan .overlap-group{
+        /* text-align: left; */
+        margin-right: 10px;
+    }
+    .quick-cash-loan .amount_due{
+        margin-top: 10px;
     }
 }
