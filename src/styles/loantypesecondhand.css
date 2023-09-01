@@ -16,7 +16,7 @@
 
 .apply-btn {
   display: flex;
-  justify-content: center;  
+  justify-content: center;
 }
 
 .loan-content {
@@ -27,4 +27,107 @@
 .second-hand-percent {
   max-width: 600px;
   margin-bottom: 20px;
+}
+
+.vehicle-circle {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 1px solid #ff0000;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+  background-clip: content-box;
+  padding: 3px;
+}
+
+.loan-vehicle-selection .main-content {
+  padding: 20px;
+  display: block !important;
+  margin-left: -40px;
+  margin-top: -20px;
+  margin-bottom: -20px;
+}
+
+.loan-vehicle-selection .value {
+  margin-left: 20px;
+  margin-top: -5px;
+  font-size: 18px;
+  color: #555555;
+}
+
+.loan-vehicle-selection .vehicle-circle {
+  margin-bottom: 10px;
+}
+
+.form-group {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.form-row {
+  margin-right: 20px;
+}
+
+.form-row input {
+  padding: 5px;
+  border: 1px solid #848484;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.form-row input::placeholder {
+  font-size: 18px;
+  font-weight: 400;
+}
+
+#year,
+#color,
+#plateNo {
+  height: 37px;
+  width: 170px;
+}
+
+#make,
+#model,
+#engineNo {
+  height: 37px;
+  width: 260px;
+}
+
+#chassisNo {
+  height: 37px;
+  width: 450px;
+}
+
+@media screen and (min-width: 360px) and (max-width: 480px) {
+  .form-group {
+    display: block;
+    margin-bottom: 0;
+  }
+
+  #year,
+  #color,
+  #plateNo,
+  #make,
+  #model,
+  #engineNo,
+  #chassisNo {
+    max-width: 280px;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+}
+
+@media screen and (min-width: 480px) and (max-width: 768px) {
+  #year,
+  #color,
+  #plateNo,
+  #make,
+  #model,
+  #engineNo,
+  #chassisNo {
+    max-width: 385px;
+    width: 100%;
+    margin-bottom: 20px;
+  }
 }

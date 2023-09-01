@@ -43,7 +43,8 @@
 
 .loan-type-circle.selected,
 .percentage-circle.selected,
-.term-circle.selected {
+.term-circle.selected,
+.vehicle-circle.selected {
   background-color: #ff0000;
 }
 
