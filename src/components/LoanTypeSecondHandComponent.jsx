@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 
 import { calculateMonthlyPayment } from "../utils/loanCalculations";
 
-import "../styles/loanTypeSecondHand.css";
+import "../styles/loantypesecondhand.css";
 import {
   CustomButton,
   CustomHeader,

@@ -39,7 +39,7 @@ const Router = createBrowserRouter([
     errorElement: <Error />,
   },
   {
-    path: "/vehicle-loan/loan-type",
+    path: "/vehicle-loan/loan-type/:type",
     element: <LoanType />,
     errorElement: <Error />,
   },
