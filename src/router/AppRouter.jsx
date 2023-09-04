@@ -7,6 +7,7 @@ import {
   ManageLoans,
   QuickCashLoan,
   LoanTypeSecondHand,
+  Login,
 } from "../pages";
 import LoanType from "../pages/LoanType.page";
 import CustomerDetails from "../pages/CustomerDetails.page";
@@ -51,7 +52,7 @@ const Router = createBrowserRouter([
       },
       {
         path: "/vehicle-loan/loan-type?loantype=second-hand",
-        element: <FooterComponent />,
+        element: <Login />,
         errorElement: <Error />,
       },
       {
