@@ -13,12 +13,19 @@ import {
   CustomCardTitle,
   CustomInput,
   LoanSelection,
+  SecondHandVehicleForm,
 } from "./index";
 
 const LoanTypeSecondHandComponent = () => {
   const { type } = useParams();
   const availableTerms = [1, 2, 3];
   const availablePercentages = [30, 40, 50];
+  const availableVehicles = [
+    "Car/Pickup/SUV",
+    "Motorcycle",
+    "Truck/Commercial",
+  ];
+
 
   const [loanAmount, setLoanAmount] = useState("");
   const [estimatedVehiclePrice, setEstimatedVehiclePrice] = useState("");
@@ -26,6 +33,8 @@ const LoanTypeSecondHandComponent = () => {
 
   const [selectedTerm, setSelectedTerm] = useState(3);
   const [selectedPercentage, setSelectedPercentage] = useState(30);
+  const [selectedVehicle, setSelectedVehicle] = useState("Car/Pickup/SUV");
+
 
   const selectTerm = (term) => {
     setSelectedTerm(term === selectedTerm ? "" : term);
@@ -33,6 +42,10 @@ const LoanTypeSecondHandComponent = () => {
 
   const selectPercentage = (percentage) => {
     setSelectedPercentage(percentage === selectedPercentage ? "" : percentage);
+  };
+
+  const selectVehicle = (vehicle) => {
+    setSelectedVehicle(vehicle === selectedVehicle ? "" : vehicle);
   };
 
   const monthlyPayment = calculateMonthlyPayment(
@@ -43,6 +56,29 @@ const LoanTypeSecondHandComponent = () => {
     selectedTerm,
     selectedPercentage
   );
+
+  const [formData, setFormData] = useState({
+    year: "",
+    make: "",
+    model: "",
+    color: "",
+    plateNo: "",
+    engineNo: "",
+    chassisNo: "",
+  });
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+  };
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
 
   return (
     <div className="loan-type">
@@ -117,11 +153,29 @@ const LoanTypeSecondHandComponent = () => {
               styles="custom-card-title"
             />
             <div className="loan-content">
-             <h1>Vehicle Details</h1>
+              <LoanSelection
+                loanType={type}
+                availableOptions={availableVehicles}
+                selectedOption={selectedVehicle}
+                onSelect={selectVehicle}
+                containerClassName="loan-vehicle-selection"
+                circleClassName="vehicle-circle"
+                valueClassName="value"
+              />
+              <form onSubmit={handleSubmit}>
+                <SecondHandVehicleForm
+                  formData={formData}
+                  handleChange={handleChange}
+                />
+              </form>
             </div>
           </div>
           <div className="apply-btn">
-            <CustomButton name="Apply Online" styles="btn"></CustomButton>
+            <CustomButton
+              type="submit"
+              name="Apply Online"
+              styles="btn"
+            ></CustomButton>
           </div>
         </div>
       </div>
