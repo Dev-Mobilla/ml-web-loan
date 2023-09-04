@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../styles/customerdetails.css";
-import { TopbarComponent, CustomerDetailsHeader } from "./index";
+import { TopbarComponent, CustomerDetailsHeader, CustomHeader, CustomPrevBtn } from "./index";
 
 const CustomerDetailsComponent = () => {
   const [placeholder, setPlaceholder] = useState('Mobile Number');
@@ -26,8 +26,12 @@ const CustomerDetailsComponent = () => {
     <div className="customer-details">
       <div className="div">
         <TopbarComponent />
-        <CustomerDetailsHeader />
+        <CustomHeader title="Personal Details"/>
+        {/* <CustomerDetailsHeader /> */}
         <div className="body">
+          <div className="prev-btn">
+              <CustomPrevBtn />
+          </div>
           <div className="overlap1">
             <div className="contactdetailstxt"></div>
             <input type="text" name="mobile_number" id="mobile_number" placeholder={placeholder} />
@@ -76,13 +80,13 @@ const CustomerDetailsComponent = () => {
             </div>
           </div>
           <button id="submit-btn">Submit</button>
-          <div className="prevpagebtn">
+          {/* <div className="prevpagebtn">
             <img
               className="arrow"
               alt="Arrow"
               src="https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e492714fd92dc35e55a22f/img/arrow-2-2@2x.png"
             />
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
