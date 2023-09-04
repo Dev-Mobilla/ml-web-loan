@@ -47,13 +47,11 @@ const LoanTypeSecondHandComponent = () => {
     setSelectedVehicle(vehicle === selectedVehicle ? "" : vehicle);
   };
 
-  const monthlyPayment = calculateMonthlyPayment(
+  const monthlyPaymentData = calculateMonthlyPayment(
     parseFloat(estimatedVehiclePrice),
-    parseFloat(downPayment),
-    parseFloat(loanAmount),
-    0.1,
+    selectedPercentage,
+    10,
     selectedTerm,
-    selectedPercentage
   );
 
   const [formData, setFormData] = useState({
@@ -105,8 +103,8 @@ const LoanTypeSecondHandComponent = () => {
                 styles="loan-amount"
                 label="Downpayment"
                 placeholder="300,000.00"
-                value={downPayment}
-                onChange={(e) => setDownPayment(e.target.value)}
+                value={monthlyPaymentData.downPayment}
+                readOnly
               />
               <div className="second-hand-percent">
                 <LoanSelection
@@ -123,7 +121,8 @@ const LoanTypeSecondHandComponent = () => {
                 styles="loan-amount"
                 label="Loan Ammount"
                 placeholder="700,000.00"
-                onChange={(value) => setLoanAmount(parseFloat(value))}
+                value={monthlyPaymentData.loanAmount}
+                readOnly
               />
               <LoanSelection
                 loanType={type}
@@ -140,7 +139,7 @@ const LoanTypeSecondHandComponent = () => {
                 label="Monthly Payment"
                 sublabel="* Subject to Approval & Appraisal"
                 placeholder="35,000.00"
-                value={monthlyPayment}
+                value={monthlyPaymentData.monthlyPayment}
                 readOnly
               />
             </div>
