@@ -24,3 +24,22 @@
   max-width: 20%;
   margin: 20px 20px;
 }
+
+@media screen and (min-width: 360px) and (max-width: 480px) {
+  .top-bar{
+    height: 50px;
+    max-width: 80%;
+  }
+}
+@media screen and (min-width: 481px) and (max-width: 768px)  {
+  .top-bar{
+    height: 50px;
+    max-width: 50%;
+  }
+}
+@media screen and (min-width: 769px) and (max-width: 1200px)  {
+  .top-bar{
+    height: 40px;
+    max-width: 30%;
+  }
+}
