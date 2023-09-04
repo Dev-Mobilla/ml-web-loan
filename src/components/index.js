@@ -18,6 +18,7 @@ import LoanTypeRadiosComponent from "./loans/vehicle/LoanTypeRadiosComponent";
 import VehicleDocumentsComponent from "./loans/vehicle/VehicleDocumentsComponent";
 import RequiredDocumentsComponent from "./loans/vehicle/RequiredDocumentsComponent";
 import LoanTypeComponent from "./LoanTypeComponent";
+import SecondHandVehicleForm from "./layout/SecondHandVehicleForm";
 
 
 // CUSTOM COMPONENTS 
@@ -57,4 +58,5 @@ export {
     CustomCardTitle,
     CustomInput,
     LoanSelection,
+    SecondHandVehicleForm,
 }
