@@ -1,9 +1,7 @@
-// loancalculation.js
-
 export const calculateMonthlyPayment = (
   estimatedVehiclePrice,
   downPayment,
-  loanAmount, // New parameter
+  loanAmount,
   annualInterestRate,
   loanTerm,
   percentage

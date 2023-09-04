@@ -8,7 +8,7 @@ const InputGroup = ({ label, sublabel, styles, placeholder }) => {
         <input className={styles} placeholder={placeholder} />
       </div>
       <div className="labels">
-      <div className="loan-input-label">{label}</div>
+        <div className="loan-input-label">{label}</div>
         <h6 className="loan-input-sublabel">{sublabel}</h6>
       </div>
     </div>

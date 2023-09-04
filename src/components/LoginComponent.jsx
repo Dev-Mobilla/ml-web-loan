@@ -227,7 +227,9 @@ const LoginComponent = () => {
         <div className="download-popup">
           <div className="qrcode-card">
             <div className="overlap-group-5">
-              <p className="instructiontxt">Open QR reader or camera to open link.</p>
+              <p className="instructiontxt">
+                Open QR reader or camera to open link.
+              </p>
               <img
                 className="mlwallet-qr-code"
                 alt="Mlwallet qr code"

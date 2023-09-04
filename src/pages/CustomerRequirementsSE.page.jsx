@@ -1,10 +1,8 @@
-import React from 'react'
-import {CustomerRequirementsSEComponent} from '../components';
+import React from "react";
+import { CustomerRequirementsSEComponent } from "../components";
 
 const CustomerRequirementsSE = () => {
-  return (
-    <CustomerRequirementsSEComponent/>
-  )
-}
+  return <CustomerRequirementsSEComponent />;
+};
 
 export default CustomerRequirementsSE;

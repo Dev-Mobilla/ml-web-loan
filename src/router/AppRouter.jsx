@@ -6,12 +6,15 @@ import {
   HousingLoan,
   ManageLoans,
   QuickCashLoan,
-  LoanTypeSecondHand,
 } from "../pages";
 import LoanType from "../pages/LoanType.page";
 import CustomerDetails from "../pages/CustomerDetails.page";
 import CustomerRequirements from "../pages/CustomerRequirements.page";
-import {FooterComponent, LoanTypeNewComponent} from "../components";
+import {
+  FooterComponent,
+  LoanTypeNewComponent,
+  LoanTypeSecondHandComponent,
+} from "../components";
 
 const Router = createBrowserRouter([
   {
@@ -35,15 +38,10 @@ const Router = createBrowserRouter([
     errorElement: <Error />,
   },
   {
-    path: "/manage-loans/loan-type/:type",
-    element: <LoanTypeSecondHand />,
-    errorElement: <Error />,
-  },
-  {
     path: "/vehicle-loan/loan-type",
     element: <LoanType />,
     errorElement: <Error />,
-    children:[
+    children: [
       {
         path: "/vehicle-loan/loan-type?loantype=new",
         element: <LoanTypeNewComponent />,
@@ -51,7 +49,7 @@ const Router = createBrowserRouter([
       },
       {
         path: "/vehicle-loan/loan-type?loantype=second-hand",
-        element: <FooterComponent />,
+        element: <LoanTypeSecondHandComponent />,
         errorElement: <Error />,
       },
       {
@@ -59,7 +57,7 @@ const Router = createBrowserRouter([
         element: <LoanType />,
         errorElement: <Error />,
       },
-    ]
+    ],
   },
   {
     path: "/vehicle-loan/personal-details",

@@ -24,7 +24,10 @@ const LoanSelection = ({
               }`}
               onClick={() => onSelect(option)}
             >
-              <div className={valueClassName}>{option}{subOption}</div>
+              <div className={valueClassName}>
+                {option}
+                {subOption}
+              </div>
             </div>
           ))}
         </div>

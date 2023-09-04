@@ -1,10 +1,8 @@
-import React from 'react';
-import { ManageLoanComponent } from '../components';
+import React from "react";
+import { ManageLoanComponent } from "../components";
 
 const ManageLoans = () => {
-  return (
-    <ManageLoanComponent/>
-  )
-}
+  return <ManageLoanComponent />;
+};
 
-export default ManageLoans
+export default ManageLoans;
