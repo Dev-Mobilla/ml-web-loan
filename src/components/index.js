@@ -3,6 +3,7 @@ import HousingLoanComponent from "./HousingLoanComponent";
 import FooterComponent from "./layout/FooterComponent";
 import HeaderComponent from "./layout/HeaderComponent";
 import TopbarComponent from "./layout/TopbarComponent";
+import CustomerDetailsHeader from "./layout/CustomerDetailsHeaderComponent";
 import LoginComponent from "./LoginComponent";
 import ManageLoanComponent from "./ManageLoansComponent";
 import QuickCashLoanComponent from "./QuickCashLoanComponent";
@@ -33,6 +34,7 @@ export {
     FooterComponent,
     HeaderComponent,
     TopbarComponent,
+    CustomerDetailsHeader,
     LoginComponent,
     ManageLoanComponent,
     HousingLoanComponent,

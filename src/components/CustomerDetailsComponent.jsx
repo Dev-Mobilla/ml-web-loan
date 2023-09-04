@@ -1,156 +1,87 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "../styles/customerdetails.css";
+import { TopbarComponent, CustomerDetailsHeader } from "./index";
 
 const CustomerDetailsComponent = () => {
+  const [placeholder, setPlaceholder] = useState('Mobile Number');
+
+  useEffect(() => {
+    function updatePlaceholder() {
+      if (window.matchMedia('(min-width: 360px)').matches && window.matchMedia('(max-width: 768px)').matches) {
+        setPlaceholder('+63 912 345 6789');
+      } else {
+        setPlaceholder('Mobile Number');
+      }
+    }
+
+    window.addEventListener('resize', updatePlaceholder);
+    updatePlaceholder();
+
+    // Clean up the event listener on component unmount
+    return () => {
+      window.removeEventListener('resize', updatePlaceholder);
+    };
+  }, []);
   return (
     <div className="customer-details">
       <div className="div">
-        <div className="top-bar" />
-        <header className="header">
-          <div className="overlap-group">
-            <div className="text-wrapper">Personal Details</div>
+        <TopbarComponent />
+        <CustomerDetailsHeader />
+        <div className="body">
+          <div className="overlap1">
+            <div className="contactdetailstxt"></div>
+            <input type="text" name="mobile_number" id="mobile_number" placeholder={placeholder} />
+            <input type="email" name="email" id="email" placeholder="Email" />
           </div>
-        </header>
-        <div className="body-bg">
+          <div className="overlap2">
+            <div className="personal">Personal Details</div>
+
+            <input type="text" name="first_name" placeholder="First Name" id="firstname" />
+            <input type="text" name="last_name" placeholder="Last Name" />
+            <input type="text" name="middle_name" placeholder="Middle Name" />
+            <input type="text" name="birthdate" placeholder="Birthdate" /><br />
+            <select id="nationality" name="nationality">
+              <option disabled selected>Nationality</option>
+              <option value="us">United States</option>
+              <option value="uk">United Kingdom</option>
+              <option value="ca">Canada</option>
+              <option value="au">Australia</option>
+              <option value="ph">Philippines</option>
+            </select><br />
+            <input type="text" name="civil-status" placeholder="Civil Status" />
+            <input type="text" name="employeer-business_name" placeholder="Employer/Business Name" />
+            <input type="text" name="nature-business" placeholder="Nature of Business" />
+            <input type="text" name="tenure" placeholder="Length of Tenure" />
+            <input type="text" name="office-address" placeholder="Office Address" />
+            <input type="text" name="office-landline" placeholder="Office Landline" />
+            <br />
+            <select id="sourceOfIncome" name="sourceOfIncome">
+              <option disabled selected>Source of income</option>
+              <option value="employment">Employment</option>
+              <option value="business">Business</option>
+              <option value="investment">Investment</option>
+              <option value="retirement">Retirement</option>
+              <option value="other">Other</option>
+            </select>
+            <br />
+            <input type="text" name="monthly-income" placeholder="Gross Monthly Income" />
+          </div>
+          <div className="overlap3">
+            <div className="preferred-title">Preferred Branch</div>
+            <div className="sub-preferred-title">Select a branch nearest you</div>
+            <div className="near_branch"><br />
+              <input type="radio" id="radioID" value="1" />Danao 1 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">(see map)</a><br />
+              <input type="radio" value="2" />Danao 2 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">(see map)</a><br />
+              <input type="radio" value="3" />Sogod &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">(see map)</a>
+            </div>
+          </div>
+          <button id="submit-btn">Submit</button>
           <div className="prevpagebtn">
             <img
               className="arrow"
               alt="Arrow"
-              src="https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e4947662fccadecc4ef012/img/arrow-3@2x.png"
+              src="https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e492714fd92dc35e55a22f/img/arrow-2-2@2x.png"
             />
-          </div>
-          <div className="contactdetail">
-            <div className="overlap">
-              <div className="contactdetailstitle">Contact Details</div>
-              <div className="email">
-                <div className="input-wrapper">
-                  <input className="emailph" />
-                </div>
-              </div>
-              <div className="mobilenumber">
-                <div className="input-wrapper">
-                  <input className="mobilenumberph" />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="personaldetail">
-            <div className="overlap-2">
-              <div className="personaldetailtitle">Personal Details</div>
-              <div className="firstname">
-                <div className="firstnameph-wrapper">
-                  <input className="firstnameph" />
-                </div>
-              </div>
-              <div className="lastname">
-                <div className="overlap-3">
-                  <input className="lastnameph" />
-                </div>
-              </div>
-              <div className="middlename">
-                <div className="overlap-3">
-                  <input className="middlenameph" />
-                </div>
-              </div>
-              <div className="birthdate">
-                <div className="overlap-3">
-                  <input className="birthdateph" />
-                </div>
-              </div>
-              <div className="nationality">
-                <div className="nationalityph-wrapper">
-                  <input className="nationalityph" />
-                </div>
-                <img
-                  className="img"
-                  alt="Nationalitydropdown"
-                  src="https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64f13348e9f50c7315603815/img/nationalitydropdown@2x.png"
-                />
-              </div>
-              <div className="civilstatus">
-                <div className="overlap-3">
-                  <input className="civilstatusph" />
-                </div>
-              </div>
-              <div className="natureofbusiness">
-                <div className="natureofbusinessph-wrapper">
-                  <input className="natureofbusinessph" />
-                </div>
-                <img
-                  className="img"
-                  alt="Img"
-                  src="https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64f13348e9f50c7315603815/img/natureofbusinessdropdown@2x.png"
-                />
-              </div>
-              <div className="businessname">
-                <div className="overlap-3">
-                  <input className="businessnameph" />
-                </div>
-              </div>
-              <div className="lenghtoftenure">
-                <div className="overlap-3">
-                  <input className="lenghtoftenureph" />
-                </div>
-              </div>
-              <div className="officeaddress">
-                <div className="overlap-3">
-                  <input className="officeaddressph" />
-                </div>
-              </div>
-              <div className="officelandline">
-                <div className="overlap-3">
-                  <input className="officelandlineph" />
-                </div>
-              </div>
-              <div className="sourceofincome">
-                <div className="overlap-3">
-                  <input className="sourceofincomeph" />
-                </div>
-              </div>
-              <div className="grossmonthlyincome">
-                <div className="overlap-3">
-                  <input className="grossmonthlyincomeph" />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="branch">
-            <div className="overlap-4">
-              <div className="branchtxt">Preferred Branch</div>
-              <p className="branchtxtt">Select a branch nearest you</p>
-              <div className="address">
-                <p className="p">
-                  <span className="span">Danao 1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (</span>
-                  <span className="text-wrapper-2">see map</span>
-                  <span className="span">)</span>
-                </p>
-                <div className="elips">
-                  <div className="ellipse" />
-                </div>
-              </div>
-              <div className="address-2">
-                <p className="p">
-                  <span className="span">Danao 2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (</span>
-                  <span className="text-wrapper-3">see map</span>
-                  <span className="span">)</span>
-                </p>
-                <div className="elips" />
-              </div>
-              <div className="address-3">
-                <p className="p">
-                  <span className="span">Sogod&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(</span>
-                  <span className="text-wrapper-3">see map</span>
-                  <span className="span">)</span>
-                </p>
-                <div className="elips" />
-              </div>
-            </div>
-          </div>
-          <div className="submitbtn-nbsp">
-            <div className="nbsp" />
-            <div className="submit-btn">
-              <div className="submittxt">Submit</div>
-            </div>
           </div>
         </div>
       </div>

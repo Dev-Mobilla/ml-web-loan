@@ -1,12 +1,14 @@
 .top-bar {
-  background-image: url(https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e41e67e1c2a81b98b3c871/img/logo@2x.png);
   background-position: 50% 50%;
   background-size: cover;
-  height: 40px;
-  left: 37px;
-  /* position: absolute; */
-  top: 19px;
-  width: 16%;
-  margin: 20px 20px;
+  height: 34px;
+  position: fixed;
+  height: 12%;
+  width: 100%;
+  z-index: 999;
+  background-color: aliceblue;
 }
-
+.top-bar img{
+  height: 50%;
+  margin: 1% 0 0 1%;
+}
