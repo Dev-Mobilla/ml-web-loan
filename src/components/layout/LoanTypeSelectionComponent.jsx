@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, useNavigate, useSearchParams } from "react-router-dom";
 
 import "../../styles/selection.css";
@@ -15,8 +15,12 @@ const LoanTypeSelection = (props) => {
     //   navigate(`/manage-loans/loan-type/${type}`);
     // };
     
-  const { HandleLoanType, defaultType } = props;
-  
+    const { HandleLoanType, defaultType } = props;
+
+    useEffect(() => {
+      HandleLoanType(defaultType);
+    },[])
+
   const OnselectedTypeHandler = (loanType) => {
     
     HandleLoanType(loanType);

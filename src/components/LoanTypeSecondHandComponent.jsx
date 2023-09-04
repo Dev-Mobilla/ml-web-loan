@@ -83,13 +83,13 @@ const LoanTypeSecondHandComponent = () => {
   return (
     <div className="loan-type">
       <div className="second-hand-container">
-        <TopbarComponent />
-        <CustomHeader title="Manage Existing Loan" />
+        {/* <TopbarComponent />
+        <CustomHeader title="Manage Existing Loan" /> */}
         <div className="second-hand-content">
-          <CustomPrevBtn />
+          {/* <CustomPrevBtn />
           <div className="card">
             <LoanTypeSelection defaultType={type} />
-          </div>
+          </div> */}
           <div className="card">
             <CustomCardTitle
               title="Sample Computation"

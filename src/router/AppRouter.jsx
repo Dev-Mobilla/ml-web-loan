@@ -35,32 +35,15 @@ const Router = createBrowserRouter([
     element: <QuickCashLoan />,
     errorElement: <Error />,
   },
+  // {
+  //   path: "/manage-loans/loan-type/:type",
+  //   element: <LoanTypeSecondHand />,
+  //   errorElement: <Error />,
+  // },
   {
-    path: "/manage-loans/loan-type/:type",
-    element: <LoanTypeSecondHand />,
-    errorElement: <Error />,
-  },
-  {
-    path: "/vehicle-loan/loan-type",
+    path: "/vehicle-loan/loan-type/:type",
     element: <LoanType />,
     errorElement: <Error />,
-    children:[
-      {
-        path: "/vehicle-loan/loan-type?loantype=new",
-        element: <LoanTypeNewComponent />,
-        errorElement: <Error />,
-      },
-      {
-        path: "/vehicle-loan/loan-type?loantype=second-hand",
-        element: <Login />,
-        errorElement: <Error />,
-      },
-      {
-        path: "/vehicle-loan/loan-type?loantype=refinance",
-        element: <LoanType />,
-        errorElement: <Error />,
-      },
-    ]
   },
   {
     path: "/vehicle-loan/personal-details",
@@ -70,6 +53,11 @@ const Router = createBrowserRouter([
   {
     path: "/vehicle-loan/requirements",
     element: <CustomerRequirements />,
+    errorElement: <Error />,
+  },
+  {
+    path: "/not-found",
+    element: <h1>NOT FOUND</h1>,
     errorElement: <Error />,
   },
 ]);
