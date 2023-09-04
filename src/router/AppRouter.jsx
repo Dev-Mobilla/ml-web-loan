@@ -1,9 +1,17 @@
 import React from "react";
-import { createBrowserRouter } from 'react-router-dom';
-import {Dashboard, Error, HousingLoan, ManageLoans, QuickCashLoan} from "../pages";
+import { createBrowserRouter } from "react-router-dom";
+import {
+  Dashboard,
+  Error,
+  HousingLoan,
+  ManageLoans,
+  QuickCashLoan,
+  LoanTypeSecondHand,
+} from "../pages";
 import LoanType from "../pages/LoanType.page";
 import CustomerDetails from "../pages/CustomerDetails.page";
 import CustomerRequirements from "../pages/CustomerRequirements.page";
+import CustomerRequirementsSE from "../pages/CustomerRequirementsSE.page";
 
 const Router = createBrowserRouter([
     {
@@ -39,6 +47,11 @@ const Router = createBrowserRouter([
     {
         path: '/vehicle-loan/requirements',
         element: <CustomerRequirements/>,
+        errorElement: <Error/>
+    }, 
+    {
+        path: '/vehicle-loan/requirements/self-employed',
+        element: <CustomerRequirementsSE/>,
         errorElement: <Error/>
     }
 ])

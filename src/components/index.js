@@ -8,8 +8,10 @@ import LoginComponent from "./LoginComponent";
 import ManageLoanComponent from "./ManageLoansComponent";
 import QuickCashLoanComponent from "./QuickCashLoanComponent";
 import QuickCashHeaderComponent from "./layout/QuickCashHeaderComponent";
+import LoanTypeSecondHandComponent from "./LoanTypeSecondHandComponent";
+import LoanTypeSelection from "./layout/LoanTypeSelectionComponent";
+import LoanSelection from "./layout/LoanSelectionComponent";
 import LoanTypeNewComponent from "./loans/vehicle/LoanTypeNewComponent";
-import LoanTypeSecondHandComponent from "./loans/vehicle/LoanTypeSecondhandComponent";
 import CustomerDetailsComponent from "./CustomerDetailsComponent";
 import CustomerRequirementsComponent from "./CustomerRequirementsComponent";
 import LoanTypeRadiosComponent from "./loans/vehicle/LoanTypeRadiosComponent";
@@ -18,11 +20,14 @@ import RequiredDocumentsComponent from "./loans/vehicle/RequiredDocumentsCompone
 import LoanTypeComponent from "./LoanTypeComponent";
 
 
-// CUSTOM COMPONENTS
+// CUSTOM COMPONENTS 
 import CustomHeader from "./custom/Custom.header";
 import CustomButton from "./custom/Custom.button";
 import CustomPrevBtn from "./custom/Custom.prevbtn";
 import CustomStatus from "./custom/Custom.status";
+import CustomerRequirementsSEComponent from "./CustomerRequirementsSEComponent";
+import CustomCardTitle from "./custom/Custom.cardTitle"
+import CustomInput from "./custom/Custom.input"
 
 export {
     DashboardComponent,
@@ -41,10 +46,15 @@ export {
     CustomerRequirementsComponent,
     LoanTypeRadiosComponent,
     RequiredDocumentsComponent,
+    CustomerRequirementsSEComponent,
     VehicleDocumentsComponent,
     LoanTypeComponent,
     CustomHeader,
     CustomButton,
     CustomPrevBtn,
-    CustomStatus
+    CustomStatus,
+    LoanTypeSelection,
+    CustomCardTitle,
+    CustomInput,
+    LoanSelection,
 }

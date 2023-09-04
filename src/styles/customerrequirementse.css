@@ -43,7 +43,6 @@
     justify-content: center;
     align-items: center;
   }
-  
   .customer-requirement .requireddocumente {
     height: 224px;
     left: 272px;
@@ -164,142 +163,88 @@
     top: 50px;
     white-space: nowrap;
   }
-  
-  .customer-requirement .empcert {
-    height: 81px;
-    left: 341px;
-    position: absolute;
-    top: 111px;
-    width: 76px;
+  .customer-requirement .mayor-s-cert {  
+    height: 81px;  
+    left: 339px;  
+    position: absolute;  
+    top: 111px;  
+    width: 82px;
   }
-  
-  .customer-requirement .empcerticon {
-    height: 45px;
-    left: 18px;
+  .customer-requirement .certficate 
+  { 
+    height: 50px;
+    left: 6px;
     object-fit: cover;
-    position: absolute;
-    top: 0;
-    width: 45px;
-  }
-  
-  .customer-requirement .empcerttxt {
-    color: #333333;
-    font-family: "Roboto", Helvetica;
-    font-size: 14px;
-    font-weight: 400;
-    left: 7px;
-    letter-spacing: -0.33px;
-    line-height: normal;
-    position: absolute;
-    top: 50px;
-    white-space: nowrap;
-  }
-  
-  .customer-requirement .empcerttxtt {
-    color: #666666;
-    font-family: "Roboto", Helvetica;
-    font-size: 12px;
-    font-style: italic;
-    font-weight: 400;
-    left: 0;
-    letter-spacing: -0.33px;
-    line-height: normal;
-    position: absolute;
-    top: 67px;
-    white-space: nowrap;
-  }
-  
-  .customer-requirement .payslip {
-    height: 87px;
-    left: 463px;
-    position: absolute;
-    top: 105px;
-    width: 72px;
-  }
-  
-  .customer-requirement .payslipicon {
-    height: 51px;
-    left: 9px;
     position: absolute;
     top: 0;
     width: 50px;
   }
-  
-  .customer-requirement .overlap-5 {
-    height: 51px;
-    position: relative;
+  .customer-requirement .text-wrapper-6 {  
+    color: #333333;  
+    font-family: "Roboto", Helvetica;  
+    font-size: 14px;  
+    font-weight: 400;  
+    left: 0;  
+    letter-spacing: -0.33px;  
+    line-height: normal;  
+    position: absolute;  
+    top: 49px;  
+    white-space: nowrap;  
+    width: 78px;
   }
-  
-  .customer-requirement .payslipicon-2 {
-    height: 48px;
-    left: 0;
-    object-fit: cover;
-    position: absolute;
-    top: 3px;
-    width: 50px;
+  .customer-requirement .text-wrapper-13 {  
+    color: #666666;  
+    font-family: "Roboto", Helvetica;  
+    font-size: 12px;  
+    font-style: italic;  
+    font-weight: 400;  
+    left: 5px;  
+    letter-spacing: -0.33px;  
+    line-height: normal;  
+    position: absolute;  
+    top: 67px;  
+    white-space: nowrap;  
+    width: 66px;
   }
-  
-  .customer-requirement .icon {
-    height: 23px;
-    left: 31px;
-    position: absolute;
-    top: 0;
-    width: 10px;
+.customer-requirement .bank-statement {  
+  height: 81px;  
+  left: 455px;  
+  position: absolute;  
+  top: 111px; 
+  width: 99px;
+}
+.customer-requirement .credit-card {  
+  height: 49px;  
+  left: 17px;  
+  object-fit: cover;  
+  position: absolute; 
+    top: 0;  width: 50px;
   }
-  
-  .customer-requirement .overlap-group-3 {
-    height: 23px;
-    position: relative;
-    width: 8px;
+.customer-requirement .text-wrapper-8 {  
+    color: #333333;  
+    font-family: "Roboto", Helvetica;  
+    font-size: 14px;  
+    font-weight: 400;  
+    left: 0;  
+    letter-spacing: -0.33px;  
+    line-height: normal;  
+    position: absolute;  
+    top: 50px;  
+    white-space: nowrap;  
+    width: 95px;
   }
-  
-  .customer-requirement .vector {
-    height: 1px;
-    left: 0;
-    position: absolute;
-    top: 10px;
-    width: 8px;
-  }
-  
-  .customer-requirement .text-wrapper-6 {
-    color: #b04646;
-    font-family: "Roboto", Helvetica;
-    font-size: 11px;
-    font-weight: 400;
-    left: 0;
-    letter-spacing: 0.15px;
-    line-height: 24px;
-    position: absolute;
-    top: 0;
-    white-space: nowrap;
-    width: 7px;
-  }
-  
-  .customer-requirement .paysliptxt {
-    color: #333333;
-    font-family: "Roboto", Helvetica;
-    font-size: 14px;
-    font-weight: 400;
-    left: 0;
-    letter-spacing: -0.33px;
-    line-height: normal;
-    position: absolute;
-    top: 56px;
-    white-space: nowrap;
-  }
-  
-  .customer-requirement .paysliptxtt {
-    color: #666666;
-    font-family: "Roboto", Helvetica;
-    font-size: 12px;
-    font-style: italic;
-    font-weight: 400;
-    left: 2px;
-    letter-spacing: -0.33px;
-    line-height: normal;
-    position: absolute;
-    top: 73px;
-    white-space: nowrap;
+.customer-requirement .text-wrapper-9 {  
+    color: #666666;  font-family: "Roboto", Helvetica;  
+    font-size: 12px;  
+    font-style: italic;  
+    font-weight: 400;  
+    left: 18px;  
+    letter-spacing: -0.33px;  
+    line-height: normal;  
+    position: absolute;  
+    top: 67px;  
+    white-space: nowrap;  
+    width: 47px;
   }
   
   .customer-requirement .submit-btn {
@@ -335,6 +280,45 @@
       left: 10px;
       width: 100%;
     }
+    .customer-requirement .vehicledocument {
+      width: 90%;
+      left: 10px;
+      top:70px;
+    }
+    .customer-requirement .icon-group--wrapper{
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .customer-requirement .overlap {
+      width:100%;
+      left: 0px;
+    }
+    .customer-requirement .vehicledocument-2 {
+      left: 20px;
+      top: 14px;
+    }
+    .customer-requirement .OR-CR,.customer-requirement .stensil,.customer-requirement .carinsurance{
+      top:60px;
+      cursor: pointer;
+      position: relative;
+      width: 33%;
+      left: 10px;
+    }
+    .customer-requirement .lcar{
+      top:65px;
+      cursor: pointer;
+      position: relative;
+      width: 100%;
+      left: 30px;
+    }
+    .customer-requirement .fcar,.customer-requirement .bcar,.customer-requirement .rcar{
+      top:60px;
+      cursor: pointer;
+      position: relative;
+      width: 33%;
+      left: 30px;
+    }
     .customer-requirement .requireddocumente {
       left: 10px;
       top: 440px;
@@ -355,7 +339,7 @@
       top:65px;
       left: 160px;
     }
-    .customer-requirement .valid-ID,.customer-requirement .empcert,.customer-requirement .payslip{
+    .customer-requirement .valid-ID,.customer-requirement .mayor-s-cert,.customer-requirement .bank-statement{
       top:110px;
       cursor: pointer;
       position: relative;
@@ -405,7 +389,7 @@
       top:65px;
       left: 200px;
     }
-    .customer-requirement .valid-ID,.customer-requirement .empcert,.customer-requirement .payslip{
+    .customer-requirement .valid-ID,.customer-requirement .mayor-s-cert,.customer-requirement .bank-statement{
       top:110px;
       cursor: pointer;
       position: relative;
@@ -453,7 +437,7 @@
       top:65px;
       left: 300px;
     }
-    .customer-requirement .valid-ID,.customer-requirement .empcert,.customer-requirement .payslip{
+    .customer-requirement .valid-ID,.customer-requirement .mayor-s-cert,.customer-requirement .bank-statement{
       top:110px;
       cursor: pointer;
       position: relative;
@@ -499,7 +483,7 @@
       top:65px;
       left: 300px;
     }
-    .customer-requirement .valid-ID,.customer-requirement .empcert,.customer-requirement .payslip{
+    .customer-requirement .valid-ID,.customer-requirement .mayor-s-cert,.customer-requirement .bank-statement{
       top:110px;
       cursor: pointer;
       position: relative;
