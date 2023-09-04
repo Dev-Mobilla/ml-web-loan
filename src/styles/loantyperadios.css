@@ -8,27 +8,13 @@
     display: flex;
 }
 
-.loan-type-selection--radios .type .loan-type-circle{
-    width: 16px;
-    height: 16px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%;
-    border: 1px solid #ff0000;
-    cursor: pointer;
-    transition: background-color 0.2s, color 0.2s;
-    background-clip: content-box;
-    padding: 3px;
+.loan-type-selection--radios .loan-type-circle{
+    accent-color: #ff0000;
+    margin: 0;
 }
 
 .loan-type-selection--radios .type, .loan-type-selection--radios .value {
-    margin-left: 8px;
+    /* margin-left: 8px; */
     font-size: 18px;
     color: #555555;
-  }
-
-  /* .loan-type-selection--radios .value {
-    margin-left: 30px !important;
-  } */
-  
+}

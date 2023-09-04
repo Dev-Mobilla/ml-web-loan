@@ -1,32 +1,32 @@
 import React, { useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useSearchParams } from "react-router-dom";
 
 import "../../styles/selection.css";
 import { CustomCardTitle, LoanTypeRadiosComponent } from "../index";
 
 const LoanTypeSelection = (props) => {
-  const navigate = useNavigate();
-  const { type } = useParams();
-  const [selectedType, setSelectedType] = useState(type);
+  // const navigate = useNavigate();
+  // const { type } = useParams();
+  // const [selectedType, setSelectedType] = useState(type);
 
-  const { HandleLoanType } = props;
-
-  const selectType = (type) => {
-    setSelectedType(type === selectedType ? "" : type);
-    navigate(`/manage-loans/loan-type/${type}`);
-  };
-
-  const OnselectedTypeHandler = (type) => {
-    // setSelectedType(type === selectedType ? "" : type);
-    // navigate(`/manage-loans/loan-type/${type}`);
-    console.log(type);
-    HandleLoanType(type);
+  
+  // const selectType = (type) => {
+    //   setSelectedType(type === selectedType ? "" : type);
+    //   navigate(`/manage-loans/loan-type/${type}`);
+    // };
+    
+  const { HandleLoanType, defaultType } = props;
+  
+  const OnselectedTypeHandler = (loanType) => {
+    
+    HandleLoanType(loanType);
+    
   };
 
   return (
     <div className="loan-type">
       <CustomCardTitle title="Loan Type" styles="custom-card-title" />
-      <LoanTypeRadiosComponent LoanTypeHandler={OnselectedTypeHandler} styles="loan-type-circle"/>
+      <LoanTypeRadiosComponent LoanTypeHandler={OnselectedTypeHandler} styles="loan-type-circle" defaultVal={defaultType}/>
     </div>
     // <div className="loan-type">
     //   <CustomCardTitle title="Loan Type" styles="custom-card-title" />

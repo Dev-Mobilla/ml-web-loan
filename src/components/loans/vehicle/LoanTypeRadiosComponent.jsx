@@ -1,11 +1,15 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import "../../../styles/loantyperadios.css";
 
 const LoanTypeRadiosComponent = (props) => {
 
   const { LoanTypeHandler, styles } = props;
-  const [isSelected, setIsSelected] = useState();
-  
+  const [radioValue, setRadioValue] = useState(props.defaultVal);
+
+  useEffect(() => {
+    LoanTypeHandler(props.defaultVal);
+  },[])
+
   const loanTypes = [
     {
       text: "New",
@@ -22,32 +26,34 @@ const LoanTypeRadiosComponent = (props) => {
   ]
 
   const SelectLoanType = (e) => {
+
+    setRadioValue(e.target.value);
+
     LoanTypeHandler(e.target.value);
-    setIsSelected(e.target.checked);
   }
 
-  const isCheckHandler = () => {
-    return isSelected ? "selected" : "";
-  }
-
-  return (
-    <div className="loan-type-selection--radios">
-      
-      {
-        loanTypes.map((type, index) => {
-          return (
+  const RadioInputHandler = () => {
+    return (
+      loanTypes.map((type, index) => {
+        return ( 
             <div key={index} className='type'>
               <input 
                 type="radio" 
                 id="html"
-                name="loan-type" 
+                name="loan-type"
+                checked={radioValue === type.value}
                 value={type.value} onChange={SelectLoanType} 
-                className={`loan-type-circle ${isCheckHandler}`}/>
-              <span className='value'>{type.text}</span>
+                className={`loan-type-circle`}/>
+              <p className='value'>{type.text}</p>
             </div>
-          )
-        })
-      }
+        )
+      })
+   ) 
+  }
+
+  return (
+    <div className="loan-type-selection--radios">
+     <RadioInputHandler/>
     </div>
   )
 }

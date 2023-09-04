@@ -1,20 +1,32 @@
-import React, {useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import { 
     TopbarComponent,
     CustomHeader,
     CustomPrevBtn,
-    LoanTypeSelection
+    LoanTypeSelection,
+    FooterComponent
 } from '../components';
 import "../styles/loantype.css";
-import {useParams} from 'react-router-dom';
+import { Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
 
 const LoanTypeComponent = () => {
   const { type } = useParams();
+  const navigate = useNavigate();
+  const { search } = useLocation();
 
-  const [ selectedType, setSelectedType ] = useState();
+  let params = new URLSearchParams(search);
+  // useEffect(() => {
+
+
+  //   console.log(params.get("loantype"));
+  //   setUrlQueryParams(params.get("loantype"));
+  // },[])
+
+  // const [ selectedType, setSelectedType ] = useState();
 
   const SelectLoanTypeHandler = (args) => {
     console.log('ARGS', args);
+    navigate(`/vehicle-loan/loan-type?loantype=${args}`);
   }
 
   return (
@@ -26,10 +38,11 @@ const LoanTypeComponent = () => {
         </div>
         <div className="loan-type--body">
             <div className="selection-card">
-                <LoanTypeSelection defaultType={type} HandleLoanType={SelectLoanTypeHandler}/>
+                <LoanTypeSelection defaultType={params.get("loantype")} HandleLoanType={SelectLoanTypeHandler}/>
             </div>
-
         </div>
+        <Outlet/>
+        {/* <FooterComponent/> */}
     </div>
   )
 }
