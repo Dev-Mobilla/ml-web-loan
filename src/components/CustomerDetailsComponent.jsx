@@ -4,7 +4,11 @@ import { TopbarComponent, CustomerDetailsHeader } from "./index";
 
 const CustomerDetailsComponent = () => {
   const [placeholder, setPlaceholder] = useState('Mobile Number');
+  const [selectedOption, setSelectedOption] = useState('');
 
+  const handleOptionChange = (event) => {
+    setSelectedOption(event.target.value);
+  };
   useEffect(() => {
     function updatePlaceholder() {
       if (window.matchMedia('(min-width: 360px)').matches && window.matchMedia('(max-width: 768px)').matches) {
@@ -41,7 +45,7 @@ const CustomerDetailsComponent = () => {
             <input type="text" name="middle_name" placeholder="Middle Name" />
             <input type="text" name="birthdate" placeholder="Birthdate" /><br />
             <select id="nationality" name="nationality">
-              <option disabled selected>Nationality</option>
+              <option disabled>Nationality</option>
               <option value="us">United States</option>
               <option value="uk">United Kingdom</option>
               <option value="ca">Canada</option>
@@ -50,19 +54,29 @@ const CustomerDetailsComponent = () => {
             </select><br />
             <input type="text" name="civil-status" placeholder="Civil Status" />
             <input type="text" name="employeer-business_name" placeholder="Employer/Business Name" />
-            <input type="text" name="nature-business" placeholder="Nature of Business" />
+            <br />
+            <select id="sourceOfIncome" name="nature-business">
+              <option disabled>Nature of Business</option>
+              <option value="employment">Agriculture and Farming</option>
+              <option value="business">Food and Beverage</option>
+              <option value="investment">Retail</option>
+              <option value="retirement">Manufacturing</option>
+              <option value="CandE">Construction and Engineering</option>
+              <option value="PS">Professional Services</option>
+              <option value="healthcare">Healthcare</option>
+              <option value="HandT">Hospitality and Tourism</option>
+              <option value="IT">Information Technology</option>
+              <option value="EandT">Education and Training</option>
+              <option value="FS">Financial Services</option>
+              <option value="RS">Real Estate</option>
+              <option value="EandU">Energy and Utilities</option>
+              <option value="TandL">Transportation and Logistics</option>
+              <option value="EandM">Entertainment and Media</option>
+            </select>
             <input type="text" name="tenure" placeholder="Length of Tenure" />
             <input type="text" name="office-address" placeholder="Office Address" />
             <input type="text" name="office-landline" placeholder="Office Landline" />
-            <br />
-            <select id="sourceOfIncome" name="sourceOfIncome">
-              <option disabled selected>Source of income</option>
-              <option value="employment">Employment</option>
-              <option value="business">Business</option>
-              <option value="investment">Investment</option>
-              <option value="retirement">Retirement</option>
-              <option value="other">Other</option>
-            </select>
+            <input type="text" name="SourceOfIncome" placeholder="Source of Income" />
             <br />
             <input type="text" name="monthly-income" placeholder="Gross Monthly Income" />
           </div>
@@ -70,9 +84,35 @@ const CustomerDetailsComponent = () => {
             <div className="preferred-title">Preferred Branch</div>
             <div className="sub-preferred-title">Select a branch nearest you</div>
             <div className="near_branch"><br />
-              <input type="radio" id="radioID" value="1" />Danao 1 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">(see map)</a><br />
-              <input type="radio" value="2" />Danao 2 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">(see map)</a><br />
-              <input type="radio" value="3" />Sogod &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">(see map)</a>
+              <label>
+                <input
+                  type="radio"
+                  value="option1"
+                  checked={selectedOption === 'option1'}
+                  onChange={handleOptionChange}
+                />
+                Danao 1 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">(see map)</a><br />
+              </label>
+
+              <label>
+                <input
+                  type="radio"
+                  value="option2"
+                  checked={selectedOption === 'option2'}
+                  onChange={handleOptionChange}
+                />
+                Danao 2 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">(see map)</a><br />
+              </label>
+
+              <label>
+                <input
+                  type="radio"
+                  value="option3"
+                  checked={selectedOption === 'option3'}
+                  onChange={handleOptionChange}
+                />
+                Sogod &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">(see map)</a><br />
+              </label>
             </div>
           </div>
           <button id="submit-btn">Submit</button>
