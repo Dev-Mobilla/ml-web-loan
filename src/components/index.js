@@ -24,6 +24,7 @@ import CustomHeader from "./custom/Custom.header";
 import CustomButton from "./custom/Custom.button";
 import CustomPrevBtn from "./custom/Custom.prevbtn";
 import CustomStatus from "./custom/Custom.status";
+import CustomerRequirementsSEComponent from "./CustomerRequirementsSEComponent";
 import CustomCardTitle from "./custom/Custom.cardTitle"
 import CustomInput from "./custom/Custom.input"
 
@@ -43,6 +44,7 @@ export {
     CustomerRequirementsComponent,
     LoanTypeRadiosComponent,
     RequiredDocumentsComponent,
+    CustomerRequirementsSEComponent,
     VehicleDocumentsComponent,
     LoanTypeComponent,
     CustomHeader,
