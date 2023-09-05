@@ -18,6 +18,7 @@ import LoanTypeRadiosComponent from "./loans/vehicle/LoanTypeRadiosComponent";
 import VehicleDocumentsComponent from "./loans/vehicle/VehicleDocumentsComponent";
 import RequiredDocumentsComponent from "./loans/vehicle/RequiredDocumentsComponent";
 import LoanTypeComponent from "./LoanTypeComponent";
+import QRComponent from "./loans/QRModalComponent";
 import SecondHandVehicleForm from "./layout/SecondHandVehicleForm";
 import VehicleNewDetailsComponent from "./loans/vehicle/VehicleNewDetailsComponent";
 import OTPModalComponent from "./OTPModalComponent";
@@ -65,5 +66,6 @@ export {
     VehicleNewDetailsComponent,
     CustomSubmitModal,
     OTPModalComponent,
-    CustomInputField
+    CustomInputField,
+    QRComponent
 }
