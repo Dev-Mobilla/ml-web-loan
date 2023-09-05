@@ -1,5 +1,5 @@
 import React from "react";
-import ReactDOM from 'react-dom';
+import ReactDOM from "react-dom";
 import "../styles/dashboard.css";
 
 import { FooterComponent, HeaderComponent, TopbarComponent } from "./index";
@@ -8,9 +8,9 @@ const DashboardComponent = () => {
   return (
     <div className="dashboard">
       <div className="dashboard-div">
-        <TopbarComponent/>
+        <TopbarComponent />
         <div className="overlap">
-          <HeaderComponent/>
+          <HeaderComponent />
           <div className="body-bg">
             <img
               className="floating-diamond"
@@ -25,20 +25,20 @@ const DashboardComponent = () => {
 
             <div className="content-card--wrapper">
               <div className="vehicle">
-                  <div className="overlap-5">
-                    <div className="v-desc">
-                      <li>New/Used Cars or Motorcycles</li>
-                      <li>Refinance your owned vehicle</li>
-                    </div>
-                    <div className="vltitle">Vehicle Loan</div>
-                    <img
-                      className="v-icon"
-                      alt="V icon"
-                      src="https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e41e67e1c2a81b98b3c871/img/v-icon@2x.png"
-                    />
+                <div className="overlap-5">
+                  <div className="v-desc">
+                    <li>New/Used Cars or Motorcycles</li>
+                    <li>Refinance your owned vehicle</li>
                   </div>
+                  <div className="vltitle">Vehicle Loan</div>
+                  <img
+                    className="v-icon"
+                    alt="V icon"
+                    src="https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e41e67e1c2a81b98b3c871/img/v-icon@2x.png"
+                  />
                 </div>
-                <div className="housing">
+              </div>
+              <div className="housing">
                 <div className="overlap-group-3">
                   <div className="hltitle">Housing Loan</div>
                   <div className="h-desc">
@@ -123,7 +123,7 @@ const DashboardComponent = () => {
                   <div className="QC-ltitle">Quick Cash Loan</div>
                   <div className="QCL-desc">
                     <li>Pawn Jewelry, Watches, Others</li>
-                    <li> Renew Online</li> 
+                    <li> Renew Online</li>
                   </div>
                   <img
                     className="QCL-icon"
@@ -179,7 +179,7 @@ const DashboardComponent = () => {
             </div>
           </div>
         </div>
-        <FooterComponent/>
+        <FooterComponent />
       </div>
     </div>
   );

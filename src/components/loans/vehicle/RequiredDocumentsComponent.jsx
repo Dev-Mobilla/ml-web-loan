@@ -1,10 +1,8 @@
-import React from 'react';
+import React from "react";
 import "../../../styles/requireddocuments.css";
 
 const RequiredDocumentsComponent = () => {
-  return (
-    <div>RequiredDocumentsComponent</div>
-  )
-}
+  return <div>RequiredDocumentsComponent</div>;
+};
 
-export default RequiredDocumentsComponent
+export default RequiredDocumentsComponent;
