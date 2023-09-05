@@ -29,7 +29,7 @@ const HeaderComponent = ({manageLoansEvent}) => {
               src="https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e41e67e1c2a81b98b3c871/img/dl-btn@2x.png"
             />
           </div>
-          </div>
+         </div>
         </div>
         <div className="existing-loan-btn" onClick={manageLoansEvent}>
           <div className="overlap-group-2">

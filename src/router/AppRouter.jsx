@@ -6,8 +6,6 @@ import {
   HousingLoan,
   ManageLoans,
   QuickCashLoan,
-  LoanTypeSecondHand,
-  Login,
 } from "../pages";
 import LoanType from "../pages/LoanType.page";
 import CustomerDetails from "../pages/CustomerDetails.page";

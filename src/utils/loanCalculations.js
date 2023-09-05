@@ -1,17 +1,12 @@
-// loancalculation.js
-
 export const calculateMonthlyPayment = (
   estimatedVehiclePrice,
-  downPayment,
-  loanAmount, // New parameter
+  downPaymentPercentage,
   annualInterestRate,
-  loanTerm,
-  percentage
+  loanTerm
 ) => {
-  const calculatedLoanAmount = estimatedVehiclePrice - downPayment;
-
+  const downPayment = (downPaymentPercentage / 100) * estimatedVehiclePrice;
+  const loanAmount = estimatedVehiclePrice - downPayment;
   const monthlyInterestRate = annualInterestRate / 12 / 100;
-
   const totalPayments = loanTerm * 12;
 
   const numerator =
@@ -22,18 +17,9 @@ export const calculateMonthlyPayment = (
 
   const monthlyPayment = numerator / denominator;
 
-  const downPaymentPercentage = (downPayment / estimatedVehiclePrice) * 100;
-
-  const loanToValueRatio = (loanAmount / estimatedVehiclePrice) * 100;
-
-  const calculatedEstimatedVehiclePrice =
-    calculatedLoanAmount / (1 - percentage / 100);
-
   return {
     monthlyPayment: monthlyPayment.toFixed(2),
-    calculatedLoanAmount: calculatedLoanAmount.toFixed(2),
-    downPaymentPercentage: downPaymentPercentage.toFixed(2),
-    loanToValueRatio: loanToValueRatio.toFixed(2),
-    calculatedEstimatedVehiclePrice: calculatedEstimatedVehiclePrice.toFixed(2), // Return the calculated estimated vehicle price
+    downPayment: downPayment.toFixed(2),
+    loanAmount: loanAmount.toFixed(2),
   };
 };
