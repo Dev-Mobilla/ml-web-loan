@@ -20,6 +20,7 @@ import RequiredDocumentsComponent from "./loans/vehicle/RequiredDocumentsCompone
 import LoanTypeComponent from "./LoanTypeComponent";
 import QRComponent from "./loans/QRModalComponent";
 import SecondHandVehicleForm from "./layout/SecondHandVehicleForm";
+import VehicleNewDetailsComponent from "./loans/vehicle/VehicleNewDetailsComponent";
 
 
 // CUSTOM COMPONENTS 
@@ -61,4 +62,5 @@ export {
     LoanSelection,
     SecondHandVehicleForm,
     QRComponent
+    VehicleNewDetailsComponent
 }

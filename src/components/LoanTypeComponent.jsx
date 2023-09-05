@@ -4,29 +4,23 @@ import {
     CustomHeader,
     CustomPrevBtn,
     LoanTypeSelection,
-    FooterComponent
+    FooterComponent,
+    LoanTypeNewComponent,
+    LoanTypeSecondHandComponent
 } from '../components';
 import "../styles/loantype.css";
-import { Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
+import { Navigate, Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
+import {LoanTypeSecondHand} from '../pages';
 
 const LoanTypeComponent = () => {
   const { type } = useParams();
   const navigate = useNavigate();
-  const { search } = useLocation();
-
-  let params = new URLSearchParams(search);
-  // useEffect(() => {
-
-
-  //   console.log(params.get("loantype"));
-  //   setUrlQueryParams(params.get("loantype"));
-  // },[])
 
   // const [ selectedType, setSelectedType ] = useState();
 
   const SelectLoanTypeHandler = (args) => {
     console.log('ARGS', args);
-    navigate(`/vehicle-loan/loan-type?loantype=${args}`);
+    navigate(`/vehicle-loan/loan-type/${args}`, { replace: true });
   }
 
   return (
@@ -34,15 +28,29 @@ const LoanTypeComponent = () => {
         <TopbarComponent />
         <CustomHeader title="Vehicle Loan" />
         <div className="prev-btn">
-            <CustomPrevBtn />
+          <CustomPrevBtn />
         </div>
         <div className="loan-type--body">
             <div className="selection-card">
-                <LoanTypeSelection defaultType={params.get("loantype")} HandleLoanType={SelectLoanTypeHandler}/>
+              <LoanTypeSelection defaultType={type} HandleLoanType={SelectLoanTypeHandler}/>
             </div>
+        {
+          type === "new" ? 
+
+            <LoanTypeNewComponent/> 
+
+          : type === "second-hand" ? 
+
+          // <h1>second hand</h1> 
+          <LoanTypeSecondHandComponent/>
+
+          : type === "refinance" ? 
+
+            <h1>refinance</h1> 
+
+          : <Navigate to={'/not-found'}/>
+        }
         </div>
-        <Outlet/>
-        {/* <FooterComponent/> */}
     </div>
   )
 }

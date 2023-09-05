@@ -6,9 +6,9 @@ const LoanTypeRadiosComponent = (props) => {
   const { LoanTypeHandler, styles } = props;
   const [radioValue, setRadioValue] = useState(props.defaultVal);
 
-  useEffect(() => {
-    LoanTypeHandler(props.defaultVal);
-  },[])
+  // useEffect(() => {
+  //   LoanTypeHandler(props.defaultVal);
+  // },[])
 
   const loanTypes = [
     {
