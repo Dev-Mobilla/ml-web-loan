@@ -1,10 +1,8 @@
-import React from 'react'
-import {CustomerDetailsComponent} from '../components';
+import React from "react";
+import { CustomerDetailsComponent } from "../components";
 
 const CustomerDetails = () => {
-  return (
-    <CustomerDetailsComponent/>
-  )
-}
+  return <CustomerDetailsComponent />;
+};
 
 export default CustomerDetails;
