@@ -10,7 +10,6 @@ import {
 } from '../components';
 import "../styles/loantype.css";
 import { Navigate, Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
-import {LoanTypeSecondHand} from '../pages';
 
 const LoanTypeComponent = () => {
   const { type } = useParams();

@@ -2,7 +2,7 @@ import React from "react";
 import "../../styles/customcomponent.css";
 
 const CustomButton = (props) => {
-  const { name, styles } = props;
+  const { name, styles, EventHandler } = props;
 
   return (
     // <div className="custom-button add-btn">
@@ -10,7 +10,7 @@ const CustomButton = (props) => {
     //         <div className="addtxt">{name}</div>
     //     </div>
     // </div>
-    <button className={styles}>{name}</button>
+    <button className={styles} onClick={EventHandler}>{name}</button>
   );
 };
 

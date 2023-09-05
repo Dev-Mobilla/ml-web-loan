@@ -1,28 +1,37 @@
 import React from "react";
 import "../styles/customerrequirement.css";
+import { useModal } from "../utils/modalContext";
 import {
-  CustomButton,
   CustomHeader,
   CustomPrevBtn,
-  CustomStatus,
-  FooterComponent,
   TopbarComponent,
   VehicleDocumentsComponent,
+  AddPhotoModal,
 } from "./index";
 
 const CustomerRequirementsComponent = () => {
+  const {
+    modalOpen,
+    modalTitle,
+    modalDefaultGuideImage,
+    openModal,
+    closeModal,
+  } = useModal();
+
   return (
     <div className="customer-requirement">
       <div className="div">
-      <TopbarComponent />
+        <TopbarComponent />
         <CustomHeader title="Manage Existing Loan" />
         <div className="body-bg">
           <CustomPrevBtn />
-          <VehicleDocumentsComponent/>
+          <VehicleDocumentsComponent />
           <div className="requireddocumente">
             <div className="overlap-4">
               <div className="requireddocument">Required Documents</div>
-              <p className="reqdocdetails">Note: All documents are required to be uploaded</p>
+              <p className="reqdocdetails">
+                Note: All documents are required to be uploaded
+              </p>
               <div className="employed">
                 <div className="text-wrapper-5">Employed</div>
                 <div className="div-2">
@@ -35,9 +44,19 @@ const CustomerRequirementsComponent = () => {
               </div>
               <div className="selfemployed">
                 <div className="text-wrapper-5">Self-Employed</div>
-                <a href="./requirements/self-employed"><div className="div-2" /></a>
+                <a href="./requirements/self-employed">
+                  <div className="div-2" />
+                </a>
               </div>
-              <div className="valid-ID">
+              <div
+                className="valid-ID"
+                onClick={() =>
+                  openModal(
+                    "Front Valid ID",
+                    "https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64f13348e9f50c7315603815/img/addphotosample@2x.png"
+                  )
+                }
+              >
                 <img
                   className="valid-i-dicon"
                   alt="Valid i dicon"
@@ -46,7 +65,15 @@ const CustomerRequirementsComponent = () => {
                 <div className="valid-i-dtxt">Valid ID</div>
                 <div className="text-wrapper-2">UMID ID.png</div>
               </div>
-              <div className="empcert">
+              <div
+                className="empcert"
+                onClick={() =>
+                  openModal(
+                    "Employee Certificate",
+                    "https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64f13348e9f50c7315603815/img/addphotosample@2x.png"
+                  )
+                }
+              >
                 <img
                   className="empcerticon"
                   alt="Empcerticon"
@@ -55,7 +82,15 @@ const CustomerRequirementsComponent = () => {
                 <div className="empcerttxt">Emp. Cert.</div>
                 <div className="empcerttxtt">Certificate.png</div>
               </div>
-              <div className="payslip">
+              <div
+                className="payslip"
+                onClick={() =>
+                  openModal(
+                    "Payslip/ITR",
+                    "https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64f13348e9f50c7315603815/img/addphotosample@2x.png"
+                  )
+                }
+              >
                 <div className="payslipicon">
                   <div className="overlap-5">
                     <img
@@ -90,6 +125,12 @@ const CustomerRequirementsComponent = () => {
           </div>
         </div>
       </div>
+      <AddPhotoModal
+        isOpen={modalOpen}
+        onClose={closeModal}
+        modalTitle={modalTitle}
+        modalDefaultGuideImage={modalDefaultGuideImage}
+      />
     </div>
   );
 };

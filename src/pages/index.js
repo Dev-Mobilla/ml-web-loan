@@ -4,7 +4,6 @@ import Error from "./Error.page";
 import ManageLoans from "./ManageLoans.page";
 import HousingLoan from "./HousingLoan.page";
 import QuickCashLoan from "./QuickCashLoan.page";
-import LoanTypeSecondHand from "./LoanTypeSecondHand.page";
 
 
 export {
@@ -14,5 +13,4 @@ export {
     ManageLoans,
     HousingLoan,
     QuickCashLoan,
-    LoanTypeSecondHand,
 }

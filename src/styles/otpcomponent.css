@@ -1,0 +1,147 @@
+.otp-component .otp-modal--overlay{
+    background-color: #00000066;
+    height: 1024px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+}
+.otp-component .otp-modal--wrapper{
+   margin: 200px auto auto auto;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+}
+.otp-component .otp-modal--container{
+    background-color: white;
+    border-radius: 20px;
+    padding: 20px 30px;
+    width: 26%;
+    margin: auto;
+    text-align: center;
+}
+.otp-component .otp-modal--container .otp-modal--title {
+    margin: 10px 0px;
+}
+.otp-component .otp-modal--container .otp-modal--title .custom-title{
+    font-size: 22px;
+    font-weight:500;
+}
+.otp-component .otp-modal--container .otp-modal--sub-title {
+    text-align: justify;
+    font-size: 17px;
+    margin: 13px 10px 15px 10px;
+}
+.otp-component .otp-modal--wrapper .otp-modal--input{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto 0px 25px 0px;
+    
+}
+.otp-component .otp-modal--wrapper .otp-modal--input .custom-input{
+    width: 7%;
+    margin: auto 5px;
+    border-bottom: 3px solid #D20101;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    padding: 5px 6px;
+    outline: none;
+    text-align: center;
+    font-size: 15px;
+
+}
+.otp-component .otp-modal--container .otp-modal--timer{
+    margin: auto auto 20px auto;
+}
+.otp-component .otp-modal--container .otp-modal--btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.otp-component .otp-modal--container .otp-modal--btn .custom-btn{
+    border-radius: 41px;
+    margin: auto 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+}
+.otp-component .otp-modal--container .otp-modal--btn .custom-btn.custom-btn--cancel{
+    padding: 10px 38px;
+    border: 2px solid #FE0000;
+    color: #FE0000;
+    background-color: white;
+}
+.otp-component .otp-modal--container .otp-modal--btn .custom-btn.custom-btn--continue{
+    padding: 10px 30px;
+    background-color: #FE0000;
+    color: white;
+    border: none;
+}
+
+@media screen and (min-width: 360px) and (max-width: 480px)  {
+    .otp-component .otp-modal--container{
+        padding: 20px 20px;
+        width: 80%;
+    }
+    .otp-component .otp-modal--wrapper .otp-modal--input .custom-input{
+        width: 10%;
+    }
+    .otp-component .otp-modal--container .otp-modal--btn .custom-btn.custom-btn--cancel{
+        padding: 10px 28px;
+    }
+    .otp-component .otp-modal--container .otp-modal--btn .custom-btn.custom-btn--continue{
+        padding: 10px 20px;
+    }
+}
+
+@media screen and (min-width: 481px) and (max-width: 768px)  {
+    .otp-component .otp-modal--container{
+        padding: 20px 20px;
+        width: 60%;
+    }
+    .otp-component .otp-modal--wrapper .otp-modal--input .custom-input{
+        width: 10%;
+    }
+    .otp-component .otp-modal--container .otp-modal--btn .custom-btn.custom-btn--cancel{
+        padding: 10px 30px;
+    }
+    .otp-component .otp-modal--container .otp-modal--btn .custom-btn.custom-btn--continue{
+        padding: 10px 20px;
+    }
+}
+
+@media screen and (min-width: 769px) and (max-width: 1024px)   {
+    .otp-component .otp-modal--container{
+        padding: 20px 20px;
+        width: 40%;
+    }
+    .otp-component .otp-modal--wrapper .otp-modal--input .custom-input{
+        width: 8%;
+    }
+    .otp-component .otp-modal--container .otp-modal--btn .custom-btn.custom-btn--cancel{
+        padding: 10px 30px;
+    }
+    .otp-component .otp-modal--container .otp-modal--btn .custom-btn.custom-btn--continue{
+        padding: 10px 20px;
+    }
+}
+
+@media screen and (min-width: 1025px) and (max-width: 1200px)  {
+    .otp-component .otp-modal--container{
+        padding: 20px 20px;
+        width: 30%;
+    }
+    .otp-component .otp-modal--wrapper .otp-modal--input .custom-input{
+        width: 10%;
+    }
+    .otp-component .otp-modal--container .otp-modal--btn .custom-btn.custom-btn--cancel{
+        padding: 10px 30px;
+    }
+    .otp-component .otp-modal--container .otp-modal--btn .custom-btn.custom-btn--continue{
+        padding: 10px 20px;
+    }
+}

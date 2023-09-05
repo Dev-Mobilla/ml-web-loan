@@ -1,10 +1,8 @@
-import React from 'react';
-import {HousingLoanComponent} from '../components';
+import React from "react";
+import { HousingLoanComponent } from "../components";
 
 const HousingLoan = () => {
-  return (
-    <HousingLoanComponent/>
-  )
-}
+  return <HousingLoanComponent />;
+};
 
-export default HousingLoan
+export default HousingLoan;
