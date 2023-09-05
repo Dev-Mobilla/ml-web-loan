@@ -61,6 +61,6 @@ export {
     CustomInput,
     LoanSelection,
     SecondHandVehicleForm,
-    QRComponent
+    QRComponent,
     VehicleNewDetailsComponent
 }
