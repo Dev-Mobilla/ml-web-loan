@@ -18,11 +18,15 @@ import LoanTypeRadiosComponent from "./loans/vehicle/LoanTypeRadiosComponent";
 import VehicleDocumentsComponent from "./loans/vehicle/VehicleDocumentsComponent";
 import RequiredDocumentsComponent from "./loans/vehicle/RequiredDocumentsComponent";
 import LoanTypeComponent from "./LoanTypeComponent";
+import QRComponent from "./loans/QRModalComponent";
 import SecondHandVehicleForm from "./layout/SecondHandVehicleForm";
 import AddPhotoModal from "./loans/AddPhotoModalComponent";
 import VehicleNewDetailsComponent from "./loans/vehicle/VehicleNewDetailsComponent";
+import CustomSubmitModal from "./custom/Custom.SubmitModal";
+import CustomInputField from "./custom/Custom.inputfield";
 
 // CUSTOM COMPONENTS
+import OTPModalComponent from "./OTPModalComponent";
 import CustomHeader from "./custom/Custom.header";
 import CustomButton from "./custom/Custom.button";
 import CustomPrevBtn from "./custom/Custom.prevbtn";
@@ -32,34 +36,38 @@ import CustomCardTitle from "./custom/Custom.cardTitle";
 import CustomInput from "./custom/Custom.input";
 
 export {
-  DashboardComponent,
-  FooterComponent,
-  HeaderComponent,
-  TopbarComponent,
-  CustomerDetailsHeader,
-  LoginComponent,
-  ManageLoanComponent,
-  HousingLoanComponent,
-  QuickCashLoanComponent,
-  QuickCashHeaderComponent,
-  LoanTypeNewComponent,
-  LoanTypeSecondHandComponent,
-  CustomerDetailsComponent,
-  CustomerRequirementsComponent,
-  LoanTypeRadiosComponent,
-  RequiredDocumentsComponent,
-  CustomerRequirementsSEComponent,
-  VehicleDocumentsComponent,
-  LoanTypeComponent,
-  CustomHeader,
-  CustomButton,
-  CustomPrevBtn,
-  CustomStatus,
-  LoanTypeSelection,
-  CustomCardTitle,
-  CustomInput,
-  LoanSelection,
-  SecondHandVehicleForm,
-  VehicleNewDetailsComponent,
+    DashboardComponent,
+    FooterComponent,
+    HeaderComponent,
+    TopbarComponent,
+    CustomerDetailsHeader,
+    LoginComponent,
+    ManageLoanComponent,
+    HousingLoanComponent,
+    QuickCashLoanComponent,
+    QuickCashHeaderComponent,
+    LoanTypeNewComponent,
+    LoanTypeSecondHandComponent,
+    CustomerDetailsComponent,
+    CustomerRequirementsComponent,
+    LoanTypeRadiosComponent,
+    RequiredDocumentsComponent,
+    CustomerRequirementsSEComponent,
+    VehicleDocumentsComponent,
+    LoanTypeComponent,
+    CustomHeader,
+    CustomButton,
+    CustomPrevBtn,
+    CustomStatus,
+    LoanTypeSelection,
+    CustomCardTitle,
+    CustomInput,
+    LoanSelection,
+    SecondHandVehicleForm,
+    VehicleNewDetailsComponent,
+    CustomSubmitModal,
+    OTPModalComponent,
+    CustomInputField,
+    QRComponent,
   AddPhotoModal,
-};
+}

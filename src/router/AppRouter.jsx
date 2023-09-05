@@ -10,11 +10,6 @@ import {
 import LoanType from "../pages/LoanType.page";
 import CustomerDetails from "../pages/CustomerDetails.page";
 import CustomerRequirements from "../pages/CustomerRequirements.page";
-import {
-  FooterComponent,
-  LoanTypeNewComponent,
-  LoanTypeSecondHandComponent,
-} from "../components";
 
 const Router = createBrowserRouter([
   {
@@ -37,32 +32,15 @@ const Router = createBrowserRouter([
     element: <QuickCashLoan />,
     errorElement: <Error />,
   },
-  // {
-  //   path: "/manage-loans/loan-type/:type",
-  //   element: <LoanTypeSecondHand />,
-  //   errorElement: <Error />,
-  // },
   {
-    path: "/vehicle-loan/loan-type",
+    path: "/login",
+    element: <Login />,
+    errorElement: <Error />,
+  },
+  {
+    path: "/vehicle-loan/loan-type/:type",
     element: <LoanType />,
     errorElement: <Error />,
-    children: [
-      {
-        path: "/vehicle-loan/loan-type?loantype=new",
-        element: <LoanTypeNewComponent />,
-        errorElement: <Error />,
-      },
-      {
-        path: "/vehicle-loan/loan-type?loantype=second-hand",
-        element: <LoanTypeSecondHandComponent />,
-        errorElement: <Error />,
-      },
-      {
-        path: "/vehicle-loan/loan-type?loantype=refinance",
-        element: <LoanType />,
-        errorElement: <Error />,
-      },
-    ],
   },
   {
     path: "/vehicle-loan/personal-details",

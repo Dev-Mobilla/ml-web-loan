@@ -1,14 +1,26 @@
-import React from "react";
 import "../../styles/header.css";
+import React, { useState } from 'react';
+import { 
+  QRComponent,
+} from '../index';
 
-const HeaderComponent = () => {
+const HeaderComponent = ({manageLoansEvent}) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleModalOpen = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+  };
   return (
     <header className="header">
       <div className="overlap-group">
         <div className="bannertitle">Loan Marketplace</div>
         <div className="download-btn">
           <div className="overlap-3">
-            <div className="dlcard" />
+            <div className="dlcard" onClick={handleModalOpen}>
             <div className="dltxtt">Download on</div>
             <div className="dltxt">Google Play</div>
             <img
@@ -17,8 +29,9 @@ const HeaderComponent = () => {
               src="https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e41e67e1c2a81b98b3c871/img/dl-btn@2x.png"
             />
           </div>
+         </div>
         </div>
-        <div className="existing-loan-btn">
+        <div className="existing-loan-btn" onClick={manageLoansEvent}>
           <div className="overlap-group-2">
             <div className="overlap-2" />
             <div className="m-ltxtt">Manage</div>
@@ -31,8 +44,9 @@ const HeaderComponent = () => {
           </div>
         </div>
       </div>
+      {isModalOpen && <QRComponent onClose={handleModalClose} />}
     </header>
-  );
-};
+  )
+}
 
 export default HeaderComponent;
