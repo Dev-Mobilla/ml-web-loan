@@ -19,6 +19,7 @@ import VehicleDocumentsComponent from "./loans/vehicle/VehicleDocumentsComponent
 import RequiredDocumentsComponent from "./loans/vehicle/RequiredDocumentsComponent";
 import LoanTypeComponent from "./LoanTypeComponent";
 import SecondHandVehicleForm from "./layout/SecondHandVehicleForm";
+import ReceiptComponent from "./ReceiptComponent";
 
 
 // CUSTOM COMPONENTS 
@@ -29,6 +30,7 @@ import CustomStatus from "./custom/Custom.status";
 import CustomerRequirementsSEComponent from "./CustomerRequirementsSEComponent";
 import CustomCardTitle from "./custom/Custom.cardTitle"
 import CustomInput from "./custom/Custom.input"
+
 
 export {
     DashboardComponent,
@@ -50,6 +52,7 @@ export {
     CustomerRequirementsSEComponent,
     VehicleDocumentsComponent,
     LoanTypeComponent,
+    ReceiptComponent,
     CustomHeader,
     CustomButton,
     CustomPrevBtn,

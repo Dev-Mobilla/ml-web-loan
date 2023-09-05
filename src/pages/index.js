@@ -5,6 +5,8 @@ import ManageLoans from "./ManageLoans.page";
 import HousingLoan from "./HousingLoan.page";
 import QuickCashLoan from "./QuickCashLoan.page";
 import LoanTypeSecondHand from "./LoanTypeSecondHand.page";
+import Receipt from "./Receipt.page";
+
 
 
 export {
@@ -15,4 +17,5 @@ export {
     HousingLoan,
     QuickCashLoan,
     LoanTypeSecondHand,
+    Receipt,
 }

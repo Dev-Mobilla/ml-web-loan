@@ -4,7 +4,7 @@ import "../../../styles/vehicledocuments.css";
 const VehicleDocumentsComponent = () => {
   return (
     <div className="vehicledocument">
-    <div className="overlap">
+    <div className="vehicle-overlap">
       <div className="vehicledocument-2">Vehicle Documents</div>
       <div className="icon-group--wrapper">
         <div className="OR-CR">
@@ -17,7 +17,7 @@ const VehicleDocumentsComponent = () => {
             <p className="OR-crtxtt">
               <span className="span">[x]</span>
               <span className="text-wrapper-3">&nbsp;&nbsp;</span>
-              <span className="text-wrapper-4">OR/CR Docx.png</span>
+              <span className="text-wrapper-4-vehicle">OR/CR Docx.png</span>
             </p>
         </div>
         <div className="stensil">
