@@ -1,7 +1,7 @@
 import React from 'react';
 import "../../styles/header.css";
 
-const HeaderComponent = () => {
+const HeaderComponent = ({manageLoansEvent}) => {
   return (
     <header className="header">
             <div className="overlap-group">
@@ -18,7 +18,7 @@ const HeaderComponent = () => {
                   />
                 </div>
               </div>
-              <div className="existing-loan-btn">
+              <div className="existing-loan-btn" onClick={manageLoansEvent}>
                 <div className="overlap-group-2">
                   <div className="overlap-2"/>
                     <div className="m-ltxtt">Manage</div>
