@@ -1,16 +1,61 @@
-import React from "react";
-import ReactDOM from 'react-dom';
+import React, {useState} from "react";
 import "../styles/dashboard.css";
 
-import { FooterComponent, HeaderComponent, TopbarComponent } from "./index";
+import { 
+  CustomSubmitModal, 
+  FooterComponent, 
+  HeaderComponent, 
+  OTPModalComponent, 
+  TopbarComponent } 
+from "./index";
+
+import { useNavigate } from "react-router-dom";
 
 const DashboardComponent = () => {
+
+  const [isLogin, setIsLogin] = useState(true);
+  const [showModal, setShowModal] = useState(false);
+  const [showOTPModal, setShowOTPModal] = useState(true);
+
+  const navigate = useNavigate();
+
+  const ManageLoansHandler = () => {
+   setShowModal(isLogin)
+  }
+
+  const ModalBtnHandler = () => {
+    setShowModal(false)
+    setShowOTPModal(true)
+  }
+
   return (
     <div className="dashboard">
       <div className="dashboard-div">
         <TopbarComponent/>
+        {
+          showModal ? 
+          <div className="login-modal">
+            <CustomSubmitModal 
+            mobileNumber="Mobile Number" 
+            containerClass="modal-container" 
+            wrapperClass="modal-wrapper" 
+            inputWrapperClass="modal-input-wrapper"
+            labelClass="modal-label"
+            modalBtn="modal-button"
+            modalBtnWrapper="modal-btn-wrapper"
+            inptBtnWrapper="modal-inputbtn-wrapper"
+            placeHolder="+639"
+            onclickHandler={ModalBtnHandler}/>
+          </div> 
+          : <></>
+        }
+        {
+          showOTPModal ? 
+          <OTPModalComponent time="58"/>
+          : <></>
+        }
         <div className="overlap">
-          <HeaderComponent/>
+          <HeaderComponent manageLoansEvent={ManageLoansHandler}/>
           <div className="body-bg">
             <img
               className="floating-diamond"

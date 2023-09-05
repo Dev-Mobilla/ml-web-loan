@@ -4,7 +4,7 @@ import {
   QRComponent,
 } from '../index';
 
-const HeaderComponent = () => {
+const HeaderComponent = ({manageLoansEvent}) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleModalOpen = () => {
@@ -31,7 +31,7 @@ const HeaderComponent = () => {
           </div>
           </div>
         </div>
-        <div className="existing-loan-btn">
+        <div className="existing-loan-btn" onClick={manageLoansEvent}>
           <div className="overlap-group-2">
             <div className="overlap-2" />
             <div className="m-ltxtt">Manage</div>
