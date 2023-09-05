@@ -28,8 +28,9 @@ import CustomButton from "./custom/Custom.button";
 import CustomPrevBtn from "./custom/Custom.prevbtn";
 import CustomStatus from "./custom/Custom.status";
 import CustomerRequirementsSEComponent from "./CustomerRequirementsSEComponent";
-import CustomCardTitle from "./custom/Custom.cardTitle"
-import CustomInput from "./custom/Custom.input"
+import CustomCardTitle from "./custom/Custom.cardTitle";
+import CustomInput from "./custom/Custom.input";
+import SuccessModal from "./loans/vehicle/SuccessModalComponent";
 
 
 export {
@@ -62,4 +63,5 @@ export {
     CustomInput,
     LoanSelection,
     SecondHandVehicleForm,
+    SuccessModal
 }

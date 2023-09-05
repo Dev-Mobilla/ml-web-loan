@@ -1,17 +1,16 @@
 import React from "react";
+import { useState } from "react";
 import "../styles/requireddocuments.css";
+import SuccessModal from "./loans/vehicle/SuccessModalComponent";
 import {
-  CustomButton,
   CustomHeader,
   CustomPrevBtn,
-  CustomStatus,
-  FooterComponent,
   RequiredDocumentsComponent,
   TopbarComponent,
   VehicleDocumentsComponent,
 } from "./index";
-
 const CustomerRequirementsComponent = () => {
+  const[openModal, setOpenModal] = useState(false);
   return (
     <div className="customer-requirement">
       <div className="div">
@@ -22,8 +21,12 @@ const CustomerRequirementsComponent = () => {
           <VehicleDocumentsComponent/>
           <RequiredDocumentsComponent/>
           <div className="submit-btn">
-            <div className="text-wrapper-7">Submit</div>
+            <div className="text-wrapper-7" onClick={()=> {
+              setOpenModal(true)
+            }}
+            >Submit</div>
           </div>
+          {openModal && <SuccessModal closeModal={setOpenModal}/>}
         </div>
       </div>
     </div>
