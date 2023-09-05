@@ -18,6 +18,7 @@ import LoanTypeRadiosComponent from "./loans/vehicle/LoanTypeRadiosComponent";
 import VehicleDocumentsComponent from "./loans/vehicle/VehicleDocumentsComponent";
 import RequiredDocumentsComponent from "./loans/vehicle/RequiredDocumentsComponent";
 import LoanTypeComponent from "./LoanTypeComponent";
+import QRComponent from "./loans/QRModalComponent";
 import SecondHandVehicleForm from "./layout/SecondHandVehicleForm";
 
 
@@ -59,4 +60,5 @@ export {
     CustomInput,
     LoanSelection,
     SecondHandVehicleForm,
+    QRComponent
 }
