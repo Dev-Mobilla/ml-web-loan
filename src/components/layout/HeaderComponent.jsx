@@ -5,11 +5,6 @@ import {
 } from '../index';
 
 const HeaderComponent = () => {
-  // const [isModalOpen, setIsModalOpen] = useState(false);
-
-  // const openModal = () => {
-  //   setIsModalOpen(true);
-  // };
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleModalOpen = () => {
