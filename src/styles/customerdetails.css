@@ -158,6 +158,9 @@
   margin-top: 30px;
   margin-left: 40%;
 }
+.customer-details .near_branch input[type = "radio"]{
+  accent-color: red;
+}
 .customer-details .div .body #submit-btn {
   margin-top: 1290px;
   margin-left: 600px;
