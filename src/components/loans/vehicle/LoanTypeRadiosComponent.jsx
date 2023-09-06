@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import "../../../styles/loantyperadios.css";
+import "../../../styles/loantypes.css";
 
 const LoanTypeRadiosComponent = (props) => {
-  const { LoanTypeHandler, styles } = props;
+  const { LoanTypeHandler } = props;
   const [radioValue, setRadioValue] = useState(props.defaultVal);
 
   useEffect(() => {

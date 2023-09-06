@@ -1,18 +1,17 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import "../styles/dashboard.css";
 
-import { 
-  CustomSubmitModal, 
-  FooterComponent, 
-  HeaderComponent, 
-  OTPModalComponent, 
-  TopbarComponent } 
-from "./index";
+import {
+  CustomSubmitModal,
+  FooterComponent,
+  HeaderComponent,
+  OTPModalComponent,
+  TopbarComponent,
+} from "./index";
 
 import { useNavigate } from "react-router-dom";
 
 const DashboardComponent = () => {
-
   const [isLogin, setIsLogin] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [showOTPModal, setShowOTPModal] = useState(false);
@@ -20,8 +19,8 @@ const DashboardComponent = () => {
   const navigate = useNavigate();
 
   const ManageLoansHandler = () => {
-   setShowModal(isLogin)
-  }
+    setShowModal(isLogin);
+  };
 
   const ModalBtnHandler = () => {
     setShowModal(false)
@@ -56,7 +55,7 @@ const DashboardComponent = () => {
           : <></>
         }
         <div className="overlap">
-          <HeaderComponent manageLoansEvent={ManageLoansHandler}/>
+          <HeaderComponent manageLoansEvent={ManageLoansHandler} />
           <div className="body-bg">
             <img
               className="floating-diamond"
