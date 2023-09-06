@@ -11,7 +11,7 @@ import QuickCashHeaderComponent from "./layout/QuickCashHeaderComponent";
 import LoanTypeSelection from "./layout/LoanTypeSelectionComponent";
 import LoanSelection from "./layout/LoanSelectionComponent";
 import LoanTypeNewComponent from "./loans/vehicle/LoanTypeNewComponent";
-import LoanTypeSecondHandComponent from "./loans/vehicle/LoanTypeSecondhandComponent";
+import LoanTypeSecondHandComponent from "./LoanTypeSecondHandComponent";
 import CustomerDetailsComponent from "./CustomerDetailsComponent";
 import CustomerRequirementsComponent from "./CustomerRequirementsComponent";
 import LoanTypeRadiosComponent from "./loans/vehicle/LoanTypeRadiosComponent";
@@ -64,10 +64,10 @@ export {
     CustomInput,
     LoanSelection,
     SecondHandVehicleForm,
+    QRComponent,
     VehicleNewDetailsComponent,
     CustomSubmitModal,
     OTPModalComponent,
     CustomInputField,
-    QRComponent,
-  AddPhotoModal,
+    AddPhotoModal,
 }

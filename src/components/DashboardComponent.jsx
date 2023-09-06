@@ -15,7 +15,7 @@ const DashboardComponent = () => {
 
   const [isLogin, setIsLogin] = useState(true);
   const [showModal, setShowModal] = useState(false);
-  const [showOTPModal, setShowOTPModal] = useState(true);
+  const [showOTPModal, setShowOTPModal] = useState(false);
 
   const navigate = useNavigate();
 
