@@ -3,7 +3,6 @@ import "../styles/otpcomponent.css";
 import CustomCardTitle from './custom/Custom.cardTitle';
 import CustomInputField from './custom/Custom.inputfield';
 import CustomButton from './custom/Custom.button';
-import { OtpTimer } from '../utils/otpTimer';
 
 const OTPModalComponent = ({time, HandleOnClose}) => {
 
