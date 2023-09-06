@@ -101,7 +101,6 @@
     left: 80%;
     position: absolute;
     top: 53px;
-    transform: rotate(-0.11deg);
     width: 171px;
 }
 
@@ -110,12 +109,15 @@
     left: 0;
     position: absolute;
     top: 0;
-    transform: rotate(0.11deg);
     width: 169px;
+    border-radius: 20px;
+    background-color: #D4EBD4;
+    border-color: #009900;
+    border-width:1px;
 }
 
 .quick-cash-loan .QuickCash-currentText {
-    color: #ffffff;
+    color: #009900;
     font-family: "Roboto", Helvetica;
     font-size: 22px;
     font-weight: 500;
@@ -125,7 +127,7 @@
     line-height: normal;
     position: absolute;
     text-align: center;
-    top: 6px;
+    top: 3px;
     white-space: nowrap;
     width: 124px;
 }
@@ -396,6 +398,7 @@
         height: 15px;
         margin-left: 30px;
         border-radius: 5px;
+       
     }
 
     .quick-cash-loan .QuickCash-currentText {

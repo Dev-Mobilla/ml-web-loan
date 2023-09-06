@@ -26,11 +26,7 @@ const QuickCashLoanComponent = () => {
             </div>
             <div className="QuickCash-currentcard">
               <div className="overlap-3">
-                <img
-                  className="QuickCash-currentcard-2"
-                  alt="Qc lcurrentcard"
-                  src="https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e492714fd92dc35e55a22f/img/qclcurrentcard-1@2x.png"
-                />
+                <button className="QuickCash-currentcard-2"/>
                 {/* <div className="QuickCash-currentText">Current</div> */}
                 <CustomStatus status="Current" styles="QuickCash-currentText"/>
               </div>
