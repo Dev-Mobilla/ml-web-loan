@@ -66,6 +66,13 @@
     position: absolute;
     top: 80px;
   }
+  .receipt .success-note{
+    color: #ff2800;
+    top:260px;
+    left: 40px;
+    position: relative;
+    font-size: 16px;
+  }
   
   .receipt .dashboard-back-btn {
     align-items: center;
@@ -164,6 +171,9 @@
       .receipt .receipt-dashboard{
         font-size: 18px;
       }
+       .receipt .success-note{
+        font-size: 13px;
+      }
   }
   @media screen  and (min-width:481px) and (max-width:768px){
     .receipt .receipt-body-bg {
@@ -187,7 +197,7 @@
       }
       .receipt .receiptdetails{
         font-size: 16px;
-        left: 250px;
+        left: 130px;
         width: 300px;
         
         /* top: 30px; */

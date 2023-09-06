@@ -33,6 +33,9 @@ const ReceiptComponent = () => {
                             </p>
                         </div>
                     </div>
+                    <div className="success-note">
+                        <p>Note please save your reference number.</p>
+                    </div>
                     <div className="dashboard-back-btn">
                     <div className="receipt-dashboard">Go back to Dashboard</div>
                     </div>
