@@ -1,21 +1,19 @@
-import React, { useState } from "react";
+import React from "react";
 import { useParams } from "react-router-dom";
 
-import { calculateMonthlyPayment } from "../../../utils/loanCalculations";
-
-import "../../../styles/loantypenew.css";
+import "../../../styles/loantypes.css";
 import {
   CustomButton,
   CustomCardTitle,
   CustomInput,
   LoanSelection,
-  SecondHandVehicleForm,
-  VehicleDetailsComponent,
   VehicleNewDetailsComponent,
+  LoanDataComponent,
 } from "../../../components";
 
 const LoanTypeNewComponent = () => {
   const { type } = useParams();
+
   const availableTerms = [1, 2, 3, 4, 5];
   const availablePercentages = [20, 30, 40, 50];
   const availableVehicles = [
@@ -24,70 +22,30 @@ const LoanTypeNewComponent = () => {
     "Truck/Commercial",
   ];
 
-
-  const [loanAmount, setLoanAmount] = useState("");
-  const [estimatedVehiclePrice, setEstimatedVehiclePrice] = useState("");
-  const [downPayment, setDownPayment] = useState("");
-
-  const [selectedTerm, setSelectedTerm] = useState(3);
-  const [selectedPercentage, setSelectedPercentage] = useState(20);
-  const [selectedVehicle, setSelectedVehicle] = useState("Car/Pickup/SUV");
-
-
-  const selectTerm = (term) => {
-    setSelectedTerm(term === selectedTerm ? "" : term);
-  };
-
-  const selectPercentage = (percentage) => {
-    setSelectedPercentage(percentage === selectedPercentage ? "" : percentage);
-  };
-
-  const selectVehicle = (vehicle) => {
-    setSelectedVehicle(vehicle === selectedVehicle ? "" : vehicle);
-  };
-
-  const monthlyPayment = calculateMonthlyPayment(
-    parseFloat(estimatedVehiclePrice),
-    parseFloat(downPayment),
-    parseFloat(loanAmount),
-    0.1,
+  const {
+    // loanAmount,
+    setLoanAmount,
+    estimatedVehiclePrice,
+    setEstimatedVehiclePrice,
+    downPayment,
+    setDownPayment,
     selectedTerm,
-    selectedPercentage
-  );
-
-  const [formData, setFormData] = useState({
-    year: "",
-    make: "",
-    model: "",
-    color: "",
-    plateNo: "",
-    engineNo: "",
-    chassisNo: "",
-  });
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
-  };
-
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
+    selectTerm,
+    selectedPercentage,
+    selectPercentage,
+    selectedVehicle,
+    selectVehicle,
+    monthlyPayment,
+    formData,
+    // setFormData,
+    handleSubmit,
+    handleChange,
+  } = LoanDataComponent(3, 20);
 
   return (
     <div className="loan-type new-loan">
       <div className="new-loan-container">
-        {/* <TopbarComponent />
-        <CustomHeader title="Manage Existing Loan" /> */}
         <div className="new-loan-content">
-          {/* <CustomPrevBtn />
-          <div className="card">
-            <LoanTypeSelection defaultType={type} />
-          </div> */}
           <div className="card">
             <CustomCardTitle
               title="Sample Computation"
@@ -165,7 +123,10 @@ const LoanTypeNewComponent = () => {
                   formData={formData}
                   handleChange={handleChange}
                 /> */}
-                <VehicleNewDetailsComponent/>
+                <VehicleNewDetailsComponent
+                  formData={formData}
+                  handleChange={handleChange}
+                />
               </form>
             </div>
           </div>

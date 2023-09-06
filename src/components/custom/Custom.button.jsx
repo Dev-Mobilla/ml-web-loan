@@ -11,7 +11,14 @@ const CustomButton = (props) => {
     //         <div className="addtxt">{name}</div>
     //     </div>
     // </div>
-    <button className={styles} onClick={EventHandler} disabled={disabled} style={{inline}}>{name}</button>
+    <button
+      className={styles}
+      onClick={EventHandler}
+      disabled={disabled}
+      style={{ inline }}
+    >
+      {name}
+    </button>
   );
 };
 

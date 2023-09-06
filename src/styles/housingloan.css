@@ -17,7 +17,6 @@
 .card img {
   width: 80px;
   height: 80px;
-  margin-right: 20px;
 }
 
 .h-card {
@@ -66,20 +65,22 @@
   justify-content: space-around;
   margin-bottom: 30px;
   align-items: center;
+  width: 400px;
 }
 
 .input-label {
   font-size: 18px;
   font-weight: 400;
+  margin-right: 10px;
   line-height: 21px;
   letter-spacing: -0.3px;
-  text-align: right;
-  padding-right: 20px;
   color: #555555;
 }
 
 .input-wrapper {
   flex-grow: 1;
+  display: flex;
+  justify-content: end !important;
 }
 
 .input-wrapper input {
@@ -177,6 +178,11 @@
     height: 50px;
     margin: 0px 10px 0 0;
   }
+
+  .input-label {
+    font-size: 14px;
+  }
+
   .h-card-text {
     max-width: 130px;
   }

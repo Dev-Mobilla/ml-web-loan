@@ -1,21 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import { useParams } from "react-router-dom";
 
-import { calculateMonthlyPayment } from "../../../utils/loanCalculations";
-
-import "../../../styles/loantypesecondhand.css";
-
+import "../../../styles/loantypes.css";
 import {
   CustomButton,
-  CustomHeader,
-  CustomPrevBtn,
-  TopbarComponent,
-  LoanTypeSelection,
   CustomCardTitle,
   CustomInput,
   LoanSelection,
   SecondHandVehicleForm,
-} from "../../index";
+  LoanDataComponent,
+} from "../../../components";
 
 const LoanTypeSecondHandComponent = () => {
   const { type } = useParams();
@@ -27,65 +21,30 @@ const LoanTypeSecondHandComponent = () => {
     "Truck/Commercial",
   ];
 
-  const [loanAmount, setLoanAmount] = useState("");
-  const [estimatedVehiclePrice, setEstimatedVehiclePrice] = useState("");
-  const [downPayment, setDownPayment] = useState("");
-
-  const [selectedTerm, setSelectedTerm] = useState(3);
-  const [selectedPercentage, setSelectedPercentage] = useState(30);
-  const [selectedVehicle, setSelectedVehicle] = useState("Car/Pickup/SUV");
-
-  const selectTerm = (term) => {
-    setSelectedTerm(term === selectedTerm ? "" : term);
-  };
-
-  const selectPercentage = (percentage) => {
-    setSelectedPercentage(percentage === selectedPercentage ? "" : percentage);
-  };
-
-  const selectVehicle = (vehicle) => {
-    setSelectedVehicle(vehicle === selectedVehicle ? "" : vehicle);
-  };
-
-  const monthlyPaymentData = calculateMonthlyPayment(
-    parseFloat(estimatedVehiclePrice),
-    selectedPercentage,
-    10,
+  const {
+    // loanAmount,
+    setLoanAmount,
+    estimatedVehiclePrice,
+    setEstimatedVehiclePrice,
+    downPayment,
+    setDownPayment,
     selectedTerm,
-  );
-
-  const [formData, setFormData] = useState({
-    year: "",
-    make: "",
-    model: "",
-    color: "",
-    plateNo: "",
-    engineNo: "",
-    chassisNo: "",
-  });
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-  };
-
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
+    selectTerm,
+    selectedPercentage,
+    selectPercentage,
+    selectedVehicle,
+    selectVehicle,
+    monthlyPayment,
+    formData,
+    // setFormData,
+    handleSubmit,
+    handleChange,
+  } = LoanDataComponent(3, 50);
 
   return (
     <div className="loan-type">
       <div className="second-hand-container">
-        <TopbarComponent />
-        <CustomHeader title="Manage Existing Loan" />
         <div className="second-hand-content">
-          <CustomPrevBtn />
-          <div className="card">
-            <LoanTypeSelection defaultType={type} />
-          </div>
           <div className="card">
             <CustomCardTitle
               title="Sample Computation"
@@ -103,8 +62,8 @@ const LoanTypeSecondHandComponent = () => {
                 styles="loan-amount"
                 label="Downpayment"
                 placeholder="300,000.00"
-                value={monthlyPaymentData.downPayment}
-                readOnly
+                value={downPayment}
+                onChange={(e) => setDownPayment(e.target.value)}
               />
               <div className="second-hand-percent">
                 <LoanSelection
@@ -121,8 +80,7 @@ const LoanTypeSecondHandComponent = () => {
                 styles="loan-amount"
                 label="Loan Ammount"
                 placeholder="700,000.00"
-                value={monthlyPaymentData.loanAmount}
-                readOnly
+                onChange={(value) => setLoanAmount(parseFloat(value))}
               />
               <LoanSelection
                 loanType={type}
@@ -139,7 +97,7 @@ const LoanTypeSecondHandComponent = () => {
                 label="Monthly Payment"
                 sublabel="* Subject to Approval & Appraisal"
                 placeholder="35,000.00"
-                value={monthlyPaymentData.monthlyPayment}
+                value={monthlyPayment}
                 readOnly
               />
             </div>
