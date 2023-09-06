@@ -34,7 +34,7 @@ const Router = createBrowserRouter([
         errorElement: <Error/>
     },
     {
-        path: '/vehicle-loan/loan-type',
+        path: '/vehicle-loan/loan-type/:type',
         element: <LoanType/>,
         errorElement: <Error/>
     },
@@ -52,7 +52,7 @@ const Router = createBrowserRouter([
         path: '/vehicle-loan/requirements/self-employed',
         element: <CustomerRequirementsSE/>,
         errorElement: <Error/>
-    }
+    },
 ])
 
 
