@@ -84,26 +84,30 @@
 }
 .custom-current {
   justify-content: center;
-  background-color: #009900;
+  border-radius: 20px;
+  background-color: #D4EBD4;
+  border-color: #009900;
+  border-width:1px;
   height: 34px;
   width: 169px;
-  color: white;
+  color: #009900;
   font-weight: 700;
   font-size: 20px;
   letter-spacing: normal;
   margin: 50px 0 0 0;
   padding: 8px 16px;
-  border-radius: 5px;
+  border-radius: 20px;
   display: flex;
   align-items: center;
 }
 
 .custom-pastdue {
   justify-content: center;
-  background-color: #ff7700;
-  height: 34px;
+  background-color: #fbd5b4;
+  border-color: #FF7700;
+  border-width: 1px;
   width: 169px;
-  color: white;
+  color: #FF7700;
   font-weight: 700;
   font-size: 20px;
   letter-spacing: normal;

@@ -13,18 +13,10 @@ const VehicleDocumentsComponent = () => {
   } = useModal();
   return (
     <div className="vehicledocument">
-      <div className="overlap">
-        <div className="vehicledocument-2">Vehicle Documents</div>
-        <div className="icon-group--wrapper">
-          <div
-            className="OR-CR"
-            onClick={() =>
-              openModal(
-                "Orginal OR/CR",
-                "https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64f13348e9f50c7315603815/img/addphotosample@2x.png"
-              )
-            }
-          >
+    <div className="vehicle-overlap">
+      <div className="vehicledocument-2">Vehicle Documents</div>
+      <div className="icon-group--wrapper">
+        <div className="OR-CR">
             <img
               className="OR-cricon"
               alt="Or cricon"
@@ -34,7 +26,7 @@ const VehicleDocumentsComponent = () => {
             <p className="OR-crtxtt">
               <span className="span">[x]</span>
               <span className="text-wrapper-3">&nbsp;&nbsp;</span>
-              <span className="text-wrapper-4">OR/CR Docx.png</span>
+              <span className="text-wrapper-4-vehicle">OR/CR Docx.png</span>
             </p>
           </div>
           <div
