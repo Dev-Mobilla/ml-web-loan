@@ -27,6 +27,7 @@ const DashboardComponent = () => {
     setShowModal(false)
     setShowOTPModal(true)
   }
+  
 
   return (
     <div className="dashboard">
@@ -34,7 +35,7 @@ const DashboardComponent = () => {
         <TopbarComponent/>
         {
           showModal ? 
-          <div className="login-modal">
+          <div className="login-modal" onClick={() => setShowModal(false)}>
             <CustomSubmitModal 
             mobileNumber="Mobile Number" 
             containerClass="modal-container" 
@@ -51,7 +52,7 @@ const DashboardComponent = () => {
         }
         {
           showOTPModal ? 
-          <OTPModalComponent time="58"/>
+          <OTPModalComponent time={60} HandleOnClose={() => setShowOTPModal(false)}/>
           : <></>
         }
         <div className="overlap">
