@@ -254,15 +254,15 @@
     margin-top: 10px;
 }
 
-.quick-cash-loan .payment_due_before {
-    /* margin-left: 6%; */
-    /* margin-top: 6%; */
+/* .quick-cash-loan .payment_due_before {
+    margin-left: 6%;
+    margin-top: 6%;
 }
 
 .quick-cash-loan .amount_due {
-    /* margin-left: 22%; */
-    /* margin-top: 20%; */
-}
+    margin-left: 22%;
+    margin-top: 20%;
+} */
 
 .housing_loan_logo {
     width: 60px;
@@ -484,13 +484,13 @@
         font-size: 14px;
     }
 
-    .payment_amount_due input {
+    /* .payment_amount_due input { */
         /* margin-top: 10px; */
         /* margin-right: 140px; */
         /* width: 25%; */
         /* padding: 6px 10px;
         margin:0px; */
-    }
+    /* } */
     .quick-cash-loan .amount_due input{
         margin: 10px 0px;
     }
@@ -622,13 +622,13 @@
         font-size: 14px;
     }
 
-    .payment_amount_due input {
+    /* .payment_amount_due input { */
         /* margin-top: 10px; */
         /* margin-right: 140px; */
         /* width: 25%; */
         /* padding: 6px 10px;
         margin:0px; */
-    }
+    /* } */
     .quick-cash-loan .amount_due input{
         margin: 10px 0px;
     }
@@ -759,13 +759,13 @@
         font-size: 14px;
     }
 
-    .payment_amount_due input {
+    /* .payment_amount_due input { */
         /* margin-top: 10px; */
         /* margin-right: 140px; */
         /* width: 25%; */
         /* padding: 6px 10px;
         margin:0px; */
-    }
+    /* } */
     .quick-cash-loan .amount_due input{
         margin: 10px 0px;
     }
