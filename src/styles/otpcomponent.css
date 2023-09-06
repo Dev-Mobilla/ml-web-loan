@@ -53,13 +53,43 @@
     font-size: 15px;
 
 }
+.otp-component .otp-modal--container .otp-modal--timer-wrapper{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 20px;
+}
+
 .otp-component .otp-modal--container .otp-modal--timer{
-    margin: auto auto 20px auto;
+    width: 50px;
+    height: 50px;
+    border: 5px solid #f2f2f2;
+    border-radius: 50%;
+    position:absolute;
+    /* margin: auto; */
+}
+.otp-component .otp-modal--container .otp-modal--timer-circle{
+    /* margin: auto auto 20px auto; */
+    width: 50px;
+    height: 50px;
+    border: 5px solid #D20101;
+    border-radius: 50%;
+    position: absolute;
+
+}
+.otp-component .otp-modal--container .timer-text{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 20px;
 }
 .otp-component .otp-modal--container .otp-modal--btn{
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 90px;
 }
 
 .otp-component .otp-modal--container .otp-modal--btn .custom-btn{
@@ -81,7 +111,31 @@
     color: white;
     border: none;
 }
-
+.otp-component .otp-modal--container .otp-modal--btn .custom-btn.custom-btn--continue.disabled{
+    background-color: gainsboro;
+    color: rgba(128, 128, 128, 0.737);
+    border-color: rgba(128, 128, 128, 0.737);
+    cursor:no-drop;
+}
+.otp-component .otp-modal--container .otp-modal--resend{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 70px;
+}
+.otp-component .otp-modal--container .otp-modal--resend .resend-btn,
+.otp-component .otp-modal--container .otp-modal--resend p{
+    font-size: 14px;
+    margin: auto 3px;
+}
+.otp-component .otp-modal--container .otp-modal--resend .resend-btn{
+    background:none;
+    border: none;
+    padding: 0%;
+    cursor: pointer;
+    color: orange;
+}
 @media screen and (min-width: 360px) and (max-width: 480px)  {
     .otp-component .otp-modal--container{
         padding: 20px 20px;
@@ -95,6 +149,10 @@
     }
     .otp-component .otp-modal--container .otp-modal--btn .custom-btn.custom-btn--continue{
         padding: 10px 20px;
+    }
+    .otp-component .otp-modal--container .otp-modal--resend .resend-btn,
+    .otp-component .otp-modal--container .otp-modal--resend p{
+        margin: auto 2px;
     }
 }
 
