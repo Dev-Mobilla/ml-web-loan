@@ -1,4 +1,4 @@
-.customer-requirement .vehicledocument {
+ .vehicledocument {
     height: 350px;
     left: 272px;
     position: absolute;
@@ -6,7 +6,7 @@
     width: 762px;
   }
   
-  .customer-requirement .overlap {
+  .vehicle-overlap {
     background-image: url(https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64f13348e9f50c7315603815/img/vehicledocument-card.png);
     background-size: 100% 100%;
     height: 350px;
@@ -15,7 +15,7 @@
     
   }
   
-  .customer-requirement .vehicledocument-2 {
+  .vehicledocument-2 {
     color: #d20101;
     font-family: "Roboto", Helvetica;
     font-size: 22px;
@@ -29,7 +29,7 @@
     width: 197px;
   }
   
-  .customer-requirement .lcar {
+.lcar {
     height: 78px;
     left: 219px;
     position: absolute;
@@ -37,7 +37,7 @@
     width: 74px;
   }
   
-  .customer-requirement .overlap-group-2 {
+  .overlap-group-2 {
     height: 58px;
     left: 0;
     position: absolute;
@@ -46,7 +46,7 @@
     cursor: pointer;
   }
   
-  .customer-requirement .img {
+  .img {
     height: 55px;
     left: 0;
     object-fit: cover;
@@ -55,7 +55,7 @@
     width: 55px;
   }
   
-  .customer-requirement .lcartxt {
+  .lcartxt {
     color: #333333;
     font-family: "Roboto", Helvetica;
     font-size: 14px;
@@ -69,7 +69,7 @@
     width: 46px;
   }
   
-  .customer-requirement .lcartxtt {
+  .lcartxtt {
     color: #666666;
     font-family: "Roboto", Helvetica;
     font-size: 12px;
@@ -83,7 +83,7 @@
     width: 70px;
   }
   
-  .customer-requirement .rcar {
+ .rcar {
     height: 74px;
     left: 470px;
     position: absolute;
@@ -92,7 +92,7 @@
     cursor: pointer;
   }
   
-  .customer-requirement .rcartxt-wrapper {
+.rcartxt-wrapper {
     background-image: url(https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64f13348e9f50c7315603815/img/rcaricon@2x.png);
     background-position: 50% 50%;
     background-size: cover;
@@ -103,7 +103,7 @@
     width: 55px;
   }
   
-  .customer-requirement .rcartxt {
+  .rcartxt {
     color: #333333;
     font-family: "Roboto", Helvetica;
     font-size: 14px;
@@ -117,7 +117,7 @@
     width: 33px;
   }
   
-  .customer-requirement .rcartxtt {
+.rcartxtt {
     color: #666666;
     font-family: "Roboto", Helvetica;
     font-size: 12px;
@@ -131,7 +131,7 @@
     width: 59px;
   }
   
-  .customer-requirement .bcar {
+ .bcar {
     height: 78px;
     left: 347px;
     position: absolute;
@@ -139,7 +139,7 @@
     width: 64px;
   }
   
-  .customer-requirement .overlap-2 {
+ .overlap-2 {
     height: 59px;
     left: 0;
     position: absolute;
@@ -148,7 +148,7 @@
     cursor: pointer;
   }
   
-  .customer-requirement .bcartxt {
+.bcartxt {
     color: #333333;
     font-family: "Roboto", Helvetica;
     font-size: 14px;
@@ -162,7 +162,7 @@
     width: 46px;
   }
   
-  .customer-requirement .bcartxtt {
+ .bcartxtt {
     color: #fc4624;
     font-family: "Roboto", Helvetica;
     font-size: 12px;
@@ -176,7 +176,7 @@
     width: 32px;
   }
   
-  .customer-requirement .fcar {
+ .fcar {
     height: 78px;
     left: 214px;
     position: absolute;
@@ -184,7 +184,7 @@
     width: 62px;
   }
   
-  .customer-requirement .overlap-3 {
+ .overlap-3 {
     height: 59px;
     left: 0;
     position: absolute;
@@ -193,7 +193,7 @@
     cursor: pointer;
   }
   
-  .customer-requirement .fcartxt {
+ .fcartxt {
     color: #333333;
     font-family: "Roboto", Helvetica;
     font-size: 14px;
@@ -206,8 +206,7 @@
     white-space: nowrap;
     width: 46px;
   }
-  
-  .customer-requirement .fcartxtt {
+.fcartxtt {
     color: #666666;
     font-family: "Roboto", Helvetica;
     font-size: 12px;
@@ -221,7 +220,7 @@
     width: 55px;
   }
   
-  .customer-requirement .carinsurance {
+ .carinsurance {
     height: 90px;
     left: 458px;
     position: absolute;
@@ -229,7 +228,7 @@
     width: 87px;
   }
   
-  .customer-requirement .carinsuranceicon {
+ .carinsuranceicon {
     height: 50px;
     left: 17px;
     object-fit: cover;
@@ -239,7 +238,7 @@
     cursor: pointer;
   }
   
-  .customer-requirement .carinsurancetxt {
+   .carinsurancetxt {
     color: #333333;
     font-family: "Roboto", Helvetica;
     font-size: 14px;
@@ -252,7 +251,7 @@
     white-space: nowrap;
   }
   
-  .customer-requirement .carinsurancetxtt {
+   .carinsurancetxtt {
     color: #666666;
     font-family: "Roboto", Helvetica;
     font-size: 12px;
@@ -266,7 +265,7 @@
     white-space: nowrap;
   }
   
-  .customer-requirement .stensil {
+   .stensil {
     height: 83px;
     left: 331px;
     position: absolute;
@@ -274,7 +273,7 @@
     width: 100px;
   }
   
-  .customer-requirement .stensilicon {
+   .stensilicon {
     height: 45px;
     left: 21px;
     object-fit: cover;
@@ -284,7 +283,7 @@
     cursor: pointer;
   }
   
-  .customer-requirement .stensiltxt {
+   .stensiltxt {
     color: #333333;
     font-family: "Roboto", Helvetica;
     font-size: 14px;
@@ -297,7 +296,7 @@
     white-space: nowrap;
   }
   
-  .customer-requirement .text-wrapper-2 {
+   .text-wrapper-2 {
     color: #666666;
     font-family: "Roboto", Helvetica;
     font-size: 12px;
@@ -311,7 +310,7 @@
     white-space: nowrap;
   }
   
-  .customer-requirement .OR-CR {
+   .OR-CR {
     height: 83px;
     left: 196px;
     position: absolute;
@@ -319,7 +318,7 @@
     width: 104px;
   }
   
-  .customer-requirement .OR-cricon {
+   .OR-cricon {
     height: 45px;
     left: 23px;
     object-fit: cover;
@@ -329,7 +328,7 @@
     cursor: pointer;
   }
   
-  .customer-requirement .OR-crtxt {
+   .OR-crtxt {
     color: #333333;
     font-family: "Roboto", Helvetica;
     font-size: 14px;
@@ -342,7 +341,7 @@
     white-space: nowrap;
   }
   
-  .customer-requirement .OR-crtxtt {
+   .OR-crtxtt {
     color: transparent;
     font-family: "Roboto", Helvetica;
     font-size: 12px;
@@ -355,53 +354,53 @@
     white-space: nowrap;
   }
   
-  .customer-requirement .span {
+   .span {
     color: #ff2800;
     font-weight: 700;
   }
   
-  .customer-requirement .text-wrapper-3 {
+   .text-wrapper-3 {
     color: #666666;
   }
   
-  .customer-requirement .text-wrapper-4 {
+   .text-wrapper-4-vehicle {
     color: #666666;
     font-style: italic;
   }
   @media screen and (min-width: 320px) and (max-width: 480px) {
-    .customer-requirement .vehicledocument {
+     .vehicledocument {
       width: 90%;
       left: 10px;
       top:70px;
     }
-    .customer-requirement .icon-group--wrapper{
+     .icon-group--wrapper{
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
     }
-    .customer-requirement .overlap {
+     .vehicle-overlap {
       width:100%;
       left: 0px;
     }
-    .customer-requirement .vehicledocument-2 {
+     .vehicledocument-2 {
       left: 20px;
       top: 14px;
     }
-    .customer-requirement .OR-CR,.customer-requirement .stensil,.customer-requirement .carinsurance{
+     .OR-CR, .stensil, .carinsurance{
       top:60px;
       cursor: pointer;
       position: relative;
       width: 33%;
       left: 10px;
     }
-    .customer-requirement .lcar{
+     .lcar{
       top:65px;
       cursor: pointer;
       position: relative;
       width: 100%;
       left: 30px;
     }
-    .customer-requirement .fcar,.customer-requirement .bcar,.customer-requirement .rcar{
+     .fcar, .bcar, .rcar{
       top:60px;
       cursor: pointer;
       position: relative;
@@ -410,39 +409,39 @@
     }
   }
   @media screen and (min-width: 481px) and (max-width: 768px) {
-    .customer-requirement .vehicledocument {
+     .vehicledocument {
       width: 92%;
       left: 10px;
       top:70px;
     }
-    .customer-requirement .icon-group--wrapper{
+     .icon-group--wrapper{
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
     }
-    .customer-requirement .overlap {
+     .vehicle-overlap {
       width:100%;
       left: 0px;
     }
-    .customer-requirement .vehicledocument-2 {
+     .vehicledocument-2 {
       left: 20px;
       top: 14px;
     }
-    .customer-requirement .OR-CR,.customer-requirement .stensil,.customer-requirement .carinsurance{
+     .OR-CR, .stensil, .carinsurance{
       top:60px;
       cursor: pointer;
       position: relative;
       width: 33%;
       left: 30px;
     }
-    .customer-requirement .lcar{
+     .lcar{
       top:65px;
       cursor: pointer;
       position: relative;
       width: 100%;
       left: 45px;
     }
-    .customer-requirement .fcar,.customer-requirement .bcar,.customer-requirement .rcar{
+     .fcar, .bcar, .rcar{
       top:60px;
       cursor: pointer;
       position: relative;
@@ -452,39 +451,39 @@
   }
   
   @media screen and (min-width: 769px) and (max-width: 1024px) {
-    .customer-requirement .vehicledocument {
+     .vehicledocument {
       width: 94%;
       left: 10px;
       top:70px;
     }
-    .customer-requirement .icon-group--wrapper{
+     .icon-group--wrapper{
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
     }
-    .customer-requirement .overlap {
+     .vehicle-overlap {
       width:100%;
       left: 0px;
     }
-    .customer-requirement .vehicledocument-2 {
+     .vehicledocument-2 {
       left: 20px;
       top: 14px;
     }
-    .customer-requirement .OR-CR,.customer-requirement .stensil,.customer-requirement .carinsurance{
+     .OR-CR, .stensil, .carinsurance{
       top:60px;
       cursor: pointer;
       position: relative;
       width: 33%;
       left: 60px;
     }
-    .customer-requirement .lcar{
+     .lcar{
       top:65px;
       cursor: pointer;
       position: relative;
       width: 100%;
       left: 85px;
     }
-    .customer-requirement .fcar,.customer-requirement .bcar,.customer-requirement .rcar{
+     .fcar, .bcar, .rcar{
       top:60px;
       cursor: pointer;
       position: relative;
@@ -493,39 +492,39 @@
     }
   }
   @media screen and (min-width: 1025px) and (max-width: 1200px) {
-    .customer-requirement .vehicledocument {
+     .vehicledocument {
       width: 96%;
       left: 10px;
       top:70px;
     }
-    .customer-requirement .icon-group--wrapper{
+     .icon-group--wrapper{
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
     }
-    .customer-requirement .overlap {
+     .vehicle-overlap {
       width:100%;
       left: 0px;
     }
-    .customer-requirement .vehicledocument-2 {
+     .vehicledocument-2 {
       left: 20px;
       top: 14px;
     }
-    .customer-requirement .OR-CR,.customer-requirement .stensil,.customer-requirement .carinsurance{
+     .OR-CR, .stensil, .carinsurance{
       top:60px;
       cursor: pointer;
       position: relative;
       width: 33%;
       left: 60px;
     }
-    .customer-requirement .lcar{
+     .lcar{
       top:65px;
       cursor: pointer;
       position: relative;
       width: 100%;
       left: 85px;
     }
-    .customer-requirement .fcar,.customer-requirement .bcar,.customer-requirement .rcar{
+     .fcar, .bcar,.rcar{
       top:60px;
       cursor: pointer;
       position: relative;

@@ -20,10 +20,7 @@ import RequiredDocumentsComponent from "./loans/vehicle/RequiredDocumentsCompone
 import LoanTypeComponent from "./LoanTypeComponent";
 import QRComponent from "./loans/QRModalComponent";
 import SecondHandVehicleForm from "./layout/SecondHandVehicleForm";
-import AddPhotoModal from "./loans/AddPhotoModalComponent";
-import VehicleNewDetailsComponent from "./loans/vehicle/VehicleNewDetailsComponent";
-import CustomSubmitModal from "./custom/Custom.SubmitModal";
-import CustomInputField from "./custom/Custom.inputfield";
+import ReceiptComponent from "./ReceiptComponent";
 
 // CUSTOM COMPONENTS
 import OTPModalComponent from "./OTPModalComponent";
@@ -34,6 +31,8 @@ import CustomStatus from "./custom/Custom.status";
 import CustomerRequirementsSEComponent from "./CustomerRequirementsSEComponent";
 import CustomCardTitle from "./custom/Custom.cardTitle";
 import CustomInput from "./custom/Custom.input";
+import SuccessModal from "./loans/vehicle/SuccessModalComponent";
+
 
 export {
     DashboardComponent,
@@ -55,6 +54,7 @@ export {
     CustomerRequirementsSEComponent,
     VehicleDocumentsComponent,
     LoanTypeComponent,
+    ReceiptComponent,
     CustomHeader,
     CustomButton,
     CustomPrevBtn,
@@ -64,10 +64,5 @@ export {
     CustomInput,
     LoanSelection,
     SecondHandVehicleForm,
-    QRComponent,
-    VehicleNewDetailsComponent,
-    CustomSubmitModal,
-    OTPModalComponent,
-    CustomInputField,
-    AddPhotoModal,
+    SuccessModal
 }

@@ -1,6 +1,7 @@
 import React from "react";
+import { useState } from "react";
 import "../styles/customerrequirementse.css";
-import { useModal } from "../utils/modalContext";
+import SuccessModal from "./loans/vehicle/SuccessModalComponent";
 import {
   CustomHeader,
   CustomPrevBtn,
@@ -10,13 +11,7 @@ import {
 } from "./index";
 
 const CustomerRequirementsSEComponent = () => {
-  const {
-    modalOpen,
-    modalTitle,
-    modalDefaultGuideImage,
-    openModal,
-    closeModal,
-  } = useModal();
+  const[openModal, setOpenModal] = useState(false);
   return (
     <div className="customer-requirement">
       <div className="div">
@@ -101,8 +96,12 @@ const CustomerRequirementsSEComponent = () => {
             </div>
           </div>
           <div className="submit-btn">
-            <div className="text-wrapper-7">Submit</div>
+            <div className="text-wrapper-7" onClick={()=> {
+              setOpenModal(true)
+            }}
+            >Submit</div>
           </div>
+          {openModal && <SuccessModal closeModal={setOpenModal}/>}
         </div>
       </div>
       <AddPhotoModal
