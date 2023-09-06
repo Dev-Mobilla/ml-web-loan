@@ -1,15 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import "../styles/customerrequirement.css";
 import { useModal } from "../utils/modalContext";
+
 import {
   CustomHeader,
   CustomPrevBtn,
   TopbarComponent,
   VehicleDocumentsComponent,
   AddPhotoModal,
+  AlertModalRequirementsComponent
 } from "./index";
 
 const CustomerRequirementsComponent = () => {
+  const [isModalRequirementsAlertOpen, setIsModalRequirementsAlertOpen] = useState(false);
+  const handleModalRequirementsAlertOpen = () => {
+    setIsModalRequirementsAlertOpen(true);
+  };
+  const handleModalRequirementsAlertClose = () => {
+    setIsModalRequirementsAlertOpen(false);
+  };
   const {
     modalOpen,
     modalTitle,
@@ -17,7 +26,7 @@ const CustomerRequirementsComponent = () => {
     openModal,
     closeModal,
   } = useModal();
-
+  
   return (
     <div className="customer-requirement">
       <div className="div">
@@ -120,8 +129,8 @@ const CustomerRequirementsComponent = () => {
               </div>
             </div>
           </div>
-          <div className="submit-btn">
-            <div className="text-wrapper-7">Submit</div>
+          <div className="submit-btn" onClick={handleModalRequirementsAlertOpen}>
+            <div className="text-wrapper-7" >Submit</div>
           </div>
         </div>
       </div>
@@ -131,6 +140,7 @@ const CustomerRequirementsComponent = () => {
         modalTitle={modalTitle}
         modalDefaultGuideImage={modalDefaultGuideImage}
       />
+      {isModalRequirementsAlertOpen && <AlertModalRequirementsComponent onClose={handleModalRequirementsAlertClose} />}
     </div>
   );
 };

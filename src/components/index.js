@@ -23,7 +23,9 @@ import SecondHandVehicleForm from "./layout/SecondHandVehicleForm";
 import AddPhotoModal from "./loans/AddPhotoModalComponent";
 import VehicleNewDetailsComponent from "./loans/vehicle/VehicleNewDetailsComponent";
 import CustomSubmitModal from "./custom/Custom.SubmitModal";
+import AlertModalComponent from "./loans/AlertModalComponent";
 import CustomInputField from "./custom/Custom.inputfield";
+import AlertModalRequirementsComponent from "./loans/vehicle/AlertModalRequirementsComponent";
 
 // CUSTOM COMPONENTS
 import OTPModalComponent from "./OTPModalComponent";
@@ -70,4 +72,6 @@ export {
     OTPModalComponent,
     CustomInputField,
     AddPhotoModal,
+    AlertModalComponent,
+    AlertModalRequirementsComponent
 }
