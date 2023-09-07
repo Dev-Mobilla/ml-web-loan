@@ -9,7 +9,7 @@ import {
   LoanSelection,
   SecondHandVehicleForm,
   LoanDataComponent,
-} from "../../../components";
+} from "../..";
 
 const LoanTypeSecondHandComponent = () => {
   const { type } = useParams();
