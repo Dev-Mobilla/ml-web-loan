@@ -23,17 +23,14 @@ import VehicleNewDetailsComponent from "./loans/vehicle/VehicleNewDetailsCompone
 import CustomSubmitModal from "./custom/Custom.SubmitModal";
 import AlertModalComponent from "./loans/AlertModalComponent";
 import CustomInputField from "./custom/Custom.inputfield";
-<<<<<<< HEAD
 import AlertModalRequirementsComponent from "./loans/vehicle/AlertModalRequirementsComponent";
 
-=======
 import CustomerRequirementComponent from "./CustomerRequirementComponent";
 import VehicleRequirementComponent from "./loans/vehicle/VehicleRequirementComponent";
 import SelfEmployedRequirementComponent from "./loans/vehicle/SelfEmployedRequirementComponent";
 import EmployedRequirementComponent from "./loans/vehicle/EmployedRequirementComponent";
 import LoanDataComponent from "./loans/vehicle/LoanDataComponent";
 import ReceiptComponent from "./ReceiptComponent";
->>>>>>> origin/dev
 // CUSTOM COMPONENTS
 import OTPModalComponent from "./OTPModalComponent";
 import CustomHeader from "./custom/Custom.header";
@@ -45,7 +42,6 @@ import CustomInput from "./custom/Custom.input";
 import SuccessModal from "./loans/vehicle/SuccessModalComponent";
 
 export {
-<<<<<<< HEAD
     DashboardComponent,
     FooterComponent,
     HeaderComponent,
@@ -59,11 +55,8 @@ export {
     LoanTypeNewComponent,
     LoanTypeSecondHandComponent,
     CustomerDetailsComponent,
-    CustomerRequirementsComponent,
     LoanTypeRadiosComponent,
     RequiredDocumentsComponent,
-    CustomerRequirementsSEComponent,
-    VehicleDocumentsComponent,
     LoanTypeComponent,
     CustomHeader,
     CustomButton,
@@ -81,46 +74,13 @@ export {
     CustomInputField,
     AddPhotoModal,
     AlertModalComponent,
-    AlertModalRequirementsComponent
+    AlertModalRequirementsComponent,
+    CustomerRequirementComponent,
+    VehicleRequirementComponent,
+    SelfEmployedRequirementComponent,
+    EmployedRequirementComponent,
+    LoanDataComponent,
+    ReceiptComponent,
+    SuccessModal,
 }
-=======
-  DashboardComponent,
-  FooterComponent,
-  HeaderComponent,
-  TopbarComponent,
-  CustomerDetailsHeader,
-  LoginComponent,
-  ManageLoanComponent,
-  HousingLoanComponent,
-  QuickCashLoanComponent,
-  QuickCashHeaderComponent,
-  LoanTypeNewComponent,
-  LoanTypeSecondHandComponent,
-  CustomerDetailsComponent,
-  LoanTypeRadiosComponent,
-  RequiredDocumentsComponent,
-  LoanTypeComponent,
-  CustomHeader,
-  CustomButton,
-  CustomPrevBtn,
-  CustomStatus,
-  LoanTypeSelection,
-  CustomCardTitle,
-  CustomInput,
-  LoanSelection,
-  SecondHandVehicleForm,
-  QRComponent,
-  VehicleNewDetailsComponent,
-  CustomSubmitModal,
-  OTPModalComponent,
-  CustomInputField,
-  AddPhotoModal,
-  CustomerRequirementComponent,
-  VehicleRequirementComponent,
-  SelfEmployedRequirementComponent,
-  EmployedRequirementComponent,
-  LoanDataComponent,
-  ReceiptComponent,
-  SuccessModal,
-};
->>>>>>> origin/dev
+  

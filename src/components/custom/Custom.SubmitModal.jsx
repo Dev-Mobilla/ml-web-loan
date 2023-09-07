@@ -1,11 +1,5 @@
 import React, { useState } from 'react'
-import { CustomButton, CustomInput } from '..';
-import { numbers } from './../../utils/ExistingNumbers';
-import {
-  OTPModalComponent,
-  AlertModalComponent
-}
-  from "../index";
+import { CustomButton, CustomInput, CustomInputField } from '..';
 
 const CustomSubmitModal = ({
   mobileNumber,
@@ -16,27 +10,11 @@ const CustomSubmitModal = ({
   modalBtn,
   modalBtnWrapper,
   inptBtnWrapper,
-  placeHolder
+  onclickHandler,
+  inputType,
+  placeHolder,
+  inputValue
 }) => {
-
-
-  const [number, setNumber] = useState('');
-  const [showOTPModal, setShowOTPModal] = useState(false);
-  const [showAlertModal, setShowAlertModal] = useState(false);
-  
-  const handleModalAlertClose = () => {
-    setShowAlertModal(false);
-  };
-
-
-  const handleButtonClick = () => {
-    if (numbers.includes(Number(number))) {
-      setShowOTPModal(true);
-    } else {
-      setShowAlertModal(true);
-    }
-  };
-
 
   return (
     <div className={wrapperClass}>
@@ -44,23 +22,14 @@ const CustomSubmitModal = ({
         <label htmlFor="" className={labelClass}>{mobileNumber}</label>
         <div className={inptBtnWrapper}>
           <div className={inputWrapperClass}>
-            <input type="text" placeholder={placeHolder} value={number} onChange={(e) => setNumber(e.target.value)} />
+            <CustomInputField inputType={inputType} inputVal={inputValue} inputPlaceholder={placeHolder}/>
+            {/* <input type="text" placeholder={placeHolder} value={number} /> */}
           </div>
           <div className={modalBtnWrapper}>
-            <CustomButton name="Continue" styles={modalBtn} EventHandler={handleButtonClick} />
+            <CustomButton name="Continue" styles={modalBtn} EventHandler={onclickHandler} />
           </div>
         </div>
       </div>
-      {
-        showOTPModal ?
-          <OTPModalComponent time="58" />
-          : <></>
-      }
-      {
-        showAlertModal ?
-          <AlertModalComponent onClose={handleModalAlertClose} />
-          : <></>
-      }
     </div>
   )
 }
