@@ -6,7 +6,7 @@ import '../../styles/QRmodal.css';
 
 const QRModalComponent = ({ onClose }) => {
   const [showAlertModal, setShowAlertModal] = useState(true);
-  const [showModal, setShowModal] = useState(false);
+  const setShowModal = useState(false);
   const modalRef = useRef(null);
   useEffect(() => {
     const alertTimeout = setTimeout(() => {

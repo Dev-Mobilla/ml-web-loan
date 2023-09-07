@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import '../../styles/AlertModalComponent.css';
 
 const AlertModalComponent = ({ onClose }) => {
-    const [showModal, setShowModal] = useState(false);
+    const setShowModal = useState(false);
     const modalRef = useRef(null);
     useEffect(() => {
         const modal = () => {

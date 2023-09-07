@@ -14,6 +14,7 @@ import { useNavigate } from "react-router-dom";
 const DashboardComponent = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [showModal, setShowModal] = useState(false);
+  const [showOTPModal, setShowOTPModal] = useState(false);
 
   const navigate = useNavigate();
 
