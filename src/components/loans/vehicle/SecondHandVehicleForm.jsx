@@ -1,5 +1,5 @@
 import React from "react";
-// import "../../styles/loanTypeSecondHand.css";
+
 const SecondHandVehicleForm = () => {
   return (
     <div className="form">

@@ -6,11 +6,11 @@ import {
   HousingLoan,
   ManageLoans,
   QuickCashLoan,
+  Receipt,
 } from "../pages";
 import LoanType from "../pages/LoanType.page";
 import CustomerDetails from "../pages/CustomerDetails.page";
 import CustomerRequirements from "../pages/CustomerRequirements.page";
-import CustomerRequirementsSE from "../pages/CustomerRequirementsSE.page";
 
 const Router = createBrowserRouter([
     {
@@ -49,8 +49,8 @@ const Router = createBrowserRouter([
         errorElement: <Error/>
     }, 
     {
-        path: '/vehicle-loan/requirements/self-employed',
-        element: <CustomerRequirementsSE/>,
+        path: '/vehicle-loan/receipt',
+        element: <Receipt/>,
         errorElement: <Error/>
     },
 ])

@@ -11,63 +11,70 @@ import QuickCashHeaderComponent from "./layout/QuickCashHeaderComponent";
 import LoanTypeSelection from "./layout/LoanTypeSelectionComponent";
 import LoanSelection from "./layout/LoanSelectionComponent";
 import LoanTypeNewComponent from "./loans/vehicle/LoanTypeNewComponent";
-import LoanTypeSecondHandComponent from "./LoanTypeSecondHandComponent";
+import LoanTypeSecondHandComponent from "./loans/vehicle/LoanTypeSecondHandComponent";
 import CustomerDetailsComponent from "./CustomerDetailsComponent";
-import CustomerRequirementsComponent from "./CustomerRequirementsComponent";
 import LoanTypeRadiosComponent from "./loans/vehicle/LoanTypeRadiosComponent";
-import VehicleDocumentsComponent from "./loans/vehicle/VehicleDocumentsComponent";
 import RequiredDocumentsComponent from "./loans/vehicle/RequiredDocumentsComponent";
 import LoanTypeComponent from "./LoanTypeComponent";
 import QRComponent from "./loans/QRModalComponent";
-import SecondHandVehicleForm from "./layout/SecondHandVehicleForm";
+import SecondHandVehicleForm from "./loans/vehicle/SecondHandVehicleForm";
 import AddPhotoModal from "./loans/AddPhotoModalComponent";
 import VehicleNewDetailsComponent from "./loans/vehicle/VehicleNewDetailsComponent";
 import CustomSubmitModal from "./custom/Custom.SubmitModal";
 import CustomInputField from "./custom/Custom.inputfield";
-
+import CustomerRequirementComponent from "./CustomerRequirementComponent";
+import VehicleRequirementComponent from "./loans/vehicle/VehicleRequirementComponent";
+import SelfEmployedRequirementComponent from "./loans/vehicle/SelfEmployedRequirementComponent";
+import EmployedRequirementComponent from "./loans/vehicle/EmployedRequirementComponent";
+import LoanDataComponent from "./loans/vehicle/LoanDataComponent";
+import ReceiptComponent from "./ReceiptComponent";
 // CUSTOM COMPONENTS
 import OTPModalComponent from "./OTPModalComponent";
 import CustomHeader from "./custom/Custom.header";
 import CustomButton from "./custom/Custom.button";
 import CustomPrevBtn from "./custom/Custom.prevbtn";
 import CustomStatus from "./custom/Custom.status";
-import CustomerRequirementsSEComponent from "./CustomerRequirementsSEComponent";
 import CustomCardTitle from "./custom/Custom.cardTitle";
 import CustomInput from "./custom/Custom.input";
+import SuccessModal from "./loans/vehicle/SuccessModalComponent";
 
 export {
-    DashboardComponent,
-    FooterComponent,
-    HeaderComponent,
-    TopbarComponent,
-    CustomerDetailsHeader,
-    LoginComponent,
-    ManageLoanComponent,
-    HousingLoanComponent,
-    QuickCashLoanComponent,
-    QuickCashHeaderComponent,
-    LoanTypeNewComponent,
-    LoanTypeSecondHandComponent,
-    CustomerDetailsComponent,
-    CustomerRequirementsComponent,
-    LoanTypeRadiosComponent,
-    RequiredDocumentsComponent,
-    CustomerRequirementsSEComponent,
-    VehicleDocumentsComponent,
-    LoanTypeComponent,
-    CustomHeader,
-    CustomButton,
-    CustomPrevBtn,
-    CustomStatus,
-    LoanTypeSelection,
-    CustomCardTitle,
-    CustomInput,
-    LoanSelection,
-    SecondHandVehicleForm,
-    QRComponent,
-    VehicleNewDetailsComponent,
-    CustomSubmitModal,
-    OTPModalComponent,
-    CustomInputField,
-    AddPhotoModal,
-}
+  DashboardComponent,
+  FooterComponent,
+  HeaderComponent,
+  TopbarComponent,
+  CustomerDetailsHeader,
+  LoginComponent,
+  ManageLoanComponent,
+  HousingLoanComponent,
+  QuickCashLoanComponent,
+  QuickCashHeaderComponent,
+  LoanTypeNewComponent,
+  LoanTypeSecondHandComponent,
+  CustomerDetailsComponent,
+  LoanTypeRadiosComponent,
+  RequiredDocumentsComponent,
+  LoanTypeComponent,
+  CustomHeader,
+  CustomButton,
+  CustomPrevBtn,
+  CustomStatus,
+  LoanTypeSelection,
+  CustomCardTitle,
+  CustomInput,
+  LoanSelection,
+  SecondHandVehicleForm,
+  QRComponent,
+  VehicleNewDetailsComponent,
+  CustomSubmitModal,
+  OTPModalComponent,
+  CustomInputField,
+  AddPhotoModal,
+  CustomerRequirementComponent,
+  VehicleRequirementComponent,
+  SelfEmployedRequirementComponent,
+  EmployedRequirementComponent,
+  LoanDataComponent,
+  ReceiptComponent,
+  SuccessModal,
+};
