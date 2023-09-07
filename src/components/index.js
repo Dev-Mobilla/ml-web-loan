@@ -3,7 +3,6 @@ import HousingLoanComponent from "./HousingLoanComponent";
 import FooterComponent from "./layout/FooterComponent";
 import HeaderComponent from "./layout/HeaderComponent";
 import TopbarComponent from "./layout/TopbarComponent";
-import CustomerDetailsHeader from "./layout/CustomerDetailsHeaderComponent";
 import LoginComponent from "./LoginComponent";
 import ManageLoanComponent from "./ManageLoansComponent";
 import QuickCashLoanComponent from "./QuickCashLoanComponent";
@@ -11,7 +10,7 @@ import QuickCashHeaderComponent from "./layout/QuickCashHeaderComponent";
 import LoanTypeSelection from "./layout/LoanTypeSelectionComponent";
 import LoanSelection from "./layout/LoanSelectionComponent";
 import LoanTypeNewComponent from "./loans/vehicle/LoanTypeNewComponent";
-import LoanTypeSecondHandComponent from "./loans/vehicle/LoanTypeSecondhandComponent";
+import LoanTypeSecondHandComponent from "./loans/vehicle/LoanTypeSecondHandComponent";
 import CustomerDetailsComponent from "./CustomerDetailsComponent";
 import LoanTypeRadiosComponent from "./loans/vehicle/LoanTypeRadiosComponent";
 import RequiredDocumentsComponent from "./loans/vehicle/RequiredDocumentsComponent";
@@ -31,6 +30,7 @@ import SelfEmployedRequirementComponent from "./loans/vehicle/SelfEmployedRequir
 import EmployedRequirementComponent from "./loans/vehicle/EmployedRequirementComponent";
 import LoanDataComponent from "./loans/vehicle/LoanDataComponent";
 import ReceiptComponent from "./ReceiptComponent";
+
 // CUSTOM COMPONENTS
 import OTPModalComponent from "./OTPModalComponent";
 import CustomHeader from "./custom/Custom.header";
@@ -42,6 +42,7 @@ import CustomInput from "./custom/Custom.input";
 import SuccessModal from "./loans/vehicle/SuccessModalComponent";
 
 export {
+
     DashboardComponent,
     FooterComponent,
     HeaderComponent,

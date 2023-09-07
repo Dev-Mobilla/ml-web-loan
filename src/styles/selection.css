@@ -49,13 +49,13 @@
 }
 
 .loan-term-selection .value {
-  margin-left: 30px !important;
+  margin-left: 40px !important;
 }
 
 .percentage-selection .value,
 .loan-term-selection .value {
   display: flex;
-  margin-left: 60px;
+  margin-left: 70px;
   font-size: 18px;
   color: #555555;
 }
