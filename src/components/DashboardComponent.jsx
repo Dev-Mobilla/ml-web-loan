@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {  useState  } from "react";
 import "../styles/dashboard.css";
 
 import {
@@ -14,7 +14,6 @@ import { useNavigate } from "react-router-dom";
 const DashboardComponent = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [showModal, setShowModal] = useState(false);
-  const [showOTPModal, setShowOTPModal] = useState(false);
 
   const navigate = useNavigate();
 
@@ -31,7 +30,7 @@ const DashboardComponent = () => {
   return (
     <div className="dashboard">
       <div className="dashboard-div">
-        <TopbarComponent/>
+        <TopbarComponent />
         {
           showModal ? 
           <div className="login-modal" onClick={() => setShowModal(false)}>
@@ -54,6 +53,11 @@ const DashboardComponent = () => {
           <OTPModalComponent time={60} HandleOnClose={() => setShowOTPModal(false)}/>
           : <></>
         }
+
+
+
+
+
         <div className="overlap">
           <HeaderComponent manageLoansEvent={ManageLoansHandler} />
           <div className="body-bg">

@@ -6,6 +6,7 @@
   width: 100%;
   height: 800px;
 }
+
 .customer-details .div {
   background-color: #fbfbfb;
   height: 1700px;
@@ -13,6 +14,7 @@
   position: relative;
   width: 1440px;
 }
+
 .customer-details .div .body {
   height: 90%;
   left: 68px;
@@ -20,6 +22,7 @@
   width: 1000px;
   z-index: -999;
 }
+
 .customer-details .div .body .overlap1 {
   border-color: #ff2800;
   border-width: 1px;
@@ -31,6 +34,7 @@
   top: 10%;
   width: 50%;
 }
+
 .customer-details .contactdetailstxt {
   color: #ff2800;
   font-family: "Roboto", Helvetica;
@@ -45,9 +49,11 @@
   width: 170px;
   content: "Contact Details";
 }
+
 .customer-details .contactdetailstxt::before {
   content: "Contact Details";
 }
+
 .customer-details #mobile_number {
   margin-top: 50px;
   margin-left: 35%;
@@ -57,6 +63,7 @@
   border-style: solid;
   border-radius: 5px;
 }
+
 .customer-details #email {
   margin-top: 10px;
   margin-left: 35%;
@@ -66,6 +73,7 @@
   border-style: solid;
   border-radius: 5px;
 }
+
 .customer-details .overlap2 {
   height: 38%;
   left: 25%;
@@ -77,6 +85,7 @@
   border-radius: 15px;
   border-style: solid;
 }
+
 .customer-details .personal {
   color: #ff2800;
   font-family: "Roboto", Helvetica;
@@ -90,6 +99,7 @@
   white-space: nowrap;
   width: 170px;
 }
+
 .customer-details .overlap2 input {
   margin-top: 13px;
   margin-left: 35%;
@@ -99,9 +109,11 @@
   border-style: solid;
   border-color: gray;
 }
+
 .customer-details #firstname {
   margin-top: 10%;
 }
+
 .customer-details #nationality {
   margin-top: 10px;
   margin-left: 35%;
@@ -112,6 +124,7 @@
   border-color: gray;
   color: gray;
 }
+
 .customer-details #sourceOfIncome {
   margin-top: 10px;
   margin-left: 35%;
@@ -122,8 +135,9 @@
   border-color: gray;
   color: gray;
 }
+
 .customer-details .overlap3 {
-  height: 15%;
+  height: 20%;
   left: 25%;
   position: absolute;
   top: 60%;
@@ -133,6 +147,7 @@
   border-radius: 15px;
   border-style: solid;
 }
+
 .customer-details .preferred-title {
   color: #ff2800;
   font-family: "Roboto", Helvetica;
@@ -146,30 +161,57 @@
   white-space: nowrap;
   width: 170px;
 }
+
 .customer-details .sub-preferred-title {
   color: gray;
   font-family: "Roboto", Helvetica;
   font-size: 13px;
   font-weight: 900;
-  margin-top: 7%;
-  margin-left: 11%;
+  margin-top: 10%;
+  margin-left: 14%;
 }
+
+.customer-details .overlap3 #search_address {
+  margin-top: 10px;
+  margin-left: 35%;
+  width: 40%;
+  height: 32px;
+  border-radius: 5px;
+  border-style: solid;
+  border-color: gray;
+  color: gray;
+}
+
+.customer-details .overlap3 #search-btn {
+  background-color: white;
+  display: inline;
+  cursor: pointer;
+  margin-left: -62px;
+  width: 60px;
+  height: 31px;
+  border-style: solid;
+  border-color: gray;
+}
+
 .near_branch input {
   margin-top: 30px;
   margin-left: 40%;
 }
-.customer-details .near_branch input[type = "radio"]{
+
+.customer-details .near_branch input[type="radio"] {
   accent-color: red;
 }
+
 .customer-details .div .body #submit-btn {
-  margin-top: 1290px;
-  margin-left: 600px;
-  width: 200px;
-  height: 39px;
+  margin-top: 1250px;
+  margin-left: 30%;
   background: linear-gradient(90deg, #FE0000 0%, #D20101 100%);
   color: white;
   border-radius: 4px;
+  height: 45px;
+  width: 40%;
 }
+
 .customer-details .prevpagebtn {
   background-color: #fbfbfb !important;
   border: 1px solid !important;
@@ -189,41 +231,49 @@
     flex-direction: row;
     justify-content: center;
     width: 100%;
-    height: 1440px;
+    height: 2030px;
   }
+
   .customer-details .div {
     background-color: #fbfbfb;
-    height: 1450px;
+    height: 1650px;
     overflow: hidden;
     position: relative;
-    width: 1440px;
+    width: 1900px;
   }
+
   .customer-details .div .body {
-    height: 90%;
+    height: 1700px;
     left: 68px;
     top: 0%;
     width: 1000px;
     z-index: -999;
   }
-  .customer-details> .top-bar,
+
+  .customer-details>.top-bar,
   .customer-details .div .body .overlap1 #email,
   .customer-details .div .body>.prevpagebtn {
     display: none;
   }
+
   .customer-details .contactdetailstxt::before {
     content: "Mobile Number";
     margin-left: 5px;
   }
+
+  
   #mobile_number::placeholder {
     content: "Enter your mobile number";
     color: #999;
   }
+
   .customer-details .div .body .overlap1 {
-    top: 7%;
+    top: 14%;
     height: 110px;
     width: 89%;
     margin-left: -20%;
   }
+
   .customer-details .div .contactdetailstxt {
     color: #ff2800;
     font-family: "Roboto", Helvetica;
@@ -238,66 +288,94 @@
     width: 170px;
     content: "Mobile Number";
   }
+
   .customer-details #mobile_number {
     width: 90%;
     margin-left: 15px;
     height: 40%;
   }
+
   .customer-details .div .body .overlap2 {
-    margin-top: -40px;
+    margin-top: 30px;
     width: 89%;
-    height: 56%;
+    height: 49%;
     margin-left: -20%;
   }
+
   .customer-details .personal {
     top: 10px;
     left: 20px;
   }
+
   .customer-details #firstname {
     margin-top: 15%;
   }
+
   .customer-details .overlap2 input {
     width: 90%;
     margin-left: 15px;
     height: 45px;
   }
+
   .customer-details #nationality {
     width: 90%;
     margin-left: 15px;
     height: 45px;
   }
+
   .customer-details #sourceOfIncome {
     width: 90%;
     margin-left: 15px;
     height: 45px;
   }
+
   .customer-details .overlap3 {
     margin-top: 200px;
     width: 89%;
-    height: 15%;
+    height: 18%;
     margin-left: -20%;
   }
+
   .customer-details .preferred-title {
     margin-top: -10px;
     margin-left: -51px;
   }
+
   .customer-details .sub-preferred-title {
     margin-top: 35px;
     margin-left: 20px;
   }
+
+  .customer-details .overlap3 #search_address {
+    width: 90%;
+    margin-left: 15px;
+    height: 45px;
+  }
+
+  .customer-details .overlap3 #search-btn {
+    height: 45px;
+  }
+
   .near_branch {
     margin-top: -5x;
   }
+
   .near_branch input {
     margin-top: 20px;
     margin-left: 5%;
   }
+
   .customer-details .div .body #submit-btn {
-    margin-top: 1320px;
-    margin-left: 3%;
-    width: 400px;
+    margin-top: 1350px;
+    margin-left: 15px;
+    background: linear-gradient(90deg, #FE0000 0%, #D20101 100%);
+    color: white;
+    border-radius: 4px;
+    height: 45px;
+    width: 30%;
   }
 }
+
 @media only screen and (min-width: 481px) and (max-width: 768px) {
   .customer-details {
     background-color: #fbfbfb;
@@ -305,37 +383,47 @@
     flex-direction: row;
     justify-content: center;
     width: 100%;
-    height: 1440px;
+    height: 2030px;
   }
+
   .customer-details .div {
     background-color: #fbfbfb;
-    height: 1450px;
+    height: 1650px;
     overflow: hidden;
     position: relative;
-    width: 1440px;
+    width: 1900px;
   }
+
   .customer-details .div .body {
-    height: 90%;
+    height: 1700px;
     left: 68px;
     top: 0%;
     width: 1000px;
     z-index: -999;
   }
-  .customer-details> .top-bar,
+
+  .customer-details>.top-bar,
   .customer-details .div .body .overlap1 #email,
   .customer-details .div .body>.prevpagebtn {
     display: none;
   }
+
   .customer-details .contactdetailstxt::before {
     content: "Mobile Number";
     margin-left: 5px;
   }
+
+  #mobile_number::placeholder {
+    content: "Enter your mobile number";
+    color: #999;
+  }
   .customer-details .div .body .overlap1 {
-    top: 11%;
+    top: 14%;
     height: 110px;
     width: 89%;
     margin-left: -20%;
   }
+
   .customer-details .div .contactdetailstxt {
     color: #ff2800;
     font-family: "Roboto", Helvetica;
@@ -350,66 +438,94 @@
     width: 170px;
     content: "Mobile Number";
   }
+
   .customer-details #mobile_number {
     width: 90%;
     margin-left: 15px;
     height: 40%;
   }
+
   .customer-details .div .body .overlap2 {
-    margin-top: 10px;
+    margin-top: 30px;
     width: 89%;
-    height: 55%;
+    height: 49%;
     margin-left: -20%;
   }
+
   .customer-details .personal {
     top: 10px;
     left: 20px;
   }
+
   .customer-details #firstname {
-    margin-top: 40px;
+    margin-top: 9%;
   }
+
   .customer-details .overlap2 input {
     width: 90%;
     margin-left: 15px;
     height: 45px;
   }
+
   .customer-details #nationality {
     width: 90%;
     margin-left: 15px;
     height: 45px;
   }
+
   .customer-details #sourceOfIncome {
     width: 90%;
     margin-left: 15px;
     height: 45px;
   }
+
   .customer-details .overlap3 {
-    margin-top: 250px;
+    margin-top: 200px;
     width: 89%;
-    height: 15%;
+    height: 18%;
     margin-left: -20%;
   }
+
   .customer-details .preferred-title {
     margin-top: -10px;
     margin-left: -51px;
   }
+
   .customer-details .sub-preferred-title {
     margin-top: 35px;
     margin-left: 20px;
   }
+
+  .customer-details .overlap3 #search_address {
+    width: 90%;
+    margin-left: 15px;
+    height: 45px;
+  }
+
+  .customer-details .overlap3 #search-btn {
+    height: 45px;
+  }
+
   .near_branch {
     margin-top: -5x;
   }
+
   .near_branch input {
     margin-top: 20px;
     margin-left: 5%;
   }
+
   .customer-details .div .body #submit-btn {
-      margin-top: 1360px;
-      margin-left: 3%;
-      width: 425px;
+    margin-top: 1350px;
+    margin-left: 10%;
+    background: linear-gradient(90deg, #FE0000 0%, #D20101 100%);
+    color: white;
+    border-radius: 4px;
+    height: 45px;
+    width: 35%;
   }
 }
+
 @media only screen and (min-width: 769px) and (max-width: 1024px) {
   .customer-details {
     background-color: #fbfbfb;
@@ -417,37 +533,47 @@
     flex-direction: row;
     justify-content: center;
     width: 100%;
-    height: 1440px;
+    height: 2030px;
   }
+
   .customer-details .div {
     background-color: #fbfbfb;
-    height: 1450px;
+    height: 1650px;
     overflow: hidden;
     position: relative;
-    width: 1440px;
+    width: 1900px;
   }
+
   .customer-details .div .body {
-    height: 90%;
+    height: 1700px;
     left: 68px;
     top: 0%;
     width: 1000px;
     z-index: -999;
   }
+
   .customer-details>.top-bar,
   .customer-details .div .body .overlap1 #email,
   .customer-details .div .body>.prevpagebtn {
     display: none;
   }
+
   .customer-details .contactdetailstxt::before {
     content: "Mobile Number";
     margin-left: 5px;
   }
+
+  #mobile_number::placeholder {
+    content: "Enter your mobile number";
+    color: #999;
+  }
   .customer-details .div .body .overlap1 {
-    top: 11%;
+    top: 14%;
     height: 110px;
     width: 89%;
     margin-left: -20%;
   }
+
   .customer-details .div .contactdetailstxt {
     color: #ff2800;
     font-family: "Roboto", Helvetica;
@@ -462,175 +588,101 @@
     width: 170px;
     content: "Mobile Number";
   }
+
   .customer-details #mobile_number {
     width: 90%;
     margin-left: 15px;
     height: 40%;
   }
+
   .customer-details .div .body .overlap2 {
-    margin-top: 10px;
+    margin-top: 30px;
     width: 89%;
-    height: 55%;
+    height: 49%;
     margin-left: -20%;
   }
+
   .customer-details .personal {
     top: 10px;
     left: 20px;
   }
+
   .customer-details #firstname {
-    margin-top: 40px;
+    margin-top: 6%;
   }
+
   .customer-details .overlap2 input {
     width: 90%;
     margin-left: 15px;
     height: 45px;
   }
+
   .customer-details #nationality {
     width: 90%;
     margin-left: 15px;
     height: 45px;
   }
+
   .customer-details #sourceOfIncome {
     width: 90%;
     margin-left: 15px;
     height: 45px;
   }
+
   .customer-details .overlap3 {
-    margin-top: 250px;
+    margin-top: 200px;
     width: 89%;
-    height: 15%;
+    height: 18%;
     margin-left: -20%;
   }
+
   .customer-details .preferred-title {
     margin-top: -10px;
     margin-left: -51px;
   }
+
   .customer-details .sub-preferred-title {
     margin-top: 35px;
     margin-left: 20px;
   }
+
+  .customer-details .overlap3 #search_address {
+    width: 90%;
+    margin-left: 15px;
+    height: 45px;
+  }
+
+  .customer-details .overlap3 #search-btn {
+    height: 45px;
+  }
+
   .near_branch {
     margin-top: -5x;
   }
+
   .near_branch input {
     margin-top: 20px;
     margin-left: 5%;
   }
+
   .customer-details .div .body #submit-btn {
-      margin-top: 1360px;
-      margin-left: 5%;
-      width: 700px;
+    margin-top: 1350px;
+    margin-left: 15%;
+    background: linear-gradient(90deg, #FE0000 0%, #D20101 100%);
+    color: white;
+    border-radius: 4px;
+    height: 45px;
+    width: 35%;
   }
 }
-@media only screen and (min-width: 1025px) and (max-width: 1200px) {
-  .customer-details {
-    background-color: #fbfbfb;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    width: 100%;
-    height: 1440px;
-  }
-  .customer-details .div {
-    background-color: #fbfbfb;
-    height: 1450px;
-    overflow: hidden;
-    position: relative;
-    width: 1440px;
-  }
-  .customer-details .div .body {
-    height: 90%;
-    left: 68px;
-    top: 0%;
-    width: 1000px;
-    z-index: -999;
-  }
-  .customer-details>.top-bar,
-  .customer-details .div .body .overlap1 #email,
-  .customer-details .div .body>.prevpagebtn {
-    display: none;
-  }
-  .customer-details .contactdetailstxt::before {
-    content: "Mobile Number";
-    margin-left: 5px;
-  }
-  .customer-details .div .body .overlap1 {
-    top: 11%;
-    height: 110px;
-    width: 89%;
-    margin-left: -20%;
-  }
-  .customer-details .div .contactdetailstxt {
-    color: #ff2800;
-    font-family: "Roboto", Helvetica;
-    font-size: 22px;
-    font-weight: 700;
-    left: 10px;
-    letter-spacing: -0.33px;
-    line-height: normal;
-    position: absolute;
-    top: 20px;
-    white-space: nowrap;
-    width: 170px;
-    content: "Mobile Number";
-  }
-  .customer-details #mobile_number {
-    width: 90%;
-    margin-left: 15px;
-    height: 40%;
-  }
-  .customer-details .div .body .overlap2 {
-    margin-top: 10px;
-    width: 89%;
-    height: 55%;
-    margin-left: -20%;
-  }
-  .customer-details .personal {
-    top: 10px;
-    left: 20px;
-  }
-  .customer-details #firstname {
-    margin-top: 40px;
-  }
-  .customer-details .overlap2 input {
-    width: 90%;
-    margin-left: 15px;
-    height: 45px;
-  }
-  .customer-details #nationality {
-    width: 90%;
-    margin-left: 15px;
-    height: 45px;
-  }
-  .customer-details #sourceOfIncome {
-    width: 90%;
-    margin-left: 15px;
-    height: 45px;
-  }
-  .customer-details .overlap3 {
-    margin-top: 250px;
-    width: 89%;
-    height: 15%;
-    margin-left: -20%;
-  }
-  .customer-details .preferred-title {
-    margin-top: -10px;
-    margin-left: -51px;
-  }
-  .customer-details .sub-preferred-title {
-    margin-top: 35px;
-    margin-left: 20px;
-  }
-  .near_branch {
-    margin-top: -5x;
-  }
-  .near_branch input {
-    margin-top: 20px;
-    margin-left: 5%;
-  }
+@media only screen and (min-width: 1025px){
   .customer-details .div .body #submit-btn {
-      margin-top: 1360px;
-      margin-left: 10%;
-      width: 800px;
+    margin-top: 1250px;
+    margin-left: 35%;
+    background: linear-gradient(90deg, #FE0000 0%, #D20101 100%);
+    color: white;
+    border-radius: 4px;
+    height: 45px;
+    width: 35%;
   }
 }

@@ -110,7 +110,9 @@ const CustomerDetailsComponent = () => {
           </div>
           <div className="overlap3">
             <div className="preferred-title">Preferred Branch</div>
-            <div className="sub-preferred-title">Select a branch nearest you</div>
+            <div className="sub-preferred-title">Select a branch nearest you</div><br/>
+            <input type="text" id="search_address" name="current_address" placeholder="Current Address" />
+            <input type="submit" id="search-btn" value="Search"/>
             <div className="near_branch"><br />
               <label>
                 <input
@@ -143,14 +145,7 @@ const CustomerDetailsComponent = () => {
               </label>
             </div>
           </div>
-          <button id="submit-btn">Submit</button>
-          {/* <div className="prevpagebtn">
-            <img
-              className="arrow"
-              alt="Arrow"
-              src="https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e492714fd92dc35e55a22f/img/arrow-2-2@2x.png"
-            />
-          </div> */}
+          <input type="submit" id="submit-btn"/>
         </div>
       </div>
     </div>
