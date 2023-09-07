@@ -675,3 +675,14 @@
     width: 35%;
   }
 }
+@media only screen and (min-width: 1025px){
+  .customer-details .div .body #submit-btn {
+    margin-top: 1250px;
+    margin-left: 35%;
+    background: linear-gradient(90deg, #FE0000 0%, #D20101 100%);
+    color: white;
+    border-radius: 4px;
+    height: 45px;
+    width: 35%;
+  }
+}
