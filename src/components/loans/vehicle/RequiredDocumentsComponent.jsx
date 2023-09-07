@@ -21,7 +21,7 @@ const RequiredDocumentsComponent = () => {
       />
 
       <div className="required-radio-buttons">
-        <label>
+        <label htmlFor="Employed">
           <input
             type="radio"
             value="Employed"
@@ -30,11 +30,11 @@ const RequiredDocumentsComponent = () => {
           />
           Employed
         </label>
-        <label>
+        <label htmlFor="Self-Employed">
           <input
             type="radio"
-            value="SelfEmployed"
-            checked={selectedOption === "SelfEmployed"}
+            value="Self-Employed"
+            checked={selectedOption === "Self-Employed"}
             onChange={handleOptionChange}
           />
           Self-Employed
