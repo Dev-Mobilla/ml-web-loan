@@ -1,6 +1,9 @@
 import React from "react";
+
 import "../../../styles/vehicledocuments.css";
+
 import { useModal } from "../../../utils/modalContext";
+
 import { AddPhotoModal } from "../../index";
 
 const VehicleDocumentsComponent = () => {

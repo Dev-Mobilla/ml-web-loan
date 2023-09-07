@@ -261,6 +261,7 @@
     margin-left: 5px;
   }
 
+  
   #mobile_number::placeholder {
     content: "Enter your mobile number";
     color: #999;
