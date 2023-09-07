@@ -81,6 +81,7 @@
   .term-circle {
     width: 14px;
     height: 14px;
+    margin-left: 15px !important;
   }
 
   .type .name {

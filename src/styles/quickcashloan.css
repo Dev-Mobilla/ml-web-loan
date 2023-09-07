@@ -101,7 +101,6 @@
     left: 80%;
     position: absolute;
     top: 53px;
-    transform: rotate(-0.11deg);
     width: 171px;
 }
 
@@ -110,12 +109,15 @@
     left: 0;
     position: absolute;
     top: 0;
-    transform: rotate(0.11deg);
     width: 169px;
+    border-radius: 20px;
+    background-color: #D4EBD4;
+    border-color: #009900;
+    border-width:1px;
 }
 
 .quick-cash-loan .QuickCash-currentText {
-    color: #ffffff;
+    color: #009900;
     font-family: "Roboto", Helvetica;
     font-size: 22px;
     font-weight: 500;
@@ -125,7 +127,7 @@
     line-height: normal;
     position: absolute;
     text-align: center;
-    top: 6px;
+    top: 3px;
     white-space: nowrap;
     width: 124px;
 }
@@ -252,15 +254,15 @@
     margin-top: 10px;
 }
 
-.quick-cash-loan .payment_due_before {
-    /* margin-left: 6%; */
-    /* margin-top: 6%; */
+/* .quick-cash-loan .payment_due_before {
+    margin-left: 6%;
+    margin-top: 6%;
 }
 
 .quick-cash-loan .amount_due {
-    /* margin-left: 22%; */
-    /* margin-top: 20%; */
-}
+    margin-left: 22%;
+    margin-top: 20%;
+} */
 
 .housing_loan_logo {
     width: 60px;
@@ -396,6 +398,7 @@
         height: 15px;
         margin-left: 30px;
         border-radius: 5px;
+       
     }
 
     .quick-cash-loan .QuickCash-currentText {
@@ -481,13 +484,13 @@
         font-size: 14px;
     }
 
-    .payment_amount_due input {
+    /* .payment_amount_due input { */
         /* margin-top: 10px; */
         /* margin-right: 140px; */
         /* width: 25%; */
         /* padding: 6px 10px;
         margin:0px; */
-    }
+    /* } */
     .quick-cash-loan .amount_due input{
         margin: 10px 0px;
     }
@@ -619,13 +622,13 @@
         font-size: 14px;
     }
 
-    .payment_amount_due input {
+    /* .payment_amount_due input { */
         /* margin-top: 10px; */
         /* margin-right: 140px; */
         /* width: 25%; */
         /* padding: 6px 10px;
         margin:0px; */
-    }
+    /* } */
     .quick-cash-loan .amount_due input{
         margin: 10px 0px;
     }
@@ -756,13 +759,13 @@
         font-size: 14px;
     }
 
-    .payment_amount_due input {
+    /* .payment_amount_due input { */
         /* margin-top: 10px; */
         /* margin-right: 140px; */
         /* width: 25%; */
         /* padding: 6px 10px;
         margin:0px; */
-    }
+    /* } */
     .quick-cash-loan .amount_due input{
         margin: 10px 0px;
     }
