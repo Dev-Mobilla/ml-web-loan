@@ -2,7 +2,7 @@ import React from "react";
 import "../../styles/customcomponent.css";
 
 const CustomButton = (props) => {
-  const { name, styles, EventHandler, disabled, inline } = props;
+  const { name, styles, EventHandler, disabled, inline, icon, iconStyle } = props;
   // console.log(disabled);
 
   return (
@@ -17,6 +17,12 @@ const CustomButton = (props) => {
       disabled={disabled}
       style={{ inline }}
     >
+     {/* <img src={icon} alt="download" className={iconStyle}/> */}
+     {
+        icon?
+          <span className={iconStyle}>{icon}</span>
+        : <></>
+      }
       {name}
     </button>
   );

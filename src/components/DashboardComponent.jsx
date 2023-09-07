@@ -1,59 +1,24 @@
-import React, { useState } from "react";
+import React from "react";
 import "../styles/dashboard.css";
 
 import {
-  CustomSubmitModal,
   FooterComponent,
   HeaderComponent,
-  OTPModalComponent,
   TopbarComponent,
 } from "./index";
 
-import { useNavigate } from "react-router-dom";
-
 const DashboardComponent = () => {
-  const [isLogin, setIsLogin] = useState(true);
-  const [showModal, setShowModal] = useState(false);
-  const [showOTPModal, setShowOTPModal] = useState(false);
-
-  const navigate = useNavigate();
 
   const ManageLoansHandler = () => {
-    setShowModal(isLogin);
+    // setShowModal(isLogin);
+
   };
 
-  const ModalBtnHandler = () => {
-    setShowModal(false)
-    setShowOTPModal(true)
-  }
-  
 
   return (
     <div className="dashboard">
       <div className="dashboard-div">
-        <TopbarComponent/>
-        {
-          showModal ? 
-          <div className="login-modal" onClick={() => setShowModal(false)}>
-            <CustomSubmitModal 
-            mobileNumber="Mobile Number" 
-            containerClass="modal-container" 
-            wrapperClass="modal-wrapper" 
-            inputWrapperClass="modal-input-wrapper"
-            labelClass="modal-label"
-            modalBtn="modal-button"
-            modalBtnWrapper="modal-btn-wrapper"
-            inptBtnWrapper="modal-inputbtn-wrapper"
-            placeHolder="+639"
-            onclickHandler={ModalBtnHandler}/>
-          </div> 
-          : <></>
-        }
-        {
-          showOTPModal ? 
-          <OTPModalComponent time={60} HandleOnClose={() => setShowOTPModal(false)}/>
-          : <></>
-        }
+        <TopbarComponent />
         <div className="overlap">
           <HeaderComponent manageLoansEvent={ManageLoansHandler} />
           <div className="body-bg">

@@ -58,9 +58,10 @@
   letter-spacing: normal;
   margin: 50px 0 0 0;
   padding: 8px 16px;
-  border-radius: 20px;
+  /* border-radius: 20px; */
   display: flex;
   align-items: center;
+  
 }
 
 .custom-pastdue {
@@ -82,10 +83,12 @@
 
 .payment-schedule-btn,
 .collateral-details-btn {
-  width: 167px;
-  height: 31px;
+  /* width: 167px;
+  height: 31px; */
   font-size: 14px;
   padding: 8px;
+  display: flex;
+  align-items: center;
 }
 
 .payment-schedule-btn,
@@ -94,7 +97,7 @@
   font-size: 18px;
   font-weight: 500;
   border-radius: 5px;
-  padding: 8px 16px;
+  padding: 8px 12px;
   color: #ffffff;
   border: none;
   cursor: pointer;
@@ -102,6 +105,11 @@
 
 .collateral-details-btn {
   margin-left: 35px;
+}
+
+.payment-schedule-btn .download-icon,
+.collateral-details-btn .download-icon{
+  margin: auto 3px;
 }
 
 .btn {
@@ -201,7 +209,7 @@
 
   .payment-schedule-btn,
   .collateral-details-btn {
-    width: 127px;
+    width: 140px;
     height: 31px;
     font-size: 12px;
     padding: 4px;

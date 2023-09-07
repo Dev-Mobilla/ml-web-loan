@@ -52,7 +52,7 @@ const Router = createBrowserRouter([
         path: '/vehicle-loan/receipt',
         element: <Receipt/>,
         errorElement: <Error/>
-    }
+    },
 ])
 
 

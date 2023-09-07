@@ -24,7 +24,7 @@ const QRModalComponent = ({ onClose }) => {
   }, []);
 
   return (
-    <div>
+    <div className='qr-modal'>
       <div className="modalBackground" onClick={onClose}>
         {showAlertModal && (
           <div className="Alert">
