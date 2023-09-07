@@ -4,7 +4,7 @@ import "../../../styles/successModal.css";
 const SuccessModal = ({closeModal}) => {
   return (
     <div className="modalBackground">
-        <div className="modalContainer">
+        <div className="success-modalContainer">
             <div className="modalTitle">
                 <h1>We have received your application</h1>
             </div>

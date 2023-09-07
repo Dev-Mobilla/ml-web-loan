@@ -49,8 +49,7 @@
   justify-content: center;
   border-radius: 20px;
   background-color: #D4EBD4;
-  border-color: #009900;
-  border-width:1px;
+  border:  1px solid #009900;
   height: 34px;
   width: 169px;
   color: #009900;
@@ -67,8 +66,7 @@
 .custom-pastdue {
   justify-content: center;
   background-color: #fbd5b4;
-  border-color: #FF7700;
-  border-width: 1px;
+  border: 1px solid #FF7700;
   width: 169px;
   color: #FF7700;
   font-weight: 700;
@@ -76,9 +74,10 @@
   letter-spacing: normal;
   margin: 50px 0 0 0;
   padding: 8px 16px;
-  border-radius: 5px;
+  border-radius: 20px;
   display: flex;
   align-items: center;
+  height: 34px;
 }
 
 .payment-schedule-btn,
