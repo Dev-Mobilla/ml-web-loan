@@ -10,7 +10,7 @@ import QuickCashHeaderComponent from "./layout/QuickCashHeaderComponent";
 import LoanTypeSelection from "./layout/LoanTypeSelectionComponent";
 import LoanSelection from "./layout/LoanSelectionComponent";
 import LoanTypeNewComponent from "./loans/vehicle/LoanTypeNewComponent";
-import LoanTypeSecondHandComponent from "./loans/vehicle/LoanTypeSecondHandComponent";
+import LoanTypeSecondHandComponent from "./loans/vehicle/LoanTypeSecondhandComponent";
 import CustomerDetailsComponent from "./CustomerDetailsComponent";
 import LoanTypeRadiosComponent from "./loans/vehicle/LoanTypeRadiosComponent";
 import RequiredDocumentsComponent from "./loans/vehicle/RequiredDocumentsComponent";
