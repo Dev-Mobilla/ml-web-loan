@@ -47,7 +47,6 @@ export {
     FooterComponent,
     HeaderComponent,
     TopbarComponent,
-    CustomerDetailsHeader,
     LoginComponent,
     ManageLoanComponent,
     HousingLoanComponent,
