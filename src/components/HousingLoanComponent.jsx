@@ -12,6 +12,7 @@ import {
 import houseIcon from "../assets/icons/house.png";
 import mlicon from "../assets/icons/Paynow_icn.png";
 
+
 const HousingLoanComponent = () => {
   const recentPayments = [
     { date: "05-14-2023", time: "16:23", amount: "30,625.00" },
@@ -20,6 +21,9 @@ const HousingLoanComponent = () => {
     { date: "02-09-2023", time: "08:15", amount: "30,625.00" },
     { date: "01-10-2023", time: "22:04", amount: "30,625.00" },
   ];
+  const DownloadIcon = <svg width="20px" height="20px" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff">
+    <g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> 
+  <g id="Interface / Download"> <path id="Vector" d="M6 21H18M12 3V17M12 17L17 12M12 17L7 12" stroke="ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path> </g> </g></svg>
 
   return (
     <div className="housing-loan">
@@ -77,10 +81,14 @@ const HousingLoanComponent = () => {
                 <CustomButton
                   name="Payment Schedule"
                   styles="payment-schedule-btn"
+                  icon={DownloadIcon}
+                  iconStyle="download-icon"
                 />
                 <CustomButton
                   name=" Collateral Details"
                   styles="collateral-details-btn"
+                  icon={DownloadIcon}
+                  iconStyle="download-icon"
                 />
               </div>
 
