@@ -14,20 +14,17 @@
 }
 
 .manage-loans .body-bg {
-  height: 699px;
-
   width: 100%;
   margin: 20px 0px;
 }
 
 .manage-loans .past-loan-card {
-  height: 139px;
   width: 100%;
   margin-top: 150px;
   margin: 100px auto auto auto;
 }
 
-.manage-loans .overlap {
+/* .manage-loans .overlap {
   background-image: url(https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e6e88452986c5d15a034da/img/pastloan-card.png);
   background-size: 100% 100%;
   height: 103px;
@@ -36,17 +33,17 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-
+} */
+/* 
 .manage-loans .overlap-group {
   height: 46px;
   width: 161px;
   background: none;
   margin: auto 50px;
 
-}
+} */
 
-.manage-loans .pastloantxtt {
+/* .manage-loans .pastloantxtt {
   color: #555555;
   font-family: "Roboto", Helvetica;
   font-size: 18px;
@@ -56,10 +53,12 @@
   line-height: normal;
   top: 25px;
   white-space: nowrap;
-}
-
-.manage-loans .pastloantxt {
+} */
+.manage-loans .loan-type.past{
   color: #888888;
+}
+.manage-loans .loan-type.past, 
+.manage-loans .loan-type.current {
   font-family: "Roboto", Helvetica;
   font-size: 22px;
   font-weight: 700;
@@ -70,7 +69,7 @@
   white-space: nowrap;
 }
 
-.manage-loans .pastloan-icon {
+.manage-loans .loantype-icon {
   height: 50px;
   left: 64px;
   object-fit: cover;
@@ -78,22 +77,15 @@
   width: 50px;
 }
 
-.manage-loans .pastloan-btn {
-  height: 30px;
-  left: 550px;
-  top: 31px;
-  width: 166px;
-}
-
-.manage-loans .div-wrapper {
+/* .manage-loans .div-wrapper {
   background-image: url(https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e492714fd92dc35e55a22f/img/dtlsbtn-card-1@2x.png);
   background-size: 100% 100%;
   height: 30px;
   position: relative;
   width: 164px;
-}
+} */
 
-.manage-loans .text-wrapper {
+/* .manage-loans .text-wrapper {
   color: #ffffff;
   font-family: "Roboto", Helvetica;
   font-size: 18px;
@@ -105,9 +97,9 @@
   text-align: center;
   top: 5px;
   width: 58px;
-}
+} */
 
-.manage-loans .pastloanstxt {
+.manage-loans .pastloanstxt, .manage-loans .currentloanstxt {
   color: #d20101;
   font-family: "Inter", Helvetica;
   font-size: 23px;
@@ -121,26 +113,25 @@
 
 .manage-loans .container {
   width: 45%;
-  margin: 70px auto;
+  margin: 50px auto;
 }
 
 .manage-loans .current-loan-card {
-  height: 286px;
-  top: 77px;
+  top: 65px;
   width: 100%;
   margin: auto;
 }
 
-.manage-loans .quick-cash-loan-card {
+/* .manage-loans .quick-cash-loan-card {
   height: 95px;
   left: 0;
   top: 191px;
   width: 100%;
   margin: 25px auto;
-}
+} */
 
-.manage-loans .overlap-2 {
-  background-image: url(https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e492714fd92dc35e55a22f/img/qclmng-card-1.png);
+.manage-loans .loan-card-container.current-loan, 
+.manage-loans .loan-card-container.past-loan {
   background-size: 100% 100%;
   height: 103px;
   left: 0;
@@ -151,15 +142,22 @@
   align-items: center;
 }
 
-.manage-loans .overlap-group-2 {
+.manage-loans .loan-card-container.current-loan{
+  background-image: url(https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e492714fd92dc35e55a22f/img/qclmng-card-1.png);
+}
+.manage-loans .loan-card-container.past-loan {
+  background-image: url(https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e6e88452986c5d15a034da/img/pastloan-card.png);
+}
+
+/* .manage-loans .overlap-group-2 {
   background-image: url(https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e492714fd92dc35e55a22f/img/mng2-card-1@2x.png);
   background-size: 100% 100%;
   height: 30px;
   position: relative;
   width: 164px;
-}
+} */
 
-.manage-loans .QC-lmngtxtt {
+/* .manage-loans .QC-lmngtxtt {
   color: #555555;
   font-family: "Roboto", Helvetica;
   font-size: 18px;
@@ -167,8 +165,8 @@
   letter-spacing: -0.33px;
   line-height: normal;
   width: 328px;
-}
-
+} */
+/* 
 .manage-loans .QC-lmngtxt {
   color: #ff2800;
   font-family: "Roboto", Helvetica;
@@ -177,32 +175,29 @@
   letter-spacing: -0.33px;
   line-height: normal;
   width: 312px;
-}
+} */
 
-.manage-loans .qclmng-icon {
+/* .manage-loans .qclmng-icon {
   height: 50px;
-  /* left: 64px; */
   object-fit: cover;
-  /* position: absolute; */
   top: 22px;
   width: 50px;
-}
+} */
 
-.manage-loans .housing-loan-card {
+.manage-loans .loan-card {
   height: 95px;
   left: 0;
-  /* position: absolute; */
   top: 68px;
   width: 100%;
   margin: 25px auto;
 }
 
-.manage-loans .overlap-3 {
+.manage-loans .details-overlap-3 {
   height: 61px;
   margin:auto auto auto 30px;
 }
 
-.manage-loans .hlmngtxtt {
+.manage-loans .reference-txt {
   color: #555555;
   font-family: "Roboto", Helvetica;
   font-size: 18px;
@@ -214,16 +209,8 @@
   width: 330px;
 }
 
-.manage-loans .hlmngtxt {
+.manage-loans .loan-type.current {
   color: #ff2800;
-  font-family: "Roboto", Helvetica;
-  font-size: 22px;
-  font-weight: 700;
-  left: 0;
-  letter-spacing: -0.33px;
-  line-height: normal;
-  top: 0;
-  width: 257px;
 }
 
 .manage-loans .overlap-4 {
@@ -360,7 +347,7 @@
   width: 15px;
 }
 
-.manage-loans .currentloanstxt {
+/* .manage-loans .currentloanstxt {
   color: #d20101;
   font-family: "Inter", Helvetica;
   font-size: 23px;
@@ -368,13 +355,16 @@
   letter-spacing: -0.25px;
   line-height: 24px;
   white-space: nowrap;
-}
+} */
 
 .manage-loans .prev-btn {
   width: 100%;
   margin: auto 70px;
 }
 
+.manage-loans .custom-button{
+  cursor: pointer;
+}
 .manage-loans .custom-button.add-btn {
   padding: 5px 60px;
   font-family: "Roboto", Helvetica;
@@ -387,7 +377,8 @@
 
 }
 
-.manage-loans .current-loan-btn-container , .manage-loans .past-loan-btn-container{
+.manage-loans .current-loan-btn-container , 
+.manage-loans .past-loan-btn-container{
   display: flex;
   justify-content: space-between;
   margin: auto 40px 30px 40px;
@@ -398,10 +389,8 @@
   justify-content: space-between;
   margin-left: 50px;
 }
-
+.manage-loans .custom-button.details-btn, 
 .manage-loans .custom-button.manage-btn{
-  background-image: url(https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e492714fd92dc35e55a22f/img/mng2-card-1@2x.png);
-  background-size: 100% 100%;
   border: none;
   color: #ffffff;
   font-family: "Roboto", Helvetica;
@@ -409,28 +398,35 @@
   font-weight: 500;
   padding: 7px 60px;
   margin-right: 40px;
+
+}
+
+.manage-loans .custom-button.manage-btn{
+  background-image: url(https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e492714fd92dc35e55a22f/img/mng2-card-1@2x.png);
+  background-size: 100% 100%;
+  /* border: none; */
 }
 .manage-loans .custom-button.details-btn{
-  /* background-image: url(https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e492714fd92dc35e55a22f/img/dtlsbtn-card-1@2x.png);
-  background-size: 100% 100%; */
-  border-color:#FF7700 ;
-  color: #ffffff;
-  font-family: "Roboto", Helvetica;
-  font-size: 18px;
-  font-weight: 500;
-  padding: 7px 60px;
-  margin-right: 40px;
   background-color: #FF7700;
   border-radius: 5px;
-  border-style: none;
+}
+
+.manage-loans .loans-unavailable{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 50px 20px;
+  font-size: 19px;
+  font-weight: bold;
+  color: rgb(167, 164, 164);
 }
 
 /* MOBILE RESPONSIVE */
 
 @media screen and (min-width: 320px) and (max-width: 480px)  {
-    .manage-loans .body-bg{
-      /* margin: 20px 10px; */
-    }
+  .manage-loans .body-bg{
+    margin-top: 40px;
+  }
     .manage-loans .container{
       width: 100%;
       margin-top: 20px;
@@ -451,23 +447,24 @@
       padding: 5px 30px;
       font-size: 16px;
     }
-    .manage-loans .currentloanstxt, .manage-loans .pastloanstxt{
+    /* .manage-loans .currentloanstxt, 
+    .manage-loans .pastloanstxt{
       font-size: 22px;
-    }
-    .manage-loans .housing-loan-card, .manage-loans .quick-cash-loan-card, .manage-loans .past-loan-card{
+    } */
+    .manage-loans .loan-card{
       width: 95%;
     }
-    .manage-loans .overlap-2, .manage-loans .overlap{
+    /* .manage-loans .loan-card-container{
       display: grid;
-      grid-template-columns: 50% auto;
-    }
-    .manage-loans .overlap{
+      grid-template-columns: 40% auto;
+    } */
+    /* .manage-loans .overlap{
       margin:25px auto;
-    }
+    } */
     .manage-loans .icon-content{
-      margin:auto 0px auto 20px;
+      margin:auto 0px auto 15px;
     }
-    .manage-loans .overlap-3, .manage-loans .overlap-group{
+    .manage-loans .details-overlap-3{
       margin: auto 5px auto 15px;
     }
     .manage-loans .custom-button.manage-btn, .manage-loans .custom-button.details-btn{
@@ -475,11 +472,13 @@
       margin-right: 15px;
       font-size: 15px;
     }
-    .manage-loans .hlmngtxt , .manage-loans .QC-lmngtxt, .manage-loans .pastloantxt{
-      font-size: 20px;
+    .manage-loans .loan-type.past, 
+    .manage-loans .loan-type.current{
+      font-size: 21px;
     }
-    .manage-loans .hlmngtxtt, .manage-loans .QC-lmngtxtt, .manage-loans .pastloantxtt{
-      font-size: 17px;
+    .manage-loans .reference-txt{
+      font-size: 15px;
+      width: 165px;
     }
     .manage-loans .footer{
       display: none;
@@ -514,20 +513,20 @@
   .manage-loans .currentloanstxt, .manage-loans .pastloanstxt{
     font-size: 22px;
   }
-  .manage-loans .housing-loan-card, .manage-loans .quick-cash-loan-card, .manage-loans .past-loan-card{
+  /* .manage-loans .loan-card, .manage-loans .quick-cash-loan-card, .manage-loans .past-loan-card{
     width: 95%;
-  }
-  .manage-loans .overlap-2, .manage-loans .overlap{
+  } */
+  .manage-loans .loan-card-container, .manage-loans .overlap{
     display: grid;
     grid-template-columns: 50% auto;
   }
-  .manage-loans .overlap{
+  /* .manage-loans .overlap{
     margin:25px auto;
-  }
+  } */
   .manage-loans .icon-content{
     margin:auto 0px auto 20px;
   }
-  .manage-loans .overlap-3, .manage-loans .overlap-group{
+  .manage-loans .details-overlap-3, .manage-loans .overlap-group{
     margin: auto 5px auto 15px;
   }
   .manage-loans .overlap-group{
@@ -538,10 +537,10 @@
     margin-right: 15px;
     font-size: 15px;
   }
-  .manage-loans .hlmngtxt , .manage-loans .QC-lmngtxt, .manage-loans .pastloantxt{
+  .manage-loans .loan-type , .manage-loans .QC-lmngtxt, .manage-loans .pastloantxt{
     font-size: 20px;
   }
-  .manage-loans .hlmngtxtt, .manage-loans .QC-lmngtxtt, .manage-loans .pastloantxtt{
+  .manage-loans .reference-txt, .manage-loans .QC-lmngtxtt, .manage-loans .pastloantxtt{
     font-size: 17px;
   }
   .manage-loans .footer{
@@ -553,9 +552,9 @@
 /* LAPTOPS && DESKTOPS RESPONSIVE */
 
 @media screen and (min-width: 769px) and (max-width: 1200px)  {
-.manage-loans .header{
-  height: 10%;
-}
+  .manage-loans .header{
+    height: 10%;
+  }
   .manage-loans .container{
     width: 90%;
     margin-top: 20px;
@@ -579,20 +578,20 @@
   .manage-loans .currentloanstxt, .manage-loans .pastloanstxt{
     font-size: 22px;
   }
-  .manage-loans .housing-loan-card, .manage-loans .quick-cash-loan-card, .manage-loans .past-loan-card{
+  .manage-loans .loan-card{
     width: 90%;
   }
-  .manage-loans .overlap-2, .manage-loans .overlap{
+  .manage-loans .loan-card-container{
     display: grid;
     grid-template-columns: 50% auto;
   }
-  .manage-loans .overlap{
+  /* .manage-loans .overlap{
     margin:25px auto;
-  }
+  } */
   .manage-loans .icon-content{
     margin:auto 0px auto 40px;
   }
-  .manage-loans .overlap-3, .manage-loans .overlap-group{
+  .manage-loans .details-overlap-3, .manage-loans .overlap-group{
     margin: auto 5px auto 15px;
   }
   /* .manage-loans .overlap-group{
@@ -603,10 +602,10 @@
     margin-right: 40px;
     font-size: 15px;
   }
-  .manage-loans .hlmngtxt , .manage-loans .QC-lmngtxt, .manage-loans .pastloantxt{
+  .manage-loans .loan-type , .manage-loans .QC-lmngtxt, .manage-loans .pastloantxt{
     font-size: 20px;
   }
-  .manage-loans .hlmngtxtt, .manage-loans .QC-lmngtxtt, .manage-loans .pastloantxtt{
+  .manage-loans .reference-txt, .manage-loans .QC-lmngtxtt, .manage-loans .pastloantxtt{
     font-size: 17px;
   }
   .manage-loans .footer{
@@ -616,63 +615,57 @@
 }
 
 /* EXTRA LARGE SCREENS RESPONSIVE */
-/* 
-@media screen and (min-width: 1201px)  {
-  .manage-loans .header{
-    height: 10%;
+
+ @media screen and (min-width: 1201px) and (max-width: 1350px) { 
+
+  .manage-loans .container{
+    width: 60%;
   }
-    .manage-loans .container{
-      width: 90%;
-      margin-top: 20px;
-    }
-    .manage-loans .custom-prevbtn.prevpagebtn{
-      position:initial;
-    }
-    .manage-loans .prev-btn{
-      margin: auto 10px;
-    }
-    .manage-loans .current-loan-btn-container{
-      margin: auto 60px;
-    }
-    .manage-loans .past-loan-btn-container{
-      margin: auto 20px;
-    }
-    .manage-loans .custom-button.add-btn{
-      padding: 5px 50px;
-      font-size: 16px;
-    }
-    .manage-loans .currentloanstxt, .manage-loans .pastloanstxt{
-      font-size: 22px;
-    }
-    .manage-loans .housing-loan-card, .manage-loans .quick-cash-loan-card, .manage-loans .past-loan-card{
-      width: 90%;
-    }
-    .manage-loans .overlap-2, .manage-loans .overlap{
-      display: grid;
-      grid-template-columns: 50% auto;
-    }
-    .manage-loans .overlap{
-      margin:25px auto;
-    }
-    .manage-loans .icon-content{
-      margin:auto 0px auto 40px;
-    }
-    .manage-loans .overlap-3, .manage-loans .overlap-group{
-      margin: auto 5px auto 15px;
-    }
-    .manage-loans .custom-button.manage-btn, .manage-loans .custom-button.details-btn{
-      padding: 7px 30px;
-      margin-right: 40px;
-      font-size: 15px;
-    }
-    .manage-loans .hlmngtxt , .manage-loans .QC-lmngtxt, .manage-loans .pastloantxt{
-      font-size: 20px;
-    }
-    .manage-loans .hlmngtxtt, .manage-loans .QC-lmngtxtt, .manage-loans .pastloantxtt{
-      font-size: 17px;
-    }
-    .manage-loans .footer{
-      display: none;
-    }
-    
-  } */
+  .manage-loans .custom-prevbtn.prevpagebtn{
+    position:initial;
+  }
+  .manage-loans .prev-btn{
+    margin: auto 10px;
+  }
+  .manage-loans .current-loan-btn-container{
+    margin: auto 60px;
+  }
+  .manage-loans .past-loan-btn-container{
+    margin: auto 60px;
+  }
+  .manage-loans .custom-button.add-btn{
+    padding: 5px 50px;
+    font-size: 16px;
+  }
+  .manage-loans .currentloanstxt, .manage-loans .pastloanstxt{
+    font-size: 22px;
+  }
+  .manage-loans .loan-card{
+    width: 90%;
+  }
+  .manage-loans .loan-card-container{
+    display: grid;
+    grid-template-columns: 50% auto;
+  }
+  .manage-loans .icon-content{
+    margin:auto 0px auto 40px;
+  }
+  .manage-loans .details-overlap-3, .manage-loans .overlap-group{
+    margin: auto 5px auto 15px;
+  }
+  .manage-loans .custom-button.manage-btn, .manage-loans .custom-button.details-btn{
+    padding: 7px 30px;
+    margin-right: 40px;
+    font-size: 15px;
+  }
+  .manage-loans .loan-type , .manage-loans .QC-lmngtxt, .manage-loans .pastloantxt{
+    font-size: 20px;
+  }
+  .manage-loans .reference-txt, .manage-loans .QC-lmngtxtt, .manage-loans .pastloantxtt{
+    font-size: 17px;
+  }
+  .manage-loans .footer{
+    display: none;
+  }
+  
+} 
