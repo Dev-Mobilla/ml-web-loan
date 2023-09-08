@@ -19,7 +19,7 @@ const QuickCashLoanComponent = () => {
         <CustomHeader title="Manage Existing Loans" />
         <div className="body">
           <div className="prev-btn">
-            <CustomPrevBtn />
+            <CustomPrevBtn  />
           </div>
           <div className="overlap">
             <div className="referencen-number">Ref. no. AAAAAAAAA</div>

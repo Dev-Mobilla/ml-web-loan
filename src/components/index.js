@@ -30,7 +30,7 @@ import SelfEmployedRequirementComponent from "./loans/vehicle/SelfEmployedRequir
 import EmployedRequirementComponent from "./loans/vehicle/EmployedRequirementComponent";
 import LoanDataComponent from "./loans/vehicle/LoanDataComponent";
 import ReceiptComponent from "./ReceiptComponent";
-
+import PreviousBTNComponent from "./layout/PrevBTNComponent";
 // CUSTOM COMPONENTS
 import OTPModalComponent from "./OTPModalComponent";
 import CustomHeader from "./custom/Custom.header";
@@ -40,6 +40,8 @@ import CustomStatus from "./custom/Custom.status";
 import CustomCardTitle from "./custom/Custom.cardTitle";
 import CustomInput from "./custom/Custom.input";
 import SuccessModal from "./loans/vehicle/SuccessModalComponent";
+
+
 
 export {
 
@@ -82,5 +84,6 @@ export {
     LoanDataComponent,
     ReceiptComponent,
     SuccessModal,
+    PreviousBTNComponent
 }
   
