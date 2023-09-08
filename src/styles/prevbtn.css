@@ -1,5 +1,7 @@
-button{
-    border-color: white;
-    margin-left: -8px;
+.custom-prevbtn.prevpagebtn button{
+    border:none;
+    margin-left: -3px;
     border-radius: 20px;
+    background:none;
+    cursor: pointer;
 }

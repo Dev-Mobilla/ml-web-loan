@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import "../styles/manageloans.css";
 import {
   TopbarComponent,
@@ -7,8 +7,16 @@ import {
   CustomButton,
   CustomPrevBtn,
 } from "./index";
+import {useLocation} from "react-router-dom";
 
 const ManageLoanComponent = () => {
+
+  const Location = useLocation();
+
+  useEffect(() => {
+    console.log(Location);
+  })
+
   return (
     <div className="manage-loans">
       <div className="div">
@@ -16,7 +24,7 @@ const ManageLoanComponent = () => {
         <CustomHeader title="Manage Existing Loans" />
         <div className="body-bg">
           <div className="prev-btn">
-            <CustomPrevBtn />
+            <CustomPrevBtn/>
           </div>
           <div className="container">
             <div className="current-loan-card">

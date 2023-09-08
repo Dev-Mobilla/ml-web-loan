@@ -4,7 +4,7 @@ import { PreviousBTNComponent } from '../index';
 const CustomPrevBtn = () => {
   return (
     <div className="custom-prevbtn prevpagebtn">
-      <PreviousBTNComponent route="/manage-loans">
+      <PreviousBTNComponent>
       <img
         className="arrow"
         alt="Arrow"
