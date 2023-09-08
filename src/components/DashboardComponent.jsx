@@ -34,21 +34,26 @@ const DashboardComponent = () => {
             />
 
             <div className="content-card--wrapper">
-              <div className="vehicle">
-                <div className="overlap-5">
-                  <div className="v-desc">
-                    <li>New/Used Cars or Motorcycles</li>
-                    <li>Refinance your owned vehicle</li>
+             
+                <div className="vehicle">
+                <a href="/vehicle-loan/loan-type/new">
+                  <div className="overlap-5">
+                    <div className="v-desc">
+                      <li>New/Used Cars or Motorcycles</li>
+                      <li>Refinance your owned vehicle</li>
+                    </div>
+                    <div className="vltitle">Vehicle Loan</div>
+                    <img
+                      className="v-icon"
+                      alt="V icon"
+                      src="https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e41e67e1c2a81b98b3c871/img/v-icon@2x.png"
+                    />
                   </div>
-                  <div className="vltitle">Vehicle Loan</div>
-                  <img
-                    className="v-icon"
-                    alt="V icon"
-                    src="https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e41e67e1c2a81b98b3c871/img/v-icon@2x.png"
-                  />
+                  </a>
                 </div>
-              </div>
+           
               <div className="housing">
+                <a href="/vehicle-loan/loan-type/new">
                 <div className="overlap-group-3">
                   <div className="hltitle">Housing Loan</div>
                   <div className="h-desc">
@@ -127,8 +132,10 @@ const DashboardComponent = () => {
                     </div>
                   </div>
                 </div>
+                </a>
               </div>
               <div className="QCL">
+              <a href="/vehicle-loan/loan-type/new">
                 <div className="overlap-group-qcl">
                   <div className="QC-ltitle">Quick Cash Loan</div>
                   <div className="QCL-desc">
@@ -141,50 +148,57 @@ const DashboardComponent = () => {
                     src="https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e41e67e1c2a81b98b3c871/img/qcl-icon@2x.png"
                   />
                 </div>
+                </a>
               </div>
               <div className="SBL">
-                <div className="overlap-group-sbl">
-                  <div className="SB-ltitle">Small Business Loan</div>
-                  <div className="SBL-desc">
-                    <li>Cash Loans</li>
-                    <li> Small Business Owners</li>
-                  </div>
-                  <img
-                    className="SBL-icon"
-                    alt="Sbl icon"
-                    src="https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e41e67e1c2a81b98b3c871/img/sbl-icon@2x.png"
-                  />
-                </div>
-              </div>
-              <div className="pensioner">
-                <div className="overlap-group-pensioner">
-                  <div className="ptitle">Pensioners’ Loan</div>
-                  <div className="p-desc">
-                    <li>Cash Loans for Pensioners</li>
-                    <li>Online payments via ML Wallet</li>
-                  </div>
-                  <img
-                    className="p-icon"
-                    alt="P icon"
-                    src="https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e41e67e1c2a81b98b3c871/img/p-icon@2x.png"
-                  />
-                </div>
-              </div>
-              <div className="salary">
-                <div className="overlap-group-salary">
-                  <div className="overlap-4">
-                    <div className="stitle">Salary Loan</div>
+                <a href="/vehicle-loan/loan-type/new">
+                  <div className="overlap-group-sbl">
+                    <div className="SB-ltitle">Small Business Loan</div>
+                    <div className="SBL-desc">
+                      <li>Cash Loans</li>
+                      <li> Small Business Owners</li>
+                    </div>
                     <img
-                      className="s-icon"
-                      alt="S icon"
-                      src="https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e41e67e1c2a81b98b3c871/img/s-icon@2x.png"
+                      className="SBL-icon"
+                      alt="Sbl icon"
+                      src="https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e41e67e1c2a81b98b3c871/img/sbl-icon@2x.png"
                     />
                   </div>
-                  <div className="s-desc">
-                    <li>Cash Loans for Workers</li>
-                    <li> Online payments via ML Wallet</li>
+                </a>
+              </div>
+              <div className="pensioner">
+                <a href="/vehicle-loan/loan-type/new">
+                  <div className="overlap-group-pensioner">
+                    <div className="ptitle">Pensioners’ Loan</div>
+                    <div className="p-desc">
+                      <li>Cash Loans for Pensioners</li>
+                      <li>Online payments via ML Wallet</li>
+                    </div>
+                    <img
+                      className="p-icon"
+                      alt="P icon"
+                      src="https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e41e67e1c2a81b98b3c871/img/p-icon@2x.png"
+                    />
                   </div>
+                </a>
+              </div>
+              <div className="salary">
+                <a href="/vehicle-loan/loan-type/new">
+                  <div className="overlap-group-salary">
+                    <div className="overlap-4">
+                      <div className="stitle">Salary Loan</div>
+                      <img
+                        className="s-icon"
+                        alt="S icon"
+                        src="https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e41e67e1c2a81b98b3c871/img/s-icon@2x.png"
+                      />
+                    </div>
+                    <div className="s-desc">
+                      <li>Cash Loans for Workers</li>
+                      <li> Online payments via ML Wallet</li>
+                    </div>
                 </div>
+                </a>
               </div>
             </div>
           </div>
