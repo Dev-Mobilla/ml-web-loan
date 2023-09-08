@@ -31,6 +31,8 @@ import EmployedRequirementComponent from "./loans/vehicle/EmployedRequirementCom
 import LoanDataComponent from "./loans/vehicle/LoanDataComponent";
 import ReceiptComponent from "./ReceiptComponent";
 import PreviousBTNComponent from "./layout/PrevBTNComponent";
+import ManageLoanCardComponent from "./loans/manageLoan/ManageLoanCardComponent";
+
 // CUSTOM COMPONENTS
 import OTPModalComponent from "./OTPModalComponent";
 import CustomHeader from "./custom/Custom.header";
@@ -40,7 +42,7 @@ import CustomStatus from "./custom/Custom.status";
 import CustomCardTitle from "./custom/Custom.cardTitle";
 import CustomInput from "./custom/Custom.input";
 import SuccessModal from "./loans/vehicle/SuccessModalComponent";
-
+import CustomIcon from "./custom/Custom.icon";
 
 
 export {
@@ -84,6 +86,8 @@ export {
     LoanDataComponent,
     ReceiptComponent,
     SuccessModal,
-    PreviousBTNComponent
+    PreviousBTNComponent,
+    ManageLoanCardComponent,
+    CustomIcon
 }
   

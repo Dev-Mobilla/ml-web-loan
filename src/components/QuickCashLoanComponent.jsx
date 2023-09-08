@@ -59,19 +59,19 @@ const QuickCashLoanComponent = () => {
               <br />
               <div className="radius-options">
                 <div>
-                  <input type="radio" value="1" />
+                  <input type="radio" value="1" name="renew-terms"/>
                   <label>1 mo.</label>
                 </div>
                 <div>
-                  <input type="radio" value="2" />
+                  <input type="radio" value="2" name="renew-terms"/>
                   <label>2 mos.</label>
                 </div>
                 <div>
-                  <input type="radio" value="3" />
+                  <input type="radio" value="3" name="renew-terms"/>
                   <label>3 mos.</label>
                 </div>
                 <div>
-                  <input type="radio" value="4" />
+                  <input type="radio" value="4" name="renew-terms"/>
                   <label>4 mos.</label>
                 </div>
               </div>
