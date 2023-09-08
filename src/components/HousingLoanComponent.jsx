@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "../styles/housingloan.css";
 import {
   CustomButton,
@@ -12,7 +12,6 @@ import {
 import houseIcon from "../assets/icons/house.png";
 import mlicon from "../assets/icons/Paynow_icn.png";
 
-
 const HousingLoanComponent = () => {
   const recentPayments = [
     { date: "05-14-2023", time: "16:23", amount: "30,625.00" },
@@ -21,9 +20,54 @@ const HousingLoanComponent = () => {
     { date: "02-09-2023", time: "08:15", amount: "30,625.00" },
     { date: "01-10-2023", time: "22:04", amount: "30,625.00" },
   ];
-  const DownloadIcon = <svg width="20px" height="20px" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff">
-    <g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> 
-  <g id="Interface / Download"> <path id="Vector" d="M6 21H18M12 3V17M12 17L17 12M12 17L7 12" stroke="ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path> </g> </g></svg>
+
+  const [dueAmount, setDueAmount] = useState("30,625.00");
+  const [feesAndCharges, setFeesAndCharges] = useState("0.00");
+  const [paymentDueDate, setPaymentDueDate] = useState("15 MAY 2023");
+
+  useEffect(() => {
+    // fetch("/api/getLoanData")
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    //     setDueAmount(data.dueAmount);
+    //     setFeesAndCharges(data.feesAndCharges);
+    //     setPaymentDueDate(data.paymentDueDate);
+    //   })
+    //   .catch((error) => {
+    //     console.error("Error fetching data:", error);
+    //   });
+  }, []);
+
+  const DownloadIcon = (
+    <svg
+      width="20px"
+      height="20px"
+      viewBox="0 0 24 24"
+      fill="white"
+      xmlns="http://www.w3.org/2000/svg"
+      stroke="#ffffff"
+    >
+      <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
+      <g
+        id="SVGRepo_tracerCarrier"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      ></g>
+      <g id="SVGRepo_iconCarrier">
+        <g id="Interface / Download">
+          {" "}
+          <path
+            id="Vector"
+            d="M6 21H18M12 3V17M12 17L17 12M12 17L7 12"
+            stroke="ffffff"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          ></path>{" "}
+        </g>{" "}
+      </g>
+    </svg>
+  );
 
   return (
     <div className="housing-loan">
@@ -48,19 +92,27 @@ const HousingLoanComponent = () => {
               <div className="input-group">
                 <div className="input-label">Due this month</div>
                 <div className="input-wrapper">
-                  <input className="dueamountph" placeholder="30,625.00" />
+                  <input className="disable-data" value={dueAmount} disabled />
                 </div>
               </div>
               <div className="input-group">
                 <div className="input-label">Late fees &amp; charges</div>
                 <div className="input-wrapper">
-                  <input className="feesph" placeholder="0.00" />
+                  <input
+                    className="disable-data"
+                    value={feesAndCharges}
+                    disabled
+                  />
                 </div>
               </div>
               <div className="input-group">
                 <div className="input-label">Payment due by</div>
                 <div className="input-wrapper">
-                  <input className="paymentdueph" placeholder="15 MAY 2023" />
+                  <input
+                    className="disable-data"
+                    value={paymentDueDate}
+                    disabled
+                  />
                 </div>
               </div>
               <div className="note">
