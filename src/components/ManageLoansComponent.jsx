@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import "../styles/manageloans.css";
 import {
   TopbarComponent,
@@ -6,19 +6,169 @@ import {
   FooterComponent,
   CustomButton,
   CustomPrevBtn,
+  ManageLoanCardComponent,
+  CustomIcon,
+  CustomSubmitModal,
 } from "./index";
-import {useLocation} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
+import { currentLoans, pastLoans } from "../utils/ManageLoansMockData";
 
 const ManageLoanComponent = () => {
 
   const Location = useLocation();
+  const navigate = useNavigate();
+  const [modal, setModal] = useState(false);
+
+  const { Housing, Vehicle, QCL } = CustomIcon;
 
   useEffect(() => {
-    console.log(Location);
+    window.addEventListener('click', setToggleModalOutside);
+
+    return () => {
+      window.removeEventListener('click', setToggleModalOutside);
+    }
   })
+
+  const currentLoansIcon = [
+    {
+      loanType: 'Housing Loan',
+      icon: <Housing/>
+    },
+    {
+      loanType: 'Quick Cash Loan',
+      icon: <QCL/>
+    },
+    {
+      loanType: 'Vehicle Loan',
+      icon: <Vehicle/>
+    }
+  ]
+
+  const PastLoansIcon = [
+    {
+      loanType: 'Housing Loan',
+      icon: <Housing/>
+    },
+    {
+      loanType: 'Quick Cash Loan',
+      icon: <QCL/>
+    },
+    {
+      loanType: 'Vehicle Loan',
+      icon: <Vehicle/>
+    }
+  ]
+
+  const CurrentLoansCards = () => {
+    return (
+      currentLoans.length === 0 ?
+        <div className="loans-unavailable">
+          <h1>You have no loans yet.</h1>
+        </div>
+      :
+        currentLoans?.map((loan, key) => {
+          return (
+            <ManageLoanCardComponent 
+            loanType={loan.loanType}
+            referenceNo={loan.referenceNo} 
+            key={key}
+            icon={LoanTypeIconHandler(loan.loanType)}
+            btnName="Manage"
+            btnStyle="custom-button manage-btn"
+            loanCardName="loan-card"
+            cardContainer="loan-card-container current-loan"
+            loantypeTxt="loan-type current"
+            referenceTxt="reference-txt"
+            OnBtnClick={() => CardBtnClick(loan.loanType, loan.referenceNo)}
+            />
+          )
+        })
+    )
+  }
+
+  const PastLoansCards = () => {
+    return (
+      pastLoans.length === 0 ?
+        <div className="loans-unavailable">
+          <h1>You have no closed loans.</h1>
+        </div>
+      :
+        pastLoans?.map((loan, key) => {
+          return (
+            <ManageLoanCardComponent 
+            loanType={loan.loanType}
+            referenceNo={loan.referenceNo} 
+            key={key}
+            icon={LoanTypeIconHandler(loan.loanType)}
+            btnName="Details"
+            btnStyle="custom-button details-btn"
+            loanCardName="loan-card"
+            cardContainer="loan-card-container past-loan"
+            loantypeTxt="loan-type past"
+            referenceTxt="reference-txt"
+            OnBtnClick={() => CardBtnClick(loan.loanType, loan.referenceNo)}
+            btnType="button"
+           />
+          )
+        })
+    )
+  }
+
+  const LoanTypeIconHandler = (loanType) => {
+    return (
+      currentLoansIcon?.map(( icon, key ) => {
+        return icon.loanType === loanType ? icon.icon : <></>
+      })
+    )
+  }
+
+  const AddBtnHandler = () => {
+    setModal(true)
+  }
+
+  const CardBtnClick = (type, referenceNo) => {
+
+    let loanType = type.toLowerCase().replaceAll(" ", "-");
+      
+    if ('quick-cash-loan' === loanType) {
+
+      navigate(`/manage-loans/${loanType}/${referenceNo}`);
+      
+    }else{
+      navigate(`/manage-loans/loan-type?type=${loanType}&ref=${referenceNo}`);
+    }
+      
+  }
+
+  const setToggleModalOutside = (event) => {
+    if (modal) {
+      const classNameBtn =  event.target.className === 'submit-modal'
+
+      setModal(!classNameBtn)
+    }
+
+  }
 
   return (
     <div className="manage-loans">
+        {
+          modal?
+            <div className="submit-modal">
+              <CustomSubmitModal
+                label="Loan Reference Number"
+                labelClass="modal-label"
+                containerClass="modal-container"
+                wrapperClass="modal-wrapper"
+                inptBtnWrapper="modal-inputbtn-wrapper"
+                inputWrapperClass="modal-input-wrapper"
+                modalBtnWrapper="modal-btn-wrapper"
+                modalBtn="modal-button"
+                inputType="text"
+                placeHolder="Ref. No"
+                />
+            </div>
+          : <></>
+      }
       <div className="div">
         <TopbarComponent />
         <CustomHeader title="Manage Existing Loans" />
@@ -30,155 +180,16 @@ const ManageLoanComponent = () => {
             <div className="current-loan-card">
               <div className="current-loan-btn-container">
                 <div className="currentloanstxt">Current Loans</div>
-                <CustomButton name="Add" styles="custom-button add-btn" />
+                <CustomButton name="Add" styles="custom-button add-btn" EventHandler={AddBtnHandler}/>
               </div>
-              <div className="housing-loan-card">
-                <div className="overlap-2">
-                  <div className="icon-content">
-                    <div className="hlmng-icon">
-                      <div className="overlap-4">
-                        <img
-                          className="vector"
-                          alt="Vector"
-                          src="https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e492714fd92dc35e55a22f/img/vector-55-8@2x.png"
-                        />
-                        <div className="rectangle" />
-                        <img
-                          className="img"
-                          alt="Vector"
-                          src="https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e492714fd92dc35e55a22f/img/vector-56-8@2x.png"
-                        />
-                        <img
-                          className="vector-2"
-                          alt="Vector"
-                          src="https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e492714fd92dc35e55a22f/img/vector-57-8@2x.png"
-                        />
-                        <img
-                          className="vector-3"
-                          alt="Vector"
-                          src="https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e492714fd92dc35e55a22f/img/vector-58-8@2x.png"
-                        />
-                        <img
-                          className="vector-4"
-                          alt="Vector"
-                          src="https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e492714fd92dc35e55a22f/img/vector-59-8@2x.png"
-                        />
-                        <img
-                          className="vector-5"
-                          alt="Vector"
-                          src="https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e492714fd92dc35e55a22f/img/vector-60-8@2x.png"
-                        />
-                        <img
-                          className="vector-6"
-                          alt="Vector"
-                          src="https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e492714fd92dc35e55a22f/img/vector-61-8@2x.png"
-                        />
-                        <img
-                          className="vector-7"
-                          alt="Vector"
-                          src="https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e492714fd92dc35e55a22f/img/vector-62-8@2x.png"
-                        />
-                        <img
-                          className="vector-8"
-                          alt="Vector"
-                          src="https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e492714fd92dc35e55a22f/img/vector-63-8@2x.png"
-                        />
-                        <img
-                          className="vector-9"
-                          alt="Vector"
-                          src="https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e492714fd92dc35e55a22f/img/vector-64-8@2x.png"
-                        />
-                        <img
-                          className="shape-copy"
-                          alt="Shape copy"
-                          src="https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e492714fd92dc35e55a22f/img/shape-copy-5-8@2x.png"
-                        />
-                        <img
-                          className="p"
-                          alt="P"
-                          src="https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e492714fd92dc35e55a22f/img/p-8@2x.png"
-                        />
-                        <div className="ellipse" />
-                        <img
-                          className="group"
-                          alt="Group"
-                          src="https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e41e67e1c2a81b98b3c871/img/group-42@2x.png"
-                        />
-                      </div>
-                    </div>
-                    <div className="overlap-3">
-                      <div className="hlmngtxt">Housing Loan</div>
-                      <div className="hlmngtxtt">Ref. no. 00000000000</div>
-                    </div>
-                  </div>
-                  <CustomButton
-                    name="Manage"
-                    styles="custom-button manage-btn"
-                  />
-                  {/* <div className="hlmng-btn">
-                      <div className="overlap-group-2">
-                        <div className="text-wrapper-2">Manage</div>
-                      </div>
-                    </div> */}
-                </div>
-              </div>
-              <div className="quick-cash-loan-card">
-                <div className="overlap-2">
-                  <div className="icon-content">
-                    <img
-                      className="qclmng-icon"
-                      alt="Qclmng icon"
-                      src="https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e41e67e1c2a81b98b3c871/img/qcl-icon@2x.png"
-                    />
-                    <div className="overlap-3">
-                      <div className="QC-lmngtxt">Quick Cash Loan</div>
-                      <div className="QC-lmngtxtt">Ref. No. ABCDEFGHIJ</div>
-                    </div>
-                  </div>
-
-                  {/* <div className="qclmng-btn">
-                    <div className="overlap-group-2">
-                      <div className="text-wrapper-2">Manage</div>
-                    </div>
-                  </div> */}
-                  <CustomButton
-                    name="Manage"
-                    styles="custom-button manage-btn"
-                  />
-                </div>
-              </div>
-              {/* <div className="add-btn">
-              <div className="addtxt-wrapper">
-                <div className="addtxt">Add</div>
-              </div>
-            </div> */}
+              <CurrentLoansCards/>
+              
             </div>
             <div className="past-loan-card">
               <div className="past-loan-btn-container">
                 <div className="pastloanstxt">Past Loans</div>
               </div>
-              <div className="overlap">
-                <div className="icon-content">
-                  <img
-                    className="pastloan-icon"
-                    alt="Pastloan icon"
-                    src="https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e41e67e1c2a81b98b3c871/img/v-icon@2x.png"
-                  />
-                  <div className="overlap-group">
-                    <div className="pastloantxt">Vehicle Loan</div>
-                    <div className="pastloantxtt">Ref. no. 0000000000</div>
-                  </div>
-                </div>
-                <CustomButton
-                  name="Details"
-                  styles="custom-button details-btn"
-                />
-              </div>
-              {/* <div className="pastloan-btn">
-                    <div className="div-wrapper">
-                      <div className="text-wrapper">Details</div>
-                    </div>
-                  </div> */}
+              <PastLoansCards/>
             </div>
           </div>
         </div>

@@ -24,12 +24,17 @@ const Router = createBrowserRouter([
         errorElement: <Error/>
     },
     {
+        path: '/manage-loans/loan-type',
+        element: <HousingLoan/>,
+        errorElement: <Error/>
+    },
+    {
         path: '/manage-loans/housing-loan',
         element: <HousingLoan/>,
         errorElement: <Error/>
     },
     {
-        path: '/manage-loans/quick-cash-loan',
+        path: '/manage-loans/quick-cash-loan/:ref',
         element: <QuickCashLoan/>,
         errorElement: <Error/>
     },
