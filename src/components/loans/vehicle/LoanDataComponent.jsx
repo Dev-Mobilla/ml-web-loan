@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { calculateMonthlyPayment } from "../../../utils/loanCalculations";
 
 const LoanDataComponent = (defaultTerm, defaultPercentage) => {
@@ -23,37 +23,29 @@ const LoanDataComponent = (defaultTerm, defaultPercentage) => {
     setSelectedVehicle(vehicle === selectedVehicle ? "" : vehicle);
   };
 
-  const monthlyPayment = calculateMonthlyPayment(
-    parseFloat(estimatedVehiclePrice),
-    parseFloat(downPayment),
-    parseFloat(loanAmount),
-    0.1,
-    selectedTerm,
-    selectedPercentage
-  );
+  useEffect(() => {
+    if (
+      !estimatedVehiclePrice ||
+      isNaN(parseFloat(estimatedVehiclePrice)) ||
+      !selectedPercentage ||
+      !selectedTerm
+    ) {
+      setLoanAmount("");
+      setDownPayment("");
+      return;
+    }
 
-  const [formData, setFormData] = useState({
-    year: "",
-    make: "",
-    model: "",
-    color: "",
-    plateNo: "",
-    engineNo: "",
-    chassisNo: "",
-  });
+    const monthlyPayment = calculateMonthlyPayment(
+      parseFloat(estimatedVehiclePrice),
+      parseFloat(selectedPercentage),
+      parseFloat(selectedTerm)
+    );
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-  };
+    setDownPayment(monthlyPayment.downPayment);
+    setLoanAmount(monthlyPayment.loanAmount);
+  }, [estimatedVehiclePrice, selectedPercentage, selectedTerm]);
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
-
+  // TODO: return JSX
   return {
     loanAmount,
     setLoanAmount,
@@ -67,11 +59,6 @@ const LoanDataComponent = (defaultTerm, defaultPercentage) => {
     selectPercentage,
     selectedVehicle,
     selectVehicle,
-    monthlyPayment,
-    formData,
-    setFormData,
-    handleSubmit,
-    handleChange,
   };
 };
 

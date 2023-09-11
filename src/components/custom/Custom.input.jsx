@@ -1,11 +1,11 @@
 import React from "react";
 import "../../styles/customcomponent.css";
 
-const InputGroup = ({ label, sublabel, styles, placeholder }) => {
+const InputGroup = ({ label, sublabel, styles, placeholder, disabled }) => {
   return (
     <div className="inputs">
       <div className="loan-input-wrapper">
-        <input className={styles} placeholder={placeholder} />
+        <input className={styles} placeholder={placeholder} disabled={disabled} />
       </div>
       <div className="labels">
         <div className="loan-input-label">{label}</div>

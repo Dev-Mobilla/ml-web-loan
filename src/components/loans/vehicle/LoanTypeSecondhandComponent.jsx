@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 
 import "../../../styles/loantypes.css";
@@ -7,7 +7,7 @@ import {
   CustomCardTitle,
   CustomInput,
   LoanSelection,
-  SecondHandVehicleForm,
+  VehicleSecondHandDetailsComponent,
   LoanDataComponent,
 } from "../..";
 
@@ -22,7 +22,6 @@ const LoanTypeSecondHandComponent = () => {
   ];
 
   const {
-    // loanAmount,
     setLoanAmount,
     estimatedVehiclePrice,
     setEstimatedVehiclePrice,
@@ -35,11 +34,19 @@ const LoanTypeSecondHandComponent = () => {
     selectedVehicle,
     selectVehicle,
     monthlyPayment,
-    formData,
-    // setFormData,
-    handleSubmit,
-    handleChange,
   } = LoanDataComponent(3, 50);
+
+  const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
+
+  const handleValidationChange = (isValid) => {
+    setIsSubmitDisabled(!isValid);
+  };
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+  };
+
+  const buttonClassName = isSubmitDisabled ? "btn-disabled" : "btn-enabled";
 
   return (
     <div className="loan-type">
@@ -59,11 +66,12 @@ const LoanTypeSecondHandComponent = () => {
                 onChange={(e) => setEstimatedVehiclePrice(e.target.value)}
               />
               <CustomInput
-                styles="loan-amount"
+                styles="loan-amount disable-data"
                 label="Downpayment"
                 placeholder="300,000.00"
                 value={downPayment}
                 onChange={(e) => setDownPayment(e.target.value)}
+                disabled
               />
               <div className="second-hand-percent">
                 <LoanSelection
@@ -77,10 +85,11 @@ const LoanTypeSecondHandComponent = () => {
                 />
               </div>
               <CustomInput
-                styles="loan-amount"
+                styles="loan-amount disable-data"
                 label="Loan Ammount"
                 placeholder="700,000.00"
-                onChange={(value) => setLoanAmount(parseFloat(value))}
+                onChange={(e) => setLoanAmount(parseFloat(e))}
+                disabled
               />
               <LoanSelection
                 loanType={type}
@@ -93,12 +102,12 @@ const LoanTypeSecondHandComponent = () => {
                 valueClassName="value"
               />
               <CustomInput
-                styles="labels"
+                styles="labels disable-data"
                 label="Monthly Payment"
                 sublabel="* Subject to Approval & Appraisal"
                 placeholder="35,000.00"
                 value={monthlyPayment}
-                readOnly
+                disabled
               />
             </div>
           </div>
@@ -117,10 +126,9 @@ const LoanTypeSecondHandComponent = () => {
                 circleClassName="vehicle-circle"
                 valueClassName="value"
               />
-              <form onSubmit={handleSubmit}>
-                <SecondHandVehicleForm
-                  formData={formData}
-                  handleChange={handleChange}
+              <form onSubmit={handleFormSubmit}>
+                <VehicleSecondHandDetailsComponent
+                  onValidationChange={handleValidationChange}
                 />
               </form>
             </div>
@@ -129,7 +137,8 @@ const LoanTypeSecondHandComponent = () => {
             <CustomButton
               type="submit"
               name="Apply Online"
-              styles="btn"
+              styles={buttonClassName}
+              disabled={isSubmitDisabled}
             ></CustomButton>
           </div>
         </div>
