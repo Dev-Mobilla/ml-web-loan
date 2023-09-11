@@ -5,25 +5,21 @@ const CustomButton = (props) => {
   const { name, styles, EventHandler, disabled, inline, icon, iconStyle, btnType } = props;
   // console.log(disabled);
 
+  const handleClick = () => {
+    if (!disabled && EventHandler) {
+      EventHandler();
+    }
+  };
   return (
-    // <div className="custom-button add-btn">
-    //     <div className="addtxt-wrapper">
-    //         <div className="addtxt">{name}</div>
-    //     </div>
-    // </div>
     <button
       className={styles}
-      onClick={EventHandler}
+      onClick={handleClick}
       disabled={disabled}
       style={{ inline }}
       type={btnType}
     >
-     {/* <img src={icon} alt="download" className={iconStyle}/> */}
-     {
-        icon?
-          <span className={iconStyle}>{icon}</span>
-        : <></>
-      }
+      {/* <img src={icon} alt="download" className={iconStyle}/> */}
+      {icon ? <span className={iconStyle}>{icon}</span> : <></>}
       {name}
     </button>
   );

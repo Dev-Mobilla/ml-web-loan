@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 
-const VehicleNewDetailsComponent = ({ onValidationChange }) => {
+const VehicleSecondHandDetailsComponent = ({ onValidationChange }) => {
   const [vehicleDetails, setVehicleDetails] = useState({
     make: "",
     model: "",
     year: "",
     color: "",
-    variant: "",
+    plateNo: "",
+    engineNo: "",
+    chassisNo: "",
   });
 
   useEffect(() => {
@@ -15,8 +17,10 @@ const VehicleNewDetailsComponent = ({ onValidationChange }) => {
       vehicleDetails.model.trim() !== "" &&
       vehicleDetails.year.trim() !== "" &&
       vehicleDetails.color.trim() !== "" &&
-      vehicleDetails.variant.trim() !== "" &&
-      onValidationChange(isValid);
+      vehicleDetails.plateNo.trim() !== "" &&
+      vehicleDetails.engineNo.trim() !== "" &&
+      vehicleDetails.chassisNo.trim() !== "";
+    onValidationChange(isValid);
   }, [vehicleDetails, onValidationChange]);
 
   const handleInputChange = (e) => {
@@ -71,13 +75,35 @@ const VehicleNewDetailsComponent = ({ onValidationChange }) => {
             />
           </div>
         </div>
+        <div className="form-group">
+          <div className="form-row">
+            <input
+              type="text"
+              id="plateNo"
+              name="plateNo"
+              placeholder="Plate No."
+              value={vehicleDetails.plateNo}
+              onChange={handleInputChange}
+            />
+          </div>
+          <div className="form-row">
+            <input
+              type="text"
+              id="engineNo"
+              name="engineNo"
+              placeholder="Engine No."
+              value={vehicleDetails.engineNo}
+              onChange={handleInputChange}
+            />
+          </div>
+        </div>
         <div className="form-row">
           <input
             type="text"
-            id="variant"
-            name="variant"
-            placeholder="Variant"
-            value={vehicleDetails.variant}
+            id="chassisNo"
+            name="chassisNo"
+            placeholder="Chassis No. / VIN"
+            value={vehicleDetails.chassisNo}
             onChange={handleInputChange}
           />
         </div>
@@ -86,4 +112,4 @@ const VehicleNewDetailsComponent = ({ onValidationChange }) => {
   );
 };
 
-export default VehicleNewDetailsComponent;
+export default VehicleSecondHandDetailsComponent;

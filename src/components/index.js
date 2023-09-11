@@ -16,7 +16,7 @@ import LoanTypeRadiosComponent from "./loans/vehicle/LoanTypeRadiosComponent";
 import RequiredDocumentsComponent from "./loans/vehicle/RequiredDocumentsComponent";
 import LoanTypeComponent from "./LoanTypeComponent";
 import QRComponent from "./loans/QRModalComponent";
-import SecondHandVehicleForm from "./loans/vehicle/SecondHandVehicleForm";
+import VehicleSecondHandDetailsComponent from "./loans/vehicle/VehicleSecondHandDetailsComponent";
 import AddPhotoModal from "./loans/AddPhotoModalComponent";
 import VehicleNewDetailsComponent from "./loans/vehicle/VehicleNewDetailsComponent";
 import CustomSubmitModal from "./custom/Custom.SubmitModal";
@@ -70,7 +70,7 @@ export {
     CustomCardTitle,
     CustomInput,
     LoanSelection,
-    SecondHandVehicleForm,
+    VehicleSecondHandDetailsComponent,
     QRComponent,
     VehicleNewDetailsComponent,
     CustomSubmitModal,
