@@ -2,7 +2,7 @@ import React from "react";
 import "../../styles/customcomponent.css";
 
 const CustomButton = (props) => {
-  const { name, styles, EventHandler, disabled, inline, icon, iconStyle } = props;
+  const { name, styles, EventHandler, disabled, inline, icon, iconStyle, btnType } = props;
   // console.log(disabled);
 
   return (
@@ -16,6 +16,7 @@ const CustomButton = (props) => {
       onClick={EventHandler}
       disabled={disabled}
       style={{ inline }}
+      type={btnType}
     >
      {/* <img src={icon} alt="download" className={iconStyle}/> */}
      {

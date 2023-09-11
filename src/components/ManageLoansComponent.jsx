@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import "../styles/manageloans.css";
 import {
   TopbarComponent,
@@ -8,40 +8,26 @@ import {
   CustomPrevBtn,
   ManageLoanCardComponent,
   CustomIcon,
+  CustomSubmitModal,
 } from "./index";
-import {useLocation} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
+import { currentLoans, pastLoans } from "../utils/ManageLoansMockData";
 
 const ManageLoanComponent = () => {
 
   const Location = useLocation();
+  const navigate = useNavigate();
+  const [modal, setModal] = useState(false);
 
   const { Housing, Vehicle, QCL } = CustomIcon;
 
   useEffect(() => {
-    console.log(Location);
+    window.addEventListener('click', setToggleModalOutside);
+
+    return () => {
+      window.removeEventListener('click', setToggleModalOutside);
+    }
   })
-
-  const currentLoans = [
-    {
-      loanType: 'Housing Loan',
-      referenceNo: '00000000000'
-    },
-    {
-      loanType: 'Quick Cash Loan',
-      referenceNo: 'ABCDEFGHIJ'
-    },
-    {
-      loanType: 'Vehicle Loan',
-      referenceNo: 'VHCL12345789'
-    }
-  ]
-
-  const pastLoans = [
-    {
-      loanType: 'Vehicle Loan',
-      referenceNo: 'VHCL12345789'
-    }
-  ]
 
   const currentLoansIcon = [
     {
@@ -92,7 +78,9 @@ const ManageLoanComponent = () => {
             loanCardName="loan-card"
             cardContainer="loan-card-container current-loan"
             loantypeTxt="loan-type current"
-            referenceTxt="reference-txt"/>
+            referenceTxt="reference-txt"
+            OnBtnClick={() => CardBtnClick(loan.loanType, loan.referenceNo)}
+            />
           )
         })
     )
@@ -118,6 +106,8 @@ const ManageLoanComponent = () => {
             cardContainer="loan-card-container past-loan"
             loantypeTxt="loan-type past"
             referenceTxt="reference-txt"
+            OnBtnClick={() => CardBtnClick(loan.loanType, loan.referenceNo)}
+            btnType="button"
            />
           )
         })
@@ -132,8 +122,53 @@ const ManageLoanComponent = () => {
     )
   }
 
+  const AddBtnHandler = () => {
+    setModal(true)
+  }
+
+  const CardBtnClick = (type, referenceNo) => {
+
+    let loanType = type.toLowerCase().replaceAll(" ", "-");
+      
+    if ('quick-cash-loan' === loanType) {
+
+      navigate(`/manage-loans/${loanType}/${referenceNo}`);
+      
+    }else{
+      navigate(`/manage-loans/loan-type?type=${loanType}&ref=${referenceNo}`);
+    }
+      
+  }
+
+  const setToggleModalOutside = (event) => {
+    if (modal) {
+      const classNameBtn =  event.target.className === 'submit-modal'
+
+      setModal(!classNameBtn)
+    }
+
+  }
+
   return (
     <div className="manage-loans">
+        {
+          modal?
+            <div className="submit-modal">
+              <CustomSubmitModal
+                label="Loan Reference Number"
+                labelClass="modal-label"
+                containerClass="modal-container"
+                wrapperClass="modal-wrapper"
+                inptBtnWrapper="modal-inputbtn-wrapper"
+                inputWrapperClass="modal-input-wrapper"
+                modalBtnWrapper="modal-btn-wrapper"
+                modalBtn="modal-button"
+                inputType="text"
+                placeHolder="Ref. No"
+                />
+            </div>
+          : <></>
+      }
       <div className="div">
         <TopbarComponent />
         <CustomHeader title="Manage Existing Loans" />
@@ -145,7 +180,7 @@ const ManageLoanComponent = () => {
             <div className="current-loan-card">
               <div className="current-loan-btn-container">
                 <div className="currentloanstxt">Current Loans</div>
-                <CustomButton name="Add" styles="custom-button add-btn" />
+                <CustomButton name="Add" styles="custom-button add-btn" EventHandler={AddBtnHandler}/>
               </div>
               <CurrentLoansCards/>
               
@@ -155,23 +190,6 @@ const ManageLoanComponent = () => {
                 <div className="pastloanstxt">Past Loans</div>
               </div>
               <PastLoansCards/>
-              {/* <div className="overlap">
-                <div className="icon-content">
-                  <img
-                    className="pastloan-icon"
-                    alt="Pastloan icon"
-                    src="https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e41e67e1c2a81b98b3c871/img/v-icon@2x.png"
-                  />
-                  <div className="overlap-group">
-                    <div className="pastloantxt">Vehicle Loan</div>
-                    <div className="pastloantxtt">Ref. no. 0000000000</div>
-                  </div>
-                </div>
-                <CustomButton
-                  name="Details"
-                  styles="custom-button details-btn"
-                />
-              </div> */}
             </div>
           </div>
         </div>
