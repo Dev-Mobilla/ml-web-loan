@@ -10,7 +10,9 @@ const ManageLoanCardComponent = ({
     loanCardName,
     cardContainer,
     loantypeTxt,
-    referenceTxt
+    referenceTxt,
+    OnBtnClick,
+    btnType
  }) => {
   return (
     <div className={loanCardName}>
@@ -31,6 +33,8 @@ const ManageLoanCardComponent = ({
             <CustomButton
             name={btnName}
             styles={btnStyle}
+            EventHandler={OnBtnClick}
+            btnType={btnType}
             />
         </div>
     </div>

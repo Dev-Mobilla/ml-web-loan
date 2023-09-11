@@ -526,68 +526,7 @@
     top: 7px;
     width: 50px;
 }
-/* MODAL */
-.dashboard .login-modal{
-    background-color: #00000066;
-    height: 1024px;
-    left: 0;
-    position: absolute;
-    top: 0;
-    width: 100%;
-    z-index: 1;
-}
-.dashboard .login-modal .modal-wrapper{
-   margin: 200px auto auto auto;
-   display: flex;
-   flex-direction: column;
-   justify-content: center;
-}
-.dashboard .login-modal .modal-container{
-    background-color: white;
-    border-radius: 10px;
-    padding: 15px 20px;
-    width: 40%;
-    margin: auto;
-}
-.dashboard .login-modal .modal-inputbtn-wrapper{
-    width: 60%;
-    margin: auto;
-}
-.dashboard .login-modal .modal-input-wrapper{
-    margin: 6px 0px 10px 0px;
-}
-.dashboard .login-modal .modal-input-wrapper input,
-.dashboard .login-modal .modal-input-wrapper input:focus{
-    display: block;
-    margin: auto;
-    width: 100%;
-    padding: 8px 6px;
-    border: 1px solid rgb(169, 169, 169);
-    border-radius: 4px;
-    outline: none;
-    font-size: 15px;
- }
 
-.dashboard .login-modal .modal-btn-wrapper .modal-button{
-    background-color: #D20101;
-    color: white;
-    padding: 4px 15px;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
-    margin: 5px 0px 0px;
-
-}
-.dashboard .login-modal .modal-label{
-    display: flex;
-    margin: 10px 20px;
-    color: #D20101;
-    font-weight: bold;
-    font-size: large;
-}
-.dashboard .login-modal .modal-btn-wrapper{
-    text-align: end;
-}
 
 @media screen and (min-width: 360px) and (max-width: 480px)  {
     .dashboard .floating-diamond {
@@ -770,12 +709,12 @@
         width: 50px;
         left: 30px;
     }
-    .dashboard .login-modal .modal-container{
+    /* .dashboard .login-modal .modal-container{
         width: 90%;
     }
     .dashboard .login-modal .modal-inputbtn-wrapper{
         width: 80%;
-    }
+    } */
     
 
 } 

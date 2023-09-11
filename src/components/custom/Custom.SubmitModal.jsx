@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { CustomButton, CustomInput, CustomInputField } from '..';
 
 const CustomSubmitModal = ({
-  mobileNumber,
+  label,
   containerClass,
   wrapperClass,
   inputWrapperClass,
@@ -19,7 +19,7 @@ const CustomSubmitModal = ({
   return (
     <div className={wrapperClass}>
       <div className={containerClass}>
-        <label htmlFor="" className={labelClass}>{mobileNumber}</label>
+        <label htmlFor="" className={labelClass}>{label}</label>
         <div className={inptBtnWrapper}>
           <div className={inputWrapperClass}>
             <CustomInputField inputType={inputType} inputVal={inputValue} inputPlaceholder={placeHolder}/>
