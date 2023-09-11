@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "../styles/requirements.css";
 import { useModal } from "../utils/modalContext";
 import {
@@ -10,17 +10,19 @@ import {
   CustomCardTitle,
   VehicleRequirementComponent,
   RequiredDocumentsComponent,
+  SuccessModal
 } from "./index";
 
 const CustomerRequirementComponent = () => {
   const { modalOpen, modalTitle, modalDefaultGuideImage, closeModal } =
     useModal();
+  const [showModal , setshowModal] = useState(false);
 
   return (
     <div className="customer-requirement">
       <div className="requirement-container">
         <TopbarComponent />
-        <CustomHeader title="Manage Existing Loan" />
+        <CustomHeader title="Vehicle Details" />
         <div className="requirement-content">
           <CustomPrevBtn />
           <div className="card">
@@ -33,7 +35,7 @@ const CustomerRequirementComponent = () => {
 
           <RequiredDocumentsComponent />
 
-          <div className="apply-btn">
+          <div className="apply-btn" onClick={() => {setshowModal(true)}}>
             <CustomButton
               type="submit"
               name="Submit"
@@ -42,6 +44,7 @@ const CustomerRequirementComponent = () => {
           </div>
         </div>
       </div>
+      {showModal && <SuccessModal hideModal={setshowModal}/>}
       <AddPhotoModal
         isOpen={modalOpen}
         onClose={closeModal}

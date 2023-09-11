@@ -1,7 +1,7 @@
 import React from 'react';
 import "../../../styles/successModal.css";
 
-const SuccessModal = ({closeModal}) => {
+const SuccessModal = ({hideModal}) => {
   return (
     <div className="modalBackground">
         <div className="success-modalContainer">
@@ -13,7 +13,7 @@ const SuccessModal = ({closeModal}) => {
                 from us in 3-5 business days.</p>
             </div>
             <div className="ok-close-btn">
-                <button onClick={() => closeModal(false)}>Ok</button>
+                <button onClick={() => hideModal(false)}>Ok</button>
             </div>
         </div>
 

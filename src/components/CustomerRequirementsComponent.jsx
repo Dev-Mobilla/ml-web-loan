@@ -8,7 +8,8 @@ import {
   TopbarComponent,
   VehicleDocumentsComponent,
   AddPhotoModal,
-  AlertModalRequirementsComponent
+  AlertModalRequirementsComponent,
+  SuccessModal
 } from "./index";
 
 const CustomerRequirementsComponent = () => {
@@ -26,12 +27,13 @@ const CustomerRequirementsComponent = () => {
     openModal,
     closeModal,
   } = useModal();
+  const [showModal , setshowModal] = useState(false);
   
   return (
     <div className="customer-requirement">
       <div className="div">
         <TopbarComponent />
-        <CustomHeader title="Manage Existing Loan" />
+        <CustomHeader title="Vehicle Details" />
         <div className="body-bg">
           <CustomPrevBtn />
           <VehicleDocumentsComponent />
@@ -129,11 +131,12 @@ const CustomerRequirementsComponent = () => {
               </div>
             </div>
           </div>
-          <div className="submit-btn" onClick={handleModalRequirementsAlertOpen}>
-            <div className="text-wrapper-7" >Submit</div>
+          <div className="submit-btn" onClick={handleModalRequirementsAlertOpen} >
+            <div className="text-wrapper-7" onClick={() => {setshowModal(true)}} >Submit</div>
           </div>
         </div>
       </div>
+      {showModal && <SuccessModal hideModal={setshowModal}/>}
       <AddPhotoModal
         isOpen={modalOpen}
         onClose={closeModal}
