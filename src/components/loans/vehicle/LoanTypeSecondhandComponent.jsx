@@ -22,6 +22,7 @@ const LoanTypeSecondHandComponent = () => {
   ];
 
   const {
+    loanAmount,
     setLoanAmount,
     estimatedVehiclePrice,
     setEstimatedVehiclePrice,
@@ -34,6 +35,7 @@ const LoanTypeSecondHandComponent = () => {
     selectedVehicle,
     selectVehicle,
     monthlyPayment,
+    setMonthlyPayment
   } = LoanDataComponent(3, 50);
 
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
@@ -45,6 +47,37 @@ const LoanTypeSecondHandComponent = () => {
   const handleFormSubmit = (e) => {
     e.preventDefault();
   };
+
+  const HandlePriceInput = (event) => {
+
+    let priceInputval = event.target.value;
+
+    // let convertInput = parseFloat(priceInputval);
+    // console.log(convertInput);
+
+    // let price = convertInput.toLocaleString("en", { useGrouping: true, minimumFractionDigits: 2 });
+
+    // console.log('price',price);
+
+    setEstimatedVehiclePrice(priceInputval);
+  }
+
+  const OnKeydownPriceHandler = (event) => {
+
+    let invalidInputs = ["e", "E", "+", "-"];
+    let numbers = (/^[-+]?[0-9]*\.?[0-9]*$/.test(event.key));
+
+    let isInclude = invalidInputs.includes(event.key);
+
+    if (isInclude) {
+        return event.preventDefault();
+    } else if (numbers || event.key == "Backspace") {
+        return event;
+    } else {
+        return event.preventDefault();
+    }
+
+}
 
   const buttonClassName = isSubmitDisabled ? "btn-disabled" : "btn-enabled";
 
@@ -58,19 +91,35 @@ const LoanTypeSecondHandComponent = () => {
               styles="custom-card-title"
             />
             <div className="loan-content">
-              <CustomInput
+              {/* <CustomInput
                 styles="loan-ammount"
                 label="Estimated Vehicle Price"
                 placeholder="1,000,000.00"
                 value={estimatedVehiclePrice}
                 onChange={(e) => setEstimatedVehiclePrice(e.target.value)}
-              />
+              /> */}
+                {/* <CustomInput
+                  styles="loan-amount disable-data"
+                  label="Downpayment"
+                  placeholder="300,000.00"
+                  value={downPayment}
+                  onChange={(e) => setDownPayment(e.target.value)}
+                  disabled
+                /> */}
               <CustomInput
+                styles="loan-ammount"
+                label="Estimated Vehicle Price"
+                placeholder="1,000,000.00"
+                inputVal={estimatedVehiclePrice}
+                onChangeHandler={HandlePriceInput}
+                onkeydownHandler={OnKeydownPriceHandler}
+              />
+               <CustomInput
                 styles="loan-amount disable-data"
                 label="Downpayment"
-                placeholder="300,000.00"
-                value={downPayment}
-                onChange={(e) => setDownPayment(e.target.value)}
+                placeholder="0.00"
+                inputVal={downPayment}
+                onChangeHandler={(e) => setDownPayment(e.target.value)}
                 disabled
               />
               <div className="second-hand-percent">
@@ -85,6 +134,33 @@ const LoanTypeSecondHandComponent = () => {
                 />
               </div>
               <CustomInput
+                styles="loan-amount disable-data"
+                label="Loan Ammount"
+                placeholder="0.00"
+                onChangeHandler={(e) => setLoanAmount(parseFloat(e))}
+                disabled
+                inputVal={loanAmount}
+              />
+              <LoanSelection
+                loanType={type}
+                availableOptions={availableTerms}
+                selectedOption={selectedTerm}
+                onSelect={selectTerm}
+                label="Term (yrs.)"
+                containerClassName="loan-term-selection"
+                circleClassName="term-circle"
+                valueClassName="value"
+              />
+              <CustomInput
+                styles="labels disable-data"
+                label="Monthly Payment"
+                sublabel="* Subject to Approval & Appraisal"
+                placeholder="0.00"
+                inputVal={monthlyPayment}
+                onChangeHandler={(e) => setMonthlyPayment(parseFloat(e))}
+                disabled
+              />
+              {/* <CustomInput
                 styles="loan-amount disable-data"
                 label="Loan Ammount"
                 placeholder="700,000.00"
@@ -108,7 +184,7 @@ const LoanTypeSecondHandComponent = () => {
                 placeholder="35,000.00"
                 value={monthlyPayment}
                 disabled
-              />
+              /> */}
             </div>
           </div>
           <div className="card">
