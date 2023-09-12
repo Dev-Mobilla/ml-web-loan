@@ -13,7 +13,31 @@
   width: 100%;
   box-sizing: border-box;
 }
-
+#search_address {
+  margin-top: 10px;
+  margin-left: 25%;
+  width: 40%;
+  height: 40px;
+  border-radius: 5px;
+  border-style: solid;
+  border-color: gray;
+  color: gray;
+  font-size: 15px;
+}
+#search_address:focus{
+  border-color: #ff2800;
+  outline: none;
+}
+ #search-btn {
+  background-color: white;
+  display: inline;
+  cursor: pointer;
+  margin-left: 1px;
+  width: 60px;
+  height: 39px;
+  border-style: solid;
+  border-color: gray;
+}
 .customer-details-group {
   max-width: 400px;
   margin: 0 auto;
