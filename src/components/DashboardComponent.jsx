@@ -1,19 +1,12 @@
 import React from "react";
 import "../styles/dashboard.css";
 
-import {
-  FooterComponent,
-  HeaderComponent,
-  TopbarComponent,
-} from "./index";
+import { FooterComponent, HeaderComponent, TopbarComponent } from "./index";
 
 const DashboardComponent = () => {
-
   const ManageLoansHandler = () => {
     // setShowModal(isLogin);
-
   };
-
 
   return (
     <div className="dashboard">
@@ -34,8 +27,7 @@ const DashboardComponent = () => {
             />
 
             <div className="content-card--wrapper">
-             
-                <div className="vehicle">
+              <div className="vehicle">
                 <a href="/vehicle-loan/loan-type/new">
                   <div className="overlap-5">
                     <div className="v-desc">
@@ -49,105 +41,105 @@ const DashboardComponent = () => {
                       src="https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e41e67e1c2a81b98b3c871/img/v-icon@2x.png"
                     />
                   </div>
-                  </a>
-                </div>
-           
+                </a>
+              </div>
+
               <div className="housing">
                 <a href="/vehicle-loan/loan-type/new">
-                <div className="overlap-group-3">
-                  <div className="hltitle">Housing Loan</div>
-                  <div className="h-desc">
-                    <li>House/Lot/Condo</li>
-                    <li>Refinance an owned house</li>
-                  </div>
-                  <div className="h-icon">
-                    <div className="overlap-group-4">
-                      <img
-                        className="vector"
-                        alt="Vector"
-                        src="https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e492714fd92dc35e55a22f/img/vector-55-8@2x.png"
-                      />
-                      <div className="rectangle" />
-                      <img
-                        className="vector-2"
-                        alt="Vector"
-                        src="https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e492714fd92dc35e55a22f/img/vector-56-8@2x.png"
-                      />
-                      <img
-                        className="vector-3"
-                        alt="Vector"
-                        src="https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e492714fd92dc35e55a22f/img/vector-57-8@2x.png"
-                      />
-                      <img
-                        className="vector-4"
-                        alt="Vector"
-                        src="https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e492714fd92dc35e55a22f/img/vector-58-8@2x.png"
-                      />
-                      <img
-                        className="vector-5"
-                        alt="Vector"
-                        src="https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e492714fd92dc35e55a22f/img/vector-59-8@2x.png"
-                      />
-                      <img
-                        className="vector-6"
-                        alt="Vector"
-                        src="https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e492714fd92dc35e55a22f/img/vector-60-8@2x.png"
-                      />
-                      <img
-                        className="vector-7"
-                        alt="Vector"
-                        src="https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e492714fd92dc35e55a22f/img/vector-61-8@2x.png"
-                      />
-                      <img
-                        className="vector-8"
-                        alt="Vector"
-                        src="https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e492714fd92dc35e55a22f/img/vector-62-8@2x.png"
-                      />
-                      <img
-                        className="vector-9"
-                        alt="Vector"
-                        src="https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e492714fd92dc35e55a22f/img/vector-63-8@2x.png"
-                      />
-                      <img
-                        className="vector-10"
-                        alt="Vector"
-                        src="https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e492714fd92dc35e55a22f/img/vector-64-8@2x.png"
-                      />
-                      <img
-                        className="shape-copy"
-                        alt="Shape copy"
-                        src="https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e492714fd92dc35e55a22f/img/shape-copy-5-8@2x.png"
-                      />
-                      <img
-                        className="p"
-                        alt="P"
-                        src="https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e492714fd92dc35e55a22f/img/p-8@2x.png"
-                      />
-                      <div className="ellipse" />
-                      <img
-                        className="group"
-                        alt="Group"
-                        src="https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e41e67e1c2a81b98b3c871/img/group-42@2x.png"
-                      />
+                  <div className="overlap-group-3">
+                    <div className="hltitle">Housing Loan</div>
+                    <div className="h-desc">
+                      <li>House/Lot/Condo</li>
+                      <li>Refinance an owned house</li>
+                    </div>
+                    <div className="h-icon">
+                      <div className="overlap-group-4">
+                        <img
+                          className="vector"
+                          alt="Vector"
+                          src="https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e492714fd92dc35e55a22f/img/vector-55-8@2x.png"
+                        />
+                        <div className="rectangle" />
+                        <img
+                          className="vector-2"
+                          alt="Vector"
+                          src="https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e492714fd92dc35e55a22f/img/vector-56-8@2x.png"
+                        />
+                        <img
+                          className="vector-3"
+                          alt="Vector"
+                          src="https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e492714fd92dc35e55a22f/img/vector-57-8@2x.png"
+                        />
+                        <img
+                          className="vector-4"
+                          alt="Vector"
+                          src="https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e492714fd92dc35e55a22f/img/vector-58-8@2x.png"
+                        />
+                        <img
+                          className="vector-5"
+                          alt="Vector"
+                          src="https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e492714fd92dc35e55a22f/img/vector-59-8@2x.png"
+                        />
+                        <img
+                          className="vector-6"
+                          alt="Vector"
+                          src="https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e492714fd92dc35e55a22f/img/vector-60-8@2x.png"
+                        />
+                        <img
+                          className="vector-7"
+                          alt="Vector"
+                          src="https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e492714fd92dc35e55a22f/img/vector-61-8@2x.png"
+                        />
+                        <img
+                          className="vector-8"
+                          alt="Vector"
+                          src="https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e492714fd92dc35e55a22f/img/vector-62-8@2x.png"
+                        />
+                        <img
+                          className="vector-9"
+                          alt="Vector"
+                          src="https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e492714fd92dc35e55a22f/img/vector-63-8@2x.png"
+                        />
+                        <img
+                          className="vector-10"
+                          alt="Vector"
+                          src="https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e492714fd92dc35e55a22f/img/vector-64-8@2x.png"
+                        />
+                        <img
+                          className="shape-copy"
+                          alt="Shape copy"
+                          src="https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e492714fd92dc35e55a22f/img/shape-copy-5-8@2x.png"
+                        />
+                        <img
+                          className="p"
+                          alt="P"
+                          src="https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e492714fd92dc35e55a22f/img/p-8@2x.png"
+                        />
+                        <div className="ellipse" />
+                        <img
+                          className="group"
+                          alt="Group"
+                          src="https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e41e67e1c2a81b98b3c871/img/group-42@2x.png"
+                        />
+                      </div>
                     </div>
                   </div>
-                </div>
                 </a>
               </div>
               <div className="QCL">
-              <a href="/vehicle-loan/loan-type/new">
-                <div className="overlap-group-qcl">
-                  <div className="QC-ltitle">Quick Cash Loan</div>
-                  <div className="QCL-desc">
-                    <li>Pawn Jewelry, Watches, Others</li>
-                    <li> Renew Online</li>
+                <a href="/vehicle-loan/loan-type/new">
+                  <div className="overlap-group-qcl">
+                    <div className="QC-ltitle">Quick Cash Loan</div>
+                    <div className="QCL-desc">
+                      <li>Pawn Jewelry, Watches, Others</li>
+                      <li> Renew Online</li>
+                    </div>
+                    <img
+                      className="QCL-icon"
+                      alt="Qcl icon"
+                      src="https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e41e67e1c2a81b98b3c871/img/qcl-icon@2x.png"
+                    />
                   </div>
-                  <img
-                    className="QCL-icon"
-                    alt="Qcl icon"
-                    src="https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e41e67e1c2a81b98b3c871/img/qcl-icon@2x.png"
-                  />
-                </div>
                 </a>
               </div>
               <div className="SBL">
@@ -197,7 +189,7 @@ const DashboardComponent = () => {
                       <li>Cash Loans for Workers</li>
                       <li> Online payments via ML Wallet</li>
                     </div>
-                </div>
+                  </div>
                 </a>
               </div>
             </div>

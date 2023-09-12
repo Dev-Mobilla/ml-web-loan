@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 import "../../../styles/loantypes.css";
 import {
@@ -9,10 +9,11 @@ import {
   LoanSelection,
   VehicleNewDetailsComponent,
   LoanDataComponent,
-} from "../../../components";
+} from "../..";
 
 const LoanTypeNewComponent = () => {
   const { type } = useParams();
+  const navigate = useNavigate();
 
   const availableTerms = [1, 2, 3, 4, 5];
   const availablePercentages = [20, 30, 40, 50];
@@ -23,6 +24,7 @@ const LoanTypeNewComponent = () => {
   ];
 
   const {
+    loanAmount,
     setLoanAmount,
     estimatedVehiclePrice,
     setEstimatedVehiclePrice,
@@ -35,9 +37,18 @@ const LoanTypeNewComponent = () => {
     selectedVehicle,
     selectVehicle,
     monthlyPayment,
+    setMonthlyPayment,
   } = LoanDataComponent(3, 20);
 
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
+
+  const [vehicleDetails, setVehicleDetails] = useState({
+    make: "",
+    model: "",
+    year: "",
+    color: "",
+    variant: "",
+  });
 
   const handleValidationChange = (isValid) => {
     setIsSubmitDisabled(!isValid);
@@ -45,9 +56,36 @@ const LoanTypeNewComponent = () => {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
+
+    const formDataFromComponent = {
+      type: type,
+      selectedVehicle: selectedVehicle,
+      ...vehicleDetails,
+    };
+
+    localStorage.setItem("formData", JSON.stringify(formDataFromComponent));
+
+    navigate("/vehicle-loan/personal-details");
   };
 
-  const buttonClassName = isSubmitDisabled ? "btn-disabled" : "btn";
+  const handleVehicleDetailsChange = (newVehicleDetails) => {
+    setVehicleDetails(newVehicleDetails);
+  };
+
+  const OnKeydownPriceHandler = (event) => {
+    const invalidInputs = ["e", "E", "+", "-"];
+    const isInvalidInput = invalidInputs.includes(event.key);
+    const isNumberOrBackspace =
+      /^[-+]?[0-9]*\.?[0-9]*$/.test(event.key) || event.key === "Backspace";
+
+    if (isInvalidInput || isNumberOrBackspace) {
+      return;
+    }
+
+    event.preventDefault();
+  };
+
+  const buttonClassName = isSubmitDisabled ? "btn-disabled" : "btn-enabled";
 
   return (
     <div className="loan-type new-loan">
@@ -62,16 +100,19 @@ const LoanTypeNewComponent = () => {
               <CustomInput
                 styles="loan-ammount"
                 label="Estimated Vehicle Price"
-                placeholder="1,000,000.00"
-                value={estimatedVehiclePrice}
-                onChange={(e) => setEstimatedVehiclePrice(e.target.value)}
+                placeholder="0.00"
+                inputVal={estimatedVehiclePrice}
+                onChangeHandler={(e) =>
+                  setEstimatedVehiclePrice(e.target.value)
+                }
+                onKeyDownHandler={OnKeydownPriceHandler}
               />
               <CustomInput
                 styles="loan-amount disable-data"
                 label="Downpayment"
-                placeholder="300,000.00"
-                value={downPayment}
-                onChange={(e) => setDownPayment(e.target.value)}
+                placeholder="0.00"
+                inputVal={downPayment}
+                onChangeHandler={(e) => setDownPayment(e.target.value)}
                 disabled
               />
               <div className="new-loan-percent">
@@ -88,8 +129,9 @@ const LoanTypeNewComponent = () => {
               <CustomInput
                 styles="loan-amount disable-data"
                 label="Loan Ammount"
-                placeholder="700,000.00"
-                onChange={(value) => setLoanAmount(parseFloat(value))}
+                placeholder="0.00"
+                onChangeHandler={(e) => setLoanAmount(parseFloat(e))}
+                inputVal={loanAmount}
                 disabled
               />
               <LoanSelection
@@ -106,42 +148,45 @@ const LoanTypeNewComponent = () => {
                 styles="labels disable-data"
                 label="Monthly Payment"
                 sublabel="* Subject to Approval & Appraisal"
-                placeholder="35,000.00"
-                value={monthlyPayment}
+                placeholder="0.00"
+                inputVal={monthlyPayment}
+                onChangeHandler={(e) => setMonthlyPayment(parseFloat(e))}
                 disabled
               />
             </div>
           </div>
-          <div className="card">
-            <CustomCardTitle
-              title="Vehicle Details"
-              styles="custom-card-title"
-            />
-            <div className="loan-content">
-              <LoanSelection
-                loanType={type}
-                availableOptions={availableVehicles}
-                selectedOption={selectedVehicle}
-                onSelect={selectVehicle}
-                containerClassName="loan-vehicle-selection"
-                circleClassName="vehicle-circle"
-                valueClassName="value"
+          <form onSubmit={handleFormSubmit}>
+            <div className="card">
+              <CustomCardTitle
+                title="Vehicle Details"
+                styles="custom-card-title"
               />
-              <form onSubmit={handleFormSubmit}>
+              <div className="loan-content">
+                <LoanSelection
+                  loanType={type}
+                  availableOptions={availableVehicles}
+                  selectedOption={selectedVehicle}
+                  onSelect={selectVehicle}
+                  containerClassName="loan-vehicle-selection"
+                  circleClassName="vehicle-circle"
+                  valueClassName="value"
+                />
+
                 <VehicleNewDetailsComponent
                   onValidationChange={handleValidationChange}
+                  onVehicleDetailsChange={handleVehicleDetailsChange}
                 />
-              </form>
+              </div>
             </div>
-          </div>
-          <div className="apply-btn">
-            <CustomButton
-              type="submit"
-              name="Apply Online"
-              styles={buttonClassName}
-              disabled={isSubmitDisabled}
-            ></CustomButton>
-          </div>
+            <div className="apply-btn">
+              <CustomButton
+                type="submit"
+                name="Apply Online"
+                styles={buttonClassName}
+                disabled={isSubmitDisabled}
+              ></CustomButton>
+            </div>
+          </form>
         </div>
       </div>
     </div>

@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useRef } from 'react';
-import QRCODE from '../../assets/images/mlwallet-qr-code.svg';
-import downloadICON from '../../assets/icons/icon.png';
+import React, { useState, useEffect, useRef } from "react";
+import QRCODE from "../../assets/images/mlwallet-qr-code.svg";
+import downloadICON from "../../assets/icons/icon.png";
 
-import '../../styles/QRmodal.css';
+import "../../styles/QRmodal.css";
 
 const QRModalComponent = ({ onClose }) => {
   const [showAlertModal, setShowAlertModal] = useState(true);
@@ -24,7 +24,7 @@ const QRModalComponent = ({ onClose }) => {
   }, []);
 
   return (
-    <div className='qr-modal'>
+    <div className="qr-modal">
       <div className="modalBackground" onClick={onClose}>
         {showAlertModal && (
           <div className="Alert">

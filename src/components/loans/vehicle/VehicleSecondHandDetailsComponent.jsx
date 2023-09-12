@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-const VehicleSecondHandDetailsComponent = ({ onValidationChange }) => {
+const VehicleSecondHandDetailsComponent = ({ onValidationChange, onVehicleDetailsChange }) => {
   const [vehicleDetails, setVehicleDetails] = useState({
     make: "",
     model: "",
@@ -21,7 +21,9 @@ const VehicleSecondHandDetailsComponent = ({ onValidationChange }) => {
       vehicleDetails.engineNo.trim() !== "" &&
       vehicleDetails.chassisNo.trim() !== "";
     onValidationChange(isValid);
-  }, [vehicleDetails, onValidationChange]);
+    
+    onVehicleDetailsChange(vehicleDetails);
+  }, [vehicleDetails, onValidationChange, onVehicleDetailsChange]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
