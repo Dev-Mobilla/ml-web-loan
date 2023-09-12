@@ -32,6 +32,7 @@ import LoanDataComponent from "./loans/vehicle/LoanDataComponent";
 import ReceiptComponent from "./ReceiptComponent";
 import PreviousBTNComponent from "./layout/PrevBTNComponent";
 import ManageLoanCardComponent from "./loans/manageLoan/ManageLoanCardComponent";
+import ManageLoansDetailsComponent from "./loans/manageLoan/ManageLoansDetailsComponent";
 
 // CUSTOM COMPONENTS
 import OTPModalComponent from "./OTPModalComponent";
@@ -88,6 +89,7 @@ export {
     SuccessModal,
     PreviousBTNComponent,
     ManageLoanCardComponent,
-    CustomIcon
+    CustomIcon,
+    ManageLoansDetailsComponent
 }
   

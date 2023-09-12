@@ -29,22 +29,7 @@ const ManageLoanComponent = () => {
     }
   })
 
-  const currentLoansIcon = [
-    {
-      loanType: 'Housing Loan',
-      icon: <Housing/>
-    },
-    {
-      loanType: 'Quick Cash Loan',
-      icon: <QCL/>
-    },
-    {
-      loanType: 'Vehicle Loan',
-      icon: <Vehicle/>
-    }
-  ]
-
-  const PastLoansIcon = [
+  const loansIcon = [
     {
       loanType: 'Housing Loan',
       icon: <Housing/>
@@ -116,7 +101,7 @@ const ManageLoanComponent = () => {
 
   const LoanTypeIconHandler = (loanType) => {
     return (
-      currentLoansIcon?.map(( icon, key ) => {
+      loansIcon?.map(( icon, key ) => {
         return icon.loanType === loanType ? icon.icon : <></>
       })
     )

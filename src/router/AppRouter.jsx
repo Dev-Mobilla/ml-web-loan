@@ -5,6 +5,7 @@ import {
   Error,
   HousingLoan,
   ManageLoans,
+  ManageLoansDetails,
   QuickCashLoan,
   Receipt,
 } from "../pages";
@@ -25,7 +26,7 @@ const Router = createBrowserRouter([
     },
     {
         path: '/manage-loans/loan-type',
-        element: <HousingLoan/>,
+        element: <ManageLoansDetails/>,
         errorElement: <Error/>
     },
     {
