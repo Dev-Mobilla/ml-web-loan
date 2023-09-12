@@ -25,11 +25,13 @@ const LoanDataComponent = (defaultTerm, defaultPercentage) => {
   };
 
   const CommaSeparated = (param) => {
-
     let convertParam = parseFloat(param);
 
-    return convertParam.toLocaleString("en", { useGrouping: true, minimumFractionDigits: 2 });
-  }
+    return convertParam.toLocaleString("en", {
+      useGrouping: true,
+      minimumFractionDigits: 2,
+    });
+  };
 
   useEffect(() => {
     console.log(selectedPercentage);
@@ -75,7 +77,7 @@ const LoanDataComponent = (defaultTerm, defaultPercentage) => {
     selectedVehicle,
     selectVehicle,
     monthlyPayment,
-    setMonthlyPayment
+    setMonthlyPayment,
   };
 };
 

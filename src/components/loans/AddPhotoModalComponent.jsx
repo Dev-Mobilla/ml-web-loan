@@ -36,8 +36,8 @@ const AddPhotoModal = ({
     <div className="modal">
       <div className="modal-content">
         <div className="modal-header">
-          <h2>Scan {modalTitle}</h2>
-          <span className="modal-info" >
+          <h2>Upload {modalTitle}</h2>
+          <span className="modal-info">
             <span className="question-mark-icon"></span>
           </span>
         </div>
