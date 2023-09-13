@@ -19,7 +19,7 @@ const QuickCashLoanComponent = () => {
         <CustomHeader title="Manage Existing Loans" />
         <div className="body">
           <div className="prev-btn">
-            <CustomPrevBtn  />
+            <CustomPrevBtn />
           </div>
           <div className="overlap">
             <div className="referencen-number">Ref. no. AAAAAAAAA</div>
@@ -31,7 +31,7 @@ const QuickCashLoanComponent = () => {
             </div>
             <div className="QuickCash-currentcard">
               <div className="overlap-3">
-                <button className="QuickCash-currentcard-2"/>
+                <button className="QuickCash-currentcard-2" />
                 {/* <div className="QuickCash-currentText">Current</div> */}
                 <CustomStatus status="Current" styles="QuickCash-currentText" />
               </div>
@@ -59,19 +59,19 @@ const QuickCashLoanComponent = () => {
               <br />
               <div className="radius-options">
                 <div>
-                  <input type="radio" value="1" name="renew-terms"/>
+                  <input type="radio" value="1" name="renew-terms" />
                   <label>1 mo.</label>
                 </div>
                 <div>
-                  <input type="radio" value="2" name="renew-terms"/>
+                  <input type="radio" value="2" name="renew-terms" />
                   <label>2 mos.</label>
                 </div>
                 <div>
-                  <input type="radio" value="3" name="renew-terms"/>
+                  <input type="radio" value="3" name="renew-terms" />
                   <label>3 mos.</label>
                 </div>
                 <div>
-                  <input type="radio" value="4" name="renew-terms"/>
+                  <input type="radio" value="4" name="renew-terms" />
                   <label>4 mos.</label>
                 </div>
               </div>

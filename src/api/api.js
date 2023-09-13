@@ -1,23 +1,20 @@
-import { pastLoans, currentLoans } from "../utils/ManageLoansMockData";
+import { Loans } from "../utils/ManageLoansMockData";
 
-const GetLoansDetails = async (ref, type) => {
+const GetLoansDetails = async (loanId) => {
     try {
 
-        let loan = currentLoans.filter((item, key) => {
-            let loanType = item.loanType.toLowerCase().replaceAll(" ", "-");
-            console.log(loanType);
+        let loan = Loans.filter((item, key) => {
 
-            if (loanType === type && item.referenceNo === ref) {
+            if (loanId === item.loanId) {
                 return item;
             }
         })
 
-        return loan[0];
+        return loan;
     } catch (error) {
         console.log(error);
     }
 }
-
 
 export {
     GetLoansDetails

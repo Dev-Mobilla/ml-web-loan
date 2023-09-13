@@ -9,7 +9,7 @@ const InputGroup = ({
   disabled, 
   onChangeHandler, 
   inputVal,
-  onkeydownHandler }) => {
+  onKeyDownHandler }) => {
   return (
     <div className="inputs">
       <div className="loan-input-wrapper">
@@ -18,7 +18,7 @@ const InputGroup = ({
         placeholder={placeholder} 
         disabled={disabled} 
         onChange={onChangeHandler}
-        onKeyDown={onkeydownHandler}
+        onKeyDown={onKeyDownHandler}
         value={inputVal}
         />
       </div>

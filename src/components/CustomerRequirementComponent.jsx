@@ -10,13 +10,13 @@ import {
   CustomCardTitle,
   VehicleRequirementComponent,
   RequiredDocumentsComponent,
-  SuccessModal
+  SuccessModal,
 } from "./index";
 
 const CustomerRequirementComponent = () => {
   const { modalOpen, modalTitle, modalDefaultGuideImage, closeModal } =
     useModal();
-  const [showModal , setshowModal] = useState(false);
+  const [showModal, setshowModal] = useState(false);
 
   return (
     <div className="customer-requirement">
@@ -35,16 +35,21 @@ const CustomerRequirementComponent = () => {
 
           <RequiredDocumentsComponent />
 
-          <div className="apply-btn" onClick={() => {setshowModal(true)}}>
+          <div
+            className="apply-btn"
+            onClick={() => {
+              setshowModal(true);
+            }}
+          >
             <CustomButton
               type="submit"
               name="Submit"
-              styles="btn"
+              styles="btn-enabled"
             ></CustomButton>
           </div>
         </div>
       </div>
-      {showModal && <SuccessModal hideModal={setshowModal}/>}
+      {showModal && <SuccessModal hideModal={setshowModal} />}
       <AddPhotoModal
         isOpen={modalOpen}
         onClose={closeModal}

@@ -33,6 +33,8 @@ import ReceiptComponent from "./ReceiptComponent";
 import PreviousBTNComponent from "./layout/PrevBTNComponent";
 import ManageLoanCardComponent from "./loans/manageLoan/ManageLoanCardComponent";
 import ManageLoansDetailsComponent from "./loans/manageLoan/ManageLoansDetailsComponent";
+import PersonalContactComponent from "./loans/vehicle/PersonalContactComponent";
+import PersonalInformationComponent from "./loans/vehicle/PersonalInformationComponent";
 
 // CUSTOM COMPONENTS
 import OTPModalComponent from "./OTPModalComponent";
@@ -45,51 +47,51 @@ import CustomInput from "./custom/Custom.input";
 import SuccessModal from "./loans/vehicle/SuccessModalComponent";
 import CustomIcon from "./custom/Custom.icon";
 
-
 export {
-
-    DashboardComponent,
-    FooterComponent,
-    HeaderComponent,
-    TopbarComponent,
-    LoginComponent,
-    ManageLoanComponent,
-    HousingLoanComponent,
-    QuickCashLoanComponent,
-    QuickCashHeaderComponent,
-    LoanTypeNewComponent,
-    LoanTypeSecondHandComponent,
-    CustomerDetailsComponent,
-    LoanTypeRadiosComponent,
-    RequiredDocumentsComponent,
-    LoanTypeComponent,
-    CustomHeader,
-    CustomButton,
-    CustomPrevBtn,
-    CustomStatus,
-    LoanTypeSelection,
-    CustomCardTitle,
-    CustomInput,
-    LoanSelection,
-    VehicleSecondHandDetailsComponent,
-    QRComponent,
-    VehicleNewDetailsComponent,
-    CustomSubmitModal,
-    OTPModalComponent,
-    CustomInputField,
-    AddPhotoModal,
-    AlertModalComponent,
-    AlertModalRequirementsComponent,
-    CustomerRequirementComponent,
-    VehicleRequirementComponent,
-    SelfEmployedRequirementComponent,
-    EmployedRequirementComponent,
-    LoanDataComponent,
-    ReceiptComponent,
-    SuccessModal,
-    PreviousBTNComponent,
-    ManageLoanCardComponent,
-    CustomIcon,
-    ManageLoansDetailsComponent
-}
   
+  DashboardComponent,
+  FooterComponent,
+  HeaderComponent,
+  TopbarComponent,
+  LoginComponent,
+  ManageLoanComponent,
+  HousingLoanComponent,
+  QuickCashLoanComponent,
+  QuickCashHeaderComponent,
+  LoanTypeNewComponent,
+  LoanTypeSecondHandComponent,
+  CustomerDetailsComponent,
+  LoanTypeRadiosComponent,
+  RequiredDocumentsComponent,
+  LoanTypeComponent,
+  CustomHeader,
+  CustomButton,
+  CustomPrevBtn,
+  CustomStatus,
+  LoanTypeSelection,
+  CustomCardTitle,
+  CustomInput,
+  LoanSelection,
+  VehicleSecondHandDetailsComponent,
+  QRComponent,
+  VehicleNewDetailsComponent,
+  CustomSubmitModal,
+  OTPModalComponent,
+  CustomInputField,
+  AddPhotoModal,
+  AlertModalComponent,
+  AlertModalRequirementsComponent,
+  CustomerRequirementComponent,
+  VehicleRequirementComponent,
+  SelfEmployedRequirementComponent,
+  EmployedRequirementComponent,
+  LoanDataComponent,
+  ReceiptComponent,
+  SuccessModal,
+  PreviousBTNComponent,
+  ManageLoanCardComponent,
+  CustomIcon,
+  PersonalContactComponent,
+  PersonalInformationComponent,
+  ManageLoansDetailsComponent
+};

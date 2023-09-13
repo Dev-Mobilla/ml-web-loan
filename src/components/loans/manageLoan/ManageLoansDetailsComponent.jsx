@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../../../styles/housingloan.css";
 import {
+    AlertModalComponent,
 CustomButton,
 CustomHeader,
 CustomPrevBtn,
@@ -11,7 +12,7 @@ TopbarComponent,
 
 import houseIcon from "../../../assets/icons/house.png";
 import mlicon from "../../../assets/icons/Paynow_icn.png";
-import {useLocation, useSearchParams} from "react-router-dom";
+import {useLocation, useNavigate, useSearchParams} from "react-router-dom";
 import {GetLoansDetails} from "../../../api/api";
 
 const ManageLoansDetailsComponent = () => {
@@ -33,25 +34,44 @@ const ManageLoansDetailsComponent = () => {
         feesAndCharges:"",
         paymentDueDate: "",
         loanType: "",
-        referenceNo: ""
+        referenceNo: "",
+        status: ""
     })
 
+    const [alertModal, setAlertModal] = useState(false);
+
+    const navigate = useNavigate();
+
     const [params] = useSearchParams();
-    const LoanType = params.get("type");
-    const LoanRef = params.get("ref");
+    const LoanId = params.get("id");
     
     const LoanDetailsHandler = async () => {
 
-        const response = await GetLoansDetails(LoanRef, LoanType);
-        console.log(response.loanType);
+        const response = await GetLoansDetails(LoanId);
 
-        setLoanDetails({
-            dueAmount: response.amountDue,
-            feesAndCharges: response.charges,
-            paymentDueDate: response.dueDate,
-            referenceNo: response.referenceNo,
-            loanType: response.loanType.replaceAll("-", " ")
-        })
+        if (response.length !== 0) {
+
+            let loan = response[0];
+            
+            setLoanDetails({
+                dueAmount: loan.amountDue,
+                feesAndCharges: loan.charges,
+                paymentDueDate: loan.dueDate,
+                referenceNo: loan.referenceNo,
+                loanType: loan.loanType,
+                status: loan.status
+            })
+        }
+        else {
+            setAlertModal(true)
+            setLoanDetails({
+                dueAmount: "",
+                feesAndCharges: "",
+                paymentDueDate: "",
+                referenceNo: "",
+                loanType: ""
+            })
+        }
 
     }
     useEffect(() => {
@@ -69,6 +89,10 @@ const ManageLoansDetailsComponent = () => {
     
   }, []);
 
+  const OnModalCloseHandler = () => {
+    setAlertModal(false)
+    navigate("/manage-loans");
+  }
 
   const DownloadIcon = (
     <svg
@@ -105,6 +129,9 @@ const ManageLoansDetailsComponent = () => {
     <div className="housing-loan">
       <div className="div">
         <TopbarComponent />
+        {
+            alertModal? <AlertModalComponent message="Loan does not exist" onClose={OnModalCloseHandler}/> : <></>
+        }
         <CustomHeader title="Manage Existing Loan" />
         <div className="housing-content">
           <CustomPrevBtn />
@@ -117,7 +144,12 @@ const ManageLoansDetailsComponent = () => {
                   <div className="h-lrefno">Ref. no. {loanDetails.referenceNo}</div>
                 </div>
               </div>
-              <CustomStatus status="Current" styles="custom-current" />
+              <CustomStatus status={loanDetails.status} 
+                styles={
+                    loanDetails.status?.toLowerCase() === "current" ? "custom-current" 
+                    : loanDetails.status?.toLowerCase() === "past due" ? "custom-pastdue" : ""
+                } 
+              />
             </div>
 
             <div className="hl-inputs">
@@ -147,20 +179,24 @@ const ManageLoansDetailsComponent = () => {
                   />
                 </div>
               </div>
-              <div className="note">
-                <div className="paynote">
-                  <p>
-                    Please pay on or before the due date to avoid late payment
-                    charges
-                  </p>
-                </div>
-                <div className="pay-btn">
-                  <button className="pay-now-button">
-                    <img src={mlicon} alt="ML Icon" />
-                    Pay Now
-                  </button>
-                </div>
-              </div>
+              {
+                loanDetails.status?.toLowerCase() === "current" ? 
+                    <div className="note">
+                        <div className="paynote">
+                            <p>
+                                Please pay on or before the due date to avoid late payment
+                                charges
+                            </p>
+                        </div>
+                        <div className="pay-btn">
+                            <button className="pay-now-button">
+                                <img src={mlicon} alt="ML Icon" />
+                                Pay Now
+                            </button>
+                        </div>
+                    </div>
+                : <></>
+              }
               <div className="btns">
                 <CustomButton
                   name="Payment Schedule"

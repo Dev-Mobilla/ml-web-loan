@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { CustomButton, CustomInput, CustomInputField } from '..';
+import React from "react";
+import { CustomButton, CustomInputField } from "..";
 
 const CustomSubmitModal = ({
   label,
@@ -13,25 +13,34 @@ const CustomSubmitModal = ({
   onclickHandler,
   inputType,
   placeHolder,
-  inputValue
+  inputValue,
 }) => {
-
   return (
     <div className={wrapperClass}>
       <div className={containerClass}>
-        <label htmlFor="" className={labelClass}>{label}</label>
+        <label htmlFor="" className={labelClass}>
+          {label}
+        </label>
         <div className={inptBtnWrapper}>
           <div className={inputWrapperClass}>
-            <CustomInputField inputType={inputType} inputVal={inputValue} inputPlaceholder={placeHolder}/>
+            <CustomInputField
+              inputType={inputType}
+              inputVal={inputValue}
+              inputPlaceholder={placeHolder}
+            />
             {/* <input type="text" placeholder={placeHolder} value={number} /> */}
           </div>
           <div className={modalBtnWrapper}>
-            <CustomButton name="Continue" styles={modalBtn} EventHandler={onclickHandler} />
+            <CustomButton
+              name="Continue"
+              styles={modalBtn}
+              EventHandler={onclickHandler}
+            />
           </div>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default CustomSubmitModal;
