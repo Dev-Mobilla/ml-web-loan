@@ -1,8 +1,11 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { useModal } from "../../../utils/modalContext";
 
-const VehicleRequirementComponent = () => {
+const VehicleRequirementComponent = ({ 
+  orDoc, stencils, carInsurance, front, back, right, left
+}) => {
   const { openModal } = useModal();
+  
   return (
     <div className="requirement-group">
       <div
@@ -23,7 +26,7 @@ const VehicleRequirementComponent = () => {
           <div className="requirement-title">Orginal OR/CR</div>
           <div className="re-file">
             <div className="re-close">[x]</div>
-            <div className="requirement-file">OR/CR Docx.png</div>
+            <div className={`requirement-file ${orDoc.imageName === "" ? "makeRed" : ""}`}>{orDoc.imageName === "" ? "none" : orDoc.imageName}</div>
           </div>
         </div>
       </div>
@@ -45,7 +48,7 @@ const VehicleRequirementComponent = () => {
           <div className="requirement-title">Set stencils</div>
           <div className="re-file">
             <div className="re-close">[x]</div>
-            <div className="requirement-file">Engine Stencils.png</div>
+            <div className={`requirement-file ${stencils.imageName === "" ? "makeRed" : ""}`}>{stencils.imageName === "" ? "none" : stencils.imageName}</div>
           </div>
         </div>
       </div>
@@ -67,7 +70,9 @@ const VehicleRequirementComponent = () => {
           <div className="requirement-title">Car Insurance</div>
           <div className="re-file">
             <div className="re-close">[x]</div>
-            <div className="requirement-file">Docxs123.png</div>
+            <div className={`requirement-file ${carInsurance.imageName === "" ? "makeRed" : ""}`}>
+              {carInsurance.imageName === "" ? "none" : carInsurance.imageName}
+            </div>
           </div>
         </div>
       </div>
@@ -86,10 +91,10 @@ const VehicleRequirementComponent = () => {
           src="https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64f13348e9f50c7315603815/img/fcaricon@2x.png"
         />
         <div className="requirement-text">
-          <div className="requirement-title">Front</div>
+          <div className="requirement-title">Front Side</div>
           <div className="re-file">
             <div className="re-close">[x]</div>
-            <div className="requirement-file">merjie.png</div>
+            <div className={`requirement-file ${front.imageName === "" ? "makeRed" : ""}`}>{front.imageName === "" ? "none" : front.imageName}</div>
           </div>
         </div>
       </div>
@@ -108,10 +113,10 @@ const VehicleRequirementComponent = () => {
           src="https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64f13348e9f50c7315603815/img/bcaricon@2x.png"
         />
         <div className="requirement-text">
-          <div className="requirement-title">Back</div>
+          <div className="requirement-title">Back Side</div>
           <div className="re-file">
             <div className="re-close">[x]</div>
-            <div className="requirement-file">none</div>
+            <div className={`requirement-file ${back.imageName === "" ? "makeRed" : ""}`}>{back.imageName === "" ? "none" : back.imageName}</div>
           </div>
         </div>
       </div>
@@ -130,10 +135,10 @@ const VehicleRequirementComponent = () => {
           alt="Right Side"
         />
         <div className="requirement-text">
-          <div className="requirement-title">Right</div>
+          <div className="requirement-title">Right Side</div>
           <div className="re-file">
             <div className="re-close">[x]</div>
-            <div className="requirement-file">sample.png</div>
+            <div className={`requirement-file ${right.imageName === "" ? "makeRed" : ""}`}>{right.imageName === "" ? "none" : right.imageName}</div>
           </div>
         </div>
       </div>
@@ -152,10 +157,10 @@ const VehicleRequirementComponent = () => {
           src="https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64f13348e9f50c7315603815/img/lcaricon@2x.png"
         />
         <div className="requirement-text">
-          <div className="requirement-title">Left</div>
+          <div className="requirement-title">Left Side</div>
           <div className="re-file">
             <div className="re-close">[x]</div>
-            <div className="requirement-file">Leftside.png</div>
+            <div className={`requirement-file ${left.imageName === "" ? "makeRed" : ""}`}>{left.imageName === "" ? "none" : left.imageName}</div>
           </div>
         </div>
       </div>

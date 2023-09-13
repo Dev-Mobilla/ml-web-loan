@@ -6,17 +6,23 @@ const AddPhotoModal = ({
   onClose,
   modalTitle,
   modalDefaultGuideImage,
+  OnImageSubmitHandler
 }) => {
   const [uploadedImage, setUploadedImage] = useState(null);
   const [guideImageSrc, setGuideImageSrc] = useState(modalDefaultGuideImage);
+  const [imageName, setImageName] = useState(modalDefaultGuideImage);
   const fileInputRef = useRef(null);
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
+
     if (file) {
       const imageUrl = URL.createObjectURL(file);
+
       setUploadedImage(imageUrl);
       setGuideImageSrc(imageUrl);
+      setImageName(file.name);
+
     }
   };
 
@@ -24,9 +30,14 @@ const AddPhotoModal = ({
     fileInputRef.current.click();
   };
 
-  const handleCloseModalClick = () => {
+  // const handleCloseModalClick = () => {
+  //   onClose();
+  // };
+
+  const handleImageSubmit = () => {
+    OnImageSubmitHandler(imageName, modalTitle, uploadedImage);
     onClose();
-  };
+  }
 
   useEffect(() => {
     setGuideImageSrc(modalDefaultGuideImage);
@@ -56,19 +67,23 @@ const AddPhotoModal = ({
               />
             )}
           </div>
+          {/* <p className="add-photo-text" onClick={handleAddPhotoClick}>
+            ADD PHOTO
+          </p> */}
           <p className="add-photo-text" onClick={handleAddPhotoClick}>
             ADD PHOTO
           </p>
           <input
             type="file"
-            accept="image/*"
+            accept="image/png, image/jpeg"
             ref={fileInputRef}
             style={{ display: "none" }}
             onChange={handleFileChange}
           />
         </div>
         <div className="modal-footer">
-          <button onClick={handleCloseModalClick}>OK</button>
+          {/* <button onClick={handleCloseModalClick}>OK</button> */}
+          <button onClick={handleImageSubmit}>OK</button>
         </div>
       </div>
     </div>

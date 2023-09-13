@@ -70,6 +70,9 @@
   line-height: 14px;
   letter-spacing: -0.3333333432674408px;
 }
+.re-file .makeRed{
+  color: #ff2800;
+}
 .required-radio-buttons{
   font-size: 16px;
 }
