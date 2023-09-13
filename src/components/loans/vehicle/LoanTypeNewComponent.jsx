@@ -65,7 +65,6 @@ const LoanTypeNewComponent = () => {
 
     // localStorage.setItem("firstStep", JSON.stringify(firstStepDetails));
 
-
     navigate("/vehicle-loan/personal-details", {
       state: {
         firstStepDetails: firstStepDetails,
@@ -160,29 +159,30 @@ const LoanTypeNewComponent = () => {
               />
             </div>
           </div>
-          <form onSubmit={handleFormSubmit}>
-            <div className="card">
-              <CustomCardTitle
-                title="Vehicle Details"
-                styles="custom-card-title"
-              />
-              <div className="loan-content">
-                <LoanSelection
-                  loanType={type}
-                  availableOptions={availableVehicles}
-                  selectedOption={selectedVehicle}
-                  onSelect={selectVehicle}
-                  containerClassName="loan-vehicle-selection"
-                  circleClassName="vehicle-circle"
-                  valueClassName="value"
-                />
 
-                <VehicleNewDetailsComponent
-                  onValidationChange={handleValidationChange}
-                  onVehicleDetailsChange={handleVehicleDetailsChange}
-                />
-              </div>
+          <div className="card">
+            <CustomCardTitle
+              title="Vehicle Details"
+              styles="custom-card-title"
+            />
+            <div className="loan-content">
+              <LoanSelection
+                loanType={type}
+                availableOptions={availableVehicles}
+                selectedOption={selectedVehicle}
+                onSelect={selectVehicle}
+                containerClassName="loan-vehicle-selection"
+                circleClassName="vehicle-circle"
+                valueClassName="value"
+              />
+
+              <VehicleNewDetailsComponent
+                onValidationChange={handleValidationChange}
+                onVehicleDetailsChange={handleVehicleDetailsChange}
+              />
             </div>
+          </div>
+          <form onSubmit={handleFormSubmit}>
             <div className="apply-btn">
               <CustomButton
                 type="submit"

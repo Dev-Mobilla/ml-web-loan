@@ -45,7 +45,8 @@
   position: relative;
 }
 
-.d-input {
+.d-input,
+#search_address {
   width: 100%;
   color: #555555;
   padding: 10px;
@@ -72,28 +73,22 @@
 .d-select option {
   background-color: white;
 }
-.search-address-bar{
-  margin-left: 25%;
-  margin-top:10px;
+
+.search-address-bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  max-width: 400px;
+  padding: 5px;
 }
-#search_address{
-  width: 200px;
+
+#search_address,
+#search-btn {
   height: 30px;
   border-radius: 1px;
   border: 1px solid #555555;
-  left: 200px;
-  left: 100px;
-
 }
-#search-btn{
-  width: 70px;
-  height: 30px;
-  border-radius: 1px;
-  border: 1px solid #555555;
-  left: 100px;
-}
-
-
 
 @media screen and (min-width: 360px) and (max-width: 480px) {
   .customer-details-content {
