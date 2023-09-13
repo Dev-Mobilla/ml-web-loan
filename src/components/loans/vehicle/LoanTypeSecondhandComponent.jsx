@@ -173,29 +173,30 @@ const LoanTypeSecondHandComponent = () => {
               />
             </div>
           </div>
-          <form onSubmit={handleFormSubmit}>
-            <div className="card">
-              <CustomCardTitle
-                title="Vehicle Details"
-                styles="custom-card-title"
-              />
-              <div className="loan-content">
-                <LoanSelection
-                  loanType={type}
-                  availableOptions={availableVehicles}
-                  selectedOption={selectedVehicle}
-                  onSelect={selectVehicle}
-                  containerClassName="loan-vehicle-selection"
-                  circleClassName="vehicle-circle"
-                  valueClassName="value"
-                />
 
-                <VehicleSecondHandDetailsComponent
-                  onValidationChange={handleValidationChange}
-                  onVehicleDetailsChange={handleVehicleDetailsChange}
-                />
-              </div>
+          <div className="card">
+            <CustomCardTitle
+              title="Vehicle Details"
+              styles="custom-card-title"
+            />
+            <div className="loan-content">
+              <LoanSelection
+                loanType={type}
+                availableOptions={availableVehicles}
+                selectedOption={selectedVehicle}
+                onSelect={selectVehicle}
+                containerClassName="loan-vehicle-selection"
+                circleClassName="vehicle-circle"
+                valueClassName="value"
+              />
+
+              <VehicleSecondHandDetailsComponent
+                onValidationChange={handleValidationChange}
+                onVehicleDetailsChange={handleVehicleDetailsChange}
+              />
             </div>
+          </div>
+          <form onSubmit={handleFormSubmit}>
             <div className="apply-btn">
               <CustomButton
                 type="submit"
