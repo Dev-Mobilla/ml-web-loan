@@ -117,6 +117,10 @@ const CustomerDetailsComponent = () => {
                 subTitle="Select a branch nearest to you"
                 styles="custom-card-title"
               />
+              <div className="search-address-bar">
+                <input type="text" id="search_address" name="current_address" placeholder="Current Address" />
+                <input type="submit" id="search-btn" value="Search" />
+              </div>
               <div className="customer-details-group">
                 <div className="near-branch">
                   <div className="c-details-radio">
