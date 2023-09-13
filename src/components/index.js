@@ -32,6 +32,7 @@ import LoanDataComponent from "./loans/vehicle/LoanDataComponent";
 import ReceiptComponent from "./ReceiptComponent";
 import PreviousBTNComponent from "./layout/PrevBTNComponent";
 import ManageLoanCardComponent from "./loans/manageLoan/ManageLoanCardComponent";
+import ManageLoansDetailsComponent from "./loans/manageLoan/ManageLoansDetailsComponent";
 import PersonalContactComponent from "./loans/vehicle/PersonalContactComponent";
 import PersonalInformationComponent from "./loans/vehicle/PersonalInformationComponent";
 
@@ -47,6 +48,7 @@ import SuccessModal from "./loans/vehicle/SuccessModalComponent";
 import CustomIcon from "./custom/Custom.icon";
 
 export {
+  
   DashboardComponent,
   FooterComponent,
   HeaderComponent,
@@ -91,4 +93,5 @@ export {
   CustomIcon,
   PersonalContactComponent,
   PersonalInformationComponent,
+  ManageLoansDetailsComponent
 };

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import "../../styles/AlertModalComponent.css";
 
-const AlertModalComponent = ({ onClose }) => {
+const AlertModalComponent = ({ onClose, message }) => {
   const [showModal, setShowModal] = useState(false);
   const modalRef = useRef(null);
   useEffect(() => {
@@ -18,7 +18,8 @@ const AlertModalComponent = ({ onClose }) => {
       <div className="alertbackground" onClick={onClose}>
         <div className="alertcontainer" ref={modalRef}>
           <div className="body">
-            <span>You have no existing loan at the moment</span>
+            {/* <span>You have no existing loan at the moment</span> */}
+            <span>{message}</span>
           </div>
           <div className="AlertFooter">
             <button id="Ok-btn" onClick={onClose}>

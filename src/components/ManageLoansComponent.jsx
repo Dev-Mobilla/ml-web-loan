@@ -11,7 +11,7 @@ import {
   CustomSubmitModal,
 } from "./index";
 import { useLocation, useNavigate } from "react-router-dom";
-import { currentLoans, pastLoans } from "../utils/ManageLoansMockData";
+import { Loans } from "../utils/ManageLoansMockData";
 
 const ManageLoanComponent = () => {
   const Location = useLocation();
@@ -28,22 +28,7 @@ const ManageLoanComponent = () => {
     };
   });
 
-  const currentLoansIcon = [
-    {
-      loanType: "Housing Loan",
-      icon: <Housing />,
-    },
-    {
-      loanType: "Quick Cash Loan",
-      icon: <QCL />,
-    },
-    {
-      loanType: "Vehicle Loan",
-      icon: <Vehicle />,
-    },
-  ];
-
-  const PastLoansIcon = [
+  const loansIcon = [
     {
       loanType: "Housing Loan",
       icon: <Housing />,
@@ -59,12 +44,15 @@ const ManageLoanComponent = () => {
   ];
 
   const CurrentLoansCards = () => {
-    return currentLoans.length === 0 ? (
-      <div className="loans-unavailable">
-        <h1>You have no loans yet.</h1>
-      </div>
-    ) : (
-      currentLoans?.map((loan, key) => {
+    console.log(Loans);
+    if (Loans.length !== 0) {
+      let filteredLoans = Loans.filter((loan, key) => {
+        if (loan.status.toLowerCase() === "current") {
+          return loan
+        }
+      })
+
+      return filteredLoans?.map((loan, key) => {
         return (
           <ManageLoanCardComponent
             loanType={loan.loanType}
@@ -77,20 +65,52 @@ const ManageLoanComponent = () => {
             cardContainer="loan-card-container current-loan"
             loantypeTxt="loan-type current"
             referenceTxt="reference-txt"
-            OnBtnClick={() => CardBtnClick(loan.loanType, loan.referenceNo)}
+            OnBtnClick={() => CardBtnClick(loan.loanId, loan.loanType)}
           />
         );
       })
-    );
+    }
+    else{
+      return (
+        <div className="loans-unavailable">
+          <h1>You have no loans yet.</h1>
+         </div>
+      )
+    }
+    // return currentLoans.length === 0 ? (
+    //   <div className="loans-unavailable">
+    //     <h1>You have no loans yet.</h1>
+    //   </div>
+    // ) : (
+    //   currentLoans?.map((loan, key) => {
+    //     return (
+    //       <ManageLoanCardComponent
+    //         loanType={loan.loanType}
+    //         referenceNo={loan.referenceNo}
+    //         key={key}
+    //         icon={LoanTypeIconHandler(loan.loanType)}
+    //         btnName="Manage"
+    //         btnStyle="custom-button manage-btn"
+    //         loanCardName="loan-card"
+    //         cardContainer="loan-card-container current-loan"
+    //         loantypeTxt="loan-type current"
+    //         referenceTxt="reference-txt"
+    //         OnBtnClick={() => CardBtnClick(loan.loanType, loan.referenceNo)}
+    //       />
+    //     );
+    //   })
+    // );
   };
 
   const PastLoansCards = () => {
-    return pastLoans.length === 0 ? (
-      <div className="loans-unavailable">
-        <h1>You have no closed loans.</h1>
-      </div>
-    ) : (
-      pastLoans?.map((loan, key) => {
+    if (Loans.length !== 0) {
+      let filteredLoans = Loans?.filter((loan, key) => {
+        if (loan.status.toLowerCase().replaceAll(" ", "-") === "past-due") {
+          return loan
+        }
+      })
+
+      return filteredLoans?.map((loan, key) => {
         return (
           <ManageLoanCardComponent
             loanType={loan.loanType}
@@ -103,31 +123,68 @@ const ManageLoanComponent = () => {
             cardContainer="loan-card-container past-loan"
             loantypeTxt="loan-type past"
             referenceTxt="reference-txt"
-            OnBtnClick={() => CardBtnClick(loan.loanType, loan.referenceNo)}
+            OnBtnClick={() => CardBtnClick(loan.loanId, loan.loanType)}
             btnType="button"
           />
         );
       })
-    );
+
+    }
+    else{
+      return (
+        <div className="loans-unavailable">
+          <h1>You have no closed loans.</h1>
+         </div>
+      )
+    }
+    // return Loans.length === 0 ? (
+    //   <div className="loans-unavailable">
+    //     <h1>You have no closed loans.</h1>
+    //   </div>
+    // ) : (
+    //   Loans?.filter((loan, key) => {
+    //     if (loan.status.toLowerCase().replaceAll(" ", "-") === "past-due") {
+          
+    //     }
+    //     return (
+    //       <ManageLoanCardComponent
+    //         loanType={loan.loanType}
+    //         referenceNo={loan.referenceNo}
+    //         key={key}
+    //         icon={LoanTypeIconHandler(loan.loanType)}
+    //         btnName="Details"
+    //         btnStyle="custom-button details-btn"
+    //         loanCardName="loan-card"
+    //         cardContainer="loan-card-container past-loan"
+    //         loantypeTxt="loan-type past"
+    //         referenceTxt="reference-txt"
+    //         OnBtnClick={() => CardBtnClick(loan.)}
+    //         btnType="button"
+    //       />
+    //     );
+    //   })
+    // );
   };
 
   const LoanTypeIconHandler = (loanType) => {
-    return currentLoansIcon?.map((icon, key) => {
-      return icon.loanType === loanType ? icon.icon : <></>;
-    });
-  };
+    return (
+      loansIcon?.map(( icon, key ) => {
+        return icon.loanType === loanType ? icon.icon : <></>
+      })
+    )
+  }
 
   const AddBtnHandler = () => {
     setModal(true);
   };
 
-  const CardBtnClick = (type, referenceNo) => {
+  const CardBtnClick = (loanId, type) => {
     let loanType = type.toLowerCase().replaceAll(" ", "-");
 
     if ("quick-cash-loan" === loanType) {
-      navigate(`/manage-loans/${loanType}/${referenceNo}`);
+      navigate(`/manage-loans/${loanType}/${loanId}`);
     } else {
-      navigate(`/manage-loans/loan-type?type=${loanType}&ref=${referenceNo}`);
+      navigate(`/manage-loans/loan-details?id=${loanId}`);
     }
   };
 
