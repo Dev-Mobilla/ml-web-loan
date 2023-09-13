@@ -57,15 +57,20 @@ const LoanTypeNewComponent = () => {
   const handleFormSubmit = (e) => {
     e.preventDefault();
 
-    const formDataFromComponent = {
+    const firstStepDetails = {
       type: type,
       selectedVehicle: selectedVehicle,
       ...vehicleDetails,
     };
 
-    localStorage.setItem("formData", JSON.stringify(formDataFromComponent));
+    // localStorage.setItem("firstStep", JSON.stringify(firstStepDetails));
 
-    navigate("/vehicle-loan/personal-details");
+
+    navigate("/vehicle-loan/personal-details", {
+      state: {
+        firstStepDetails: firstStepDetails,
+      },
+    });
   };
 
   const handleVehicleDetailsChange = (newVehicleDetails) => {
