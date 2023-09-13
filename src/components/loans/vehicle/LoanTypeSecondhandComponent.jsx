@@ -64,13 +64,11 @@ const LoanTypeSecondHandComponent = () => {
       ...vehicleDetails,
     };
 
-    localStorage.setItem("firstStep", JSON.stringify(firstStepDetails));
+    // localStorage.setItem("firstStep", JSON.stringify(firstStepDetails));
 
     navigate("/vehicle-loan/personal-details", {
       state: {
-        type: type,
-        selectedVehicle: selectedVehicle,
-        vehicleDetails: vehicleDetails,
+        firstStepDetails: firstStepDetails,
       },
     });
   };

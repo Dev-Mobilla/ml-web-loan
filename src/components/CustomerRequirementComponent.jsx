@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+// import { useNavigate, useLocation } from "react-router-dom";
 import "../styles/requirements.css";
 import { useModal } from "../utils/modalContext";
 import {
@@ -14,9 +15,19 @@ import {
 } from "./index";
 
 const CustomerRequirementComponent = () => {
+  // const navigate = useNavigate();
+  // const location = useLocation();
   const { modalOpen, modalTitle, modalDefaultGuideImage, closeModal } =
     useModal();
   const [showModal, setshowModal] = useState(false);
+  // const { secondStepDetails } = location.state || {};
+
+  // const thirdStepDetails = {
+  //   secondStepDetails: secondStepDetails,
+  // };
+
+  // localStorage.setItem("SecondStepDetails", JSON.stringify(thirdStepDetails));
+
 
   return (
     <div className="customer-requirement">

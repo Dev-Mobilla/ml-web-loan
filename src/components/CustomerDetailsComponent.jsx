@@ -16,7 +16,7 @@ const CustomerDetailsComponent = () => {
   const location = useLocation();
   const [selectedOption, setSelectedOption] = useState("");
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
-  const { type, selectedVehicle, vehicleDetails } = location.state || {};
+  const { firstStepDetails } = location.state || {};
 
   const [contactDetails, setContactDetails] = useState({
     mobile_number: "",
@@ -53,15 +53,17 @@ const CustomerDetailsComponent = () => {
     e.preventDefault();
 
     const secondStepDetails = {
-      loanType: type,
-      selectedVehicle: selectedVehicle,
-      vehicleDetails: vehicleDetails,
+      vehicleDetails: firstStepDetails,
       personalDetails: [contactDetails, informationDetails],
     };
 
-    localStorage.setItem("SecondStepDetails", JSON.stringify(secondStepDetails));
+    // localStorage.setItem("SecondStepDetails", JSON.stringify(secondStepDetails));
 
-    navigate("/vehicle-loan/requirements");
+    navigate("/vehicle-loan/requirements", {
+      state: {
+        secondStepDetails: secondStepDetails,
+      },
+    });
   };
 
   const handleContactDetailsChange = (newContactDetails) => {
