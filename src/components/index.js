@@ -36,6 +36,7 @@ import ManageLoansDetailsComponent from "./loans/manageLoan/ManageLoansDetailsCo
 import PersonalContactComponent from "./loans/vehicle/PersonalContactComponent";
 import PersonalInformationComponent from "./loans/vehicle/PersonalInformationComponent";
 
+
 // CUSTOM COMPONENTS
 import OTPModalComponent from "./OTPModalComponent";
 import CustomHeader from "./custom/Custom.header";
@@ -93,5 +94,5 @@ export {
   CustomIcon,
   PersonalContactComponent,
   PersonalInformationComponent,
-  ManageLoansDetailsComponent
+  ManageLoansDetailsComponent,
 };
