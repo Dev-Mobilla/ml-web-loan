@@ -15,18 +15,18 @@ const GetLoansDetails = async (loanId) => {
         console.log(error);
     }
 }
+
 const fetchBranch = async () => {
-    try {
-        const response = await fetch('http://nana.mlhuillier.net:8000/getSheets');
-        const jsonData = await response.json();
-        console.log(jsonData);
-        return jsonData;
-    } catch (error) {
-        console.error('Error:', error);
-    }
+  try {
+    const response = await fetch("http://nana.mlhuillier.net:8000/getSheets");
+    const jsonData = await response.json();
+    return jsonData;
+  } catch (error) {
+    console.error("Error:", error);
+  }
 };
 
 export {
-    GetLoansDetails,
-    fetchBranch
-}
+  GetLoansDetails,
+  fetchBranch,
+};

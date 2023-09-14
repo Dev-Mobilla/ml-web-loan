@@ -9,13 +9,11 @@ import {
   CustomCardTitle,
   PersonalContactComponent,
   PersonalInformationComponent,
-  MapComponent
+  MapComponent,
 } from "./index";
-import {fetchBranch} from "../api/api";
+import { fetchBranch } from "../api/api";
 
-
-import axios from 'axios';
-
+import axios from "axios";
 
 function calculateDistance(lat1, lon1, lat2, lon2) {
   const earthRadius = 6371; // Radius of the Earth in kilometers
@@ -24,7 +22,10 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 
   const a =
     Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-    Math.cos(toRadians(lat1)) * Math.cos(toRadians(lat2)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    Math.cos(toRadians(lat1)) *
+      Math.cos(toRadians(lat2)) *
+      Math.sin(dLon / 2) *
+      Math.sin(dLon / 2);
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   const distance = earthRadius * c;
 
@@ -98,99 +99,59 @@ const CustomerDetailsComponent = () => {
     setInformationDetails(newInformationDetails);
   };
 
-  const handleOptionChange = (event) => {
-    setSelectedOption(event.target.value);
-  };
-
-  //Temporary Branches
-  // const branches = [
-  //   {
-  //     name: 'MLhuillier Branch SM City',
-  //     latitude: 10.311540008275093,
-  //     longitude: 123.9180536979428
-  //   },
-  //   {
-  //     name: 'MLhuillier Branch Main Building',
-  //     latitude: 10.303143190877636,
-  //     longitude: 123.90938653291656
-  //   },
-  //   {
-  //     name: 'MLhuillier Branch Layu ni siya',
-  //     latitude: 10.303431472788663,
-  //     longitude: 123.88689878666986
-  //   },
-  //   {
-  //     name: 'MLhuillier Branch T. Padilla kinalasan',
-  //     latitude: 10.301745140237335,
-  //     longitude: 123.90222727506853
-  //   },
-  //   {
-  //     name: 'MLhuillier Branch Carbon',
-  //     latitude: 10.292266931826468,
-  //     longitude: 123.89886439076274
-  //   },
-  //   {
-  //     name: 'MLhuillier Branch 7',
-  //     latitude: 67.890,
-  //     longitude: 12.345
-  //   },
-  // ];
-
-  const [address, setAddress] = useState('');
+  const [address, setAddress] = useState("");
   const [nearestBranches, setNearestBranches] = useState([]);
   const handleGeocode = async () => {
     try {
-      const apiKey = 'cc94f52d646a4bb3a7e53baf4b425e53';
+      const apiKey = "cc94f52d646a4bb3a7e53baf4b425e53";
       const response = await axios.get(
         `https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(
           address
         )}&key=${apiKey}`
       );
-      const branches = await fetchBranch();
+
       const { lat, lng } = response.data.results[0].geometry;
-      const nearestBranches = branches
+
+      const branches = await fetchBranch();
+
+      if (!branches || branches.length === 0) {
+        console.log("No branches data found.");
+        return <div>Error: No Branches Dara Found</div>;
+      }
+
+      const branchData = branches.slice(1);
+      const nearestBranches = branchData
         .map((branch) => ({
-          ...branch,
-          distance: calculateDistance(lat, lng, branch.latitude, branch.longitude)
+          Branch: branch[0],
+          Latitude: parseFloat(branch[2]),
+          Longitude: parseFloat(branch[3]),
         }))
-        .sort((a, b) => a.distance - b.distance)
+        .sort(
+          (a, b) =>
+            calculateDistance(lat, lng, a.Latitude, a.Longitude) -
+            calculateDistance(lat, lng, b.Latitude, b.Longitude)
+        )
         .slice(0, 3);
+
       if (nearestBranches.length > 0) {
         setNearestBranches(nearestBranches);
       } else {
-        console.log('No branches found.');
+        console.log("No branches found.");
       }
     } catch (error) {
-      console.error('Error:', error);
+      console.error("Error:", error);
     }
   };
+
+  const handleOptionChange = (event) => {
+    setSelectedOption(event.target.value);
+  };
+
   const handleFindNearestSubmit = (e) => {
     e.preventDefault();
     handleGeocode();
     fetchBranch();
   };
-
-  let branchInputs;
-  if (nearestBranches.length > 0) {
-    branchInputs = nearestBranches.map((branch, index) => (
-      <div className="near-branch">
-        <div className="c-details-radio" key={index}>
-          <input
-            type="radio"
-            value={branch.name}
-            checked={selectedOption === "{branch.name}"}
-            onChange={handleOptionChange}
-          />
-        </div>
-        <div className="c-details-address">{branch.name}</div>
-        <div className="c-details-map">
-          <a href={`https://www.google.com/maps/place/${branch.latitude},${branch.longitude}`} target="_blank">(see map)</a>
-        </div>
-      </div>
-    ));
-  } else {
-    branchInputs = <p>No branches found.</p>;
-  }
 
   const buttonClassName = isSubmitDisabled ? "btn-disabled" : "btn-enabled";
 
@@ -232,7 +193,10 @@ const CustomerDetailsComponent = () => {
               subTitle="Select a branch nearest to you"
               styles="custom-card-title"
             />
-            <form className="search-address-bar" onSubmit={handleFindNearestSubmit}>
+            <form
+              className="search-address-bar"
+              onSubmit={handleFindNearestSubmit}
+            >
               <input
                 type="text"
                 id="search_address"
@@ -244,7 +208,30 @@ const CustomerDetailsComponent = () => {
               <input type="submit" id="search-btn" value="Search" />
             </form>
             <div className="customer-details-group">
-            {branchInputs}
+              {nearestBranches.map((branch, index) => (
+                <div className="near-branch" key={index}>
+                  <div className="c-details-radio">
+                    <input
+                      type="radio"
+                      value={branch.Branch}
+                      checked={selectedOption === branch.Branch}
+                      onChange={handleOptionChange}
+                    />
+                  </div>
+                  <div className="map-details">
+                    <div className="c-details-address">{branch.Branch}</div>
+                    <div className="c-details-map">
+                      <a
+                        href={`https://www.google.com/maps/place/${branch.Latitude},${branch.Longitude}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        (see map)
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
           <form onSubmit={handleFormSubmit}>
@@ -258,9 +245,9 @@ const CustomerDetailsComponent = () => {
             </div>
           </form>
         </div>
-       {/* https://www.google.com/maps/place/10%C2%B018'06.9%22N+123%C2%B054'32.3%22E/@10.3019179,123.9064009,17z/data=!3m1!4b1!4m4!3m3!8m2!3d10.3019126!4d123.9089758?entry=ttu */}
+        {/* https://www.google.com/maps/place/10%C2%B018'06.9%22N+123%C2%B054'32.3%22E/@10.3019179,123.9064009,17z/data=!3m1!4b1!4m4!3m3!8m2!3d10.3019126!4d123.9089758?entry=ttu */}
       </div>
-    </div >
+    </div>
   );
 };
 
