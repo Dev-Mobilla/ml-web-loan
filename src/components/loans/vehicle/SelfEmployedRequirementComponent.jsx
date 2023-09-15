@@ -1,7 +1,9 @@
 import React from "react";
 import "../../../styles/requirements.css";
 import { useModal } from "../../../utils/modalContext";
-const SelfEmplyoedRequirementComponent = () => {
+const SelfEmplyoedRequirementComponent = ({
+  validId, mayorCert, bankStatement
+}) => {
   const { openModal } = useModal();
   return (
     <div className="requirement-group">
@@ -23,7 +25,7 @@ const SelfEmplyoedRequirementComponent = () => {
           <div className="requirement-title">Valid ID</div>
           <div className="re-file">
             <div className="re-close">[x]</div>
-            <div className="requirement-file">UMID ID.png</div>
+            <div className={`requirement-file ${validId.imageName === "" ? "makeRed" : ""}`}>{validId.imageName === "" ? "none" : validId.imageName}</div>
           </div>
         </div>
       </div>
@@ -45,7 +47,7 @@ const SelfEmplyoedRequirementComponent = () => {
           <div className="requirement-title">Mayor’s Cert.</div>
           <div className="re-file">
             <div className="re-close">[x]</div>
-            <div className="requirement-file">Cert_123.png</div>
+            <div className={`requirement-file ${mayorCert.imageName === "" ? "makeRed" : ""}`}>{mayorCert.imageName === "" ? "none" : mayorCert.imageName}</div>
           </div>
         </div>
       </div>
@@ -67,7 +69,7 @@ const SelfEmplyoedRequirementComponent = () => {
           <div className="requirement-title">Bank Statement</div>
           <div className="re-file">
             <div className="re-close">[x]</div>
-            <div className="requirement-file">Debit.png</div>
+            <div className={`requirement-file ${bankStatement.imageName === "" ? "makeRed" : ""}`}>{bankStatement.imageName === "" ? "none" : bankStatement.imageName}</div>
           </div>
         </div>
       </div>

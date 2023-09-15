@@ -5,7 +5,6 @@ const VehicleRequirementComponent = ({
   orDoc, stencils, carInsurance, front, back, right, left
 }) => {
   const { openModal } = useModal();
-  
   return (
     <div className="requirement-group">
       <div

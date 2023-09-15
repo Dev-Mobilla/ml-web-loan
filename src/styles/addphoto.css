@@ -91,6 +91,12 @@ input[type="file"] {
   border-radius: 41px;
   background: #fe0000;
   border: none;
+  cursor: pointer;
+}
+
+.modal-footer button:disabled {
+  background-color: gainsboro;
+  cursor: no-drop;
 }
 
 .modal-close {

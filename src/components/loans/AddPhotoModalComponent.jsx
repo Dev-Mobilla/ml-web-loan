@@ -6,14 +6,18 @@ const AddPhotoModal = ({
   onClose,
   modalTitle,
   modalDefaultGuideImage,
-  OnImageSubmitHandler
+  OnImageSubmitHandler,
 }) => {
   const [uploadedImage, setUploadedImage] = useState(null);
   const [guideImageSrc, setGuideImageSrc] = useState(modalDefaultGuideImage);
-  const [imageName, setImageName] = useState(modalDefaultGuideImage);
+  const [imageName, setImageName] = useState("");
   const fileInputRef = useRef(null);
-
+  const [isChange, setIsChange] = useState(false);
+  
   const handleFileChange = (event) => {
+    
+    setIsChange(true)
+
     const file = event.target.files[0];
 
     if (file) {
@@ -35,12 +39,19 @@ const AddPhotoModal = ({
   // };
 
   const handleImageSubmit = () => {
-    OnImageSubmitHandler(imageName, modalTitle, uploadedImage);
+    console.log(isChange);
+
+    if (isChange) {
+      OnImageSubmitHandler(imageName, modalTitle, uploadedImage);
+    }else{
+      OnImageSubmitHandler("", modalTitle, "");
+    }
     onClose();
   }
 
   useEffect(() => {
     setGuideImageSrc(modalDefaultGuideImage);
+    setIsChange(false);
   }, [modalDefaultGuideImage]);
 
   return isOpen ? (

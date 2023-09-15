@@ -16,6 +16,17 @@ const GetLoansDetails = async (loanId) => {
     }
 }
 
+const GetBranches = async () => {
+    try {
+
+        // let loan = 
+
+        // return loan;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 export {
     GetLoansDetails
 

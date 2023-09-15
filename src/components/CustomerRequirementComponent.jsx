@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import React, { useState } from "react";
+// import { useNavigate, useLocation } from "react-router-dom";
 import "../styles/requirements.css";
 import { useModal } from "../utils/modalContext";
 import {
@@ -16,14 +16,11 @@ import {
 
 const CustomerRequirementComponent = () => {
   // const navigate = useNavigate();
-  const location = useLocation();
+  // const location = useLocation();
   const { modalOpen, modalTitle, modalDefaultGuideImage, closeModal } =
     useModal();
   const [showModal, setshowModal] = useState(false);
 
-  useEffect(() => {
-    console.log(location);
-  })
   
   const [orDoc, setOrDoc] = useState({
     imageName: "OR/CR Docx.png",
@@ -61,6 +58,36 @@ const CustomerRequirementComponent = () => {
     documentName: ""
   });
 
+  const [validId, setValidId] = useState({
+    imageName: "UMID.png",
+    url: "",
+    documentName: ""
+  });
+  const [employeeCert, setEmployeeCert] = useState({
+    imageName: "Employee Cert.png",
+    url: "",
+    documentName: ""
+  });
+  const [paySlip, setPaySlip] = useState({
+    imageName: "Payslip.png",
+    url: "",
+    documentName: ""
+  });
+  const [mayorCert, setMayorCert] = useState({
+    imageName: "Mayor Cert.png",
+    url: "",
+    documentName: ""
+  });
+
+  const [bankStatement, setBankStatement] = useState({
+    imageName: "Debit.png",
+    url: "",
+    documentName: ""
+  });
+
+
+  const [optionValue, setOptionValue] = useState("");
+
   // const [vehicleDocuments, setVehicleDocuments ] = useState({
   //   orDoc,
   //   stencils,
@@ -79,7 +106,6 @@ const CustomerRequirementComponent = () => {
   // localStorage.setItem("SecondStepDetails", JSON.stringify(thirdStepDetails));
 
   const OnImageSubmitHandler = (imageName, documentName, url) => {
-    console.log(modalTitle);
     modalTitle === "Orginal OR/CR" ? setOrDoc({imageName, url, documentName})
     : modalTitle === "Set stencils" ? setStencils({imageName, url, documentName})
     : modalTitle === "Car Insurance" ? setCarInsurance({imageName, url, documentName})
@@ -87,12 +113,20 @@ const CustomerRequirementComponent = () => {
     : modalTitle === "Back Side" ? setBack({imageName, url, documentName})
     : modalTitle === "Right Side" ? setRight({imageName, url, documentName})
     : modalTitle === "Left Side" ? setLeft({imageName, url, documentName})
+    : modalTitle === "Front Valid ID" ? setValidId({imageName, url, documentName})
+    : modalTitle === "Employee Certificate" ? setEmployeeCert({imageName, url, documentName})
+    : modalTitle === "Payslip/ITR" ? setPaySlip({imageName, url, documentName})
+    : modalTitle === "Mayor’s Certificate" ? setMayorCert({imageName, url, documentName})
+    : modalTitle === "Bank Statement" ? setBankStatement({imageName, url, documentName})
     : imageName = "none"
     
   }
 
   const OnSubmitRequirementsHandler = () => {
     console.log('requirements');
+  }
+  const OnOptionChange = (optionVal) => {
+    setOptionValue(optionVal);
   }
 
   return (
@@ -118,7 +152,14 @@ const CustomerRequirementComponent = () => {
             />
           </div>
 
-          <RequiredDocumentsComponent />
+          <RequiredDocumentsComponent 
+            OnOptionChange={OnOptionChange}
+            validId={validId}
+            employeeCert={employeeCert}
+            paySlip={paySlip}
+            mayorCert={mayorCert}
+            bankStatement={bankStatement}
+          />
 
           <div
             className="apply-btn"

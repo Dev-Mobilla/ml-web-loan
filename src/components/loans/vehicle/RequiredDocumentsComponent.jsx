@@ -1,12 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   CustomCardTitle,
   EmployedRequirementComponent,
   SelfEmployedRequirementComponent,
 } from "../../../components";
 
-const RequiredDocumentsComponent = () => {
+const RequiredDocumentsComponent = ({ 
+  OnOptionChange,
+  validId,
+  employeeCert,
+  paySlip,
+  mayorCert,
+  bankStatement
+}) => {
   const [selectedOption, setSelectedOption] = useState("Employed");
+
+  useEffect(() => {
+    OnOptionChange(selectedOption);
+  },[selectedOption])
 
   const handleOptionChange = (e) => {
     setSelectedOption(e.target.value);
@@ -42,9 +53,9 @@ const RequiredDocumentsComponent = () => {
       </div>
 
       {selectedOption === "Employed" ? (
-        <EmployedRequirementComponent />
+        <EmployedRequirementComponent validId={validId} employeeCert={employeeCert} paySlip={paySlip}/>
       ) : (
-        <SelfEmployedRequirementComponent />
+        <SelfEmployedRequirementComponent validId={validId} mayorCert={mayorCert} bankStatement={bankStatement}/>
       )}
     </div>
   );
