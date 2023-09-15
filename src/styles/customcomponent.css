@@ -19,7 +19,7 @@
 
 .custom-header .text-wrapper-3 {
   color: #ffffff;
-  font-family: "Roboto", Helvetica;
+  font-family: var(--font-family);
   font-size: 24px;
   font-weight: 600;
   letter-spacing: -0.33px;
@@ -32,7 +32,7 @@
 .custom-prevbtn.prevpagebtn {
   background-color: #fbfbfb;
   border: 1px solid;
-  border-color: #ff2800;
+  border-color: var(--border-color);
   border-radius: 25px;
   left: 0;
   top: 0;
@@ -92,10 +92,10 @@
 
 .payment-schedule-btn,
 .collateral-details-btn {
-  background-color: #ff2800;
+  background-color: var(--red);
   font-size: 18px;
   font-weight: 500;
-  border-radius: 5px;
+  border-radius: var(--radius);
   padding: 8px 12px;
   color: #ffffff;
   border: none;
@@ -112,7 +112,7 @@
 }
 
 .btn-enabled {
-  background-color: #ff0000;
+  background-color: var(--red);
   color: white;
   padding: 4px 10px;
   font-size: 20px;
@@ -121,7 +121,7 @@
   justify-content: center;
   align-items: center;
   border: none;
-  border-radius: 4px;
+  border-radius: var(--radius);
   width: 320px;
   height: 50px;
 }
@@ -136,7 +136,7 @@
   justify-content: center;
   align-items: center;
   border: none;
-  border-radius: 4px;
+  border-radius: var(--radius);
   width: 320px;
   height: 50px;
 }
@@ -200,7 +200,7 @@
 .loan-input-wrapper input::placeholder {
   color: #555555;
   font-size: 16px;
-  font-family: "Roboto", Helvetica;
+  font-family: var(--font-family);
   font-weight: 400;
 }
 
