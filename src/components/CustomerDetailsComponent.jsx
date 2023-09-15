@@ -161,7 +161,7 @@ const CustomerDetailsComponent = () => {
       if (nearestBranches.length > 0) {
         const props = {
           title: "Thank you for waiting",
-          text: "We prefer branches near your location",
+          text: "We prefer branch near your location",
           isError: true
         };
         setAlertProps(props);
