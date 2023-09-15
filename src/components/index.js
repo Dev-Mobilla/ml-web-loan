@@ -47,6 +47,7 @@ import CustomCardTitle from "./custom/Custom.cardTitle";
 import CustomInput from "./custom/Custom.input";
 import SuccessModal from "./loans/vehicle/SuccessModalComponent";
 import CustomIcon from "./custom/Custom.icon";
+import CustomAlert from "./custom/Custom.Alert";
 
 export {
   
@@ -95,4 +96,5 @@ export {
   PersonalContactComponent,
   PersonalInformationComponent,
   ManageLoansDetailsComponent,
+  CustomAlert
 };

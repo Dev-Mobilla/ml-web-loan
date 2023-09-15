@@ -42,6 +42,8 @@
 
 .near-branch .c-details-map {
   margin-left: 20px;
+  display: flex;
+  align-items: center;
 }
 
 .c-details-input {

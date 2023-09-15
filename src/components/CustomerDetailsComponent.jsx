@@ -9,7 +9,7 @@ import {
   CustomCardTitle,
   PersonalContactComponent,
   PersonalInformationComponent,
-  MapComponent,
+  CustomAlert
 } from "./index";
 import { fetchBranch } from "../api/api";
 
@@ -23,9 +23,9 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
   const a =
     Math.sin(dLat / 2) * Math.sin(dLat / 2) +
     Math.cos(toRadians(lat1)) *
-      Math.cos(toRadians(lat2)) *
-      Math.sin(dLon / 2) *
-      Math.sin(dLon / 2);
+    Math.cos(toRadians(lat2)) *
+    Math.sin(dLon / 2) *
+    Math.sin(dLon / 2);
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   const distance = earthRadius * c;
 
@@ -100,6 +100,16 @@ const CustomerDetailsComponent = () => {
   };
 
   const [address, setAddress] = useState("");
+  const [customAlert, setCustomAlert] = useState(false);
+  const [alertProps, setAlertProps] = useState(null);
+  const [showBranches, setShowBranches] = useState(false);
+  const handleButtonClick = () => {
+    setCustomAlert(true);
+    setShowBranches(false);
+  };
+  const handleCloseAlert = () => {
+    setCustomAlert(false);
+  };
   const [nearestBranches, setNearestBranches] = useState([]);
   const handleGeocode = async () => {
     try {
@@ -115,8 +125,14 @@ const CustomerDetailsComponent = () => {
       const branches = await fetchBranch();
 
       if (!branches || branches.length === 0) {
-        console.log("No branches data found.");
-        return <div>Error: No Branches Dara Found</div>;
+        const props = {
+          title: "Please input valid Address",
+          text: "Please Input your valid Current Address",
+          icon: "warning",
+          confirmButtonText: "OK"
+        };
+        setAlertProps(props);
+        handleButtonClick(true);
       }
 
       const branchData = branches.slice(1);
@@ -135,11 +151,26 @@ const CustomerDetailsComponent = () => {
 
       if (nearestBranches.length > 0) {
         setNearestBranches(nearestBranches);
+        setShowBranches(true);
       } else {
-        console.log("No branches found.");
+        const props = {
+          title: "Current Address not found!",
+          text: "Your current address is not found!",
+          icon: "warning",
+          confirmButtonText: "OK"
+        };
+        setAlertProps(props);
+        handleButtonClick(true);
       }
     } catch (error) {
-      console.error("Error:", error);
+      const props = {
+        title: "Current Address not found!",
+        text: "Please input valid current address",
+        icon: "warning",
+        confirmButtonText: "OK"
+      };
+      setAlertProps(props);
+      handleButtonClick(true);
     }
   };
 
@@ -149,8 +180,21 @@ const CustomerDetailsComponent = () => {
 
   const handleFindNearestSubmit = (e) => {
     e.preventDefault();
-    handleGeocode();
-    fetchBranch();
+    if (address.length === 0) {
+      const props = {
+        title: "Empty Current Address",
+        text: "Please Input your Current Address",
+        icon: "warning",
+        confirmButtonText: "OK"
+      };
+      setAlertProps(props);
+      handleButtonClick();
+      setShowBranches(false);
+    } else {
+      handleGeocode();
+      fetchBranch();
+      setShowBranches(false);
+    }
   };
 
   const buttonClassName = isSubmitDisabled ? "btn-disabled" : "btn-enabled";
@@ -207,8 +251,17 @@ const CustomerDetailsComponent = () => {
               />
               <input type="submit" id="search-btn" value="Search" />
             </form>
+            {customAlert && alertProps && (
+              <CustomAlert
+                title={alertProps.title}
+                text={alertProps.text}
+                icon={alertProps.icon}
+                confirmButtonText={alertProps.confirmButtonText}
+                onClose={handleCloseAlert}
+              />
+            )}
             <div className="customer-details-group">
-              {nearestBranches.map((branch, index) => (
+              {showBranches && nearestBranches.map((branch, index) => (
                 <div className="near-branch" key={index}>
                   <div className="c-details-radio">
                     <input
