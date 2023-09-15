@@ -4,7 +4,7 @@
 }
 
 .customer-details .card {
-  border: 1px solid #ff2800;
+  border: 1px solid #FE0000;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -56,11 +56,15 @@
   width: 100%;
   color: #555555;
   padding: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid #FE0000;
   border-radius: 4px;
   font-size: 16px;
 }
-
+#search_address:focus {
+  outline: none;
+  border-color: #FE0000;
+  box-shadow: #FE0000;
+}
 .d-select {
   width: 100%;
   padding: 10px;
@@ -69,10 +73,15 @@
   border-radius: 4px;
   font-size: 16px;
 }
-
+#search-btn{
+  background-color: #FE0000;
+  color: white;
+  word-spacing: 10px;
+  font-weight: 750;
+}
 .d-select:focus,
 .d-input:focus {
-  border-color: #ff2800;
+  border-color: #FE0000;
   outline: none;
 }
 
@@ -93,9 +102,8 @@
 #search-btn {
   height: 30px;
   border-radius: 1px;
-  border: 1px solid #555555;
+  border: 1px solid #FE0000;
 }
-
 @media screen and (min-width: 360px) and (max-width: 480px) {
   .customer-details-content {
     padding: 10px;

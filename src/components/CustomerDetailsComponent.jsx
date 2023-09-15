@@ -103,15 +103,27 @@ const CustomerDetailsComponent = () => {
   const [customAlert, setCustomAlert] = useState(false);
   const [alertProps, setAlertProps] = useState(null);
   const [showBranches, setShowBranches] = useState(false);
+  const [showAlert, setShowAlert] = useState(true);
   const handleButtonClick = () => {
     setCustomAlert(true);
     setShowBranches(false);
+    openAlert(true);
   };
-  const handleCloseAlert = () => {
-    setCustomAlert(false);
+  const openAlert = () => {
+    setShowAlert(true);
+  };
+  const closeAlert = () => {
+    setShowAlert(false);
   };
   const [nearestBranches, setNearestBranches] = useState([]);
   const handleGeocode = async () => {
+    const props = {
+      title: "Loading",
+      text: "Please wait for a while",
+      isError: false
+    };
+    setAlertProps(props);
+    handleButtonClick(true);
     try {
       const apiKey = "cc94f52d646a4bb3a7e53baf4b425e53";
       const response = await axios.get(
@@ -121,15 +133,13 @@ const CustomerDetailsComponent = () => {
       );
 
       const { lat, lng } = response.data.results[0].geometry;
-
       const branches = await fetchBranch();
 
       if (!branches || branches.length === 0) {
         const props = {
           title: "Please input valid Address",
           text: "Please Input your valid Current Address",
-          icon: "warning",
-          confirmButtonText: "OK"
+          isError: true
         };
         setAlertProps(props);
         handleButtonClick(true);
@@ -148,16 +158,21 @@ const CustomerDetailsComponent = () => {
             calculateDistance(lat, lng, b.Latitude, b.Longitude)
         )
         .slice(0, 3);
-
       if (nearestBranches.length > 0) {
+        const props = {
+          title: "Thank you for waiting",
+          text: "We prefer branches near your location",
+          isError: true
+        };
+        setAlertProps(props);
         setNearestBranches(nearestBranches);
         setShowBranches(true);
+        
       } else {
         const props = {
           title: "Current Address not found!",
           text: "Your current address is not found!",
-          icon: "warning",
-          confirmButtonText: "OK"
+          isError: true
         };
         setAlertProps(props);
         handleButtonClick(true);
@@ -166,8 +181,7 @@ const CustomerDetailsComponent = () => {
       const props = {
         title: "Current Address not found!",
         text: "Please input valid current address",
-        icon: "warning",
-        confirmButtonText: "OK"
+        isError: true
       };
       setAlertProps(props);
       handleButtonClick(true);
@@ -184,8 +198,7 @@ const CustomerDetailsComponent = () => {
       const props = {
         title: "Empty Current Address",
         text: "Please Input your Current Address",
-        icon: "warning",
-        confirmButtonText: "OK"
+        isError: true
       };
       setAlertProps(props);
       handleButtonClick();
@@ -251,13 +264,12 @@ const CustomerDetailsComponent = () => {
               />
               <input type="submit" id="search-btn" value="Search" />
             </form>
-            {customAlert && alertProps && (
+            {customAlert && alertProps && showAlert && (
               <CustomAlert
                 title={alertProps.title}
                 text={alertProps.text}
-                icon={alertProps.icon}
-                confirmButtonText={alertProps.confirmButtonText}
-                onClose={handleCloseAlert}
+                isError={alertProps.isError}
+                onClose={closeAlert}
               />
             )}
             <div className="customer-details-group">
