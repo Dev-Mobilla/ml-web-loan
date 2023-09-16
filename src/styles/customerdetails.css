@@ -1,10 +1,10 @@
 .customer-details-content {
   padding: 30px;
-  font-family: "Roboto", Helvetica;
+  font-family: var(--font-family);
 }
 
 .customer-details .card {
-  border: 1px solid #FE0000;
+  border: 1px solid var(--border-color);
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -56,32 +56,32 @@
   width: 100%;
   color: #555555;
   padding: 10px;
-  border: 1px solid #FE0000;
+  border: 1px solid var(--border-color);
   border-radius: 4px;
   font-size: 16px;
 }
 #search_address:focus {
   outline: none;
-  border-color: #FE0000;
-  box-shadow: #FE0000;
+  border-color: var(--border-color);
+  box-shadow: var(--red);
 }
 .d-select {
   width: 100%;
   padding: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--border-color);
   color: #555555;
   border-radius: 4px;
   font-size: 16px;
 }
 #search-btn{
-  background-color: #FE0000;
+  background-color: var(--red);
   color: white;
   word-spacing: 10px;
   font-weight: 750;
 }
 .d-select:focus,
 .d-input:focus {
-  border-color: #FE0000;
+  border-color: var(--border-color);
   outline: none;
 }
 
@@ -102,7 +102,7 @@
 #search-btn {
   height: 30px;
   border-radius: 1px;
-  border: 1px solid #FE0000;
+  border: 1px solid var(--border-color);
 }
 @media screen and (min-width: 360px) and (max-width: 480px) {
   .customer-details-content {
