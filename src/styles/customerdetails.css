@@ -58,11 +58,15 @@
   width: 100%;
   color: var(--text-gray);
   padding: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid #FE0000;
   border-radius: 4px;
   font-size: 16px;
 }
-
+#search_address:focus {
+  outline: none;
+  border-color: #FE0000;
+  box-shadow: #FE0000;
+}
 .d-select {
   width: 100%;
   padding: 10px;
@@ -71,7 +75,12 @@
   border-radius: 4px;
   font-size: 16px;
 }
-
+#search-btn{
+  background-color: #FE0000;
+  color: white;
+  word-spacing: 10px;
+  font-weight: 750;
+}
 .d-select:focus,
 .d-input:focus {
   border-color: var(--border-color);
@@ -97,7 +106,6 @@
   border-radius: 1px;
   border: 1px solid var(--text-gray);
 }
-
 @media screen and (min-width: 360px) and (max-width: 480px) {
   .customer-details-content {
     padding: 10px;

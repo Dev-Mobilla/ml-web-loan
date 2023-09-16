@@ -1,20 +1,27 @@
-import { useEffect } from 'react';
-import Swal from 'sweetalert2';
+import "../../styles/customAlert.css";
 
 const CustomAlert = (props) => {
-    const { title, text, icon, confirmButtonText, onClose } = props;
-    useEffect(() => {
-        Swal.fire({
-            title: title,
-            text: text,
-            icon: icon,
-            confirmButtonText: confirmButtonText,
-        }).then(() => {
-            onClose();
-        });
-    }, [title, text, icon, confirmButtonText, onClose]);
+    const { title, text, isError, onClose } = props;
 
-    return null;
+    const handleButtonClick = () => {
+        onClose();
+      };
+
+    return (
+        <div className="alert-modal">
+            <div className="modalBackground">
+                <div className="modal-content">
+                    <div className="modal-body">
+                        <h4 id="title-alert">{title}</h4>
+                        <p id="text-alert">{text}</p>
+                        {isError &&
+                            <button id="Ok-btn" onClick={handleButtonClick}>Ok</button>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
 }
 
 export default CustomAlert;
