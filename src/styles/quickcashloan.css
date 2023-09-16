@@ -42,13 +42,13 @@
 
 .quick-cash-loan .renewnowtxt {
     font-size: 15px;
-    background-color: #FF2800;
+    background-color: var(--red);
     text-align: center;
     width: 53%;
     height: 30px;
     padding: 7px;
     /* margin-left: 56%; */
-    border-radius: 7px;
+    border-radius: var(--radius);
     color: white;
     font-weight: 100;
     letter-spacing: 2px;
@@ -82,8 +82,8 @@
 }
 
 .quick-cash-loan .renewpawntxt {
-    color: #ff2800;
-    font-family: "Inter", Helvetica;
+    color: var(--text-red);
+    font-family: var(--font-family);
     font-size: 25px;
     font-weight: 600;
     left: 0;
@@ -118,7 +118,7 @@
 
 .quick-cash-loan .QuickCash-currentText {
     color: #009900;
-    font-family: "Roboto", Helvetica;
+    font-family: var(--font-family);
     font-size: 22px;
     font-weight: 500;
     height: 26px;
@@ -134,7 +134,7 @@
 
 .quick-cash-loan .referencen-number {
     color: #555555;
-    font-family: "Roboto", Helvetica;
+    font-family: var(--font-family);
     font-size: 18px;
     font-weight: 400;
     left: 130px;
@@ -146,8 +146,8 @@
 }
 
 .quick-cash-loan .current-Quick-Cash-ltxt {
-    color: #ff2800;
-    font-family: "Roboto", Helvetica;
+    color: var(--text-red);
+    font-family: var(--font-family);
     font-size: 22px;
     font-weight: 700;
     left: 130px;
@@ -201,7 +201,7 @@
 .quick-cash-loan .payment_due_before,
 .amount_due {
     color: #555555;
-    font-family: "Roboto", Helvetica;
+    font-family: var(--font-family);
     font-size: 18px;
     font-weight: 400;
     /* margin-right: 10px; */
@@ -226,7 +226,7 @@
 
 .payment_amount_due {
     /* margin-top: 5%; */
-    color: gray;
+    color: #555555;
     font-weight: 400;
     font-size: 20px;
     /* text-align: right; */
@@ -244,7 +244,7 @@
     border-radius: 6px;
     width: 85%;
     height: 32px;
-    border: 2px solid gray;
+    border: 2px solid #555555;
     padding: 6px 10px;
     font-size: 16px;
 
@@ -314,7 +314,7 @@
     border-radius: 6px;
     /* font-family: "Lato", Helvetica; */
     font-size: 16px;
-    border: 2px solid gray;
+    border: 2px solid #555555;
     padding: 10px 7px;
     color: #555555;
     display: block;
@@ -335,7 +335,7 @@
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    border: 2px solid red;
+    border: 2px solid var(--border-color);
     /* Change the border color to red */
     outline: none;
     transition: border-color 0.3s ease;
@@ -351,8 +351,8 @@
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    background-color: red;
-    border-color: red;
+    background-color: var(--red);
+    border-color: var(--border-color);
     opacity: 0;
     transition: opacity 0.3s ease;
 }

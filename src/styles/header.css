@@ -16,15 +16,15 @@
 }
 
 .header .bannertitle {
-    color: #fbfbfb;
-    font-family: "Montserrat", Helvetica;
+    color: var(--white);
+    font-family: var(--font-family);
     font-size: 47px;
     font-weight: 600;
     left: 59px;
     letter-spacing: 2.67px;
     line-height: normal;
     position: absolute;
-    text-shadow: 0px 4px 4px #00000040;
+    text-shadow: 0px 4px 4px var(--bg-shadow);
     top: 50px;
     width: 1005;
 }
@@ -47,9 +47,9 @@
 }
 
 .header .overlap-2 {
-    background-color: #ffffff;
+    background-color: var(--white);
     border-radius: 12px;
-    box-shadow: 0px 4px 4px #00000040;
+    box-shadow: 0px 4px 4px var(--bg-shadow);
     height: 54px;
     left: 0;
     position: absolute;
@@ -65,7 +65,7 @@
 
 .header .m-ltxtt {
     color: #000000;
-    font-family: "Roboto", Helvetica;
+    font-family: var(--font-family);
     font-size: 13px;
     font-weight: 400;
     left: 84px;
@@ -78,7 +78,7 @@
 
 .header .m-ltxt {
     color: #000000;
-    font-family: "Roboto", Helvetica;
+    font-family: var(--font-family);
     font-size: 16px;
     font-weight: 600;
     left: 84px;
@@ -114,9 +114,9 @@
 }
 
 .header .dlcard {
-    background-color: #ffffff;
+    background-color: var(--white);
     border-radius: 12px;
-    box-shadow: 0px 4px 4px #00000040;
+    box-shadow: 0px 4px 4px var(--bg-shadow);
     height: 54px;
     left: 0;
     position: absolute;
@@ -132,7 +132,7 @@
 
 .header .dltxtt {
     color: #000000;
-    font-family: "Roboto", Helvetica;
+    font-family: var(--font-family);
     font-size: 13px;
     font-weight: 400;
     left: 84px;
@@ -144,7 +144,7 @@
 
 .header .dltxt {
     color: #000000;
-    font-family: "Roboto", Helvetica;
+    font-family: var(--font-family);
     font-size: 16px;
     font-weight: 600;
     left: 84px;

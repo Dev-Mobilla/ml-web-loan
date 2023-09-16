@@ -1,3 +1,5 @@
+@import "../App.css";
+
 .customer-details-content {
   padding: 30px;
   font-family: var(--font-family);
@@ -33,7 +35,7 @@
 }
 .near-branch .c-details-address {
   font-size: 14px;
-  color: #555555;
+  color: var(--text-gray);
   cursor: pointer;
   font-weight: 400;
   line-height: 27px;
@@ -54,7 +56,7 @@
 .d-input,
 #search_address {
   width: 100%;
-  color: #555555;
+  color: var(--text-gray);
   padding: 10px;
   border: 1px solid var(--border-color);
   border-radius: 4px;
@@ -69,7 +71,7 @@
   width: 100%;
   padding: 10px;
   border: 1px solid var(--border-color);
-  color: #555555;
+  color: var(--text-gray);
   border-radius: 4px;
   font-size: 16px;
 }
@@ -86,7 +88,7 @@
 }
 
 .d-select option {
-  background-color: white;
+  background-color: var(--white);
 }
 
 .search-address-bar {
