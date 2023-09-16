@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import axios from "axios";
 import { useNavigate, useLocation } from "react-router-dom";
 import "../styles/customerdetails.css";
 import {
@@ -9,36 +10,35 @@ import {
   CustomCardTitle,
   PersonalContactComponent,
   PersonalInformationComponent,
-  CustomAlert
+  CustomAlert,
 } from "./index";
 import { fetchBranch } from "../api/api";
 
-import axios from "axios";
-
-function calculateDistance(lat1, lon1, lat2, lon2) {
-  const earthRadius = 6371; // Radius of the Earth in kilometers
+const calculateDistance = (lat1, lon1, lat2, lon2) => {
+  const earthRadius = 6371;
+  const toRadians = (degrees) => degrees * (Math.PI / 180);
   const dLat = toRadians(lat2 - lat1);
   const dLon = toRadians(lon2 - lon1);
-
   const a =
     Math.sin(dLat / 2) * Math.sin(dLat / 2) +
     Math.cos(toRadians(lat1)) *
-    Math.cos(toRadians(lat2)) *
-    Math.sin(dLon / 2) *
-    Math.sin(dLon / 2);
+      Math.cos(toRadians(lat2)) *
+      Math.sin(dLon / 2) *
+      Math.sin(dLon / 2);
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-  const distance = earthRadius * c;
-
-  return distance;
-}
-
-function toRadians(degrees) {
-  return degrees * (Math.PI / 180);
-}
+  return earthRadius * c;
+};
 
 const CustomerDetailsComponent = () => {
   const navigate = useNavigate();
   const location = useLocation();
+
+  const [address, setAddress] = useState("");
+  const [customAlert, setCustomAlert] = useState(false);
+  const [alertProps, setAlertProps] = useState(null);
+  const [showBranches, setShowBranches] = useState(false);
+  const [showAlert, setShowAlert] = useState(true);
+  const [nearestBranches, setNearestBranches] = useState([]);
   const [selectedOption, setSelectedOption] = useState("");
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
   const { firstStepDetails } = location.state || {};
@@ -56,6 +56,7 @@ const CustomerDetailsComponent = () => {
     nationality: "",
     civil_status: "",
     employeer_business_name: "",
+    nature_business: "",
     tenure: "",
     office_address: "",
     office_landline: "",
@@ -63,64 +64,54 @@ const CustomerDetailsComponent = () => {
     monthly_income: "",
   });
 
-  useEffect(() => {
-    const isValid =
+  const handleValidationChange = () => {
+    const isContactDetailsValid =
       contactDetails.mobile_number.trim() !== "" &&
       contactDetails.email.trim() !== "";
-    setIsSubmitDisabled(!isValid);
-  }, [contactDetails]);
+    const isAddressValid = address.trim() !== "";
+    const isOptionSelected = selectedOption !== "";
 
-  const handleValidationChange = (isValid) => {
-    setIsSubmitDisabled(!isValid);
+    setIsSubmitDisabled(
+      !(isContactDetailsValid && isAddressValid && isOptionSelected)
+    );
   };
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-
     const secondStepDetails = {
       vehicleDetails: firstStepDetails,
       personalDetails: [contactDetails, informationDetails],
+      current_address: address,
+      preffered_branch: selectedOption,
     };
-
-    // localStorage.setItem("SecondStepDetails", JSON.stringify(secondStepDetails));
 
     navigate("/vehicle-loan/requirements", {
       state: {
-        secondStepDetails: secondStepDetails,
+        secondStepDetails,
       },
     });
   };
 
-  const handleContactDetailsChange = (newContactDetails) => {
-    setContactDetails(newContactDetails);
+  const handleInputChange = (field, value) => {
+    if (field === "address") {
+      setAddress(value);
+    } else if (field === "selectedOption") {
+      setSelectedOption(value);
+    }
+    handleValidationChange();
   };
 
-  const handleInformationDetailsChange = (newInformationDetails) => {
-    setInformationDetails(newInformationDetails);
-  };
-
-  const [address, setAddress] = useState("");
-  const [customAlert, setCustomAlert] = useState(false);
-  const [alertProps, setAlertProps] = useState(null);
-  const [showBranches, setShowBranches] = useState(false);
-  const [showAlert, setShowAlert] = useState(true);
   const handleButtonClick = () => {
     setCustomAlert(true);
     setShowBranches(false);
-    openAlert(true);
-  };
-  const openAlert = () => {
     setShowAlert(true);
   };
-  const closeAlert = () => {
-    setShowAlert(false);
-  };
-  const [nearestBranches, setNearestBranches] = useState([]);
+
   const handleGeocode = async () => {
     const props = {
       title: "Loading",
       text: "Please wait for a while",
-      isError: false
+      isError: false,
     };
     setAlertProps(props);
     handleButtonClick(true);
@@ -139,7 +130,7 @@ const CustomerDetailsComponent = () => {
         const props = {
           title: "Please input valid Address",
           text: "Please Input your valid Current Address",
-          isError: true
+          isError: true,
         };
         setAlertProps(props);
         handleButtonClick(true);
@@ -162,17 +153,16 @@ const CustomerDetailsComponent = () => {
         const props = {
           title: "Thank you for waiting",
           text: "We prefer branch near your location",
-          isError: true
+          isError: true,
         };
         setAlertProps(props);
         setNearestBranches(nearestBranches);
         setShowBranches(true);
-        
       } else {
         const props = {
           title: "Current Address not found!",
           text: "Your current address is not found!",
-          isError: true
+          isError: true,
         };
         setAlertProps(props);
         handleButtonClick(true);
@@ -181,24 +171,20 @@ const CustomerDetailsComponent = () => {
       const props = {
         title: "Current Address not found!",
         text: "Please input valid current address",
-        isError: true
+        isError: true,
       };
       setAlertProps(props);
       handleButtonClick(true);
     }
   };
 
-  const handleOptionChange = (event) => {
-    setSelectedOption(event.target.value);
-  };
-
-  const handleFindNearestSubmit = (e) => {
+  const handleFindNearestSubmit = async (e) => {
     e.preventDefault();
     if (address.length === 0) {
       const props = {
         title: "Empty Current Address",
         text: "Please Input your Current Address",
-        isError: true
+        isError: true,
       };
       setAlertProps(props);
       handleButtonClick();
@@ -209,6 +195,21 @@ const CustomerDetailsComponent = () => {
       setShowBranches(false);
     }
   };
+
+  const uniqueNearestBranches = nearestBranches.filter(
+    (branch, index, self) =>
+      self.findIndex((b) => b.Branch === branch.Branch) === index
+  );
+
+  const nearestMLBranches = uniqueNearestBranches.slice(0, 3);
+
+  const fourthNearestUniqueBranch = uniqueNearestBranches.find(
+    (branch, index) => uniqueNearestBranches.indexOf(branch) !== index
+  );
+
+  if (fourthNearestUniqueBranch) {
+    nearestMLBranches.push(fourthNearestUniqueBranch);
+  }
 
   const buttonClassName = isSubmitDisabled ? "btn-disabled" : "btn-enabled";
 
@@ -226,7 +227,7 @@ const CustomerDetailsComponent = () => {
             />
             <div className="customer-details-group">
               <PersonalContactComponent
-                onContactDetailsChange={handleContactDetailsChange}
+                onContactDetailsChange={setContactDetails}
                 onValidationChange={handleValidationChange}
               />
             </div>
@@ -239,7 +240,7 @@ const CustomerDetailsComponent = () => {
             />
             <div className="customer-details-group">
               <PersonalInformationComponent
-                onInformationDetailsChange={handleInformationDetailsChange}
+                onInformationDetailsChange={setInformationDetails}
                 onValidationChange={handleValidationChange}
               />
             </div>
@@ -260,7 +261,7 @@ const CustomerDetailsComponent = () => {
                 name="current_address"
                 placeholder="Current Address"
                 value={address}
-                onChange={(e) => setAddress(e.target.value)}
+                onChange={(e) => handleInputChange("address", e.target.value)}
               />
               <input type="submit" id="search-btn" value="Search" />
             </form>
@@ -269,34 +270,37 @@ const CustomerDetailsComponent = () => {
                 title={alertProps.title}
                 text={alertProps.text}
                 isError={alertProps.isError}
-                onClose={closeAlert}
+                onClose={() => setShowAlert(false)}
               />
             )}
             <div className="customer-details-group">
-              {showBranches && nearestBranches.map((branch, index) => (
-                <div className="near-branch" key={index}>
-                  <div className="c-details-radio">
-                    <input
-                      type="radio"
-                      value={branch.Branch}
-                      checked={selectedOption === branch.Branch}
-                      onChange={handleOptionChange}
-                    />
-                  </div>
-                  <div className="map-details">
-                    <div className="c-details-address">{branch.Branch}</div>
-                    <div className="c-details-map">
-                      <a
-                        href={`https://www.google.com/maps/place/${branch.Latitude},${branch.Longitude}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        (see map)
-                      </a>
+              {showBranches &&
+                nearestMLBranches.map((branch, index) => (
+                  <div className="near-branch" key={index}>
+                    <div className="c-details-radio">
+                      <input
+                        type="radio"
+                        value={branch.Branch}
+                        checked={selectedOption === branch.Branch}
+                        onChange={() =>
+                          handleInputChange("selectedOption", branch.Branch)
+                        }
+                      />
+                    </div>
+                    <div className="map-details">
+                      <div className="c-details-address">{branch.Branch}</div>
+                      <div className="c-details-map">
+                        <a
+                          href={`https://www.google.com/maps/place/${branch.Latitude},${branch.Longitude}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          (see map)
+                        </a>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                ))}
             </div>
           </div>
           <form onSubmit={handleFormSubmit}>
@@ -310,7 +314,6 @@ const CustomerDetailsComponent = () => {
             </div>
           </form>
         </div>
-        {/* https://www.google.com/maps/place/10%C2%B018'06.9%22N+123%C2%B054'32.3%22E/@10.3019179,123.9064009,17z/data=!3m1!4b1!4m4!3m3!8m2!3d10.3019126!4d123.9089758?entry=ttu */}
       </div>
     </div>
   );

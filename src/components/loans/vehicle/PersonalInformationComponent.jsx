@@ -27,6 +27,7 @@ const PersonalInformationComponent = ({
       informationDetails.nationality.trim() !== "" &&
       informationDetails.civil_status.trim() !== "" &&
       informationDetails.employeer_business_name.trim() !== "" &&
+      informationDetails.nature_business.trim() !== "" &&
       informationDetails.tenure.trim() !== "" &&
       informationDetails.office_address.trim() !== "" &&
       informationDetails.office_landline.trim() !== "" &&
