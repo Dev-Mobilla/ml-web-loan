@@ -68,13 +68,13 @@ const AddPhotoModal = ({
             <img
               className="guide-image"
               src={guideImageSrc}
-              alt={`Guide ${modalTitle} Image`}
+              alt={`Guide ${modalTitle}`}
             />
             {uploadedImage && (
               <img
                 className="uploaded-image"
                 src={uploadedImage}
-                alt={`${modalTitle} Image`}
+                alt={`${modalTitle}`}
               />
             )}
           </div>
