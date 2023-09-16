@@ -1,6 +1,8 @@
+@import "../App.css";
+
 .alertbackground {
     height: 110%;
-    background: #00000066;
+    background: var(--bg-shadow);
     position: fixed;
     display: flex;
     justify-content: center;
@@ -14,7 +16,7 @@
     width: 300px;
     height: 200px;
     border-radius: 12px;
-    background-color: white;
+    background-color: var(--white);
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     display: flex;
     flex-direction: column;
@@ -43,12 +45,11 @@
 .alertcontainer .AlertFooter #Ok-btn{
     width: 100px;
     height: 30px;
-    margin-top: -40px;
     font-weight: bolder;
-    border-radius: 20px;
-    border-color: #FE0000;
-    color: #FE0000;
-    background-color: #FFFFFF;
+    border-radius: var(--radius);
+    border-color: var(--red);
+    color: var(--red);
+    background-color: var(--white);
 }
 
 @media only screen and (max-width: 480px) {

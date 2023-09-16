@@ -7,7 +7,7 @@
   border: 1px solid var(--border-color);
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px var(--bg-shadow);
   margin: 20px auto;
   max-width: 1024px;
   width: 100%;
@@ -45,7 +45,7 @@
 }
 
 .h-lrefno {
-  color: #555555;
+  color: var(--text-gray);
   font-size: 20px;
   font-weight: 400;
   letter-spacing: -0.33px;
@@ -74,7 +74,7 @@
   margin-right: 10px;
   line-height: 21px;
   letter-spacing: -0.3px;
-  color: #555555;
+  color: var(--text-gray);
 }
 
 .input-wrapper {
@@ -98,7 +98,7 @@
 }
 
 .input-wrapper input::placeholder {
-  color: #555555;
+  color: var(--text-gray);
 }
 
 .pay-now-button {
@@ -157,7 +157,7 @@
   font-size: 18px;
   font-weight: 400;
   line-height: 21px;
-  color: #555555;
+  color: var(--text-gray);
 }
 
 .hl-transactions .time {

@@ -1,5 +1,5 @@
 .loan-type {
-  font-family: "Roboto", Helvetica;
+  font-family: var(--font-family);
 }
 
 .loan-type-selection {
@@ -16,7 +16,7 @@
 .type .value {
   margin-left: 8px;
   font-size: 18px;
-  color: #555555;
+  color: var(--text-gray);
 }
 
 .loan-type-circle,
@@ -28,7 +28,7 @@
   justify-content: center;
   align-items: center;
   border-radius: 50%;
-  border: 1px solid #ff0000;
+  border: 1px solid var(--red);
   cursor: pointer;
   transition: background-color 0.2s, color 0.2s;
   background-clip: content-box;
@@ -45,7 +45,7 @@
 .percentage-circle.selected,
 .term-circle.selected,
 .vehicle-circle.selected {
-  background-color: #ff0000;
+  background-color: var(--red);
 }
 
 .loan-term-selection .value {
@@ -57,7 +57,7 @@
   display: flex;
   margin-left: 70px;
   font-size: 18px;
-  color: #555555;
+  color: var(--text-gray);
 }
 
 .content-header {
