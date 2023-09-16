@@ -87,7 +87,7 @@
   width: 157px;
   height: 38px;
   padding: 10px;
-  border-radius: 6px;
+  border-radius: var(--radius);
   margin-right: 10px;
   border: 1px solid;
   border-color: #555555;
@@ -112,6 +112,7 @@
   border: 1px solid;
   width: 136px;
   height: 35px;
+  font-size: 15px;
 }
 
 .pay-now-button img {
