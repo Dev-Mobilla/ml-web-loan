@@ -59,7 +59,7 @@
 }
 .manage-loans .loan-type.past, 
 .manage-loans .loan-type.current {
-  font-family: "Roboto", Helvetica;
+  font-family: var(--font-family);
   font-size: 22px;
   font-weight: 700;
   left: 0;
@@ -100,7 +100,7 @@
 } */
 
 .manage-loans .pastloanstxt, .manage-loans .currentloanstxt {
-  color: #d20101;
+  color: var(--text-red);
   font-family: "Inter", Helvetica;
   font-size: 23px;
   font-weight: 600;
@@ -199,7 +199,7 @@
 
 .manage-loans .reference-txt {
   color: #555555;
-  font-family: "Roboto", Helvetica;
+  font-family: var(--font-family);
   font-size: 18px;
   font-weight: 400;
   left: 0;
@@ -210,7 +210,7 @@
 }
 
 .manage-loans .loan-type.current {
-  color: #ff2800;
+  color: var(--text-red);
 }
 
 .manage-loans .overlap-4 {
@@ -231,7 +231,7 @@
 .manage-loans .rectangle {
   background-color: #d9d9d9;
   border: 2px solid;
-  border-color: #ff2800;
+  border-color:var(--border-color);
   height: 5px;
   left: 17px;
   position: absolute;
@@ -330,7 +330,7 @@
 .manage-loans .ellipse {
   background-color: #e2b5b5;
   border: 2px solid;
-  border-color: #ff2800;
+  border-color: var(--border-color);
   border-radius: 11.9px/10.14px;
   height: 20px;
   left: 0;
@@ -408,7 +408,7 @@
 }
 .manage-loans .custom-button.details-btn{
   background-color: #FF7700;
-  border-radius: 5px;
+  border-radius: var(--radius);
 }
 
 .manage-loans .loans-unavailable{

@@ -35,7 +35,7 @@
 }
 
 .h-ltxt {
-  color: var(--border-color);
+  color:var(--text-red);
   font-size: 24px;
   font-weight: 700;
   letter-spacing: -0.33px;
@@ -90,7 +90,7 @@
   border-radius: 6px;
   margin-right: 10px;
   border: 1px solid;
-  border-color: #848484;
+  border-color: #555555;
   font-size: 20px;
   font-weight: 400;
   line-height: 30px;
@@ -102,10 +102,10 @@
 }
 
 .pay-now-button {
-  background-color: #ff0000;
+  background-color: var(--red);
   color: white;
   padding: 8px 16px;
-  border-radius: 5px;
+  border-radius: var(--radius);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -140,7 +140,7 @@
   letter-spacing: -0.3px;
 }
 .rec-payment-txt {
-  color: var(--border-color);
+  color: var(--text-red);
   font-weight: 700;
   font-size: 22px;
   line-height: 26px;

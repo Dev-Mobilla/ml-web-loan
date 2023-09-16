@@ -33,7 +33,7 @@
 .custom-prevbtn.prevpagebtn {
   background-color: var(--white);
   border: 1px solid;
-  border-color: var(--primary-color);
+  border-color: var(--border-color);
   border-radius: 25px;
   left: 0;
   top: 0;
@@ -90,10 +90,11 @@
 
 .payment-schedule-btn,
 .collateral-details-btn {
-  background-color: var(--primary-color);
+  background-color: var(--red);
   font-size: 18px;
   font-weight: 500;
-  border-radius: var(--raduis);
+  border-radius: var(--radius);
+
   padding: 8px 12px;
   color: var(--white);
   border: none;
@@ -110,7 +111,7 @@
 }
 
 .btn-enabled {
-  background-color: #ff0000;
+  background-color: var(--red);
   color: var(--white);
   padding: 4px 10px;
   font-size: 20px;
@@ -119,7 +120,7 @@
   justify-content: center;
   align-items: center;
   border: none;
-  border-radius: var(--raduis);
+  border-radius: var(--radius);
   width: 320px;
   height: 50px;
 }
@@ -134,7 +135,7 @@
   justify-content: center;
   align-items: center;
   border: none;
-  border-radius: var(--raduis);
+  border-radius: var(--radius);
   width: 320px;
   height: 50px;
 }

@@ -1,5 +1,4 @@
 :root {
-  --x00-on-surface-medium-emphasis: rgba(0, 0, 0, 0.6);
   --border-color: #ff2800;
   --white: #ffffff;
   --radius: 4px;
@@ -11,3 +10,4 @@
   --disable: #aaaaaa;
   --border-color-gray: #848484;
 }
+
