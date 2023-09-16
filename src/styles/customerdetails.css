@@ -55,24 +55,29 @@
 #search_address {
   width: 100%;
   color: var(--text-gray);
-  padding: 10px;
-  border: 1px solid var(--border-color);
-  border-radius: 4px;
+  border: 1px solid var(--border-color-gray);
   font-size: 16px;
+}
+#search_address{
+  border-top-left-radius: var(--radius);
+  border-bottom-left-radius: var(--radius);
+  padding: 11px;
 }
 
 #search_address:focus {
   outline: none;
-  border-color: var(--border-color);
   box-shadow: var(--red);
 }
-
+.d-input{
+  border-radius: var(--radius);
+  padding: 10px;
+}
 .d-select {
   width: 100%;
   padding: 10px;
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--border-color-gray);
   color: var(--text-gray);
-  border-radius: 4px;
+  border-radius: var(--radius);;
   font-size: 16px;
 }
 
@@ -81,10 +86,16 @@
   color: white;
   word-spacing: 10px;
   font-weight: 750;
+  padding: 12px;
+  border-top-right-radius: var(--radius);
+  border-bottom-right-radius: var(--radius);
+  border-color: var(--border-color);
+  font-size: 13px;
 }
 
 .d-select:focus,
-.d-input:focus {
+.d-input:focus,
+#search_address:focus {
   border-color: var(--border-color);
   outline: none;
 }
@@ -102,12 +113,6 @@
   padding: 5px;
 }
 
-#search_address,
-#search-btn {
-  height: 30px;
-  border-radius: 1px;
-  border: 1px solid var(--border-color);
-}
 @media screen and (min-width: 360px) and (max-width: 480px) {
   .customer-details-content {
     padding: 10px;

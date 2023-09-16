@@ -183,7 +183,7 @@ const CustomerDetailsComponent = () => {
     if (address.length === 0) {
       const props = {
         title: "Empty Current Address",
-        text: "Please Input your Current Address",
+        text: "Please enter your Current Address",
         isError: true,
       };
       setAlertProps(props);

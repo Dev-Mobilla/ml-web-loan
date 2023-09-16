@@ -46,15 +46,4 @@ const Loans = [
     }
   ]
 
-  // const pastLoans = [
-  //   {
-  //     loanType: 'Vehicle Loan',
-  //     referenceNo: 'VHCL12345789',
-  //     amountDue: '30,625.00',
-  //     charges: '0.00',
-  //     dueDate: "15 MAY 2023",
-  //     status: "Past Due"
-  //   }
-  // ]
-
 export { Loans };
