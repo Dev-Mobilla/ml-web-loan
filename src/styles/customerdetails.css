@@ -1,5 +1,3 @@
-@import "../App.css";
-
 .customer-details-content {
   padding: 30px;
   font-family: var(--font-family);
@@ -62,11 +60,13 @@
   border-radius: 4px;
   font-size: 16px;
 }
+
 #search_address:focus {
   outline: none;
   border-color: var(--border-color);
   box-shadow: var(--red);
 }
+
 .d-select {
   width: 100%;
   padding: 10px;
@@ -75,12 +75,14 @@
   border-radius: 4px;
   font-size: 16px;
 }
+
 #search-btn{
   background-color: var(--red);
   color: white;
   word-spacing: 10px;
   font-weight: 750;
 }
+
 .d-select:focus,
 .d-input:focus {
   border-color: var(--border-color);

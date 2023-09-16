@@ -1,42 +1,32 @@
-:root {
-  --red: #FE0000;
-  --font-family: "Roboto", Helvetica;
-  --border-color: #ff2800;
-  --radius: 4px;
-  --text-red: #D20101
-}
 .modalBackground {
-  height: 110%;
-  background: #00000066;
-  position: fixed;
+  background: var(--bg-shadow);
   display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 980;
+  margin: 0 auto;
   width: 100%;
-  top: 1px;
 }
 .modal-content{
-  margin-top: -200px;
   font-family: var(--font-family);
 }
 .modal-body{
   display: grid;
   text-align: center;
+  background-color: var(--white);
 }
 #title-alert{
   font-weight: 700;
 }
 #text-alert{
-  margin-top: 20px;
+  margin: 20px;
 }
 #Ok-btn{
-  margin-left: 35%;
-  margin-top: 20px;
-  background-color: #FE0000;
   width: 100px;
-  height: 90%;
-  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  height: 40px;
+  background-color: var(--red);
+  color: var(--white);
   font-weight: 100px;
   border-radius: var(--radius);
   border-color: var(--border-color);
