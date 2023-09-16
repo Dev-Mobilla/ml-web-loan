@@ -1,6 +1,7 @@
 import React from "react";
 import "../../../styles/requirements.css";
 import { useModal } from "../../../utils/modalContext";
+import {SliceIMageName} from "../../../utils/SliceImageName";
 const SelfEmplyoedRequirementComponent = ({
   validId, mayorCert, bankStatement
 }) => {
@@ -25,7 +26,7 @@ const SelfEmplyoedRequirementComponent = ({
           <div className="requirement-title">Valid ID</div>
           <div className="re-file">
             <div className="re-close">[x]</div>
-            <div className={`requirement-file ${validId.imageName === "" ? "makeRed" : ""}`}>{validId.imageName === "" ? "none" : validId.imageName}</div>
+            <div className={`requirement-file ${validId.imageName === "" ? "makeRed" : ""}`}>{validId.imageName === "" ? "none" : SliceIMageName(validId.imageName)}</div>
           </div>
         </div>
       </div>
@@ -47,7 +48,7 @@ const SelfEmplyoedRequirementComponent = ({
           <div className="requirement-title">Mayor’s Cert.</div>
           <div className="re-file">
             <div className="re-close">[x]</div>
-            <div className={`requirement-file ${mayorCert.imageName === "" ? "makeRed" : ""}`}>{mayorCert.imageName === "" ? "none" : mayorCert.imageName}</div>
+            <div className={`requirement-file ${mayorCert.imageName === "" ? "makeRed" : ""}`}>{mayorCert.imageName === "" ? "none" : SliceIMageName(mayorCert.imageName)}</div>
           </div>
         </div>
       </div>
@@ -69,7 +70,7 @@ const SelfEmplyoedRequirementComponent = ({
           <div className="requirement-title">Bank Statement</div>
           <div className="re-file">
             <div className="re-close">[x]</div>
-            <div className={`requirement-file ${bankStatement.imageName === "" ? "makeRed" : ""}`}>{bankStatement.imageName === "" ? "none" : bankStatement.imageName}</div>
+            <div className={`requirement-file ${bankStatement.imageName === "" ? "makeRed" : ""}`}>{bankStatement.imageName === "" ? "none" : SliceIMageName(bankStatement.imageName)}</div>
           </div>
         </div>
       </div>

@@ -19,8 +19,12 @@
   margin: 0 auto;
 }
 
+.map-details {
+  display: flex;
+}
+
 .near-branch {
-  max-width: 300px;
+  max-width: 600px;
   margin: 0 auto;
   display: flex;
   justify-content: start;
@@ -28,7 +32,7 @@
   padding: 5px;
 }
 .near-branch .c-details-address {
-  font-size: 18px;
+  font-size: 14px;
   color: #555555;
   cursor: pointer;
   font-weight: 400;
@@ -38,6 +42,8 @@
 
 .near-branch .c-details-map {
   margin-left: 20px;
+  display: flex;
+  align-items: center;
 }
 
 .c-details-input {

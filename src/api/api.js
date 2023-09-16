@@ -16,18 +16,17 @@ const GetLoansDetails = async (loanId) => {
     }
 }
 
-const GetBranches = async () => {
-    try {
-
-        // let loan = 
-
-        // return loan;
-    } catch (error) {
-        console.log(error);
-    }
-}
+const fetchBranch = async () => {
+  try {
+    const response = await fetch("http://nana.mlhuillier.net:8000/getSheets");
+    const jsonData = await response.json();
+    return jsonData;
+  } catch (error) {
+    console.error("Error:", error);
+  }
+};
 
 export {
-    GetLoansDetails
-
-}
+  GetLoansDetails,
+  fetchBranch,
+};

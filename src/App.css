@@ -38,5 +38,10 @@
 } */
 :root {
   --x00-on-surface-medium-emphasis: rgba(0, 0, 0, 0.6);
+  --red: #FE0000;
+  --font-family:  "Roboto", Helvetica;
+  --border-color: #ff2800;
+  --radius: 4px;
+  --text-red: #D20101
 }
 

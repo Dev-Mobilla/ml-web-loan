@@ -1,5 +1,6 @@
 import React, {useEffect} from "react";
 import { useModal } from "../../../utils/modalContext";
+import {SliceIMageName} from "../../../utils/SliceImageName";
 
 const VehicleRequirementComponent = ({ 
   orDoc, stencils, carInsurance, front, back, right, left
@@ -25,7 +26,7 @@ const VehicleRequirementComponent = ({
           <div className="requirement-title">Orginal OR/CR</div>
           <div className="re-file">
             <div className="re-close">[x]</div>
-            <div className={`requirement-file ${orDoc.imageName === "" ? "makeRed" : ""}`}>{orDoc.imageName === "" ? "none" : orDoc.imageName}</div>
+            <div className={`requirement-file ${orDoc.imageName === "" ? "makeRed" : ""}`}>{orDoc.imageName === "" ? "none" : SliceIMageName(orDoc.imageName)}</div>
           </div>
         </div>
       </div>
@@ -47,7 +48,7 @@ const VehicleRequirementComponent = ({
           <div className="requirement-title">Set stencils</div>
           <div className="re-file">
             <div className="re-close">[x]</div>
-            <div className={`requirement-file ${stencils.imageName === "" ? "makeRed" : ""}`}>{stencils.imageName === "" ? "none" : stencils.imageName}</div>
+            <div className={`requirement-file ${stencils.imageName === "" ? "makeRed" : ""}`}>{stencils.imageName === "" ? "none" : SliceIMageName(stencils.imageName)}</div>
           </div>
         </div>
       </div>
@@ -70,7 +71,7 @@ const VehicleRequirementComponent = ({
           <div className="re-file">
             <div className="re-close">[x]</div>
             <div className={`requirement-file ${carInsurance.imageName === "" ? "makeRed" : ""}`}>
-              {carInsurance.imageName === "" ? "none" : carInsurance.imageName}
+              {carInsurance.imageName === "" ? "none" : SliceIMageName(carInsurance.imageName)}
             </div>
           </div>
         </div>
@@ -93,7 +94,7 @@ const VehicleRequirementComponent = ({
           <div className="requirement-title">Front Side</div>
           <div className="re-file">
             <div className="re-close">[x]</div>
-            <div className={`requirement-file ${front.imageName === "" ? "makeRed" : ""}`}>{front.imageName === "" ? "none" : front.imageName}</div>
+            <div className={`requirement-file ${front.imageName === "" ? "makeRed" : ""}`}>{front.imageName === "" ? "none" : SliceIMageName(front.imageName)}</div>
           </div>
         </div>
       </div>
@@ -115,7 +116,7 @@ const VehicleRequirementComponent = ({
           <div className="requirement-title">Back Side</div>
           <div className="re-file">
             <div className="re-close">[x]</div>
-            <div className={`requirement-file ${back.imageName === "" ? "makeRed" : ""}`}>{back.imageName === "" ? "none" : back.imageName}</div>
+            <div className={`requirement-file ${back.imageName === "" ? "makeRed" : ""}`}>{back.imageName === "" ? "none" : SliceIMageName(back.imageName)}</div>
           </div>
         </div>
       </div>
@@ -137,7 +138,7 @@ const VehicleRequirementComponent = ({
           <div className="requirement-title">Right Side</div>
           <div className="re-file">
             <div className="re-close">[x]</div>
-            <div className={`requirement-file ${right.imageName === "" ? "makeRed" : ""}`}>{right.imageName === "" ? "none" : right.imageName}</div>
+            <div className={`requirement-file ${right.imageName === "" ? "makeRed" : ""}`}>{right.imageName === "" ? "none" : SliceIMageName(right.imageName)}</div>
           </div>
         </div>
       </div>
@@ -159,7 +160,7 @@ const VehicleRequirementComponent = ({
           <div className="requirement-title">Left Side</div>
           <div className="re-file">
             <div className="re-close">[x]</div>
-            <div className={`requirement-file ${left.imageName === "" ? "makeRed" : ""}`}>{left.imageName === "" ? "none" : left.imageName}</div>
+            <div className={`requirement-file ${left.imageName === "" ? "makeRed" : ""}`}>{left.imageName === "" ? "none" : SliceIMageName(left.imageName)}</div>
           </div>
         </div>
       </div>

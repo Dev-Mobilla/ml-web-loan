@@ -1,12 +1,15 @@
 import React from "react";
 import "../../../styles/requirements.css";
 import { useModal } from "../../../utils/modalContext";
+import { SliceIMageName } from "../../../utils/SliceImageName";
+
 const RequiredDocumentsComponent = ({  
   validId,
   employeeCert,
   paySlip 
 }) => {
   const { openModal } = useModal();
+
   return (
     <div className="requirement-group">
       <div
@@ -27,7 +30,7 @@ const RequiredDocumentsComponent = ({
           <div className="requirement-title">Valid ID</div>
           <div className="re-file">
             <div className="re-close">[x]</div>
-            <div className={`requirement-file ${validId.imageName === "" ? "makeRed" : ""}`}>{validId.imageName === "" ? "none" : validId.imageName}</div>
+            <div className={`requirement-file ${validId.imageName === "" ? "makeRed" : ""}`}>{validId.imageName === "" ? "none" : SliceIMageName(validId.imageName)}</div>
           </div>
         </div>
       </div>
@@ -49,7 +52,7 @@ const RequiredDocumentsComponent = ({
           <div className="requirement-title">Emp. Cert.</div>
           <div className="re-file">
             <div className="re-close">[x]</div>
-            <div className={`requirement-file ${employeeCert.imageName === "" ? "makeRed" : ""}`}>{employeeCert.imageName === "" ? "none" : employeeCert.imageName}</div>
+            <div className={`requirement-file ${employeeCert.imageName === "" ? "makeRed" : ""}`}>{employeeCert.imageName === "" ? "none" : SliceIMageName(employeeCert.imageName)}</div>
           </div>
         </div>
       </div>
@@ -71,7 +74,7 @@ const RequiredDocumentsComponent = ({
           <div className="requirement-title">Payslip/ITR</div>
           <div className="re-file">
             <div className="re-close">[x]</div>
-            <div className={`requirement-file ${paySlip.imageName === "" ? "makeRed" : ""}`}>{paySlip.imageName === "" ? "none" : paySlip.imageName}</div>
+            <div className={`requirement-file ${paySlip.imageName === "" ? "makeRed" : ""}`}>{paySlip.imageName === "" ? "none" : SliceIMageName(paySlip.imageName)}</div>
           </div>
         </div>
       </div>
