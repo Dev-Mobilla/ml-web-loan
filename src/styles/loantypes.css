@@ -86,9 +86,15 @@
 .new-loan .form-row input {
   padding: 5px;
   border: 1px solid #848484;
-  border-radius: 4px;
+  border-radius: var(--radius);
   font-size: 18px;
   color: var(--text-gray);
+}
+
+.form-row input:focus,
+.new-loan .form-row:focus {
+  border-color: var(--border-color);
+  outline: none;
 }
 
 .form-row input::placeholder,

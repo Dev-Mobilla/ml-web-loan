@@ -229,7 +229,6 @@ const ManageLoansDetailsComponent = () => {
             </div>
           </div>
         </div>
-        <FooterComponent />
       </div>
     </div>
   );

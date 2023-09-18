@@ -173,13 +173,18 @@
   border-radius: var(--radius);
   margin-right: 10px;
   border: 1px solid;
-  border-color: var(--border-color);
   border-color: var(--border-color-gray);
   font-size: 18px;
   color: var(--text-gray);
   font-weight: 400;
   line-height: 30px;
   text-align: right;
+}
+
+.loan-input-wrapper input:focus {
+  border-color: var(--border-color);
+  outline: none;
+
 }
 
 .custom-card-subtitle {

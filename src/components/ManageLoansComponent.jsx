@@ -77,29 +77,6 @@ const ManageLoanComponent = () => {
          </div>
       )
     }
-    // return currentLoans.length === 0 ? (
-    //   <div className="loans-unavailable">
-    //     <h1>You have no loans yet.</h1>
-    //   </div>
-    // ) : (
-    //   currentLoans?.map((loan, key) => {
-    //     return (
-    //       <ManageLoanCardComponent
-    //         loanType={loan.loanType}
-    //         referenceNo={loan.referenceNo}
-    //         key={key}
-    //         icon={LoanTypeIconHandler(loan.loanType)}
-    //         btnName="Manage"
-    //         btnStyle="custom-button manage-btn"
-    //         loanCardName="loan-card"
-    //         cardContainer="loan-card-container current-loan"
-    //         loantypeTxt="loan-type current"
-    //         referenceTxt="reference-txt"
-    //         OnBtnClick={() => CardBtnClick(loan.loanType, loan.referenceNo)}
-    //       />
-    //     );
-    //   })
-    // );
   };
 
   const PastLoansCards = () => {
@@ -137,33 +114,6 @@ const ManageLoanComponent = () => {
          </div>
       )
     }
-    // return Loans.length === 0 ? (
-    //   <div className="loans-unavailable">
-    //     <h1>You have no closed loans.</h1>
-    //   </div>
-    // ) : (
-    //   Loans?.filter((loan, key) => {
-    //     if (loan.status.toLowerCase().replaceAll(" ", "-") === "past-due") {
-          
-    //     }
-    //     return (
-    //       <ManageLoanCardComponent
-    //         loanType={loan.loanType}
-    //         referenceNo={loan.referenceNo}
-    //         key={key}
-    //         icon={LoanTypeIconHandler(loan.loanType)}
-    //         btnName="Details"
-    //         btnStyle="custom-button details-btn"
-    //         loanCardName="loan-card"
-    //         cardContainer="loan-card-container past-loan"
-    //         loantypeTxt="loan-type past"
-    //         referenceTxt="reference-txt"
-    //         OnBtnClick={() => CardBtnClick(loan.)}
-    //         btnType="button"
-    //       />
-    //     );
-    //   })
-    // );
   };
 
   const LoanTypeIconHandler = (loanType) => {
@@ -243,7 +193,6 @@ const ManageLoanComponent = () => {
             </div>
           </div>
         </div>
-        <FooterComponent />
       </div>
     </div>
   );
