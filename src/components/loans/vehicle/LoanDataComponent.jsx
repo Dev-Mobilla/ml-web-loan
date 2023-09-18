@@ -34,7 +34,6 @@ const LoanDataComponent = (defaultTerm, defaultPercentage) => {
   };
 
   useEffect(() => {
-    console.log(selectedPercentage);
     if (
       !estimatedVehiclePrice ||
       isNaN(parseFloat(estimatedVehiclePrice)) ||
@@ -52,17 +51,11 @@ const LoanDataComponent = (defaultTerm, defaultPercentage) => {
       parseFloat(selectedPercentage),
       parseFloat(selectedTerm)
     );
-
-    // setDownPayment(monthlyPayment.downPayment);
-    // setLoanAmount(monthlyPayment.loanAmount);
-    // setMonthlyPayment(monthlyPayment.monthlyPayment);
-
     setDownPayment(CommaSeparated(monthlyPayment.downPayment));
     setLoanAmount(CommaSeparated(monthlyPayment.loanAmount));
     setMonthlyPayment(CommaSeparated(monthlyPayment.monthlyPayment));
   }, [estimatedVehiclePrice, selectedPercentage, selectedTerm]);
 
-  // TODO: return JSX
   return {
     loanAmount,
     setLoanAmount,
