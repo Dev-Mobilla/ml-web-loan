@@ -65,14 +65,17 @@ const CustomerDetailsComponent = () => {
   });
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  const phoneRegex = /^[0-9+()-\s]*$/;
+  const phoneRegex = /^\+?[\d\s()-]{7,15}$/;
+
   const isEmailValid = (email) => emailRegex.test(email);
   const isPhoneValid = (phone) => phoneRegex.test(phone);
 
   const handleValidationChange = () => {
     const isContactDetailsValid =
       isPhoneValid(contactDetails.mobile_number?.trim() || "") &&
-      isEmailValid(contactDetails.email?.trim() || "");
+      isEmailValid(contactDetails.email?.trim() || "") &&
+      contactDetails.mobile_number?.trim() !== "";
+
     const isPersonalDetailsValid =
       informationDetails.firstname.trim() !== "" &&
       informationDetails.lastname.trim() !== "" &&
