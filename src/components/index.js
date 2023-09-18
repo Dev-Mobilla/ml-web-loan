@@ -23,6 +23,7 @@ import CustomSubmitModal from "./custom/Custom.SubmitModal";
 import AlertModalComponent from "./loans/AlertModalComponent";
 import CustomInputField from "./custom/Custom.inputfield";
 import AlertModalRequirementsComponent from "./loans/vehicle/AlertModalRequirementsComponent";
+import ErrorComponent from "./ErrorComponent";
 
 import CustomerRequirementComponent from "./CustomerRequirementComponent";
 import VehicleRequirementComponent from "./loans/vehicle/VehicleRequirementComponent";
@@ -96,5 +97,6 @@ export {
   PersonalContactComponent,
   PersonalInformationComponent,
   ManageLoansDetailsComponent,
-  CustomAlert
+  CustomAlert,
+  ErrorComponent
 };
