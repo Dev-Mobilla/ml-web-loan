@@ -1,4 +1,4 @@
-import "../../styles/customAlert.css";
+import "../../styles/customcomponent.css";
 
 const CustomAlert = (props) => {
     const { title, text, isError, onClose } = props;

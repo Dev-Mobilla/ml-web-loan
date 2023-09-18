@@ -64,15 +64,36 @@ const CustomerDetailsComponent = () => {
     monthly_income: "",
   });
 
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const phoneRegex = /^[0-9+()-\s]*$/;
+  const isEmailValid = (email) => emailRegex.test(email);
+  const isPhoneValid = (phone) => phoneRegex.test(phone);
+
   const handleValidationChange = () => {
     const isContactDetailsValid =
-      contactDetails.mobile_number.trim() !== "" &&
-      contactDetails.email.trim() !== "";
-    const isAddressValid = address.trim() !== "";
+      isPhoneValid(contactDetails.mobile_number?.trim() || "") &&
+      isEmailValid(contactDetails.email?.trim() || "");
+    const isPersonalDetailsValid =
+      informationDetails.firstname.trim() !== "" &&
+      informationDetails.lastname.trim() !== "" &&
+      informationDetails.birthdate.trim() !== "" &&
+      informationDetails.civil_status.trim() !== "" &&
+      informationDetails.employeer_business_name.trim() !== "" &&
+      informationDetails.tenure.trim() !== "" &&
+      informationDetails.office_address.trim() !== "" &&
+      informationDetails.office_landline.trim() !== "" &&
+      informationDetails.sourceOfIncome.trim() !== "" &&
+      informationDetails.monthly_income.trim() !== "";
+    const isAddressValid = address?.trim() !== "";
     const isOptionSelected = selectedOption !== "";
 
     setIsSubmitDisabled(
-      !(isContactDetailsValid && isAddressValid && isOptionSelected)
+      !(
+        isContactDetailsValid &&
+        isPersonalDetailsValid &&
+        isAddressValid &&
+        isOptionSelected
+      )
     );
   };
 
