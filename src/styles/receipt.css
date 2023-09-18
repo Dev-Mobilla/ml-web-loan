@@ -17,17 +17,19 @@
   .receipt .receipt-body-bg {
     height: 674px;
     left: 710px;
-    position: absolute;
+    /* position: absolute; */
+    display: flex;
     justify-content: center;
-    align-items: center;
+    /* align-items: center; */
     top: 185px;
-    width: 400px;
+    /* width: 400px; */
+    margin: 50px auto;
   }
   
   .receipt .receipt-content {
     height: 252px;
     left: 0;
-    position: absolute;
+    /* position: absolute; */
     top: 0;
     width: 400px;
   }
@@ -36,9 +38,11 @@
     background-image: url(https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64f13348e9f50c7315603815/img/receipt-card@2x.png);
     background-size: 100% 100%;
     height: 260px;
-    left: -4px;
-    position: relative;
+    /* left: -4px; */
+    /* position: relative; */
     width: 404px;
+    padding: 10px;
+    margin: auto;
   }
   
   .receipt .receipttitle {
@@ -49,9 +53,10 @@
     left: 34px;
     letter-spacing: -0.24px;
     line-height: 24px;
-    position: absolute;
+    /* position: absolute; */
     text-align: center;
     top: 32px;
+    margin: 20px 5px;
     /* white-space: nowrap; */
   }
   
@@ -63,15 +68,21 @@
     left: 49px;
     letter-spacing: -0.18px;
     line-height: 24px;
-    position: absolute;
+    /* position: absolute; */
     top: 80px;
+    /* border: 1px solid #ff0000; */
+    margin: auto 25px;
+    display: flex;
+    justify-content: space-around;
   }
   .receipt .success-note{
     color: #ff2800;
     top:260px;
     left: 40px;
-    position: relative;
+    /* position: relative; */
     font-size: 16px;
+    text-align: center;
+    margin-top: 15px;
   }
   
   .receipt .dashboard-back-btn {
@@ -84,9 +95,12 @@
     justify-content: center;
     left: 34px;
     padding: 16px;
-    position: absolute;
+    /* position: absolute; */
     top: 612px;
-    width: 341px;
+    /* width: 341px; */
+    /* margin-top: 200px; */
+    margin: 200px auto;
+    cursor: pointer;
   }
   
   .receipt .receipt-dashboard {
@@ -144,8 +158,9 @@
         width: 100%;
       }
       .receipt .receipt-overlap-group-2 {
-        position: relative;
-        width: 90%;
+        /* position: relative; */
+        margin: auto;
+        width: 95%;
         left: 10px;
       }
       .receipt .receipt-content{
@@ -155,18 +170,20 @@
         font-size: 20px;
         left: 0;
         top: 20px;
-        position: relative;
+        /* position: relative; */
       }
       .receipt .receiptdetails{
         font-size: 16px;
-        left: 30px;
+        /* left: 30px; */
         /* top: 30px; */
         /* position: relative; */
       }
       .receipt .dashboard-back-btn{
-        width: 90%;
+        width: 95%;
         height:50px;
-        left: 15px;
+        /* left: 15px; */
+        margin-left: 10px;
+        margin-right: 10px;
       }
       .receipt .receipt-dashboard{
         font-size: 18px;
@@ -179,34 +196,34 @@
     .receipt .receipt-body-bg {
         left: 0;
         top: 185px;
-        width: 100%;
+        width: 85%;
       }
       .receipt .receipt-overlap-group-2 {
-        position: relative;
-        width: 96%;
+        /* position: relative; */
+        width: 85%;
         left: 10px;
       }
       .receipt .receipt-content{
-        width: 100%;
+        width: 85%;
       }
       .receipt .receipttitle {
         font-size: 20px;
         left: 0;
         top: 20px;
-        position: relative;
+        /* position: relative; */
       }
       .receipt .receiptdetails{
         font-size: 16px;
         left: 130px;
-        width: 300px;
+        /* width: 300px; */
         
         /* top: 30px; */
         /* position: relative; */
       }
       .receipt .dashboard-back-btn{
-        width: 94%;
+        width: 85%;
         height:50px;
-        left: 15px;
+        /* left: 15px; */
       }
       .receipt .receipt-dashboard{
         font-size: 18px;
@@ -216,32 +233,32 @@
     .receipt .receipt-body-bg {
         left: 0;
         top: 185px;
-        width: 100%;
+        width: 80%;
       }
       .receipt .receipt-overlap-group-2 {
         position: relative;
-        width: 100%;
+        width: 80%;
         left: 0;
       }
       .receipt .receipt-content{
-        width: 100%;
+        width: 80%;
       }
       .receipt .receipttitle {
         font-size: 20px;
-        left: 0;
+        /* left: 0;
         top: 20px;
-        position: relative;
+        position: relative; */
       }
       .receipt .receiptdetails{
         font-size: 16px;
         left: 250px;
-        width: 300px;
+        /* width: 300px; */
         
         /* top: 30px; */
         /* position: relative; */
       }
       .receipt .dashboard-back-btn{
-        width: 98%;
+        width: 80%;
         height:50px;
         left: 10px;
       }

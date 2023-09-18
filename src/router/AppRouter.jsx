@@ -4,6 +4,7 @@ import {
   Dashboard,
   Error,
   HousingLoan,
+  MainOutlet,
   ManageLoans,
   ManageLoansDetails,
   QuickCashLoan,
@@ -15,50 +16,56 @@ import CustomerRequirements from "../pages/CustomerRequirements.page";
 
 const Router = createBrowserRouter([
     {
-        path: "/",
-        element: <Dashboard />,
-        errorElement: <Error />,
-    },
-    {
-        path: "/manage-loans",
-        element: <ManageLoans />,
-        errorElement: <Error />,
-    },
-    {
-        path: '/manage-loans/loan-details',
-        element: <ManageLoansDetails/>,
-        errorElement: <Error/>
-    },
-    {
-        path: "/manage-loans/housing-loan",
-        element: <HousingLoan />,
-        errorElement: <Error />,
-    },
-    {
-        path: "/manage-loans/quick-cash-loan/:ref",
-        element: <QuickCashLoan />,
-        errorElement: <Error />,
-    },
-    {
-        path: "/vehicle-loan/loan-type/:type",
-        element: <LoanType />,
-        errorElement: <Error />,
-    },
-    {
-        path: "/vehicle-loan/personal-details",
-        element: <CustomerDetails />,
-        errorElement: <Error />,
-    },
-    {
-        path: "/vehicle-loan/requirements",
-        element: <CustomerRequirements />,
-        errorElement: <Error />,
-    },
-    {
-        path: "/vehicle-loan/receipt",
-        element: <Receipt />,
-        errorElement: <Error />,
-    },
+        path: '/',
+        element: <MainOutlet/>,
+        children: [
+            {
+                path: "/dashboard",
+                element: <Dashboard />,
+                errorElement: <Error />,
+            },
+            {
+                path: "/manage-loans",
+                element: <ManageLoans />,
+                errorElement: <Error />,
+            },
+            {
+                path: '/manage-loans/loan-details',
+                element: <ManageLoansDetails/>,
+                errorElement: <Error/>
+            },
+            {
+                path: "/manage-loans/housing-loan",
+                element: <HousingLoan />,
+                errorElement: <Error />,
+            },
+            {
+                path: "/manage-loans/quick-cash-loan/:ref",
+                element: <QuickCashLoan />,
+                errorElement: <Error />,
+            },
+            {
+                path: "/vehicle-loan/loan-type/:type",
+                element: <LoanType />,
+                errorElement: <Error />,
+            },
+            {
+                path: "/vehicle-loan/personal-details",
+                element: <CustomerDetails />,
+                errorElement: <Error />,
+            },
+            {
+                path: "/vehicle-loan/requirements",
+                element: <CustomerRequirements />,
+                errorElement: <Error />,
+            },
+            {
+                path: "/vehicle-loan/receipt",
+                element: <Receipt />,
+                errorElement: <Error />,
+            },
+        ]
+    }
 ]);
 
 export default Router;
