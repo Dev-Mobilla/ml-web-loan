@@ -2,17 +2,19 @@ import React from "react";
 import "../../../styles/requirements.css";
 import { useModal } from "../../../utils/modalContext";
 import {SliceIMageName} from "../../../utils/SliceImageName";
+import { MakeRed } from "../../../utils/DataFunctions";
 const SelfEmplyoedRequirementComponent = ({
   validId, mayorCert, bankStatement
 }) => {
   const { openModal } = useModal();
+
   return (
     <div className="requirement-group">
       <div
         className="requirement"
         onClick={() =>
           openModal(
-            "Front Valid ID",
+            "Valid ID",
             "https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64f13348e9f50c7315603815/img/addphotosample@2x.png"
           )
         }
@@ -26,7 +28,13 @@ const SelfEmplyoedRequirementComponent = ({
           <div className="requirement-title">Valid ID</div>
           <div className="re-file">
             <div className="re-close">[x]</div>
-            <div className={`requirement-file ${validId.imageName === "" ? "makeRed" : ""}`}>{validId.imageName === "" ? "none" : SliceIMageName(validId.imageName)}</div>
+            <div className={`requirement-file ${MakeRed(validId)}`}>
+              {
+                validId === null ? "UMID.png" :
+                validId.imageName === "" ? "none" 
+                : SliceIMageName(validId.imageName)
+              }
+            </div>
           </div>
         </div>
       </div>
@@ -48,7 +56,13 @@ const SelfEmplyoedRequirementComponent = ({
           <div className="requirement-title">Mayor’s Cert.</div>
           <div className="re-file">
             <div className="re-close">[x]</div>
-            <div className={`requirement-file ${mayorCert.imageName === "" ? "makeRed" : ""}`}>{mayorCert.imageName === "" ? "none" : SliceIMageName(mayorCert.imageName)}</div>
+            <div className={`requirement-file ${MakeRed(mayorCert)}`}>
+              {
+                mayorCert === null ? "Mayor Cert.pnge" :
+                mayorCert.imageName === "" ? "none" 
+                : SliceIMageName(mayorCert.imageName)
+              }
+            </div>
           </div>
         </div>
       </div>
@@ -70,7 +84,13 @@ const SelfEmplyoedRequirementComponent = ({
           <div className="requirement-title">Bank Statement</div>
           <div className="re-file">
             <div className="re-close">[x]</div>
-            <div className={`requirement-file ${bankStatement.imageName === "" ? "makeRed" : ""}`}>{bankStatement.imageName === "" ? "none" : SliceIMageName(bankStatement.imageName)}</div>
+            <div className={`requirement-file ${MakeRed(bankStatement)}`}>
+              {
+                bankStatement === null ? "Debit.png" :
+                bankStatement.imageName === "" ? "none" 
+                : SliceIMageName(bankStatement.imageName)
+              }
+            </div>
           </div>
         </div>
       </div>

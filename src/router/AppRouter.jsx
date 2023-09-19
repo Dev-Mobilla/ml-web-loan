@@ -22,47 +22,47 @@ const Router = createBrowserRouter([
             {
                 path: "/dashboard",
                 element: <Dashboard />,
-                errorElement: <Error />,
+                // errorElement: <Error />,
             },
             {
                 path: "/manage-loans",
                 element: <ManageLoans />,
-                errorElement: <Error />,
+                // errorElement: <Error />,
             },
             {
                 path: '/manage-loans/loan-details',
                 element: <ManageLoansDetails/>,
-                errorElement: <Error/>
+                // errorElement: <Error/>
             },
             {
                 path: "/manage-loans/housing-loan",
                 element: <HousingLoan />,
-                errorElement: <Error />,
+                // errorElement: <Error />,
             },
             {
                 path: "/manage-loans/quick-cash-loan/:ref",
                 element: <QuickCashLoan />,
-                errorElement: <Error />,
+                // errorElement: <Error />,
             },
             {
                 path: "/vehicle-loan/loan-type/:type",
                 element: <LoanType />,
-                errorElement: <Error />,
+                // errorElement: <Error />,
             },
             {
                 path: "/vehicle-loan/personal-details",
                 element: <CustomerDetails />,
-                errorElement: <Error />,
+                // errorElement: <Error />,
             },
             {
                 path: "/vehicle-loan/requirements",
                 element: <CustomerRequirements />,
-                errorElement: <Error />,
+                // errorElement: <Error />,
             },
             {
                 path: "/vehicle-loan/receipt",
                 element: <Receipt />,
-                errorElement: <Error />,
+                // errorElement: <Error />,
             },
         ]
     },
