@@ -77,26 +77,11 @@ const LoanTypeSecondHandComponent = () => {
     setVehicleDetails(newVehicleDetails);
   };
 
-  // const HandlePriceInput = (event) => {
-  //   let priceInputval = event.target.value;
-
-  //   let convertInput = parseFloat(priceInputval);
-  //   console.log(convertInput);
-
-  //   let price = convertInput.toLocaleString("en", { useGrouping: true, minimumFractionDigits: 2 });
-
-  //   console.log('price',price);
-
-  //   setEstimatedVehiclePrice(priceInputval);
-  // };
-
   const OnKeydownPriceHandler = (event) => {
-    const invalidInputs = ["e", "E", "+", "-"];
-    const isInvalidInput = invalidInputs.includes(event.key);
     const isNumberOrBackspace =
-      /^[-+]?[0-9]*\.?[0-9]*$/.test(event.key) || event.key === "Backspace";
+      /^[0-9]*\.?[0-9]*$/.test(event.key) || event.key === "Backspace";
 
-    if (isInvalidInput || isNumberOrBackspace) {
+    if (isNumberOrBackspace) {
       return;
     }
 

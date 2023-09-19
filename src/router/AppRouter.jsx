@@ -2,13 +2,13 @@ import React from "react";
 import { createBrowserRouter } from "react-router-dom";
 import {
   Dashboard,
-  Error,
   HousingLoan,
   MainOutlet,
   ManageLoans,
   ManageLoansDetails,
   QuickCashLoan,
   Receipt,
+  Error
 } from "../pages";
 import LoanType from "../pages/LoanType.page";
 import CustomerDetails from "../pages/CustomerDetails.page";
@@ -65,6 +65,10 @@ const Router = createBrowserRouter([
                 errorElement: <Error />,
             },
         ]
+    },
+    {
+        path:"*",
+        element:<Error/>
     }
 ]);
 
