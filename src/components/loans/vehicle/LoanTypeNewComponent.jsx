@@ -77,12 +77,10 @@ const LoanTypeNewComponent = () => {
   };
 
   const OnKeydownPriceHandler = (event) => {
-    const invalidInputs = ["e", "E", "+", "-"];
-    const isInvalidInput = invalidInputs.includes(event.key);
     const isNumberOrBackspace =
-      /^[-+]?[0-9]*\.?[0-9]*$/.test(event.key) || event.key === "Backspace";
+      /^[0-9]*\.?[0-9]*$/.test(event.key) || event.key === "Backspace";
 
-    if (isInvalidInput || isNumberOrBackspace) {
+    if (isNumberOrBackspace) {
       return;
     }
 
