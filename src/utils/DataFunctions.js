@@ -21,12 +21,17 @@ const MakeRed = (docName) => {
 
 const CheckSessionStorage = () => {
 
-    let isComplete = false;
+    let isComplete;
 
     for (let index = 0; index < sessionStorage.length; index++) {
         const getSession = sessionStorage.key(index);
+        const getItem = sessionStorage.getItem(getSession);
   
-        console.log(sessionStorage.getItem(getSession));
+        // if (getItem) {
+            
+        // }
+
+
         return isComplete = false
     }
 
