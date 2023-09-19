@@ -20,7 +20,7 @@
 }
 
 .modal-header h2 {
-  color: var(--secondary-color);
+  color: var(--white);
   font-size: 32px;
   font-weight: 600;
   line-height: 38px;
@@ -29,7 +29,7 @@
 }
 
 .modal-header span {
-  color: var(--secondary-color);
+  color: var(--white);
   display: flex;
   justify-content: end;
   font-size: 32px;
@@ -83,7 +83,7 @@ input[type="file"] {
 }
 
 .modal-footer button {
-  color: var(--secondary-color);
+  color: var(--white);
   font-size: 24px;
   font-weight: 400;
   line-height: 28px;
@@ -91,7 +91,7 @@ input[type="file"] {
   width: 276px;
   height: 38px;
   border-radius: 41px;
-  background: var(--primary-bg-color);
+  background: var(--red);
   border: none;
   cursor: pointer;
 }
@@ -108,12 +108,13 @@ input[type="file"] {
 .question-mark-icon {
   margin-bottom: 10px;
 }
+
 .question-mark-icon::before {
   content: "?";
   width: 28px;
   height: 27px;
   display: inline-block;
-  background-color: var(--secondary-color);
+  background-color: var(--white);
   color: #000;
   border: 1px solid #000;
   font-size: 18px;
