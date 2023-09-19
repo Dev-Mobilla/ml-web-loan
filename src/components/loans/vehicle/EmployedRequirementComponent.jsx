@@ -2,6 +2,7 @@ import React from "react";
 import "../../../styles/requirements.css";
 import { useModal } from "../../../utils/modalContext";
 import { SliceIMageName } from "../../../utils/SliceImageName";
+import {MakeRed} from "../../../utils/DataFunctions";
 
 const RequiredDocumentsComponent = ({  
   validId,
@@ -16,7 +17,7 @@ const RequiredDocumentsComponent = ({
         className="requirement"
         onClick={() =>
           openModal(
-            "Front Valid ID",
+            "Valid ID",
             "https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64f13348e9f50c7315603815/img/addphotosample@2x.png"
           )
         }
@@ -30,7 +31,13 @@ const RequiredDocumentsComponent = ({
           <div className="requirement-title">Valid ID</div>
           <div className="re-file">
             <div className="re-close">[x]</div>
-            <div className={`requirement-file ${validId.imageName === "" ? "makeRed" : ""}`}>{validId.imageName === "" ? "none" : SliceIMageName(validId.imageName)}</div>
+            <div className={`requirement-file ${MakeRed(validId)}`}>
+              {
+                validId === null ? "UMID.png" :
+                validId.imageName === "" ? "none" 
+                : SliceIMageName(validId.imageName)
+              }
+            </div>
           </div>
         </div>
       </div>
@@ -52,7 +59,13 @@ const RequiredDocumentsComponent = ({
           <div className="requirement-title">Emp. Cert.</div>
           <div className="re-file">
             <div className="re-close">[x]</div>
-            <div className={`requirement-file ${employeeCert.imageName === "" ? "makeRed" : ""}`}>{employeeCert.imageName === "" ? "none" : SliceIMageName(employeeCert.imageName)}</div>
+            <div className={`requirement-file ${MakeRed(employeeCert)}`}>
+              {
+                employeeCert === null ? "Employee Cert.png" :
+                employeeCert.imageName === "" ? "none" 
+                : SliceIMageName(employeeCert.imageName)
+                }
+              </div>
           </div>
         </div>
       </div>
@@ -74,7 +87,13 @@ const RequiredDocumentsComponent = ({
           <div className="requirement-title">Payslip/ITR</div>
           <div className="re-file">
             <div className="re-close">[x]</div>
-            <div className={`requirement-file ${paySlip.imageName === "" ? "makeRed" : ""}`}>{paySlip.imageName === "" ? "none" : SliceIMageName(paySlip.imageName)}</div>
+            <div className={`requirement-file ${MakeRed(paySlip)}`}>
+              {
+                paySlip === null ? "Payslip.png" :
+                paySlip.imageName === "" ? "none" 
+                : SliceIMageName(paySlip.imageName)
+              }
+            </div>
           </div>
         </div>
       </div>
