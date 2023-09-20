@@ -38,7 +38,11 @@ const PersonalInformationComponent = ({
 
     onInformationDetailsChange(informationDetails);
   }, [informationDetails, onValidationChange, onInformationDetailsChange]);
+  const [fieldBorders, setFieldBorders] = useState({
+    mobile_number: '1px solid #ccc',
+    email: '1px solid #ccc',
 
+  });
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setInformationDetails((prevDetails) => ({
@@ -66,7 +70,7 @@ const PersonalInformationComponent = ({
           ...prevErrors,
           [fieldName]: `Please enter your Civil Status`,
         }));
-      } 
+      }
       else if (fieldName === 'employeer_business') {
         setErrors((prevErrors) => ({
           ...prevErrors,
@@ -103,6 +107,10 @@ const PersonalInformationComponent = ({
           [fieldName]: `Please enter your ${fieldName}`,
         }));
       }
+      setFieldBorders((prevBorders) => ({
+        ...prevBorders,
+        [fieldName]: '1px solid red',
+      }));
     }
     // else if (fieldName === 'birthdate') {
     //   const enteredDate = new Date(informationDetails[fieldName]);
@@ -122,6 +130,16 @@ const PersonalInformationComponent = ({
         ...prevErrors,
         [fieldName]: `Invalid Civil Status`,
       }));
+      setFieldBorders((prevBorders) => ({
+        ...prevBorders,
+        [fieldName]: '1px solid red',
+      }));
+    }
+    else {
+      setFieldBorders((prevBorders) => ({
+        ...prevBorders,
+        [fieldName]: '1px solid #ccc',
+      }));
     }
   }
   return (
@@ -137,6 +155,7 @@ const PersonalInformationComponent = ({
           onChange={handleInputChange}
           onFocus={() => handleFocus('firstname')}
           onBlur={() => handleBlur('firstname')}
+          style={{ border: fieldBorders.firstname }}
         />
         <div style={{ color: 'red', fontSize: '12px', margin: '10px 20px 20px 0' }}>{errors.firstname}</div>
       </div>
@@ -150,6 +169,7 @@ const PersonalInformationComponent = ({
           onChange={handleInputChange}
           onFocus={() => handleFocus('lastname')}
           onBlur={() => handleBlur('lastname')}
+          style={{ border: fieldBorders.lastname }}
         />
         <div style={{ color: 'red', fontSize: '12px', margin: '10px 20px 20px 0' }}>{errors.lastname}</div>
       </div>
@@ -173,6 +193,7 @@ const PersonalInformationComponent = ({
           onChange={handleInputChange}
           onFocus={() => handleFocus('birthdate')}
           onBlur={() => handleBlur('birthdate')}
+          style={{ border: fieldBorders.birthdate }}
         />
         <div style={{ color: 'red', fontSize: '12px', margin: '10px 20px 20px 0' }}>{errors.birthdate}</div>
       </div>
@@ -201,6 +222,7 @@ const PersonalInformationComponent = ({
           onChange={handleInputChange}
           onFocus={() => handleFocus('civil_status')}
           onBlur={() => handleBlur('civil_status')}
+          style={{ border: fieldBorders.civil_status }}
         />
         <div style={{ color: 'red', fontSize: '12px', margin: '10px 20px 20px 0' }}>{errors.civil_status}</div>
 
@@ -215,6 +237,8 @@ const PersonalInformationComponent = ({
           onChange={handleInputChange}
           onFocus={() => handleFocus('employeer_business')}
           onBlur={() => handleBlur('employeer_business')}
+          style={{ border: fieldBorders.employeer_business }}
+          
         />
         <div style={{ color: 'red', fontSize: '12px', margin: '10px 20px 20px 0' }}>{errors.employeer_business}</div>
       </div>
@@ -226,6 +250,8 @@ const PersonalInformationComponent = ({
           onChange={handleInputChange}
           onFocus={() => handleFocus('nature_business')}
           onBlur={() => handleBlur('nature_business')}
+          style={{ border: fieldBorders.nature_business }}
+
         >
           <option value="defaultBusiness">Nature of Business</option>
           <option value="employment">Agriculture and Farming</option>
@@ -256,6 +282,7 @@ const PersonalInformationComponent = ({
           onChange={handleInputChange}
           onFocus={() => handleFocus('tenure')}
           onBlur={() => handleBlur('tenure')}
+          style={{ border: fieldBorders.tenure }}
         />
         <div style={{ color: 'red', fontSize: '12px', margin: '10px 20px 20px 0' }}>{errors.tenure}</div>
 
@@ -270,6 +297,7 @@ const PersonalInformationComponent = ({
           onChange={handleInputChange}
           onFocus={() => handleFocus('office_address')}
           onBlur={() => handleBlur('office_address')}
+          style={{ border: fieldBorders.office_address }}
         />
         <div style={{ color: 'red', fontSize: '12px', margin: '10px 20px 20px 0' }}>{errors.office_address}</div>
       </div>
@@ -283,6 +311,7 @@ const PersonalInformationComponent = ({
           onChange={handleInputChange}
           onFocus={() => handleFocus('office_landline')}
           onBlur={() => handleBlur('office_landline')}
+          style={{ border: fieldBorders.office_landline }}
         />
         <div style={{ color: 'red', fontSize: '12px', margin: '10px 20px 20px 0' }}>{errors.office_landline}</div>
       </div>
@@ -296,6 +325,7 @@ const PersonalInformationComponent = ({
           onChange={handleInputChange}
           onFocus={() => handleFocus('sourceOfIncome')}
           onBlur={() => handleBlur('sourceOfIncome')}
+          style={{ border: fieldBorders.sourceOfIncome }}
         />
         <div style={{ color: 'red', fontSize: '12px', margin: '10px 20px 20px 0' }}>{errors.sourceOfIncome}</div>
       </div>
@@ -309,6 +339,8 @@ const PersonalInformationComponent = ({
           onChange={handleInputChange}
           onFocus={() => handleFocus('monthly_income')}
           onBlur={() => handleBlur('monthly_income')}
+          style={{ border: fieldBorders.monthly_income }}
+          
         />
         <div style={{ color: 'red', fontSize: '12px', margin: '10px 20px 20px 0' }}>{errors.monthly_income}</div>
 
