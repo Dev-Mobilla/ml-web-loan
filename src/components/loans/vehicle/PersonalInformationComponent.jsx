@@ -11,21 +11,24 @@ const PersonalInformationComponent = ({
     birthdate: "",
     nationality: "",
     civil_status: "",
-    employeer_business_name: "",
+    employeer_business: "",
+    nature_business: "",
     tenure: "",
     office_address: "",
     office_landline: "",
     sourceOfIncome: "",
     monthly_income: "",
   });
-
+  const [errors, setErrors] = useState({});
   useEffect(() => {
     const isValid =
       informationDetails.firstname.trim() !== "" &&
       informationDetails.lastname.trim() !== "" &&
       informationDetails.birthdate.trim() !== "" &&
+      informationDetails.nationality.trim() !== "" &&
       informationDetails.civil_status.trim() !== "" &&
-      informationDetails.employeer_business_name.trim() !== "" &&
+      informationDetails.employeer_business.trim() !== "" &&
+      informationDetails.nature_business.trim() !== "" &&
       informationDetails.tenure.trim() !== "" &&
       informationDetails.office_address.trim() !== "" &&
       informationDetails.office_landline.trim() !== "" &&
@@ -38,9 +41,89 @@ const PersonalInformationComponent = ({
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setInformationDetails({ ...informationDetails, [name]: value });
+    setInformationDetails((prevDetails) => ({
+      ...prevDetails,
+      [name]: value,
+    }));
+    if (name === 'nature_business' && value === 'defaultBusiness') {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        [name]: `Please select the Nature of your Business`,
+      }));
+    } else {
+      setErrors((prevErrors) => ({ ...prevErrors, [name]: '' }));
+    }
   };
-
+  const handleFocus = (fieldName) => {
+    // Clear the error message for the corresponding input field
+    setErrors((prevErrors) => ({ ...prevErrors, [fieldName]: '' }));
+  };
+  const handleBlur = (fieldName) => {
+    // Perform validation when the input field is unfocused (blurred)
+    if (informationDetails[fieldName].trim() === '') {
+      if (fieldName === 'civil_status') {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          [fieldName]: `Please enter your Civil Status`,
+        }));
+      } 
+      else if (fieldName === 'employeer_business') {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          [fieldName]: `Please enter Employeer Business Name `,
+        }));
+      }
+      else if (fieldName === 'office_address') {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          [fieldName]: `Please enter your Office address `,
+        }));
+      }
+      else if (fieldName === 'office_landline') {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          [fieldName]: `Please enter your Office Landline `,
+        }));
+      }
+      else if (fieldName === 'sourceOfIncome') {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          [fieldName]: `Please enter the Type of your Source of Income`,
+        }));
+      }
+      else if (fieldName === 'monthly_income') {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          [fieldName]: `Please enter your Monthly Income`,
+        }));
+      }
+      else {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          [fieldName]: `Please enter your ${fieldName}`,
+        }));
+      }
+    }
+    // else if (fieldName === 'birthdate') {
+    //   const enteredDate = new Date(informationDetails[fieldName]);
+    //   const currentDate = new Date();
+    //   const ageDiffMs = currentDate - enteredDate;
+    //   const ageDate = new Date(ageDiffMs);
+    //   const age = Math.abs(ageDate.getUTCFullYear() - 1970);
+    //   if (isNaN(enteredDate.getTime()) || age < 18) {
+    //     setErrors((prevErrors) => ({
+    //       ...prevErrors,
+    //       [fieldName]: `You must be at least 18 years old to proceed`,
+    //     }));
+    //   }
+    // } 
+    else if (fieldName === 'civil_status' && !['married', 'single', 'divorced', 'widowed'].includes(informationDetails[fieldName].toLowerCase())) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        [fieldName]: `Invalid Civil Status`,
+      }));
+    }
+  }
   return (
     <div>
       <div className="c-details-input">
@@ -52,7 +135,10 @@ const PersonalInformationComponent = ({
           id="firstname"
           value={informationDetails.firstname}
           onChange={handleInputChange}
+          onFocus={() => handleFocus('firstname')}
+          onBlur={() => handleBlur('firstname')}
         />
+        <div style={{ color: 'red', fontSize: '12px', margin: '10px 20px 20px 0' }}>{errors.firstname}</div>
       </div>
       <div className="c-details-input">
         <input
@@ -62,7 +148,10 @@ const PersonalInformationComponent = ({
           placeholder="Last Name"
           value={informationDetails.lastname}
           onChange={handleInputChange}
+          onFocus={() => handleFocus('lastname')}
+          onBlur={() => handleBlur('lastname')}
         />
+        <div style={{ color: 'red', fontSize: '12px', margin: '10px 20px 20px 0' }}>{errors.lastname}</div>
       </div>
       <div className="c-details-input">
         <input
@@ -77,12 +166,15 @@ const PersonalInformationComponent = ({
       <div className="c-details-input">
         <input
           className="d-input"
-          type="text"
+          type="date"
           name="birthdate"
           placeholder="Birthdate"
           value={informationDetails.birthdate}
           onChange={handleInputChange}
+          onFocus={() => handleFocus('birthdate')}
+          onBlur={() => handleBlur('birthdate')}
         />
+        <div style={{ color: 'red', fontSize: '12px', margin: '10px 20px 20px 0' }}>{errors.birthdate}</div>
       </div>
       <div className="c-details-input">
         <select
@@ -92,12 +184,11 @@ const PersonalInformationComponent = ({
           value={informationDetails.nationality}
           onChange={handleInputChange}
         >
-          <option disabled>Nationality</option>
+          <option value="ph" >Philippines</option>
           <option value="us">United States</option>
           <option value="uk">United Kingdom</option>
           <option value="ca">Canada</option>
           <option value="au">Australia</option>
-          <option value="ph">Philippines</option>
         </select>
       </div>
       <div className="c-details-input">
@@ -108,27 +199,35 @@ const PersonalInformationComponent = ({
           placeholder="Civil Status"
           value={informationDetails.civil_status}
           onChange={handleInputChange}
+          onFocus={() => handleFocus('civil_status')}
+          onBlur={() => handleBlur('civil_status')}
         />
+        <div style={{ color: 'red', fontSize: '12px', margin: '10px 20px 20px 0' }}>{errors.civil_status}</div>
+
       </div>
       <div className="c-details-input">
         <input
           className="d-input"
           type="text"
-          name="employeer_business_name"
+          name="employeer_business"
           placeholder="Employer/Business Name"
-          value={informationDetails.employeer_business_name}
+          value={informationDetails.employeer_business}
           onChange={handleInputChange}
+          onFocus={() => handleFocus('employeer_business')}
+          onBlur={() => handleBlur('employeer_business')}
         />
+        <div style={{ color: 'red', fontSize: '12px', margin: '10px 20px 20px 0' }}>{errors.employeer_business}</div>
       </div>
       <div className="c-details-input">
         <select
           className="d-select"
-          id="sourceOfIncome"
           name="nature_business"
           value={informationDetails.nature_business}
           onChange={handleInputChange}
+          onFocus={() => handleFocus('nature_business')}
+          onBlur={() => handleBlur('nature_business')}
         >
-          <option disabled>Nature of Business</option>
+          <option value="defaultBusiness">Nature of Business</option>
           <option value="employment">Agriculture and Farming</option>
           <option value="business">Food and Beverage</option>
           <option value="investment">Retail</option>
@@ -145,6 +244,7 @@ const PersonalInformationComponent = ({
           <option value="TandL">Transportation and Logistics</option>
           <option value="EandM">Entertainment and Media</option>
         </select>
+        <div style={{ color: 'red', fontSize: '12px', margin: '10px 20px 20px 0' }}>{errors.nature_business}</div>
       </div>
       <div className="c-details-input">
         <input
@@ -154,7 +254,11 @@ const PersonalInformationComponent = ({
           placeholder="Length of Tenure"
           value={informationDetails.tenure}
           onChange={handleInputChange}
+          onFocus={() => handleFocus('tenure')}
+          onBlur={() => handleBlur('tenure')}
         />
+        <div style={{ color: 'red', fontSize: '12px', margin: '10px 20px 20px 0' }}>{errors.tenure}</div>
+
       </div>
       <div className="c-details-input">
         <input
@@ -164,7 +268,10 @@ const PersonalInformationComponent = ({
           placeholder="Office Address"
           value={informationDetails.office_address}
           onChange={handleInputChange}
+          onFocus={() => handleFocus('office_address')}
+          onBlur={() => handleBlur('office_address')}
         />
+        <div style={{ color: 'red', fontSize: '12px', margin: '10px 20px 20px 0' }}>{errors.office_address}</div>
       </div>
       <div className="c-details-input">
         <input
@@ -174,7 +281,10 @@ const PersonalInformationComponent = ({
           placeholder="Office Landline"
           value={informationDetails.office_landline}
           onChange={handleInputChange}
+          onFocus={() => handleFocus('office_landline')}
+          onBlur={() => handleBlur('office_landline')}
         />
+        <div style={{ color: 'red', fontSize: '12px', margin: '10px 20px 20px 0' }}>{errors.office_landline}</div>
       </div>
       <div className="c-details-input">
         <input
@@ -184,7 +294,10 @@ const PersonalInformationComponent = ({
           placeholder="Source of Income"
           value={informationDetails.sourceOfIncome}
           onChange={handleInputChange}
+          onFocus={() => handleFocus('sourceOfIncome')}
+          onBlur={() => handleBlur('sourceOfIncome')}
         />
+        <div style={{ color: 'red', fontSize: '12px', margin: '10px 20px 20px 0' }}>{errors.sourceOfIncome}</div>
       </div>
       <div className="c-details-input">
         <input
@@ -194,7 +307,11 @@ const PersonalInformationComponent = ({
           placeholder="Gross Monthly Income"
           value={informationDetails.monthly_income}
           onChange={handleInputChange}
+          onFocus={() => handleFocus('monthly_income')}
+          onBlur={() => handleBlur('monthly_income')}
         />
+        <div style={{ color: 'red', fontSize: '12px', margin: '10px 20px 20px 0' }}>{errors.monthly_income}</div>
+
       </div>
     </div>
   );
