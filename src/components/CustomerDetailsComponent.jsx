@@ -22,9 +22,9 @@ const calculateDistance = (lat1, lon1, lat2, lon2) => {
   const a =
     Math.sin(dLat / 2) * Math.sin(dLat / 2) +
     Math.cos(toRadians(lat1)) *
-      Math.cos(toRadians(lat2)) *
-      Math.sin(dLon / 2) *
-      Math.sin(dLon / 2);
+    Math.cos(toRadians(lat2)) *
+    Math.sin(dLon / 2) *
+    Math.sin(dLon / 2);
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   return earthRadius * c;
 };
@@ -55,7 +55,7 @@ const CustomerDetailsComponent = () => {
     birthdate: "",
     nationality: "",
     civil_status: "",
-    employeer_business_name: "",
+    employeer_business: "",
     nature_business: "",
     tenure: "",
     office_address: "",
@@ -80,8 +80,10 @@ const CustomerDetailsComponent = () => {
       informationDetails.firstname.trim() !== "" &&
       informationDetails.lastname.trim() !== "" &&
       informationDetails.birthdate.trim() !== "" &&
+      informationDetails.nationality.trim() !== "" &&
       informationDetails.civil_status.trim() !== "" &&
-      informationDetails.employeer_business_name.trim() !== "" &&
+      informationDetails.employeer_business.trim() !== "" &&
+      informationDetails.nature_business.trim() !== "" &&
       informationDetails.tenure.trim() !== "" &&
       informationDetails.office_address.trim() !== "" &&
       informationDetails.office_landline.trim() !== "" &&
@@ -236,7 +238,28 @@ const CustomerDetailsComponent = () => {
   }
 
   const buttonClassName = isSubmitDisabled ? "btn-disabled" : "btn-enabled";
-
+  const [errors, setErrors] = useState({});
+  const handleFocus = (fieldName) => {
+    // Clear the error message for the corresponding input field
+    setErrors((prevErrors) => ({ ...prevErrors, [fieldName]: '' }));
+  };
+  const handleBlur = (fieldName) => {
+    // Perform validation when the input field is unfocused (blurred)
+    if (address === '') {
+      if (fieldName === 'current_address') {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          [fieldName]: `Please enter your Current Address`,
+        }));
+      }
+      else {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          [fieldName]: `Please enter your ${fieldName}`,
+        }));
+      }
+    }
+  }
   return (
     <div className="customer-details">
       <div className="customer-details-container">
@@ -286,9 +309,12 @@ const CustomerDetailsComponent = () => {
                 placeholder="Current Address"
                 value={address}
                 onChange={(e) => handleInputChange("address", e.target.value)}
+                onFocus={() => handleFocus('current_address')}
+                onBlur={() => handleBlur('current_address')}
               />
               <input type="submit" id="search-btn" value="Search" />
             </form>
+            <div style={{ color: 'red', fontSize: '12px', margin: '10px 20px 20px 23%' }}>{errors.current_address}</div>
             {customAlert && alertProps && showAlert && (
               <CustomAlert
                 title={alertProps.title}

@@ -98,5 +98,5 @@ export {
   PersonalInformationComponent,
   ManageLoansDetailsComponent,
   CustomAlert,
-  ErrorComponent
+  ErrorComponent,
 };
