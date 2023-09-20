@@ -39,7 +39,7 @@ const PersonalContactComponent = ({
       if (fieldName === 'mobile_number') {
         setErrors((prevErrors) => ({
           ...prevErrors,
-          [fieldName]: `Please enter your Civil Status`,
+          [fieldName]: `Please enter your mobile number`,
         }));
       }
       else {
