@@ -2,10 +2,25 @@ import React from "react";
 import "../styles/dashboard.css";
 
 import { FooterComponent, HeaderComponent, TopbarComponent } from "./index";
+import {isCookiePresent} from "../utils/CookieChecker";
+import {useNavigate} from "react-router-dom";
 
 const DashboardComponent = () => {
+
+  const navigate = useNavigate();
+
   const ManageLoansHandler = () => {
-    // setShowModal(isLogin);
+
+    const sessionCookie = "ML_W_W_S";
+    const accountCookie = "account_details";
+
+    if (isCookiePresent(sessionCookie) && isCookiePresent(accountCookie)) {
+      navigate({
+        pathname: "/manage-loans",
+      })
+    }else{
+      window.location.replace(`${process.env.REACT_APP_REDIRECT_SYMPH_LOGIN}?redirect_url=${process.env.REACT_APP_REDIRECT_URL}`)
+    }
   };
 
   return (
