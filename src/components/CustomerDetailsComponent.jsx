@@ -239,6 +239,9 @@ const CustomerDetailsComponent = () => {
 
   const buttonClassName = isSubmitDisabled ? "btn-disabled" : "btn-enabled";
   const [errors, setErrors] = useState({});
+  const [fieldBorders, setFieldBorders] = useState({
+    mobile_number: '1px solid #ccc',
+  });
   const handleFocus = (fieldName) => {
     // Clear the error message for the corresponding input field
     setErrors((prevErrors) => ({ ...prevErrors, [fieldName]: '' }));
@@ -258,6 +261,16 @@ const CustomerDetailsComponent = () => {
           [fieldName]: `Please enter your ${fieldName}`,
         }));
       }
+      setFieldBorders((prevBorders) => ({
+        ...prevBorders,
+        [fieldName]: '1px solid red',
+      }));
+    }
+    else {
+      setFieldBorders((prevBorders) => ({
+        ...prevBorders,
+        [fieldName]: '1px solid #ccc',
+      }));
     }
   }
   return (
@@ -311,6 +324,7 @@ const CustomerDetailsComponent = () => {
                 onChange={(e) => handleInputChange("address", e.target.value)}
                 onFocus={() => handleFocus('current_address')}
                 onBlur={() => handleBlur('current_address')}
+                style={{ border: fieldBorders.current_address }}
               />
               <input type="submit" id="search-btn" value="Search" />
             </form>

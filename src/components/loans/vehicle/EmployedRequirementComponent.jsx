@@ -46,7 +46,7 @@ const RequiredDocumentsComponent = ({
         onClick={() =>
           openModal(
             "Employee Certificate",
-            "https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64f13348e9f50c7315603815/img/addphotosample@2x.png"
+            "https://www.printablesample.com/wp-content/uploads/2017/01/Sample_Certificate_of_Employment-1.jpg"
           )
         }
       >
@@ -74,7 +74,7 @@ const RequiredDocumentsComponent = ({
         onClick={() =>
           openModal(
             "Payslip/ITR",
-            "https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64f13348e9f50c7315603815/img/addphotosample@2x.png"
+            "https://lvsbooks.com/wp-content/uploads/2019/09/Pay-Slip-With-Deduction.png"
           )
         }
       >
