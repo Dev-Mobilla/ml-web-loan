@@ -1,84 +1,76 @@
 import React, { useState, useEffect } from "react";
 import "../../../styles/housingloan.css";
 import {
-    AlertModalComponent,
-CustomButton,
-CustomHeader,
-CustomPrevBtn,
-CustomStatus,
-FooterComponent,
-TopbarComponent,
+  AlertModalComponent,
+  CustomButton,
+  CustomHeader,
+  CustomPrevBtn,
+  CustomStatus,
+  FooterComponent,
+  TopbarComponent,
 } from "../../index";
 
 import houseIcon from "../../../assets/icons/house.png";
 import mlicon from "../../../assets/icons/Paynow_icn.png";
-import {useLocation, useNavigate, useSearchParams} from "react-router-dom";
-import {GetLoansDetails} from "../../../api/api";
-
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { GetLoansDetails } from "../../../api/api";
+import { GetCollateralDetails } from "../../../api/hatchit.api";
 const ManageLoansDetailsComponent = () => {
-    
-    const recentPayments = [
-        { date: "05-14-2023", time: "16:23", amount: "30,625.00" },
-        { date: "04-15-2023", time: "12:01", amount: "30,625.00" },
-        { date: "03-15-2023", time: "10:30", amount: "30,625.00" },
-        { date: "02-09-2023", time: "08:15", amount: "30,625.00" },
-        { date: "01-10-2023", time: "22:04", amount: "30,625.00" },
-    ];
-    
-    // const [dueAmount, setDueAmount] = useState("30,625.00");
-    // const [feesAndCharges, setFeesAndCharges] = useState("0.00");
-    // const [paymentDueDate, setPaymentDueDate] = useState("15 MAY 2023");
 
-    const [loanDetails, setLoanDetails] = useState({
+  const recentPayments = [
+    { date: "05-14-2023", time: "16:23", amount: "30,625.00" },
+    { date: "04-15-2023", time: "12:01", amount: "30,625.00" },
+    { date: "03-15-2023", time: "10:30", amount: "30,625.00" },
+    { date: "02-09-2023", time: "08:15", amount: "30,625.00" },
+    { date: "01-10-2023", time: "22:04", amount: "30,625.00" },
+  ];
+
+  const [loanDetails, setLoanDetails] = useState({
+    dueAmount: "",
+    feesAndCharges: "",
+    paymentDueDate: "",
+    loanType: "",
+    referenceNo: "",
+    status: "",
+  });
+
+  const [alertModal, setAlertModal] = useState(false);
+
+  const navigate = useNavigate();
+
+  const [params] = useSearchParams();
+  const LoanId = params.get("id");
+
+  const LoanDetailsHandler = async () => {
+    const response = await GetLoansDetails(LoanId);
+
+    if (response.length !== 0) {
+      let loan = response[0];
+
+      setLoanDetails({
+        dueAmount: loan.amountDue,
+        feesAndCharges: loan.charges,
+        paymentDueDate: loan.dueDate,
+        referenceNo: loan.referenceNo,
+        loanType: loan.loanType,
+        status: loan.status,
+      });
+    } else {
+      setAlertModal(true);
+      setLoanDetails({
         dueAmount: "",
-        feesAndCharges:"",
+        feesAndCharges: "",
         paymentDueDate: "",
-        loanType: "",
         referenceNo: "",
-        status: ""
-    })
-
-    const [alertModal, setAlertModal] = useState(false);
-
-    const navigate = useNavigate();
-
-    const [params] = useSearchParams();
-    const LoanId = params.get("id");
-    
-    const LoanDetailsHandler = async () => {
-
-        const response = await GetLoansDetails(LoanId);
-
-        if (response.length !== 0) {
-
-            let loan = response[0];
-            
-            setLoanDetails({
-                dueAmount: loan.amountDue,
-                feesAndCharges: loan.charges,
-                paymentDueDate: loan.dueDate,
-                referenceNo: loan.referenceNo,
-                loanType: loan.loanType,
-                status: loan.status
-            })
-        }
-        else {
-            setAlertModal(true)
-            setLoanDetails({
-                dueAmount: "",
-                feesAndCharges: "",
-                paymentDueDate: "",
-                referenceNo: "",
-                loanType: ""
-            })
-        }
-
+        loanType: "",
+      });
     }
-    useEffect(() => {
-        // fetch("/api/getLoanData")
-        //   .then((response) => response.json())
+  };
+  useEffect(() => {
+    // fetch("/api/getLoanData")
+    //   .then((response) => response.json())
     //   .then((data) => {
-        //     setDueAmount(data.dueAmount);
+    //     setDueAmount(data.dueAmount);
     //     setFeesAndCharges(data.feesAndCharges);
     //     setPaymentDueDate(data.paymentDueDate);
     //   })
@@ -86,13 +78,12 @@ const ManageLoansDetailsComponent = () => {
     //     console.error("Error fetching data:", error);
     //   });
     LoanDetailsHandler();
-    
   }, []);
 
   const OnModalCloseHandler = () => {
-    setAlertModal(false)
+    setAlertModal(false);
     navigate("/manage-loans");
-  }
+  };
 
   const DownloadIcon = (
     <svg
@@ -108,7 +99,7 @@ const ManageLoansDetailsComponent = () => {
         id="SVGRepo_tracerCarrier"
         strokeLinecap="round"
         strokeLinejoin="round"
-        ></g>
+      ></g>
       <g id="SVGRepo_iconCarrier">
         <g id="Interface / Download">
           {" "}
@@ -119,7 +110,7 @@ const ManageLoansDetailsComponent = () => {
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
-            ></path>{" "}
+          ></path>{" "}
         </g>{" "}
       </g>
     </svg>
@@ -129,9 +120,14 @@ const ManageLoansDetailsComponent = () => {
     <div className="housing-loan">
       <div className="div">
         <TopbarComponent />
-        {
-            alertModal? <AlertModalComponent message="Loan does not exist" onClose={OnModalCloseHandler}/> : <></>
-        }
+        {alertModal ? (
+          <AlertModalComponent
+            message="Loan does not exist"
+            onClose={OnModalCloseHandler}
+          />
+        ) : (
+          <></>
+        )}
         <CustomHeader title="Manage Existing Loan" />
         <div className="housing-content">
           <CustomPrevBtn />
@@ -141,14 +137,20 @@ const ManageLoansDetailsComponent = () => {
                 <img src={houseIcon} alt="Housing Loan Icon" />
                 <div className="h-card-text">
                   <div className="h-ltxt">{loanDetails.loanType}</div>
-                  <div className="h-lrefno">Ref. no. {loanDetails.referenceNo}</div>
+                  <div className="h-lrefno">
+                    Ref. no. {loanDetails.referenceNo}
+                  </div>
                 </div>
               </div>
-              <CustomStatus status={loanDetails.status} 
+              <CustomStatus
+                status={loanDetails.status}
                 styles={
-                    loanDetails.status?.toLowerCase() === "current" ? "custom-current" 
-                    : loanDetails.status?.toLowerCase() === "past due" ? "custom-pastdue" : ""
-                } 
+                  loanDetails.status?.toLowerCase() === "current"
+                    ? "custom-current"
+                    : loanDetails.status?.toLowerCase() === "past due"
+                    ? "custom-pastdue"
+                    : ""
+                }
               />
             </div>
 
@@ -156,7 +158,11 @@ const ManageLoansDetailsComponent = () => {
               <div className="input-group">
                 <div className="input-label">Due this month</div>
                 <div className="input-wrapper">
-                  <input className="disable-data" value={loanDetails.dueAmount} disabled />
+                  <input
+                    className="disable-data"
+                    value={loanDetails.dueAmount}
+                    disabled
+                  />
                 </div>
               </div>
               <div className="input-group">
@@ -179,24 +185,24 @@ const ManageLoansDetailsComponent = () => {
                   />
                 </div>
               </div>
-              {
-                loanDetails.status?.toLowerCase() === "current" ? 
-                    <div className="note">
-                        <div className="paynote">
-                            <p>
-                                Please pay on or before the due date to avoid late payment
-                                charges
-                            </p>
-                        </div>
-                        <div className="pay-btn">
-                            <button className="pay-now-button">
-                                <img src={mlicon} alt="ML Icon" />
-                                Pay Now
-                            </button>
-                        </div>
-                    </div>
-                : <></>
-              }
+              {loanDetails.status?.toLowerCase() === "current" ? (
+                <div className="note">
+                  <div className="paynote">
+                    <p>
+                      Please pay on or before the due date to avoid late payment
+                      charges
+                    </p>
+                  </div>
+                  <div className="pay-btn">
+                    <button className="pay-now-button">
+                      <img src={mlicon} alt="ML Icon" />
+                      Pay Now
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <></>
+              )}
               <div className="btns">
                 <CustomButton
                   name="Payment Schedule"
@@ -232,7 +238,6 @@ const ManageLoansDetailsComponent = () => {
       </div>
     </div>
   );
+};
 
-}
-
-export default ManageLoansDetailsComponent
+export default ManageLoansDetailsComponent;
