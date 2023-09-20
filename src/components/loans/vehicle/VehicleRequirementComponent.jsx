@@ -15,7 +15,7 @@ const VehicleRequirementComponent = ({
         onClick={() =>
           openModal(
             "Orginal OR/CR",
-            "https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64f13348e9f50c7315603815/img/addphotosample@2x.png"
+            "https://www.autodeal.com.ph/custom/blog-post/header/lost-your-cars-certificate-of-registration-61d28c1d4000f.jpg"
           )
         }
       >
@@ -43,7 +43,7 @@ const VehicleRequirementComponent = ({
         onClick={() =>
           openModal(
             "Set stencils",
-            "https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64f13348e9f50c7315603815/img/addphotosample@2x.png"
+            "https://www.stencilsplus.com/wp-content/uploads/2018/03/ev-car.jpg"
           )
         }
       >
@@ -71,7 +71,7 @@ const VehicleRequirementComponent = ({
         onClick={() =>
           openModal(
             "Car Insurance",
-            "https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64f13348e9f50c7315603815/img/addphotosample@2x.png"
+            "https://hourcar.org/wp-content/uploads/2023/06/2023-HOURCAR-Insurance-Card.png"
           )
         }
       >
@@ -98,7 +98,7 @@ const VehicleRequirementComponent = ({
         onClick={() =>
           openModal(
             "Front Side",
-            "https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64f13348e9f50c7315603815/img/addphotosample@2x.png"
+            "https://static.vecteezy.com/system/resources/thumbnails/007/139/812/small_2x/front-car-icon-free-vector.jpg"
           )
         }
       >
@@ -126,7 +126,7 @@ const VehicleRequirementComponent = ({
         onClick={() =>
           openModal(
             "Back Side",
-            "https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64f13348e9f50c7315603815/img/addphotosample@2x.png"
+            "https://i.pinimg.com/564x/12/65/75/126575a30fc169706c19c266717368f8.jpg"
           )
         }
       >
@@ -154,7 +154,7 @@ const VehicleRequirementComponent = ({
         onClick={() =>
           openModal(
             "Right Side",
-            "https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64f13348e9f50c7315603815/img/addphotosample@2x.png"
+            "https://i.fbcd.co/products/original/6-c157ca48091d62411d273112fdd651905efbc710b3a8c545fe85109bdd928064.jpg"
           )
         }
       >
@@ -182,7 +182,7 @@ const VehicleRequirementComponent = ({
         onClick={() =>
           openModal(
             "Left Side",
-            "https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64f13348e9f50c7315603815/img/addphotosample@2x.png"
+            "https://media.istockphoto.com/id/1070869644/vector/car-symbol-icon-black-2d-isolated-vector.jpg?s=612x612&w=0&k=20&c=1Czm2uVbvR-rs9JTrM5b5eu9g3WJdmAE4dXMYsL6BsM="
           )
         }
       >
