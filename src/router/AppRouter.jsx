@@ -1,75 +1,76 @@
-import React from "react";
-import { createBrowserRouter } from "react-router-dom";
+import React, { useEffect } from "react";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 import {
   Dashboard,
-  HousingLoan,
+//   HousingLoan,
   MainOutlet,
   ManageLoans,
   ManageLoansDetails,
-  QuickCashLoan,
+//   QuickCashLoan,
   Receipt,
-  Error
+  Error,
 } from "../pages";
 import LoanType from "../pages/LoanType.page";
 import CustomerDetails from "../pages/CustomerDetails.page";
 import CustomerRequirements from "../pages/CustomerRequirements.page";
+import isCookiePresent from "../utils/CookieChecker";
 
-const Router = createBrowserRouter([
-    {
-        path: '/',
-        element: <MainOutlet/>,
-        children: [
-            {
-                path: "/dashboard",
-                element: <Dashboard />,
-                // errorElement: <Error />,
-            },
-            {
-                path: "/manage-loans",
-                element: <ManageLoans />,
-                // errorElement: <Error />,
-            },
-            {
-                path: '/manage-loans/loan-details',
-                element: <ManageLoansDetails/>,
-                // errorElement: <Error/>
-            },
-            {
-                path: "/manage-loans/housing-loan",
-                element: <HousingLoan />,
-                // errorElement: <Error />,
-            },
-            {
-                path: "/manage-loans/quick-cash-loan/:ref",
-                element: <QuickCashLoan />,
-                // errorElement: <Error />,
-            },
-            {
-                path: "/vehicle-loan/loan-type/:type",
-                element: <LoanType />,
-                // errorElement: <Error />,
-            },
-            {
-                path: "/vehicle-loan/personal-details",
-                element: <CustomerDetails />,
-                // errorElement: <Error />,
-            },
-            {
-                path: "/vehicle-loan/requirements",
-                element: <CustomerRequirements />,
-                // errorElement: <Error />,
-            },
-            {
-                path: "/vehicle-loan/receipt",
-                element: <Receipt />,
-                // errorElement: <Error />,
-            },
-        ]
-    },
-    {
-        path:"*",
-        element:<Error/>
+const ProtectedRoute = ({ component: Component, ...rest }) => {
+  const sessionCookieName = process.env.REACT_APP_SESSION_COOKIE_NAME;
+  const accountCookieName = process.env.REACT_APP_ACCOUNT_COOKIE_NAME;
+  const isMLWWSPresent = isCookiePresent(sessionCookieName);
+  const isAccountDetailsPresent = isCookiePresent(accountCookieName);
+  const login = process.env.REACT_APP_REDIRECT_SYMPH_LOGIN;
+  const redirectUrl = process.env.REACT_APP_REDIRECT_URL;
+
+  useEffect(() => {
+    if (!isMLWWSPresent && !isAccountDetailsPresent) {
+      if (window.location.pathname !== login) {
+        window.location.href = `${login}?redirect_url=${encodeURIComponent(
+          redirectUrl
+        )}`;
+      }
     }
-]);
+  }, [isMLWWSPresent, isAccountDetailsPresent, login, redirectUrl]);
+
+  return <Component {...rest} />;
+};
+
+const routes = [
+  {
+    path: "/",
+    element: <MainOutlet />,
+    children: [
+      { path: "/", element: <Navigate to="/dashboard" replace /> },
+      { path: "/dashboard", element: <Dashboard /> },
+      {
+        path: "/manage-loans",
+        element: <ProtectedRoute component={ManageLoans} />,
+      },
+      {
+        path: "/manage-loans/loan-details",
+        element: <ProtectedRoute component={ManageLoansDetails} />,
+      },
+    //   {
+    //     path: "/manage-loans/housing-loan",
+    //     element: <ProtectedRoute component={HousingLoan} />,
+    //   },
+    //   {
+    //     path: "/manage-loans/quick-cash-loan/:ref",
+    //     element: <ProtectedRoute component={QuickCashLoan} />,
+    //   },
+      { path: "/vehicle-loan/loan-type/:type", element: <LoanType /> },
+      { path: "/vehicle-loan/personal-details", element: <CustomerDetails /> },
+      { path: "/vehicle-loan/requirements", element: <CustomerRequirements /> },
+      { path: "/vehicle-loan/receipt", element: <Receipt /> },
+    ],
+  },
+  {
+    path: "*",
+    element: <Error />,
+  },
+];
+
+const Router = createBrowserRouter(routes);
 
 export default Router;

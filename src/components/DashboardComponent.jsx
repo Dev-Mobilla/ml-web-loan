@@ -2,25 +2,22 @@ import React from "react";
 import "../styles/dashboard.css";
 
 import { FooterComponent, HeaderComponent, TopbarComponent } from "./index";
-import {isCookiePresent} from "../utils/CookieChecker";
-import {useNavigate} from "react-router-dom";
+import isCookiePresent from "../utils/CookieChecker";
 
 const DashboardComponent = () => {
 
-  const navigate = useNavigate();
-
   const ManageLoansHandler = () => {
+    const sessionCookieName = process.env.REACT_APP_SESSION_COOKIE_NAME;
+    const accountCookieName = process.env.REACT_APP_ACCOUNT_COOKIE_NAME;
 
-    const sessionCookie = "ML_W_W_S";
-    const accountCookie = "account_details";
+    const redirectUrl =
+      isCookiePresent(sessionCookieName) && isCookiePresent(accountCookieName)
+        ? "/manage-loans"
+        : process.env.REACT_APP_REDIRECT_SYMPH_LOGIN;
 
-    if (isCookiePresent(sessionCookie) && isCookiePresent(accountCookie)) {
-      navigate({
-        pathname: "/manage-loans",
-      })
-    }else{
-      window.location.replace(`${process.env.REACT_APP_REDIRECT_SYMPH_LOGIN}?redirect_url=${process.env.REACT_APP_REDIRECT_URL}`)
-    }
+    window.location.href = `${
+      process.env.REACT_APP_REDIRECT_URL
+    }?redirect_url=${encodeURIComponent(redirectUrl)}`;
   };
 
   return (
@@ -60,7 +57,7 @@ const DashboardComponent = () => {
               </div>
 
               <div className="housing">
-                <a href="/vehicle-loan/loan-type/new">
+                <a href="#">
                   <div className="overlap-group-3">
                     <div className="hltitle">Housing Loan</div>
                     <div className="h-desc">
@@ -142,7 +139,7 @@ const DashboardComponent = () => {
                 </a>
               </div>
               <div className="QCL">
-                <a href="/vehicle-loan/loan-type/new">
+                <a href="#">
                   <div className="overlap-group-qcl">
                     <div className="QC-ltitle">Quick Cash Loan</div>
                     <div className="QCL-desc">
@@ -158,7 +155,7 @@ const DashboardComponent = () => {
                 </a>
               </div>
               <div className="SBL">
-                <a href="/vehicle-loan/loan-type/new">
+                <a href="#">
                   <div className="overlap-group-sbl">
                     <div className="SB-ltitle">Small Business Loan</div>
                     <div className="SBL-desc">
@@ -174,7 +171,7 @@ const DashboardComponent = () => {
                 </a>
               </div>
               <div className="pensioner">
-                <a href="/vehicle-loan/loan-type/new">
+                <a href="#">
                   <div className="overlap-group-pensioner">
                     <div className="ptitle">Pensioners’ Loan</div>
                     <div className="p-desc">
@@ -190,7 +187,7 @@ const DashboardComponent = () => {
                 </a>
               </div>
               <div className="salary">
-                <a href="/vehicle-loan/loan-type/new">
+                <a href="#">
                   <div className="overlap-group-salary">
                     <div className="overlap-4">
                       <div className="stitle">Salary Loan</div>
