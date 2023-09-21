@@ -462,6 +462,10 @@
   font-size: 15px;
 }
 
+.manage-loans .submit-modal .modal-input-wrapper.border-red input{
+  border: 1px solid var(--border-color);
+}
+
 .manage-loans .submit-modal .modal-btn-wrapper .modal-button{
   background-color: #D20101;
   color: white;

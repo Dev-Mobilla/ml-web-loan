@@ -1,9 +1,78 @@
 import axios from "axios";
-import sha512 from "crypto-js/sha512";
+import {HatchITAxiosInstance} from "../helper/axios";
+// import sha512 from "crypto-js/sha512";
+// import SHA512 from "crypto-js/sha512";
 
-const GetLoanDetails = () => {
-  console.log(process.env.REACT_APP_HATCHIT_BASE_URL);
-};
+import { sha512 } from "js-sha512";
+
+const baseURL = process.env.REACT_APP_HATCHIT_BASE_URL;
+const apiKey = "W1@KLDMWLk@ek$lkj";
+
+const MakeDigest = (payloadString) => {
+
+  const digest = sha512(payloadString + apiKey);
+  console.log('digest', digest, "type", typeof(digest));
+
+  return digest;
+}
+
+// const GetLoanDetails = async (reference) => {
+// console.log(reference);
+//   const payloadString = JSON.stringify(reference);
+
+//   const digest = MakeDigest(payloadString);
+
+//   const url = `${baseURL}/loan_schedules/get/customer/loans/details`
+//   try {
+
+//     const response = await HatchITAxiosInstance.get(url,
+//       {
+//         params: {
+//           reference,
+//           digest
+//         }
+//       }
+//     )
+
+//     return response;
+
+//   } catch (error) {
+//     return error;
+//   }
+
+// };
+
+const GetLoanDetails = async (ckycID) => {
+  console.log(ckycID);
+    const payloadString = JSON.stringify(ckycID);
+
+    const ckyc_id = ckycID.ckyc_id;
+
+    console.log('ckyc_id:', ckyc_id , 'payload:', payloadString);
+  
+    const digest = MakeDigest(payloadString);
+  
+    const url = `${baseURL}/transactions/get/customer/loans`;
+
+    try {
+  
+      const response = await HatchITAxiosInstance.get(url,
+        {
+          params: {
+            ckyc_id: ckyc_id,
+            digest: digest
+          }
+        }
+      )
+      
+      return response;
+  
+    } catch (error) {
+      console.log('error', error);
+      return error;
+    }
+  
+  };
 
 const GetLoanCustomerLoans = () => {};
 

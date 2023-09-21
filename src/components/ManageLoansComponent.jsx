@@ -12,21 +12,41 @@ import {
 } from "./index";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Loans } from "../utils/ManageLoansMockData";
+import {GetLoanDetails} from "../api/hatchit.api";
 
 const ManageLoanComponent = () => {
   const Location = useLocation();
   const navigate = useNavigate();
   const [modal, setModal] = useState(false);
+  const [referenceInput, setReferenceInput] = useState("");
+  const [inputErrorMsg, setInputErrorMsg] = useState("");
+  const [inputErrorStyle, setInputErrorStyle] = useState("");
 
   const { Housing, Vehicle, QCL } = CustomIcon;
 
-  useEffect(() => {
-    window.addEventListener("click", setToggleModalOutside);
+  const IsInputError = (errorMsg, errorStyle) => {
+    setInputErrorMsg(errorMsg);
+    setInputErrorStyle(errorStyle);
+  }
 
+  useEffect(() => {
+
+    GetLoans();
+
+    !modal ? IsInputError("", ""): IsInputError(inputErrorMsg, inputErrorStyle);
+    
+    window.addEventListener("click", setToggleModalOutside);
+    
     return () => {
       window.removeEventListener("click", setToggleModalOutside);
     };
-  });
+  }, [modal]);
+  
+  const GetLoans = async () => {
+    const res = await GetLoanDetails({ckyc_id: "X220600001592K1"});
+    console.log('res', res);
+    
+  }
 
   const loansIcon = [
     {
@@ -44,7 +64,6 @@ const ManageLoanComponent = () => {
   ];
 
   const CurrentLoansCards = () => {
-    console.log(Loans);
     if (Loans.length !== 0) {
       let filteredLoans = Loans.filter((loan, key) => {
         if (loan.status.toLowerCase() === "current") {
@@ -126,7 +145,23 @@ const ManageLoanComponent = () => {
 
   const AddBtnHandler = () => {
     setModal(true);
+  }
+
+  const ContinueBtnHandler = () => {
+    console.log('continue', referenceInput);
+    // setModal(false);
+    // GetLoanDetails(referenceInput.toUpperCase())
+    if (referenceInput === "") {
+      IsInputError("Please input reference number", "border-red")
+    }else{
+      console.log("dfsfdg")
+    }
   };
+
+  const OnInpputChange = (e) => {
+    setReferenceInput(e.target.value);
+    IsInputError("", "")
+  }
 
   const CardBtnClick = (loanId, type) => {
     let loanType = type.toLowerCase().replaceAll(" ", "-");
@@ -156,11 +191,15 @@ const ManageLoanComponent = () => {
             containerClass="modal-container"
             wrapperClass="modal-wrapper"
             inptBtnWrapper="modal-inputbtn-wrapper"
-            inputWrapperClass="modal-input-wrapper"
+            inputWrapperClass={`modal-input-wrapper ${inputErrorStyle}`}
             modalBtnWrapper="modal-btn-wrapper"
             modalBtn="modal-button"
             inputType="text"
+            inputValue={referenceInput}
             placeHolder="Ref. No"
+            onclickHandler={ContinueBtnHandler}
+            onInputChange={OnInpputChange}
+            inputError={inputErrorMsg}
           />
         </div>
       ) : (
