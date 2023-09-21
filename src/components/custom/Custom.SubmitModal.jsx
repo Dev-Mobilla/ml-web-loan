@@ -14,6 +14,8 @@ const CustomSubmitModal = ({
   inputType,
   placeHolder,
   inputValue,
+  onInputChange,
+  inputError
 }) => {
   return (
     <div className={wrapperClass}>
@@ -27,7 +29,12 @@ const CustomSubmitModal = ({
               inputType={inputType}
               inputVal={inputValue}
               inputPlaceholder={placeHolder}
+              inputOnchange={onInputChange}
             />
+            <p 
+              style={{ color: "red", fontSize: "13px", marginTop: "5px"}}>
+                {inputError}
+            </p>
             {/* <input type="text" placeholder={placeHolder} value={number} /> */}
           </div>
           <div className={modalBtnWrapper}>
