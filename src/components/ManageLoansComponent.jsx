@@ -3,7 +3,6 @@ import "../styles/manageloans.css";
 import {
   TopbarComponent,
   CustomHeader,
-  FooterComponent,
   CustomButton,
   CustomPrevBtn,
   ManageLoanCardComponent,

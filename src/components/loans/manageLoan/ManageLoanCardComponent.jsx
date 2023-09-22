@@ -25,13 +25,13 @@ const ManageLoanCardComponent = ({
             <div className={loantypeTxt}>{loanType}</div>
             <div className={referenceTxt}>Ref. no. {referenceNo}</div>
           </div>
+          <CustomButton
+            name={btnName}
+            styles={btnStyle}
+            EventHandler={OnBtnClick}
+            btnType={btnType}
+          />
         </div>
-        <CustomButton
-          name={btnName}
-          styles={btnStyle}
-          EventHandler={OnBtnClick}
-          btnType={btnType}
-        />
       </div>
     </div>
   );
