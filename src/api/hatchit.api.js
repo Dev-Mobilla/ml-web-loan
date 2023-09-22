@@ -6,36 +6,9 @@ const apiKey = "W1@KLDMWLk@ek$lkj";
 
 const MakeDigest = (payloadString) => {
   const digest = sha512(payloadString + apiKey);
-  // console.log('digest', digest, "type", typeof(digest));
 
-  return digest;
+  return digest
 }
-
-// const GetLoanDetails = async (reference) => {
-// console.log(reference);
-//   const payloadString = JSON.stringify(reference);
-
-//   const digest = MakeDigest(payloadString);
-
-//   const url = `${baseURL}/loan_schedules/get/customer/loans/details`
-//   try {
-
-//     const response = await HatchITAxiosInstance.get(url,
-//       {
-//         params: {
-//           reference,
-//           digest
-//         }
-//       }
-//     )
-
-//     return response;
-
-//   } catch (error) {
-//     return error;
-//   }
-
-// };
 
 const GetLoanDetails = async (ckycID) => {
   // console.log(ckycID);
@@ -72,12 +45,6 @@ const GetLoanDetails = async (ckycID) => {
     }
   
   };
-
-const GetLoanCustomerLoans = () => {};
-  console.log("digest", digest, "type", typeof digest);
-
-  return digest;
-};
 
 
 const generateHeaders = (payloadString) => {
@@ -116,29 +83,6 @@ const makeGetRequest = async (url, params, payloadString) => {
   }
 };
 
-const GetLoanDetails = async (ckycID) => {
-  console.log(ckycID);
-  const payloadString = JSON.stringify(ckycID);
-  const ckyc_id = ckycID.ckyc_id;
-  console.log("ckyc_id:", ckyc_id, "payload:", payloadString);
-  const digest = MakeDigest(payloadString);
-  const url = `${baseURL}/transactions/get/customer/loans`;
-
-  try {
-    const response = await HatchITAxiosInstance.get(url, {
-      params: {
-        ckyc_id: ckyc_id,
-        digest: digest,
-      },
-    });
-
-    return response;
-  } catch (error) {
-    console.log("error", error);
-    return error;
-  }
-};
-
 const GetPaymentSchedule = async (reference) => {
   const apiUrl = `${baseURL}/loan_schedules/get/schedule`;
 
@@ -161,10 +105,10 @@ const GetCollateralDetails = async (reference) => {
   return makeGetRequest(apiUrl, { reference }, payloadString);
 };
 
-const GetLoanCustomerLoans = () => {};
+// const GetLoanCustomerLoans = () => {};
 
 export {
-  GetLoanCustomerLoans,
+  // GetLoanCustomerLoans,
   GetLoanDetails,
   GetPaymentSchedule,
   GetCollateralDetails,
