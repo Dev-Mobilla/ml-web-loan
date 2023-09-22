@@ -1,11 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import "../styles/dashboard.css";
 
-import { FooterComponent, HeaderComponent, TopbarComponent } from "./index";
+import {
+  FooterComponent,
+  HeaderComponent,
+  TopbarComponent,
+  FeatureNotAvailableModalComponent,
+} from "./index";
 import isCookiePresent from "../utils/CookieChecker";
 
 const DashboardComponent = () => {
-
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const ManageLoansHandler = () => {
     const sessionCookieName = process.env.REACT_APP_SESSION_COOKIE_NAME;
     const accountCookieName = process.env.REACT_APP_ACCOUNT_COOKIE_NAME;
@@ -18,6 +23,14 @@ const DashboardComponent = () => {
     window.location.href = `${
       process.env.REACT_APP_REDIRECT_URL
     }?redirect_url=${encodeURIComponent(redirectUrl)}`;
+  };
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
   };
 
   return (
@@ -57,7 +70,7 @@ const DashboardComponent = () => {
               </div>
 
               <div className="housing">
-                <a href="#">
+                <a href="#" onClick={openModal}>
                   <div className="overlap-group-3">
                     <div className="hltitle">Housing Loan</div>
                     <div className="h-desc">
@@ -139,7 +152,7 @@ const DashboardComponent = () => {
                 </a>
               </div>
               <div className="QCL">
-                <a href="#">
+                <a href="#" onClick={openModal}>
                   <div className="overlap-group-qcl">
                     <div className="QC-ltitle">Quick Cash Loan</div>
                     <div className="QCL-desc">
@@ -155,7 +168,7 @@ const DashboardComponent = () => {
                 </a>
               </div>
               <div className="SBL">
-                <a href="#">
+                <a href="#" onClick={openModal}>
                   <div className="overlap-group-sbl">
                     <div className="SB-ltitle">Small Business Loan</div>
                     <div className="SBL-desc">
@@ -171,7 +184,7 @@ const DashboardComponent = () => {
                 </a>
               </div>
               <div className="pensioner">
-                <a href="#">
+                <a href="#" onClick={openModal}>
                   <div className="overlap-group-pensioner">
                     <div className="ptitle">Pensioners’ Loan</div>
                     <div className="p-desc">
@@ -187,7 +200,7 @@ const DashboardComponent = () => {
                 </a>
               </div>
               <div className="salary">
-                <a href="#">
+                <a href="#" onClick={openModal}>
                   <div className="overlap-group-salary">
                     <div className="overlap-4">
                       <div className="stitle">Salary Loan</div>
@@ -209,6 +222,9 @@ const DashboardComponent = () => {
         </div>
         <FooterComponent />
       </div>
+      {isModalOpen && (
+        <FeatureNotAvailableModalComponent onClose={closeModal} />
+      )}
     </div>
   );
 };
