@@ -125,6 +125,29 @@ input[type="file"] {
   margin-right: 10px;
 }
 
+.modal-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #000;
+  margin-bottom: 16px;
+}
+
+.modal-description {
+  font-size: 18px;
+  color: var(--text-gray);
+  margin-bottom: 24px;
+}
+
+.modal-button {
+  padding: 8px 16px;
+  border-radius: var(--radius);
+  background-color: var(--red);
+  color: var(--white);
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+}
+
 @media screen and (min-width: 360px) and (max-width: 480px) {
   .modal-content {
     padding: 20px;
