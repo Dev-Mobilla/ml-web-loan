@@ -30,8 +30,8 @@ const SelfEmplyoedRequirementComponent = ({
             <div className="re-close">[x]</div>
             <div className={`requirement-file ${MakeRed(validId)}`}>
               {
-                validId === null ? "UMID.png" :
-                validId.imageName === "" ? "none" 
+                validId === null ? "none":
+                validId.imageName === "" ? <span style={{ color: 'red' }}>none</span> 
                 : SliceIMageName(validId.imageName)
               }
             </div>
@@ -59,8 +59,8 @@ const SelfEmplyoedRequirementComponent = ({
             <div className="re-close">[x]</div>
             <div className={`requirement-file ${MakeRed(mayorCert)}`}>
               {
-                mayorCert === null ? "Mayor Cert.pnge" :
-                mayorCert.imageName === "" ? "none" 
+                mayorCert === null ? "none" :
+                mayorCert.imageName === "" ? <span style={{ color: 'red' }}>none</span> 
                 : SliceIMageName(mayorCert.imageName)
               }
             </div>
@@ -87,8 +87,8 @@ const SelfEmplyoedRequirementComponent = ({
             <div className="re-close">[x]</div>
             <div className={`requirement-file ${MakeRed(bankStatement)}`}>
               {
-                bankStatement === null ? "Debit.png" :
-                bankStatement.imageName === "" ? "none" 
+                bankStatement === null ? "none" :
+                bankStatement.imageName === "" ? <span style={{ color: 'red' }}>none</span> 
                 : SliceIMageName(bankStatement.imageName)
               }
             </div>

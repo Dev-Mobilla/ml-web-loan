@@ -33,8 +33,8 @@ const RequiredDocumentsComponent = ({
             <div className="re-close">[x]</div>
             <div className={`requirement-file ${MakeRed(validId)}`}>
               {
-                validId === null ? "UMID.png" :
-                validId.imageName === "" ? "none" 
+                validId === null ? "none":
+                validId.imageName === "" ? <span style={{ color: 'red' }}>none</span> 
                 : SliceIMageName(validId.imageName)
               }
             </div>
@@ -61,8 +61,8 @@ const RequiredDocumentsComponent = ({
             <div className="re-close">[x]</div>
             <div className={`requirement-file ${MakeRed(employeeCert)}`}>
               {
-                employeeCert === null ? "Employee Cert.png" :
-                employeeCert.imageName === "" ? "none" 
+                employeeCert === null ? "none" :
+                employeeCert.imageName === "" ? <span style={{ color: 'red' }}>none</span> 
                 : SliceIMageName(employeeCert.imageName)
                 }
               </div>
@@ -89,8 +89,8 @@ const RequiredDocumentsComponent = ({
             <div className="re-close">[x]</div>
             <div className={`requirement-file ${MakeRed(paySlip)}`}>
               {
-                paySlip === null ? "Payslip.png" :
-                paySlip.imageName === "" ? "none" 
+                paySlip === null ? "none":
+                paySlip.imageName === "" ? <span style={{ color: 'red' }}>none</span>
                 : SliceIMageName(paySlip.imageName)
               }
             </div>
