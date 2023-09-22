@@ -11,7 +11,7 @@ const apiKey = "W1@KLDMWLk@ek$lkj";
 const MakeDigest = (payloadString) => {
 
   const digest = sha512(payloadString + apiKey);
-  console.log('digest', digest, "type", typeof(digest));
+  // console.log('digest', digest, "type", typeof(digest));
 
   return digest;
 }
@@ -43,30 +43,34 @@ const MakeDigest = (payloadString) => {
 // };
 
 const GetLoanDetails = async (ckycID) => {
-  console.log(ckycID);
+  // console.log(ckycID);
     const payloadString = JSON.stringify(ckycID);
 
     const ckyc_id = ckycID.ckyc_id;
-
+  
     console.log('ckyc_id:', ckyc_id , 'payload:', payloadString);
   
     const digest = MakeDigest(payloadString);
   
-    const url = `${baseURL}/transactions/get/customer/loans`;
+    const url = `${baseURL}transactions/get/customer/loans`;
 
     try {
   
       const response = await HatchITAxiosInstance.get(url,
         {
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json'
+          },
           params: {
             ckyc_id: ckyc_id,
             digest: digest
           }
+
         }
       )
-      
+      console.log(response);
       return response;
-  
     } catch (error) {
       console.log('error', error);
       return error;

@@ -30,8 +30,8 @@ const VehicleRequirementComponent = ({
             <div className="re-close">[x]</div>
             <div className={`requirement-file ${MakeRed(orDoc)}`}>
               {
-                orDoc == null ? "OR/CR Docx.png" :
-                orDoc.imageName === "" ? "none" 
+                orDoc == null ? "none":
+                orDoc.imageName === "" ? <span style={{ color: 'red' }}>none</span>
                 : SliceIMageName(orDoc.imageName)
               }
             </div>
@@ -58,8 +58,8 @@ const VehicleRequirementComponent = ({
             <div className="re-close">[x]</div>
             <div className={`requirement-file ${MakeRed(stencils)}`}>
               {
-                stencils == null ? "Engine Stencils.png" :
-                stencils.imageName === "" ? "none" 
+                stencils == null ? "none" :
+                stencils.imageName === "" ? <span style={{ color: 'red' }}>none</span>
                 : SliceIMageName(stencils.imageName)
               }
             </div>
@@ -86,8 +86,8 @@ const VehicleRequirementComponent = ({
             <div className="re-close">[x]</div>
             <div className={`requirement-file ${MakeRed(carInsurance)}`}>
               {
-                carInsurance == null ? "Docxs123.png" :
-              carInsurance.imageName === "" ? "none" 
+                carInsurance == null ? "none" :
+              carInsurance.imageName === "" ? <span style={{ color: 'red' }}>none</span>
               : SliceIMageName(carInsurance.imageName)}
             </div>
           </div>
@@ -113,8 +113,8 @@ const VehicleRequirementComponent = ({
             <div className="re-close">[x]</div>
             <div className={`requirement-file ${MakeRed(front)}`}>
               {
-                front == null ? "front.png":
-                front.imageName === "" ? "none" 
+                front == null ? "none":
+                front.imageName === "" ? <span style={{ color: 'red' }}>none</span>
                 : SliceIMageName(front.imageName)
                 }
               </div>
@@ -141,8 +141,8 @@ const VehicleRequirementComponent = ({
             <div className="re-close">[x]</div>
             <div className={`requirement-file ${MakeRed(back)}`}>
               {
-                back == null ? "back.png" :
-                back.imageName === "" ? "none" 
+                back == null ? "none":
+                back.imageName === "" ? <span style={{ color: 'red' }}>none</span>
                 : SliceIMageName(back.imageName)
                 }
               </div>
@@ -169,8 +169,8 @@ const VehicleRequirementComponent = ({
             <div className="re-close">[x]</div>
             <div className={`requirement-file ${MakeRed(right)}`}>
               {
-                right == null ? "right.png" :
-                right.imageName === "" ? "none" 
+                right == null ? "none":
+                right.imageName === "" ? <span style={{ color: 'red' }}>none</span>
                 : SliceIMageName(right.imageName)
               }
             </div>
@@ -197,8 +197,8 @@ const VehicleRequirementComponent = ({
             <div className="re-close">[x]</div>
             <div className={`requirement-file ${MakeRed(left)}`}>
               {
-                left == null ? "left.png" :
-                left.imageName === "" ? "none" 
+                left == null ? "none":
+                left.imageName === "" ? <span style={{ color: 'red' }}>none</span> 
                 : SliceIMageName(left.imageName)
               }
             </div>

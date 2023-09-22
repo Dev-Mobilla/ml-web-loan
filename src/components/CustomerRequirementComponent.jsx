@@ -13,7 +13,7 @@ import {
   RequiredDocumentsComponent,
   SuccessModal,
 } from "./index";
-import {CheckSessionStorage, GetSessionDocument } from "../utils/DataFunctions";
+import { CheckSessionStorage, GetSessionDocument } from "../utils/DataFunctions";
 
 const CustomerRequirementComponent = () => {
   // const navigate = useNavigate();
@@ -34,70 +34,11 @@ const CustomerRequirementComponent = () => {
   const [paySlipUploaded, setPaySlipUploaded] = useState(false);
   const [mayorCertificateUploaded, setMayorCertificateUploaded] = useState(false);
   const [bankStatementUploaded, setBankStatementUploaded] = useState(false);
-  const [mayorCertificateRequired, setMayorCertificateRequired] = useState(true); 
-  const [bankStatementRequired, setBankStatementRequired] = useState(true);
+  const [mayorCertificateRequired, setMayorCertificateRequired] = useState(false);
+  const [bankStatementRequired, setBankStatementRequired] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(false);
   const [optionValue, setOptionValue] = useState("");
-
-  // const { secondStepDetails } = location.state || {};
-
-  // const thirdStepDetails = {
-  //   secondStepDetails: secondStepDetails,
-  // };
-
-  // localStorage.setItem("SecondStepDetails", JSON.stringify(thirdStepDetails));
-
-    // Check if all required images are uploaded
-    useEffect(() => {
-      let isAllImagesUploaded = false;
-  
-      if (optionValue === "Self-Employed") {
-        isAllImagesUploaded =
-          orginalORCRUploaded &&
-          stencilsUploaded &&
-          carInsuranceUploaded &&
-          frontSideUploaded &&
-          backSideUploaded &&
-          leftSideUploaded &&
-          rightSideUploaded &&
-          validIdUploaded &&
-          mayorCertificateUploaded &&
-          bankStatementUploaded
-      } else if (optionValue === "Employed") {
-        isAllImagesUploaded =
-          orginalORCRUploaded &&
-          stencilsUploaded &&
-          carInsuranceUploaded &&
-          frontSideUploaded &&
-          backSideUploaded &&
-          leftSideUploaded &&
-          rightSideUploaded &&
-          validIdUploaded &&
-          employeeCertificateUploaded &&
-          paySlipUploaded;
-      }
-    
-      setIsSubmitButtonDisabled(!isAllImagesUploaded);
-    }, [
-      orginalORCRUploaded,
-      stencilsUploaded,
-      carInsuranceUploaded,
-      frontSideUploaded,
-      backSideUploaded,
-      leftSideUploaded,
-      rightSideUploaded,
-      validIdUploaded,
-      employeeCertificateUploaded,
-      paySlipUploaded,
-      mayorCertificateUploaded,
-      bankStatementUploaded,
-      optionValue,
-      mayorCertificateRequired,
-      bankStatementRequired,
-    ]);
-
-  // useEffect(() => {
-  //   checkAllImagesUploaded();
-  // }, []);
+  let Keys = [];
 
   const OnImageSubmitHandler = (imageName, documentName, url) => {
 
@@ -106,36 +47,57 @@ const CustomerRequirementComponent = () => {
     sessionStorage.setItem([modalTitle], JSON.stringify(imageItem));
     if (documentName === "Orginal OR/CR") {
       setOrginalORCRUploaded(true);
-    } else if (documentName === "Set stencils") {
+    } if (documentName === "Set stencils") {
       setSetStencilsUploaded(true);
-    } else if (documentName === "Car Insurance") {
+    } if (documentName === "Car Insurance") {
       setCarInsuranceUploaded(true);
-    } else if (documentName === "Front Side") {
+    } if (documentName === "Front Side") {
       setFrontSideUploaded(true);
-    } else if (documentName === "Back Side") {
+    } if (documentName === "Back Side") {
       setBackSideUploaded(true);
-    } else if (documentName === "Right Side") {
+    } if (documentName === "Right Side") {
       setRightSideUploaded(true);
-    } else if (documentName === "Left Side") {
+    } if (documentName === "Left Side") {
       setLeftSideUploaded(true);
-    } else if (documentName === "Valid ID") {
+    } if (documentName === "Valid ID") {
       setValidIdUploaded(true);
-    } else if (documentName === "Employee Certificate") {
-      setEmployeeCertificateUploaded(true);
-    } else if (documentName === "Payslip/ITR") {
+    } if (documentName === "Employee Certificate" || documentName === "Payslip/ITR") {
+      setEmployeeCertificateUploaded(false);
       setPaySlipUploaded(true);
-    }
-      else if (documentName === "Mayor's Certificate") {
-      setMayorCertificateUploaded(true);
-    } else if (documentName === "Bank Statement") {
+    } if (documentName === "Bank Statement" || documentName === "Mayor's Certificate") {
       setBankStatementUploaded(true);
+      setMayorCertificateUploaded(true);
     }
+    for (let key of Keys) {
+      const value = sessionStorage.getItem(key);
+      try {
+        console.log("value is: ", value);
+      } catch (error) {
+      }
+    }
+    //   if (value == null) {
+    //     console.log("YOu have trues");
+    //     setIsDisabled(true);
+    //   } else {
+    //     const sessionObj = JSON.parse(value);
+    //     if (sessionObj && sessionObj.url === "") {
+    //       console.log("YOu have true");
+    //       setIsDisabled(true);
+    //       break;
+    //     } else {
+    //       setIsDisabled(false);
+    //       console.log("YOu have false");
+    //     }
+    //   }
+    // } catch (error) {
+    //   console.log("ERROR: ", error);
+    // }
+
   };
-
-  const OnSubmitRequirementsHandler = () => {
-    console.log('requirements');
-
-        const isAllImagesUploaded =
+  useEffect(() => {
+    let isAllImagesUploaded = false;
+    if (optionValue === "Self-Employed") {
+      isAllImagesUploaded =
         orginalORCRUploaded &&
         stencilsUploaded &&
         carInsuranceUploaded &&
@@ -144,31 +106,101 @@ const CustomerRequirementComponent = () => {
         leftSideUploaded &&
         rightSideUploaded &&
         validIdUploaded &&
-        (employeeCertificateUploaded || !mayorCertificateRequired) &&
-        (paySlipUploaded || !bankStatementRequired) &&
-        (mayorCertificateUploaded || !employeeCertificateUploaded) &&
-        (bankStatementUploaded || !paySlipUploaded);
-
-      if (isAllImagesUploaded) {
-        console.log("Successfully submitted"); // Display success modal
-      } else {
-        console.log("Fail"); // Handle submission failure
+        mayorCertificateUploaded &&
+        bankStatementUploaded;
+      Keys = ["Valid ID", "Mayor’s Certificate", "Bank Statement"];
+    }
+    if (optionValue === "Employed") {
+      isAllImagesUploaded =
+        orginalORCRUploaded &&
+        stencilsUploaded &&
+        carInsuranceUploaded &&
+        frontSideUploaded &&
+        backSideUploaded &&
+        leftSideUploaded &&
+        rightSideUploaded &&
+        validIdUploaded &&
+        employeeCertificateUploaded &&
+        paySlipUploaded;
+      Keys = ["Valid ID", "Employee Certificate", "Payslip/ITR"];
+    }
+    try {
+      for (let key of Keys) {
+        const value = sessionStorage.getItem(key);
+        if (value == null) {
+          console.log("YOu have trues");
+          setIsDisabled(true);
+        } else {
+          const sessionObj = JSON.parse(value);
+          if (sessionObj && sessionObj.url === "") {
+            console.log("YOu have true");
+            setIsDisabled(true);
+            break;
+          } else {
+            setIsDisabled(false);
+            console.log("YOu have false");
+          }
+        }
       }
+    } catch (error) {
+      console.log("ERROR: ", error);
+    }
+    setIsSubmitButtonDisabled(isDisabled);
+  }, [
+    orginalORCRUploaded,
+    stencilsUploaded,
+    carInsuranceUploaded,
+    frontSideUploaded,
+    backSideUploaded,
+    leftSideUploaded,
+    rightSideUploaded,
+    validIdUploaded,
+    employeeCertificateUploaded,
+    paySlipUploaded,
+    mayorCertificateUploaded,
+    bankStatementUploaded,
+    optionValue,
+    mayorCertificateRequired,
+    bankStatementRequired,
+    isDisabled,
+    isSubmitButtonDisabled,
+  ]);
+
+
+  const OnSubmitRequirementsHandler = () => {
+
+    const isAllImagesUploaded =
+      orginalORCRUploaded &&
+      stencilsUploaded &&
+      carInsuranceUploaded &&
+      frontSideUploaded &&
+      backSideUploaded &&
+      leftSideUploaded &&
+      rightSideUploaded &&
+      validIdUploaded;
+
+    if (isAllImagesUploaded) {
+      console.log("Successfully submitted"); // Display success modal
+    } else {
+      console.log("Fail"); // Handle submission failure
+    }
   }
+
   const OnOptionChange = (optionVal) => {
     setOptionValue(optionVal);
     if (optionVal === "Self-Employed") {
       setMayorCertificateRequired(true);
       setBankStatementRequired(true);
-    } else if (optionVal === "Employed") {
-      setMayorCertificateRequired(false);
-      setBankStatementRequired(false);
+    }
+    if (optionVal === "Employed") {
+      setPaySlipUploaded(true);
+      setEmployeeCertificateUploaded(true);
     }
   }
 
   const buttonClassName = isSubmitButtonDisabled ? "btn-disabled" : "btn-enabled";
   return (
-    
+
     <div className="customer-requirement">
       <div className="requirement-container">
         <TopbarComponent />
@@ -180,7 +212,7 @@ const CustomerRequirementComponent = () => {
               title="Vehicle Documents"
               styles="custom-card-title"
             />
-            <VehicleRequirementComponent 
+            <VehicleRequirementComponent
               session={GetSessionDocument("Orginal OR/CR")}
               orDoc={GetSessionDocument("Orginal OR/CR")}
               stencils={GetSessionDocument("Set stencils")}
@@ -192,30 +224,31 @@ const CustomerRequirementComponent = () => {
             />
           </div>
 
-          <RequiredDocumentsComponent 
+          <RequiredDocumentsComponent
             OnOptionChange={OnOptionChange}
             validId={GetSessionDocument("Valid ID")}
             employeeCert={GetSessionDocument("Employee Certificate")}
             paySlip={GetSessionDocument("Payslip/ITR")}
             mayorCert={GetSessionDocument("Mayor’s Certificate")}
             bankStatement={GetSessionDocument("Bank Statement")}
-            // validId={validId}
-            // employeeCert={employeeCert}
-            // paySlip={paySlip}
-            // mayorCert={mayorCert}
-            // bankStatement={bankStatement}
+          // validId={validId}
+          // employeeCert={employeeCert}
+          // paySlip={paySlip}
+          // mayorCert={mayorCert}
+          // bankStatement={bankStatement}
           />
 
           <div
             className="apply-btn"
-            // onClick={() => {
-            //   setshowModal(true);
-            // }}
+          // onClick={() => {
+          //   setshowModal(true);
+          // }}
           >
             <CustomButton
               btnType="submit"
               name="Submit"
               styles={buttonClassName}
+              disabled={isSubmitButtonDisabled}
               EventHandler={OnSubmitRequirementsHandler}
             ></CustomButton>
           </div>
@@ -236,6 +269,12 @@ const CustomerRequirementComponent = () => {
         modalDefaultGuideImage={modalDefaultGuideImage}
         OnImageSubmitHandler={OnImageSubmitHandler}
       />
+      {/* {showAlert && (<CustomAlert
+        title={alertProps.title}
+        text={alertProps.text}
+        isError={alertProps.isError}
+        onClose={() => setShowAlert(false)}
+      />)} */}
     </div>
   );
 };
