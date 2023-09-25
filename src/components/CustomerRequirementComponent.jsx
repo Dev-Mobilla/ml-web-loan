@@ -12,6 +12,7 @@ import {
   VehicleRequirementComponent,
   RequiredDocumentsComponent,
   SuccessModal,
+  CustomAlert
 } from "./index";
 import { CheckSessionStorage, GetSessionDocument } from "../utils/DataFunctions";
 
@@ -21,6 +22,8 @@ const CustomerRequirementComponent = () => {
   const { modalOpen, modalTitle, modalDefaultGuideImage, closeModal } =
     useModal();
   const [showModal, setshowModal] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertProps, setAlertProps] = useState(null);
   const [isSubmitButtonDisabled, setIsSubmitButtonDisabled] = useState(false);
   const [orginalORCRUploaded, setOrginalORCRUploaded] = useState(false);
   const [stencilsUploaded, setSetStencilsUploaded] = useState(false);
@@ -68,31 +71,6 @@ const CustomerRequirementComponent = () => {
       setBankStatementUploaded(true);
       setMayorCertificateUploaded(true);
     }
-    for (let key of Keys) {
-      const value = sessionStorage.getItem(key);
-      try {
-        console.log("value is: ", value);
-      } catch (error) {
-      }
-    }
-    //   if (value == null) {
-    //     console.log("YOu have trues");
-    //     setIsDisabled(true);
-    //   } else {
-    //     const sessionObj = JSON.parse(value);
-    //     if (sessionObj && sessionObj.url === "") {
-    //       console.log("YOu have true");
-    //       setIsDisabled(true);
-    //       break;
-    //     } else {
-    //       setIsDisabled(false);
-    //       console.log("YOu have false");
-    //     }
-    //   }
-    // } catch (error) {
-    //   console.log("ERROR: ", error);
-    // }
-
   };
   useEffect(() => {
     let isAllImagesUploaded = false;
@@ -124,27 +102,7 @@ const CustomerRequirementComponent = () => {
         paySlipUploaded;
       Keys = ["Valid ID", "Employee Certificate", "Payslip/ITR"];
     }
-    try {
-      for (let key of Keys) {
-        const value = sessionStorage.getItem(key);
-        if (value == null) {
-          console.log("YOu have trues");
-          setIsDisabled(true);
-        } else {
-          const sessionObj = JSON.parse(value);
-          if (sessionObj && sessionObj.url === "") {
-            console.log("YOu have true");
-            setIsDisabled(true);
-            break;
-          } else {
-            setIsDisabled(false);
-            console.log("YOu have false");
-          }
-        }
-      }
-    } catch (error) {
-      console.log("ERROR: ", error);
-    }
+    isDIsabledSubmitButton(Keys);
     setIsSubmitButtonDisabled(isDisabled);
   }, [
     orginalORCRUploaded,
@@ -166,6 +124,26 @@ const CustomerRequirementComponent = () => {
     isSubmitButtonDisabled,
   ]);
 
+  const isDIsabledSubmitButton = (Keys) => {
+    try {
+      for (let key of Keys) {
+        const value = sessionStorage.getItem(key);
+        if (value == null) {
+          setIsDisabled(true);
+        } else {
+          const sessionObj = JSON.parse(value);
+          if (sessionObj && sessionObj.url === "") {
+            setIsDisabled(true);
+            break;
+          } else {
+            setIsDisabled(false);
+          }
+        }
+      }
+    } catch (error) {
+      setIsDisabled(true);
+    }
+  }
 
   const OnSubmitRequirementsHandler = () => {
 
@@ -180,9 +158,15 @@ const CustomerRequirementComponent = () => {
       validIdUploaded;
 
     if (isAllImagesUploaded) {
-      console.log("Successfully submitted"); // Display success modal
+
     } else {
-      console.log("Fail"); // Handle submission failure
+      const props = {
+        title: "Requirements",
+        text: "Please put the Required Documents",
+        isError: true,
+      };
+      setAlertProps(props);
+      setShowAlert(true);
     }
   }
 
@@ -255,13 +239,12 @@ const CustomerRequirementComponent = () => {
         </div>
       </div>
       {showModal && <SuccessModal hideModal={setshowModal} />}
-      {/* <AddPhotoModal
-        isOpen={modalOpen}
-        onClose={closeModal}
-        modalTitle={modalTitle}
-        modalDefaultGuideImage={modalDefaultGuideImage}
-
-      /> */}
+      {showAlert && <CustomAlert
+        title={alertProps.title}
+        text={alertProps.text}
+        isError={alertProps.isError}
+        onClose={() => setShowAlert(false)}
+      />}
       <AddPhotoModal
         isOpen={modalOpen}
         onClose={closeModal}
@@ -269,12 +252,6 @@ const CustomerRequirementComponent = () => {
         modalDefaultGuideImage={modalDefaultGuideImage}
         OnImageSubmitHandler={OnImageSubmitHandler}
       />
-      {/* {showAlert && (<CustomAlert
-        title={alertProps.title}
-        text={alertProps.text}
-        isError={alertProps.isError}
-        onClose={() => setShowAlert(false)}
-      />)} */}
     </div>
   );
 };

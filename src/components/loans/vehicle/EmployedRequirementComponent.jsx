@@ -3,6 +3,7 @@ import "../../../styles/requirements.css";
 import { useModal } from "../../../utils/modalContext";
 import { SliceIMageName } from "../../../utils/SliceImageName";
 import {MakeRed} from "../../../utils/DataFunctions";
+import  file  from "../../../assets/images/file.png";
 
 const RequiredDocumentsComponent = ({  
   validId,
@@ -18,7 +19,7 @@ const RequiredDocumentsComponent = ({
         onClick={() =>
           openModal(
             "Valid ID",
-            "https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64f13348e9f50c7315603815/img/addphotosample@2x.png"
+            file
           )
         }
       >
@@ -46,7 +47,7 @@ const RequiredDocumentsComponent = ({
         onClick={() =>
           openModal(
             "Employee Certificate",
-            "https://www.printablesample.com/wp-content/uploads/2017/01/Sample_Certificate_of_Employment-1.jpg"
+            file
           )
         }
       >
@@ -74,7 +75,7 @@ const RequiredDocumentsComponent = ({
         onClick={() =>
           openModal(
             "Payslip/ITR",
-            "https://lvsbooks.com/wp-content/uploads/2019/09/Pay-Slip-With-Deduction.png"
+            file
           )
         }
       >
