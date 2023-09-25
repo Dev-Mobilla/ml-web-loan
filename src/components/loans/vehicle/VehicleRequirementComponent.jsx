@@ -2,6 +2,7 @@ import React, {useEffect} from "react";
 import { useModal } from "../../../utils/modalContext";
 import {SliceIMageName} from "../../../utils/SliceImageName";
 import {MakeRed} from "../../../utils/DataFunctions";
+import  file  from "../../../assets/images/file.png";
 
 const VehicleRequirementComponent = ({ 
   orDoc, stencils, carInsurance, front, back, right, left, session
@@ -15,7 +16,7 @@ const VehicleRequirementComponent = ({
         onClick={() =>
           openModal(
             "Orginal OR/CR",
-            "https://www.autodeal.com.ph/custom/blog-post/header/lost-your-cars-certificate-of-registration-61d28c1d4000f.jpg"
+            file
           )
         }
       >
@@ -43,7 +44,7 @@ const VehicleRequirementComponent = ({
         onClick={() =>
           openModal(
             "Set stencils",
-            "https://www.stencilsplus.com/wp-content/uploads/2018/03/ev-car.jpg"
+            file
           )
         }
       >
@@ -71,7 +72,7 @@ const VehicleRequirementComponent = ({
         onClick={() =>
           openModal(
             "Car Insurance",
-            "https://hourcar.org/wp-content/uploads/2023/06/2023-HOURCAR-Insurance-Card.png"
+            file
           )
         }
       >
@@ -98,7 +99,7 @@ const VehicleRequirementComponent = ({
         onClick={() =>
           openModal(
             "Front Side",
-            "https://static.vecteezy.com/system/resources/thumbnails/007/139/812/small_2x/front-car-icon-free-vector.jpg"
+            file
           )
         }
       >
@@ -126,7 +127,7 @@ const VehicleRequirementComponent = ({
         onClick={() =>
           openModal(
             "Back Side",
-            "https://i.pinimg.com/564x/12/65/75/126575a30fc169706c19c266717368f8.jpg"
+            file
           )
         }
       >
@@ -154,7 +155,7 @@ const VehicleRequirementComponent = ({
         onClick={() =>
           openModal(
             "Right Side",
-            "https://i.fbcd.co/products/original/6-c157ca48091d62411d273112fdd651905efbc710b3a8c545fe85109bdd928064.jpg"
+            file
           )
         }
       >
@@ -182,7 +183,7 @@ const VehicleRequirementComponent = ({
         onClick={() =>
           openModal(
             "Left Side",
-            "https://media.istockphoto.com/id/1070869644/vector/car-symbol-icon-black-2d-isolated-vector.jpg?s=612x612&w=0&k=20&c=1Czm2uVbvR-rs9JTrM5b5eu9g3WJdmAE4dXMYsL6BsM="
+            file
           )
         }
       >

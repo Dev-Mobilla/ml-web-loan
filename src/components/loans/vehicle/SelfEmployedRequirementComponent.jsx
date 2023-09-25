@@ -3,6 +3,8 @@ import "../../../styles/requirements.css";
 import { useModal } from "../../../utils/modalContext";
 import {SliceIMageName} from "../../../utils/SliceImageName";
 import { MakeRed } from "../../../utils/DataFunctions";
+import  file  from "../../../assets/images/file.png";
+
 const SelfEmplyoedRequirementComponent = ({
   validId, mayorCert, bankStatement
 }) => {
@@ -15,7 +17,7 @@ const SelfEmplyoedRequirementComponent = ({
         onClick={() =>
           openModal(
             "Valid ID",
-            "https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64f13348e9f50c7315603815/img/addphotosample@2x.png"
+            file
           )
         }
       >
@@ -43,8 +45,7 @@ const SelfEmplyoedRequirementComponent = ({
         onClick={() =>
           openModal(
             "Mayor’s Certificate",
-            "https://3.bp.blogspot.com/-LkdpIpi2_M8/WI6xAD47rTI/AAAAAAAAVy8/8Uli_Jcra-MbexsrSvUNc1VXJgMEVpowwCLcB/s1600/img445.jpg"
-
+            file
           )
         }
       >
@@ -72,7 +73,7 @@ const SelfEmplyoedRequirementComponent = ({
         onClick={() =>
           openModal(
             "Bank Statement",
-            "https://images.sampletemplates.com/wp-content/uploads/2015/04/20132912/Sample-Bank-Statement-Template.jpg"
+            file
           )
         }
       >
