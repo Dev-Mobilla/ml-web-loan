@@ -7,67 +7,54 @@ const apiKey = "W1@KLDMWLk@ek$lkj";
 const MakeDigest = (payloadString) => {
   const digest = sha512(payloadString + apiKey);
 
-  return digest
-}
+  return digest;
+};
 
 const GetLoanDetails = async (ckycID) => {
   // console.log(ckycID);
-    const payloadString = JSON.stringify(ckycID);
+  const payloadString = JSON.stringify(ckycID);
+  const ckyc_id = ckycID.ckyc_id;
 
-    const ckyc_id = ckycID.ckyc_id;
-  
-    console.log('ckyc_id:', ckyc_id , 'payload:', payloadString);
-  
-    const digest = MakeDigest(payloadString);
-  
-    const url = `${baseURL}transactions/get/customer/loans`;
+  console.log("ckyc_id:", ckyc_id, "payload:", payloadString);
 
-    try {
-  
-      const response = await HatchITAxiosInstance.get(url,
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json'
-          },
-          params: {
-            ckyc_id: ckyc_id,
-            digest: digest
-          }
+  const digest = MakeDigest(payloadString);
 
-        }
-      )
-      console.log(response);
-      return response;
-    } catch (error) {
-      console.log('error', error);
-      return error;
-    }
-  
-  };
-
+  const url = `${baseURL}transactions/get/customer/loans`;
+  try {
+    const response = await HatchITAxiosInstance.get(url, {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      params: {
+        ckyc_id: ckyc_id,
+        digest: digest,
+      },
+    });
+    console.log(response);
+    return response;
+  } catch (error) {
+    console.log("error", error);
+    return error;
+  }
+};
 
 const generateHeaders = (payloadString) => {
   const apiKey = process.env.REACT_APP_API_KEY;
   const digest = sha512(payloadString + apiKey).toString();
-
   const headers = {
     "Content-Type": "application/json",
     Authorization: apiKey,
   };
-
   return { headers, digest };
 };
-
 const makeGetRequest = async (url, params, payloadString) => {
   const { headers, digest } = generateHeaders(payloadString);
-
   try {
     const response = await HatchITAxiosInstance.get(url, {
       headers,
       params: { ...params, digest },
     });
-
     return response.data;
   } catch (error) {
     if (error.response) {
@@ -84,7 +71,8 @@ const makeGetRequest = async (url, params, payloadString) => {
 };
 
 const GetPaymentSchedule = async (reference) => {
-  const apiUrl = `${baseURL}/loan_schedules/get/schedule`;
+  const baseUrl = process.env.REACT_APP_HATCHIT_BASE_URL;
+  const apiUrl = `${baseUrl}/loan_schedules/get/schedule`;
 
   const payload = {
     reference: reference,
@@ -95,11 +83,13 @@ const GetPaymentSchedule = async (reference) => {
 };
 
 const GetCollateralDetails = async (reference) => {
-  const apiUrl = `${baseURL}/loan_type_item_field_values/get/customer/loans/collateral`;
+  const baseUrl = process.env.REACT_APP_HATCHIT_BASE_URL;
+  const apiUrl = `${baseUrl}/loan_type_item_field_values/get/customer/loans/collateral`;
 
   const payload = {
     reference: reference,
   };
+
   const payloadString = JSON.stringify(payload);
 
   return makeGetRequest(apiUrl, { reference }, payloadString);
