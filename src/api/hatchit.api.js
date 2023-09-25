@@ -11,8 +11,8 @@ const MakeDigest = (payloadString) => {
   console.log("digest", payloadString + "|" + apiKey);
   console.log("digest", digest);
 
-  return digest
-}
+  return digest;
+};
 
 const GetLoans =  async (ckycID) => {
 
@@ -20,7 +20,7 @@ const GetLoans =  async (ckycID) => {
 
   const ckyc_id = ckycID.ckyc_id;
 
-  const digest = MakeDigest(payloadString);
+  const digest = MakeDigest(payloadString.toString());
 
   const url = `https://loandev.mlhuillier.com/loans_api/v1/transactions/get/customer/loans?ckyc_id=${ckyc_id}&digest=${digest}`;
 
@@ -31,9 +31,8 @@ const GetLoans =  async (ckycID) => {
 
 const GetLoanDetails = async (ckycID) => {
   // console.log(ckycID);
-    const payloadString = JSON.stringify(ckycID);
-
-    const ckyc_id = ckycID.ckyc_id;
+  const payloadString = JSON.stringify(ckycID);
+  const ckyc_id = ckycID.ckyc_id;
   
     const digest = MakeDigest(payloadString);
   
@@ -57,31 +56,25 @@ const GetLoanDetails = async (ckycID) => {
       console.log('error', error);
       return error;
     }
-  
-  };
-
+}
 
 const generateHeaders = (payloadString) => {
   const apiKey = process.env.REACT_APP_API_KEY;
   const digest = sha512(payloadString + apiKey).toString();
-
   const headers = {
     "Content-Type": "application/json",
     Authorization: apiKey,
   };
-
   return { headers, digest };
 };
 
 // const makeGetRequest = async (url, params, payloadString) => {
 //   const { headers, digest } = generateHeaders(payloadString);
-
 //   try {
 //     const response = await HatchITAxiosInstance.get(url, {
 //       headers,
 //       params: { ...params, digest },
 //     });
-
 //     return response.data;
 //   } catch (error) {
 //     if (error.response) {
@@ -98,7 +91,8 @@ const generateHeaders = (payloadString) => {
 // };
 
 const GetPaymentSchedule = async (reference) => {
-  const apiUrl = `${baseURL}/loan_schedules/get/schedule`;
+  const baseUrl = process.env.REACT_APP_HATCHIT_BASE_URL;
+  const apiUrl = `${baseUrl}/loan_schedules/get/schedule`;
 
   const payload = {
     reference: reference,
@@ -109,11 +103,13 @@ const GetPaymentSchedule = async (reference) => {
 };
 
 const GetCollateralDetails = async (reference) => {
-  const apiUrl = `${baseURL}/loan_type_item_field_values/get/customer/loans/collateral`;
+  const baseUrl = process.env.REACT_APP_HATCHIT_BASE_URL;
+  const apiUrl = `${baseUrl}/loan_type_item_field_values/get/customer/loans/collateral`;
 
   const payload = {
     reference: reference,
   };
+
   const payloadString = JSON.stringify(payload);
 
   // return makeGetRequest(apiUrl, { reference }, payloadString);

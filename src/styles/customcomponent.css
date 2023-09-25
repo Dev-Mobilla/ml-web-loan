@@ -229,7 +229,18 @@
 #text-alert {
   margin: 20px;
 }
-
+#logout-button{
+    background-color: var(--red);
+    color: white;
+    border: none;
+    border-radius: var(--radius);
+    padding: 5px 10px;
+    position: absolute;
+    right: 30px;
+    width: 100px;
+    height: 30px;
+    cursor: pointer;
+}
 #Ok-btn {
   width: 100px;
   display: flex;
