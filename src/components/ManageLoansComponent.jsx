@@ -11,7 +11,7 @@ import {
 } from "./index";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Loans } from "../utils/ManageLoansMockData";
-import {GetLoanDetails} from "../api/hatchit.api";
+import {GetLoans} from "../api/hatchit.api";
 
 const ManageLoanComponent = () => {
   const Location = useLocation();
@@ -30,7 +30,7 @@ const ManageLoanComponent = () => {
 
   useEffect(() => {
 
-    GetLoans();
+    GetLoansDetails();
 
     !modal ? IsInputError("", ""): IsInputError(inputErrorMsg, inputErrorStyle);
     
@@ -41,8 +41,8 @@ const ManageLoanComponent = () => {
     };
   }, [modal]);
   
-  const GetLoans = async () => {
-    const res = await GetLoanDetails({ckyc_id: "X220600001592K1"});
+  const GetLoansDetails = async () => {
+    const res = await GetLoans({ckyc_id: "X220600001592K1"});
     // console.log('res', res);
     
   }

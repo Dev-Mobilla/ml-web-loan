@@ -5,9 +5,10 @@ const SymphAxiosInstance = axios.create({
   baseURL: process.env.REACT_APP_SYMPH_BASE_URL,
 });
 
-const HatchITAxiosInstance = axios.create({
-  baseURL: process.env.REACT_APP_HATCHIT_BASE_URL,
-});
+// const HatchITAxiosInstance = axios.create({
+//   baseURL: process.env.REACT_APP_HATCHIT_BASE_URL,
+//   // withCredentials:true
+// });
 
 // SYMPH AXIOS INTERCEPTORS
 // Request interceptor
@@ -42,13 +43,12 @@ SymphAxiosInstance.interceptors.response.use(
 // HatchITAxiosInstance.interceptors.request.use(
 //     (config) => {
 
-//         // const apiKey = process.env.REACT_APP_HATCH_IT_API_KEY
-
-//         // if (apiKey) {
-//         //     if (config.headers){ 
-//         //         config.headers.Authorization = apiKey;
-//         //     }
-//         // }
+//         config.headers.crossorigin = true;
+//         config.headers.Accept = "application/json";
+//         config.headers["Content-Type"] = "application/json";
+//         config.headers["Access-Control-Allow-Origin"] = "*";
+//         // config.withCredentials = true;
+//         config.headers["crossorigin"] = true;
 //         return config;
 //     },
 //     (error) => {
@@ -56,9 +56,10 @@ SymphAxiosInstance.interceptors.response.use(
 //     }
 // )
 
-// // Response interceptor
+// Response interceptor
 // HatchITAxiosInstance.interceptors.response.use(
 //     (response) => {
+//       response.headers.crossorigin = true
 //         return response;
 //     },
 //     (error) => {
@@ -66,4 +67,4 @@ SymphAxiosInstance.interceptors.response.use(
 //     }
 // )
 
-export { SymphAxiosInstance, HatchITAxiosInstance };
+export { SymphAxiosInstance };
