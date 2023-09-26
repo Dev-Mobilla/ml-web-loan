@@ -16,6 +16,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { GetLoansDetails } from "../../../api/api";
 import { GetCollateralDetails } from "../../../api/hatchit.api";
 import { Threshold, Paynow } from "../../../api/symph.api";
+import { Threshold, getServiceFee } from "../../../api/symph.api";
 
 const ManageLoansDetailsComponent = () => {
 
@@ -86,6 +87,17 @@ const ManageLoansDetailsComponent = () => {
     //   });
     LoanDetailsHandler();
   }, []);
+
+  useEffect(() => {
+    const fetchServiceFee = async() => {
+       let amountfee = 100000;
+       const loanServiceFee = await getServiceFee(amountfee);
+       console.log("Service Fee:", loanServiceFee);
+    }
+    fetchServiceFee();
+
+  }, []);
+
   const OnModalCloseHandler = () => {
     setAlertModal(false);
     navigate("/manage-loans");
