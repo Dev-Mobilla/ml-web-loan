@@ -5,10 +5,10 @@ const SymphAxiosInstance = axios.create({
   baseURL: process.env.REACT_APP_SYMPH_BASE_URL,
 });
 
-// const HatchITAxiosInstance = axios.create({
-//   baseURL: process.env.REACT_APP_HATCHIT_BASE_URL,
-//   // withCredentials:true
-// });
+const HatchITAxiosInstance = axios.create({
+  baseURL: process.env.REACT_APP_HATCHIT_BASE_URL,
+  // withCredentials:true
+});
 
 // SYMPH AXIOS INTERCEPTORS
 // Request interceptor
@@ -67,4 +67,4 @@ SymphAxiosInstance.interceptors.response.use(
 //     }
 // )
 
-export { SymphAxiosInstance };
+export { SymphAxiosInstance, HatchITAxiosInstance };

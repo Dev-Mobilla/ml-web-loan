@@ -1,79 +1,21 @@
 import { sha512 } from "js-sha512";
-// import { HatchITAxiosInstance } from "../helper/axios";
-import axios from "axios";
-
-const baseURL = process.env.REACT_APP_HATCHIT_BASE_URL;
-const apiKey = "W1@KLDMWLk@ek$lkj";
+import { HatchITAxiosInstance } from "../helper/axios";
 
 const MakeDigest = (payloadString) => {
-  const digest = sha512(payloadString + "|" + apiKey);
+  const digest = sha512(payloadString + "|" + "W1@KLDMWLk@ek$lkj"	);
 
-  console.log("digest", payloadString + "|" + apiKey);
+  console.log("digest", payloadString + "|" + "W1@KLDMWLk@ek$lkj");
   console.log("digest", digest);
 
   return digest;
 };
 
-const GetLoans =  async (ckycID) => {
-
-  const payloadString = JSON.stringify(ckycID);
-
-  const ckyc_id = ckycID.ckyc_id;
-
-  const digest = MakeDigest(payloadString.toString());
-
-  const url = `https://loandev.mlhuillier.com/loans_api/v1/transactions/get/customer/loans?ckyc_id=${ckyc_id}&digest=${digest}`;
-
-  const response = await fetch(url);
-
-  console.log('response', response);
-}
-
-const GetLoanDetails = async (ckycID) => {
-  // console.log(ckycID);
-  const payloadString = JSON.stringify(ckycID);
-  const ckyc_id = ckycID.ckyc_id;
-  
-    const digest = MakeDigest(payloadString);
-  
-    const url = `https://loandev.mlhuillier.com/loans_api/v1/transactions/get/customer/loans`;
-
-    try {
-  
-      const response = await axios.get("https://loandev.mlhuillier.com/loans_api/v1/transactions/get/customer/loans",
-        {
-          responseType: "json",
-          params: {
-            ckyc_id,
-            digest
-          }
-
-        }
-      )
-      console.log('response', response);
-      return response;
-    } catch (error) {
-      console.log('error', error);
-      return error;
-    }
-}
-
-const generateHeaders = (payloadString) => {
-  const apiKey = process.env.REACT_APP_API_KEY;
-  const digest = sha512(payloadString + apiKey).toString();
-  const headers = {
-    "Content-Type": "application/json",
-    Authorization: apiKey,
-  };
-  return { headers, digest };
-};
-
 // const makeGetRequest = async (url, params, payloadString) => {
-//   const { headers, digest } = generateHeaders(payloadString);
+//   // const { headers, digest } = generateHeaders(payloadString);
 //   try {
 //     const response = await HatchITAxiosInstance.get(url, {
-//       headers,
-//       params: { ...params, digest },
+//       // headers,
+//       params: { ...params },
 //     });
 //     return response.data;
 //   } catch (error) {
@@ -88,6 +30,65 @@ const generateHeaders = (payloadString) => {
 //     }
 //     throw error;
 //   }
+// };
+
+const MakeGetRequest = async (url, params) => {
+    // const { headers, digest } = generateHeaders(payloadString);
+    try {
+      const response = await HatchITAxiosInstance.get(url, {
+        params: { ...params },
+        responseType: "json"
+      });
+      return response;
+    } catch (error) {
+      throw error;
+    }
+};
+
+const GetLoans =  async (ckycID) => {
+
+  const payloadString = JSON.stringify(ckycID);
+
+  const ckyc_id = ckycID.ckyc_id;
+
+  const digest = MakeDigest(payloadString.toString());
+
+  const endpoint = `/transactions/get/customer/loans`;
+
+  const params = {
+    ckyc_id,
+    digest
+  }
+
+  return MakeGetRequest(endpoint, params)
+  
+}
+
+const GetLoanDetails = async (referenceID) => {
+  // console.log(ckycID);
+  const payloadString = JSON.stringify(referenceID);
+  const reference = referenceID.reference;
+  
+    const digest = MakeDigest(payloadString);
+  
+    const endpoint = `/loan_schedules/get/customer/loans/details`;
+
+    const params = {
+      reference,
+      digest
+    }
+
+    return await MakeGetRequest(endpoint, params)
+}
+
+// const generateHeaders = (payloadString) => {
+//   const apiKey = process.env.REACT_APP_API_KEY;
+//   const digest = sha512(payloadString + apiKey).toString();
+//   const headers = {
+//     "Content-Type": "application/json",
+//     Authorization: apiKey,
+//   };
+//   return { headers, digest };
 // };
 
 const GetPaymentSchedule = async (reference) => {

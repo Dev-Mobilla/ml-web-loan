@@ -43,8 +43,8 @@ const ManageLoanComponent = () => {
   
   const GetLoansDetails = async () => {
     // const res = await GetLoans({ckyc_id: "X220600001592K1"});
-    const res = await GetLoanDetails({ckyc_id: "X220600001592K1"});
-    // console.log('res', res);
+    const res = await GetLoanDetails({reference: "MCREGSLPANO"});
+    console.log('res', res);
     
   }
 

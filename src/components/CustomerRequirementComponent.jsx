@@ -97,8 +97,8 @@ const CustomerRequirementComponent = () => {
   };
 
   const OnSubmitRequirementsHandler = () => {
+    console.log(location.state);
     if (sessionStorage.length !== 0 && location.state) {
-      // console.log(location.state);
       for (const key in sessionStorage) {
         if (Object.hasOwnProperty.call(sessionStorage, key)) {
           const element = sessionStorage[key];
