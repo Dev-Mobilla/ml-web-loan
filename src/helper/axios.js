@@ -19,7 +19,15 @@ SymphAxiosInstance.interceptors.request.use(
     );
 
     if (accessToken) {
-      if (config.headers) config.headers.Authorization = accessToken;
+      if (config.headers) 
+      {
+        config.headers.Authorization = accessToken;
+        config.headers.Accept = 'application/json';
+        config.headers["Content-Type"] = 'application/json';
+        config.headers["Access-Control-Allow-Origin"] = 'http://ml-loans-dev.mlhuillier.com:3000/';
+        config.headers["Access-Control-Request-Method"] = ['GET', 'POST', 'PATCH' , 'PUT']
+
+      } 
     }
     return config;
   },
@@ -31,6 +39,7 @@ SymphAxiosInstance.interceptors.request.use(
 // Response interceptor
 SymphAxiosInstance.interceptors.response.use(
   (response) => {
+    response.headers["Access-Control-Allow-Origin"] = process.env.REACT_APP_SYMPH_BASE_URL
     return response;
   },
   (error) => {
