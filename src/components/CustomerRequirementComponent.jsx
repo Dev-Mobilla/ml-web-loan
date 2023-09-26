@@ -41,13 +41,15 @@ const CustomerRequirementComponent = () => {
   
   useEffect(() => {
 
-    // setIsSubmitButtonDisabled(isSubmitButtonDisabled);
-    
-    const isCheckEmpty = !CheckRequiredDocuments() && !CheckVehicleDocuments(vehicleKeys) && sessionStorage.length !== 0;
+    setIsSubmitButtonDisabled(isSubmitButtonDisabled);
 
+    const storageLength = sessionStorage.length < 10;
+    
+    const isCheckEmpty = !CheckRequiredDocuments() && !CheckVehicleDocuments(vehicleKeys) && !storageLength;
+    console.log(storageLength);
     setIsSubmitButtonDisabled(!isCheckEmpty);
 
-  }, [ optionValue, isSubmitButtonDisabled ]);
+  }, [ optionValue, isSubmitButtonDisabled, sessionStorage]);
 
   const CheckRequiredDocuments = () => {
     let requiredItems = []
@@ -88,13 +90,15 @@ const CustomerRequirementComponent = () => {
     let imageItem = { imageName, url, documentName };
     sessionStorage.setItem([modalTitle], JSON.stringify(imageItem));
 
-    const isEmpty = !CheckRequiredDocuments() && !CheckVehicleDocuments(vehicleKeys) && sessionStorage.length !== 0;
+    const storageLength = sessionStorage.length < 10;
+
+    const isEmpty = !CheckRequiredDocuments() && !CheckVehicleDocuments(vehicleKeys) && !storageLength;
     setIsSubmitButtonDisabled(!isEmpty);
   };
 
   const OnSubmitRequirementsHandler = () => {
     if (sessionStorage.length !== 0 && location.state) {
-      console.log(location.state);
+      // console.log(location.state);
       for (const key in sessionStorage) {
         if (Object.hasOwnProperty.call(sessionStorage, key)) {
           const element = sessionStorage[key];
@@ -112,7 +116,7 @@ const CustomerRequirementComponent = () => {
     else{
       setShowAlert(true)
       setAlertProps({
-        title: "",
+        title: "Upload Required",
         text: "Make sure to upload all required documents.",
         isError: true
       })
