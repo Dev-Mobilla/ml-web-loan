@@ -1,105 +1,121 @@
+import { useEffect, useState } from "react";
 import { sha512 } from "js-sha512";
 import { HatchITAxiosInstance } from "../helper/axios";
+import CustomAlert from "../components/custom/Custom.Alert";
 
+const api_key = process.env.REACT_APP_API_KEY;
 const baseURL = process.env.REACT_APP_HATCHIT_BASE_URL;
-const apiKey = "W1@KLDMWLk@ek$lkj";
 
-const MakeDigest = (payloadString) => {
-  const digest = sha512(payloadString + apiKey);
-
+const MakeDigest = (payloads) => {
+  const payloadString = payloads.join("|");
+  const digest = sha512(payloadString);
   return digest;
 };
 
-const GetLoanDetails = async (ckycID) => {
-  // console.log(ckycID);
-  const payloadString = JSON.stringify(ckycID);
-  const ckyc_id = ckycID.ckyc_id;
-
-  console.log("ckyc_id:", ckyc_id, "payload:", payloadString);
-
-  const digest = MakeDigest(payloadString);
-
-  const url = `${baseURL}transactions/get/customer/loans`;
+const MakeGetRequest = async (url, params) => {
   try {
     const response = await HatchITAxiosInstance.get(url, {
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      params: {
-        ckyc_id: ckyc_id,
-        digest: digest,
-      },
+      params: { ...params },
+      responseType: "json",
     });
-    console.log(response);
     return response;
   } catch (error) {
-    console.log("error", error);
-    return error;
-  }
-};
-
-const generateHeaders = (payloadString) => {
-  const apiKey = process.env.REACT_APP_API_KEY;
-  const digest = sha512(payloadString + apiKey).toString();
-  const headers = {
-    "Content-Type": "application/json",
-    Authorization: apiKey,
-  };
-  return { headers, digest };
-};
-const makeGetRequest = async (url, params, payloadString) => {
-  const { headers, digest } = generateHeaders(payloadString);
-  try {
-    const response = await HatchITAxiosInstance.get(url, {
-      headers,
-      params: { ...params, digest },
-    });
-    return response.data;
-  } catch (error) {
-    if (error.response) {
-      if (error.response.status === 404) {
-        console.error("Resource not found.");
-      } else if (error.response.status === 500) {
-        console.error("Internal Server Error:", error.response.data);
-      }
-    } else {
-      console.error("Error:", error.message);
-    }
     throw error;
   }
 };
 
-const GetPaymentSchedule = async (reference) => {
-  const baseUrl = process.env.REACT_APP_HATCHIT_BASE_URL;
-  const apiUrl = `${baseUrl}/loan_schedules/get/schedule`;
+const handleErrorResponse = (response) => {
+  if (response.status === 404) {
+    return "Something went wrong";
+  } else if (response.status === 500) {
+    const { status, message } = response.data;
+    if (status === "CANCELLED" || status === "DENIED") {
+      return "Loan is cancelled/denied";
+    } else if (status === "PENDING" || status === "APPROVED") {
+      return "Loan has no payment schedule";
+    } else if (status === "CLOSED") {
+      return "Loan is fully paid";
+    } else {
+      return message;
+    }
+  } else {
+    return "An error occurred while fetching the loan payment schedule.";
+  }
+};
 
-  const payload = {
-    reference: reference,
+const GetLoans = async (ckycID) => {
+  const payloadString = JSON.stringify(ckycID);
+  const ckyc_id = ckycID.ckyc_id;
+  const digest = MakeDigest([payloadString, "W1@KLDMWLk@ek$lkj"]);
+  const endpoint = `/transactions/get/customer/loans`;
+  const params = {
+    ckyc_id,
+    digest,
   };
-  const payloadString = JSON.stringify(payload);
-
-  return makeGetRequest(apiUrl, { reference }, payloadString);
+  return MakeGetRequest(endpoint, params);
 };
 
-const GetCollateralDetails = async (reference) => {
-  const baseUrl = process.env.REACT_APP_HATCHIT_BASE_URL;
-  const apiUrl = `${baseUrl}/loan_type_item_field_values/get/customer/loans/collateral`;
+const GetLoanDetails = async (referenceID) => {
+  const payloadString = JSON.stringify(referenceID);
+  const reference = referenceID.reference;
+  const digest = MakeDigest([payloadString, "W1@KLDMWLk@ek$lkj"]);
+  const endpoint = `/loan_schedules/get/customer/loans/details`;
+  const params = {
+    reference,
+    digest,
+  };
+  return await MakeGetRequest(endpoint, params);
+};
 
-  const payload = {
-    reference: reference,
+const GetLoanPaymentSchedule = ({ reference, digest }) => {
+  const [errorModalOpen, setErrorModalOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const queryParams = new URLSearchParams({
+          reference,
+          digest,
+        });
+        const url = `${baseURL}/loans_api/v1/loan_schedules/get/schedule?${queryParams.toString()}`;
+        const response = await HatchITAxiosInstance.get(url, {
+          headers: {
+            PUBLIC_API_KEY: api_key,
+          },
+        });
+
+        if (response.status === 200) {
+          return;
+        } else {
+          const errorMessage = handleErrorResponse(response);
+          setErrorMessage(errorMessage);
+          setErrorModalOpen(true);
+        }
+      } catch (error) {
+        console.error("Error fetching loan payment schedule:", error);
+      }
+    };
+
+    fetchData();
+  }, [reference, digest]);
+
+  const closeModal = () => {
+    setErrorModalOpen(false);
   };
 
-  const payloadString = JSON.stringify(payload);
-
-  return makeGetRequest(apiUrl, { reference }, payloadString);
+  return (
+    <>
+      {errorModalOpen && (
+        <CustomAlert
+          title="Error"
+          text={errorMessage}
+          isError={true}
+          onClose={closeModal}
+        />
+      )}
+    </>
+  );
 };
 
-// const GetLoanCustomerLoans = () => {};
-
-export {
-  // GetLoanCustomerLoans,
-  GetLoanDetails,
-  GetPaymentSchedule,
-  GetCollateralDetails,
-};
+export { GetLoans, GetLoanDetails, GetLoanPaymentSchedule };

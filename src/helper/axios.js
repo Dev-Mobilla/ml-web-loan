@@ -18,7 +18,15 @@ SymphAxiosInstance.interceptors.request.use(
     );
 
     if (accessToken) {
-      if (config.headers) config.headers.Authorization = accessToken;
+      if (config.headers) 
+      {
+        config.headers.Authorization = accessToken;
+        config.headers.Accept = 'application/json';
+        config.headers["Content-Type"] = 'application/json';
+        config.headers["Access-Control-Allow-Origin"] = 'http://ml-loans-dev.mlhuillier.com:3000/';
+        config.headers["Access-Control-Request-Method"] = ['GET', 'POST', 'PATCH' , 'PUT']
+
+      } 
     }
     return config;
   },
@@ -30,40 +38,12 @@ SymphAxiosInstance.interceptors.request.use(
 // Response interceptor
 SymphAxiosInstance.interceptors.response.use(
   (response) => {
+    response.headers["Access-Control-Allow-Origin"] = process.env.REACT_APP_SYMPH_BASE_URL
     return response;
   },
   (error) => {
     return error;
   }
 );
-
-// HATCH IT AXIOS INTERCEPTORS
-// Request interceptor
-// HatchITAxiosInstance.interceptors.request.use(
-//     (config) => {
-
-//         // const apiKey = process.env.REACT_APP_HATCH_IT_API_KEY
-
-//         // if (apiKey) {
-//         //     if (config.headers){ 
-//         //         config.headers.Authorization = apiKey;
-//         //     }
-//         // }
-//         return config;
-//     },
-//     (error) => {
-//         return error;
-//     }
-// )
-
-// // Response interceptor
-// HatchITAxiosInstance.interceptors.response.use(
-//     (response) => {
-//         return response;
-//     },
-//     (error) => {
-//         return error;
-//     }
-// )
 
 export { SymphAxiosInstance, HatchITAxiosInstance };
