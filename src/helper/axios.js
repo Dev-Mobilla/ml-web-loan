@@ -39,6 +39,7 @@ SymphAxiosInstance.interceptors.request.use(
 // Response interceptor
 SymphAxiosInstance.interceptors.response.use(
   (response) => {
+    response.headers["Access-Control-Allow-Origin"] = process.env.REACT_APP_SYMPH_BASE_URL
     return response;
   },
   (error) => {

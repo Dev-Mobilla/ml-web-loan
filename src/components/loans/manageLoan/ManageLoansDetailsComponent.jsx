@@ -15,7 +15,7 @@ import mlicon from "../../../assets/icons/Paynow_icn.png";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { GetLoansDetails } from "../../../api/api";
 import { GetCollateralDetails } from "../../../api/hatchit.api";
-import { Threshold } from "../../../api/symph.api";
+import { Threshold, getServiceFee } from "../../../api/symph.api";
 
 const ManageLoansDetailsComponent = () => {
 
@@ -69,19 +69,19 @@ const ManageLoansDetailsComponent = () => {
     }
   };
   useEffect(() => {
-    // fetch("/api/getLoanData")
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     setDueAmount(data.dueAmount);
-    //     setFeesAndCharges(data.feesAndCharges);
-    //     setPaymentDueDate(data.paymentDueDate);
-    //   })
-    //   .catch((error) => {
-    //     console.error("Error fetching data:", error);
-    //   });
-    Threshold();
     LoanDetailsHandler();
   }, []);
+
+  useEffect(() => {
+    const fetchServiceFee = async() => {
+       let amountfee = 100000;
+       const loanServiceFee = await getServiceFee(amountfee);
+       console.log("Service Fee:", loanServiceFee);
+    }
+    fetchServiceFee();
+
+  }, []);
+
   const OnModalCloseHandler = () => {
     setAlertModal(false);
     navigate("/manage-loans");

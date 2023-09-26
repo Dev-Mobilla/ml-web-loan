@@ -1,5 +1,6 @@
-import SymphAxios from 'axios';
-
+import { SymphAxiosInstance } from "../helper/axios";
+const Login = () => {}
+const LoanBillsPay = () => {}
 
 const baseURL = process.env.REACT_APP_SYMPH_BASE_URL;
 const apiKey = process.env.REACT_APP_API_KEY;
@@ -27,8 +28,24 @@ const Threshold = async () => {
     }
 }
 
+const getServiceFee = async (amountfee) => {
+    try{
+      const response = await SymphAxiosInstance.get("/v1/api/1.0/ml-loans/service-fee", {
+         params:{
+            amount: amountfee
+         }
+      });
+      return response;
+  
+    }catch(error){
+      console.error("Error" , error)
+    }
+  
+  }
+
 export {
     Login,
     LoanBillsPay,
+    getServiceFee,
     Threshold
 }
