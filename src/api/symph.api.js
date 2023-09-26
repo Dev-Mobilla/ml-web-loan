@@ -9,9 +9,6 @@ const getServiceFee = async (amountfee) => {
             amount: amountfee
          }
       });
-    //   const data = await response.json();
-    //   const serviceFee = data.serviceFee
-  
       return response;
   
     }catch(error){
