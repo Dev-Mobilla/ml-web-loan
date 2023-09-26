@@ -9,5 +9,21 @@ const isCookiePresent = (cookieName) => {
   }
   return false;
 };
+const getCookieData = () => {
+  const cookieString = document.cookie;
+  const cookieList = cookieString.split(';');
 
-export default isCookiePresent;
+  let accountDetails = null;
+
+  cookieList.forEach((cookie) => {
+    const [name, value] = cookie.split('=');
+    const decodedValue = decodeURIComponent(value.trim());
+
+    if (name.trim() === 'account_details') {
+      accountDetails = JSON.parse(decodedValue);
+    }
+  });
+  return accountDetails;
+};
+
+export { isCookiePresent, getCookieData };

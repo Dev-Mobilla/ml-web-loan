@@ -12,8 +12,8 @@ const Loans = [
       loanId: "L123456",
       loanType: 'Housing Loan',
       referenceNo: '00000000001',
-      amountDue: '30,625.00',
-      charges: '0.00',
+      amountDue: '30,626.00',
+      charges: '1.00',
       dueDate: "15 MAY 2023",
       status: "Current"
     },
