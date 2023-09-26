@@ -5,12 +5,10 @@ const LoanBillsPay = () => {}
 const baseURL = process.env.REACT_APP_SYMPH_BASE_URL;
 const apiKey = process.env.REACT_APP_API_KEY;
 
-const Login = () => { }
-const LoanBillsPay = () => { }
 const Threshold = async () => {
     try {
         const urlToFetch = `${baseURL}/v1/api/1.0/ml-loans/threshold-amount`;
-        const response = await SymphAxios.get(urlToFetch, {
+        const response = await SymphAxiosInstance.get(urlToFetch, {
             method: 'GET',
             headers: {
                 "Content-Type": "application/json",
