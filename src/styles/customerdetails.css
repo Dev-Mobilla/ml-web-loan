@@ -14,6 +14,26 @@
   box-sizing: border-box;
 }
 
+input[type="date"]::before {
+	color: var(--text-gray);
+	content: attr(placeholder);
+}
+input[type="date"] {
+	color: #ffffff;
+}
+input[type="date"]:focus,
+input[type="date"]:valid {
+	color: var(--text-gray);
+}
+input[type="date"]:focus::before,
+input[type="date"]:valid::before {
+	content: "" !important;
+}
+
+
+
+
+
 .customer-details-group {
   max-width: 400px;
   margin: 0 auto;

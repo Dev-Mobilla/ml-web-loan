@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation  } from "react-router-dom";
 import "../styles/customerdetails.css";
 import {
   TopbarComponent,
@@ -30,9 +30,14 @@ const calculateDistance = (lat1, lon1, lat2, lon2) => {
 };
 
 const CustomerDetailsComponent = () => {
+
   const navigate = useNavigate();
   const location = useLocation();
-
+  useEffect(() => {
+    if (location.state == null) {
+      navigate('/vehicle-loan/loan-type/new');
+    }
+  });
   const [address, setAddress] = useState("");
   const [customAlert, setCustomAlert] = useState(false);
   const [alertProps, setAlertProps] = useState(null);
@@ -113,8 +118,8 @@ const CustomerDetailsComponent = () => {
 
     navigate("/vehicle-loan/requirements", {
       state: {
-        secondStepDetails,
-      },
+        secondStepDetails: secondStepDetails,
+      }
     });
   };
 
@@ -292,7 +297,6 @@ const CustomerDetailsComponent = () => {
               />
             </div>
           </div>
-
           <div className="card">
             <CustomCardTitle
               title="Personal Details"

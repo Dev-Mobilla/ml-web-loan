@@ -14,11 +14,11 @@ import houseIcon from "../../../assets/icons/house.png";
 import mlicon from "../../../assets/icons/Paynow_icn.png";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { GetLoansDetails } from "../../../api/api";
-import { GetCollateralDetails } from "../../../api/hatchit.api";
+import { GetCollateralDetails, GetLoanDetails } from "../../../api/hatchit.api";
 import { Threshold, getServiceFee } from "../../../api/symph.api";
+import { GetLoanPaymentSchedule } from "../../../api/hatchit.api";
 
 const ManageLoansDetailsComponent = () => {
-
   const recentPayments = [
     { date: "05-14-2023", time: "16:23", amount: "30,625.00" },
     { date: "04-15-2023", time: "12:01", amount: "30,625.00" },
@@ -41,45 +41,47 @@ const ManageLoansDetailsComponent = () => {
   const navigate = useNavigate();
 
   const [params] = useSearchParams();
-  const LoanId = params.get("id");
+  const LoanReference = params.get("reference");
 
   const LoanDetailsHandler = async () => {
-    const response = await GetLoansDetails(LoanId);
+    const response = await GetLoanDetails({reference: LoanReference});
 
-    if (response.length !== 0) {
-      let loan = response[0];
+    console.log(response);
 
-      setLoanDetails({
-        dueAmount: loan.amountDue,
-        feesAndCharges: loan.charges,
-        paymentDueDate: loan.dueDate,
-        referenceNo: loan.referenceNo,
-        loanType: loan.loanType,
-        status: loan.status,
-      });
-    } else {
-      setAlertModal(true);
-      setLoanDetails({
-        dueAmount: "",
-        feesAndCharges: "",
-        paymentDueDate: "",
-        referenceNo: "",
-        loanType: "",
-      });
-    }
+    // if (response.length !== 0) {
+    //   let loan = response[0];
+
+    //   setLoanDetails({
+    //     dueAmount: loan.amountDue,
+    //     feesAndCharges: loan.charges,
+    //     paymentDueDate: loan.dueDate,
+    //     referenceNo: loan.referenceNo,
+    //     loanType: loan.loanType,
+    //     status: loan.status,
+    //   });
+    // } else {
+    //   setAlertModal(true);
+    //   setLoanDetails({
+    //     dueAmount: "",
+    //     feesAndCharges: "",
+    //     paymentDueDate: "",
+    //     referenceNo: "",
+    //     loanType: "",
+    //   });
+    // }
   };
   useEffect(() => {
     LoanDetailsHandler();
+
   }, []);
 
   useEffect(() => {
-    const fetchServiceFee = async() => {
-       let amountfee = 100000;
-       const loanServiceFee = await getServiceFee(amountfee);
-       console.log("Service Fee:", loanServiceFee);
-    }
+    const fetchServiceFee = async () => {
+      let amountfee = 100000;
+      const loanServiceFee = await getServiceFee(amountfee);
+      console.log("Service Fee:", loanServiceFee);
+    };
     fetchServiceFee();
-
   }, []);
 
   const OnModalCloseHandler = () => {
@@ -117,6 +119,17 @@ const ManageLoansDetailsComponent = () => {
       </g>
     </svg>
   );
+
+  const [paymentSchedule, setPaymentSchedule] = useState(null);
+
+  const handlePaymentScheduleClick = async () => {
+    try {
+      const schedule = await GetLoanPaymentSchedule();
+      setPaymentSchedule(schedule);
+    } catch (error) {
+      console.error("Error fetching payment schedule:", error);
+    }
+  };
 
   return (
     <div className="housing-loan">
@@ -211,6 +224,7 @@ const ManageLoansDetailsComponent = () => {
                   styles="payment-schedule-btn"
                   icon={DownloadIcon}
                   iconStyle="download-icon"
+                  onClick={handlePaymentScheduleClick}
                 />
                 <CustomButton
                   name=" Collateral Details"
@@ -218,6 +232,8 @@ const ManageLoansDetailsComponent = () => {
                   icon={DownloadIcon}
                   iconStyle="download-icon"
                 />
+
+                <GetLoanPaymentSchedule paymentSchedule={paymentSchedule} />
               </div>
 
               <div className="hl-buttom">

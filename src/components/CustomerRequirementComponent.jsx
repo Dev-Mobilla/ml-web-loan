@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-// import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import "../styles/requirements.css";
 import { useModal } from "../utils/modalContext";
 import {
@@ -15,10 +15,9 @@ import {
   CustomAlert
 } from "./index";
 import { GetSessionDocument } from "../utils/DataFunctions";
-import {useLocation} from "react-router-dom";
 
 const CustomerRequirementComponent = () => {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const location = useLocation();
   const { modalOpen, modalTitle, modalDefaultGuideImage, closeModal } =
     useModal();
@@ -51,24 +50,45 @@ const CustomerRequirementComponent = () => {
 
   }, [ optionValue, isSubmitButtonDisabled, sessionStorage]);
 
-  const CheckRequiredDocuments = () => {
-    let requiredItems = []
-    let Keys = [];
+ 
+  // useEffect(() => {
+  //   console.log(location);
+  //   if (location.state == null) {
+  //     navigate('/vehicle-loan/loan-type/new');
+  //   }
+  //   let isAllImagesUploaded = false;
+  //   if (optionValue === "Self-Employed") {
+  //     Keys = ["Valid ID", "Mayor’s Certificate", "Bank Statement"];
+  //   }
+  //   else if (optionValue === "Employed") {
+  //     Keys = ["Valid ID", "Employee Certificate", "Payslip/ITR"];
+  //   }
 
-    if (optionValue === "Self-Employed") {
-      Keys = ["Valid ID", "Mayor’s Certificate", "Bank Statement"];
-    }
-    else if (optionValue === "Employed") {
-      Keys = ["Valid ID", "Employee Certificate", "Payslip/ITR"];
-    }
+  //   for (let key of Keys) {
+  //     const value = JSON.parse(sessionStorage.getItem(key));
+  //     requiredItems.push(value?.url);
+  //   }
+  //   return requiredItems?.includes("");
 
-    for (let key of Keys) {
-      const value = JSON.parse(sessionStorage.getItem(key));
-      requiredItems.push(value?.url);
-    }
-    return requiredItems?.includes("");
+  // }
+   const CheckRequiredDocuments = () => {
+      let requiredItems = []
+      let Keys = []
 
-  }
+      if (optionValue === "Self-Employed") {
+        Keys = ["Valid ID", "Mayor’s Certificate", "Bank Statement"];
+      }
+      else if (optionValue === "Employed") {
+        Keys = ["Valid ID", "Employee Certificate", "Payslip/ITR"];
+      }
+
+      for (let key of Keys) {
+        const value = JSON.parse(sessionStorage.getItem(key));
+        requiredItems.push(value?.url);
+      }
+      return requiredItems?.includes("");
+    
+  };
 
   const CheckVehicleDocuments = (Keys) => {
     let vehicleItems = []

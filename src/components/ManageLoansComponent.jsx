@@ -31,7 +31,7 @@ const ManageLoanComponent = () => {
 
   useEffect(() => {
 
-    GetLoansDetails();
+    GetAllLoans();
 
     !modal ? IsInputError("", ""): IsInputError(inputErrorMsg, inputErrorStyle);
     
@@ -42,10 +42,9 @@ const ManageLoanComponent = () => {
     };
   }, [modal]);
   
-  const GetLoansDetails = async () => {
-    const res = await GetLoans({ckyc_id: "X220600001592K1"});
-    // const res = await GetLoanDetails({reference: "MCREGSLPANO"});
-    console.log('res', res);
+  const GetAllLoans = async () => {
+    const res = await GetLoans({ckyc_id: "X220700004626K1"});
+  console.log(res);
     if (res.status === 200) {
       setLoans(res.data.data)
     }
@@ -71,8 +70,9 @@ const ManageLoanComponent = () => {
 
   const CurrentLoansCards = () => {
     if (loans?.length !== 0) {
-      let filteredLoans = Loans.filter((loan, key) => {
-        if (loan.status.toLowerCase() === "current") {
+      let filteredLoans = loans?.filter((loan, key) => {
+        // console.log(loan);
+        if (loan.status === "APPROVED") {
           return loan
         }
       })
@@ -80,17 +80,17 @@ const ManageLoanComponent = () => {
       return filteredLoans?.map((loan, key) => {
         return (
           <ManageLoanCardComponent
-            loanType={loan.loanType}
-            referenceNo={loan.referenceNo}
+            loanType={loan.loan_type.loan_type_name}
+            referenceNo={loan.ref_num}
             key={key}
-            icon={LoanTypeIconHandler(loan.loanType)}
+            icon={LoanTypeIconHandler(loan.loan_type.loan_type_name)}
             btnName="Manage"
             btnStyle="custom-button manage-btn"
             loanCardName="loan-card"
             cardContainer="loan-card-container current-loan"
             loantypeTxt="loan-type current"
             referenceTxt="reference-txt"
-            OnBtnClick={() => CardBtnClick(loan.loanId, loan.loanType)}
+            OnBtnClick={() => CardBtnClick(loan.ref_num, loan.loan_type.loan_type_name)}
           />
         );
       })
@@ -106,8 +106,8 @@ const ManageLoanComponent = () => {
 
   const PastLoansCards = () => {
     if (loans?.length !== 0) {
-      let filteredLoans = Loans?.filter((loan, key) => {
-        if (loan.status.toLowerCase().replaceAll(" ", "-") === "past-due") {
+      let filteredLoans = loans?.filter((loan, key) => {
+        if (loan.status === "CLOSED") {
           return loan
         }
       })
@@ -115,17 +115,17 @@ const ManageLoanComponent = () => {
       return filteredLoans?.map((loan, key) => {
         return (
           <ManageLoanCardComponent
-            loanType={loan.loanType}
-            referenceNo={loan.referenceNo}
+            loanType={loan.loan_type.loan_type_name}
+            referenceNo={loan.ref_num}
             key={key}
-            icon={LoanTypeIconHandler(loan.loanType)}
+            icon={LoanTypeIconHandler(loan.loan_type.loan_type_name)}
             btnName="Details"
             btnStyle="custom-button details-btn"
             loanCardName="loan-card"
             cardContainer="loan-card-container past-loan"
             loantypeTxt="loan-type past"
             referenceTxt="reference-txt"
-            OnBtnClick={() => CardBtnClick(loan.loanId, loan.loanType)}
+            OnBtnClick={() => CardBtnClick(loan.ref_num, loan.loan_type.loan_type_name)}
             btnType="button"
           />
         );
@@ -169,13 +169,13 @@ const ManageLoanComponent = () => {
     IsInputError("", "")
   }
 
-  const CardBtnClick = (loanId, type) => {
+  const CardBtnClick = (referenceNo, type) => {
     let loanType = type.toLowerCase().replaceAll(" ", "-");
 
     if ("quick-cash-loan" === loanType) {
-      navigate(`/manage-loans/${loanType}/${loanId}`);
+      navigate(`/manage-loans/${loanType}/${referenceNo}`);
     } else {
-      navigate(`/manage-loans/loan-details?id=${loanId}`);
+      navigate(`/manage-loans/loan-details?reference=${referenceNo}`);
     }
   };
 
@@ -214,10 +214,10 @@ const ManageLoanComponent = () => {
       <div className="div">
         <TopbarComponent />
         <CustomHeader title="Manage Existing Loans" />
-        <div className="body-bg">
           <div className="prev-btn">
             <CustomPrevBtn />
           </div>
+        <div className="body-bg">
           <div className="container">
             <div className="current-loan-card">
               <div className="current-loan-btn-container">
