@@ -2,10 +2,8 @@ import { sha512 } from "js-sha512";
 import { HatchITAxiosInstance } from "../helper/axios";
 
 const MakeDigest = (payloadString) => {
-  const digest = sha512(payloadString + "|" + "W1@KLDMWLk@ek$lkj"	);
 
-  console.log("digest", payloadString + "|" + "W1@KLDMWLk@ek$lkj");
-  console.log("digest", digest);
+  const digest = sha512(payloadString + "|" + "W1@KLDMWLk@ek$lkj"	);
 
   return digest;
 };
@@ -33,7 +31,6 @@ const MakeDigest = (payloadString) => {
 // };
 
 const MakeGetRequest = async (url, params) => {
-    // const { headers, digest } = generateHeaders(payloadString);
     try {
       const response = await HatchITAxiosInstance.get(url, {
         params: { ...params },

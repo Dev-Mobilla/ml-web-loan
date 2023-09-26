@@ -20,6 +20,7 @@ const ManageLoanComponent = () => {
   const [referenceInput, setReferenceInput] = useState("");
   const [inputErrorMsg, setInputErrorMsg] = useState("");
   const [inputErrorStyle, setInputErrorStyle] = useState("");
+  const [loans, setLoans] = useState(null)
 
   const { Housing, Vehicle, QCL } = CustomIcon;
 
@@ -42,10 +43,15 @@ const ManageLoanComponent = () => {
   }, [modal]);
   
   const GetLoansDetails = async () => {
-    // const res = await GetLoans({ckyc_id: "X220600001592K1"});
-    const res = await GetLoanDetails({reference: "MCREGSLPANO"});
+    const res = await GetLoans({ckyc_id: "X220600001592K1"});
+    // const res = await GetLoanDetails({reference: "MCREGSLPANO"});
     console.log('res', res);
-    
+    if (res.status === 200) {
+      setLoans(res.data.data)
+    }
+    else{
+      console.log(res.status);
+    }
   }
 
   const loansIcon = [
@@ -64,7 +70,7 @@ const ManageLoanComponent = () => {
   ];
 
   const CurrentLoansCards = () => {
-    if (Loans.length !== 0) {
+    if (loans?.length !== 0) {
       let filteredLoans = Loans.filter((loan, key) => {
         if (loan.status.toLowerCase() === "current") {
           return loan
@@ -99,7 +105,7 @@ const ManageLoanComponent = () => {
   };
 
   const PastLoansCards = () => {
-    if (Loans.length !== 0) {
+    if (loans?.length !== 0) {
       let filteredLoans = Loans?.filter((loan, key) => {
         if (loan.status.toLowerCase().replaceAll(" ", "-") === "past-due") {
           return loan
