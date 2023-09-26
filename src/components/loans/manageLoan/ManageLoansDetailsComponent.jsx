@@ -14,6 +14,9 @@ import houseIcon from "../../../assets/icons/house.png";
 import mlicon from "../../../assets/icons/Paynow_icn.png";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { GetLoansDetails } from "../../../api/api";
+import { GetCollateralDetails } from "../../../api/hatchit.api";
+
+const ManageLoansDetailsComponent = () => {
 import { GetLoanPaymentSchedule } from "../../../api/hatchit.api";
 // import { GetCollateralDetails } from "../../../api/hatchit.api";
 import { Threshold, getServiceFee } from "../../../api/symph.api";

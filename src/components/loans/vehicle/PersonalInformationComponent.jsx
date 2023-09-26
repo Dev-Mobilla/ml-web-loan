@@ -54,6 +54,11 @@ const PersonalInformationComponent = ({
         ...prevErrors,
         [name]: `Please select the Nature of your Business`,
       }));
+    } else if (name === 'nationality' && value === 'disabled') {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        [name]: `Please select your Nationality`,
+      }));
     } else {
       setErrors((prevErrors) => ({ ...prevErrors, [name]: '' }));
     }
@@ -89,6 +94,12 @@ const PersonalInformationComponent = ({
           [fieldName]: `Please enter your Office Landline `,
         }));
       }
+      else if (fieldName === 'nationality') {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          [fieldName]: `Please enter your Nationality`,
+        }));
+      }
       else if (fieldName === 'sourceOfIncome') {
         setErrors((prevErrors) => ({
           ...prevErrors,
@@ -112,19 +123,19 @@ const PersonalInformationComponent = ({
         [fieldName]: '1px solid red',
       }));
     }
-    // else if (fieldName === 'birthdate') {
-    //   const enteredDate = new Date(informationDetails[fieldName]);
-    //   const currentDate = new Date();
-    //   const ageDiffMs = currentDate - enteredDate;
-    //   const ageDate = new Date(ageDiffMs);
-    //   const age = Math.abs(ageDate.getUTCFullYear() - 1970);
-    //   if (isNaN(enteredDate.getTime()) || age < 18) {
-    //     setErrors((prevErrors) => ({
-    //       ...prevErrors,
-    //       [fieldName]: `You must be at least 18 years old to proceed`,
-    //     }));
-    //   }
-    // } 
+    else if (fieldName === 'birthdate') {
+      const enteredDate = new Date(informationDetails[fieldName]);
+      const currentDate = new Date();
+      const ageDiffMs = currentDate - enteredDate;
+      const ageDate = new Date(ageDiffMs);
+      const age = Math.abs(ageDate.getUTCFullYear() - 1970);
+      if (isNaN(enteredDate.getTime()) || age < 18 || age >= 60) {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          [fieldName]: `You must be at least 18 years old and below 60 years old to proceed`,
+        }));
+      }
+    }
     else if (fieldName === 'civil_status' && !['married', 'single', 'divorced', 'widowed'].includes(informationDetails[fieldName].toLowerCase())) {
       setErrors((prevErrors) => ({
         ...prevErrors,
@@ -185,6 +196,7 @@ const PersonalInformationComponent = ({
       </div>
       <div className="c-details-input">
         <input
+          required
           className="d-input"
           type="date"
           name="birthdate"
@@ -200,17 +212,21 @@ const PersonalInformationComponent = ({
       <div className="c-details-input">
         <select
           className="d-select"
-          id="nationality"
           name="nationality"
           value={informationDetails.nationality}
           onChange={handleInputChange}
+          onFocus={() => handleFocus('nationality')}
+          onBlur={() => handleBlur('nationality')}
+          style={{ border: fieldBorders.nationality }}
         >
+          <option value="disabled">Nationality</option>
           <option value="ph" >Philippines</option>
           <option value="us">United States</option>
           <option value="uk">United Kingdom</option>
           <option value="ca">Canada</option>
           <option value="au">Australia</option>
         </select>
+        <div style={{ color: 'red', fontSize: '12px', margin: '10px 20px 20px 0' }}>{errors.nationality}</div>
       </div>
       <div className="c-details-input">
         <input
@@ -238,7 +254,7 @@ const PersonalInformationComponent = ({
           onFocus={() => handleFocus('employeer_business')}
           onBlur={() => handleBlur('employeer_business')}
           style={{ border: fieldBorders.employeer_business }}
-          
+
         />
         <div style={{ color: 'red', fontSize: '12px', margin: '10px 20px 20px 0' }}>{errors.employeer_business}</div>
       </div>
@@ -340,7 +356,7 @@ const PersonalInformationComponent = ({
           onFocus={() => handleFocus('monthly_income')}
           onBlur={() => handleBlur('monthly_income')}
           style={{ border: fieldBorders.monthly_income }}
-          
+
         />
         <div style={{ color: 'red', fontSize: '12px', margin: '10px 20px 20px 0' }}>{errors.monthly_income}</div>
 

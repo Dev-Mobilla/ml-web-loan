@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-// import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import "../styles/requirements.css";
 import { useModal } from "../utils/modalContext";
 import {
@@ -18,7 +18,7 @@ import { GetSessionDocument } from "../utils/DataFunctions";
 import {useLocation} from "react-router-dom";
 
 const CustomerRequirementComponent = () => {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const location = useLocation();
   const { modalOpen, modalTitle, modalDefaultGuideImage, closeModal } =
     useModal();
@@ -55,6 +55,37 @@ const CustomerRequirementComponent = () => {
     let requiredItems = []
     let Keys = [];
 
+    sessionStorage.setItem([modalTitle], JSON.stringify(imageItem));
+    if (documentName === "Orginal OR/CR") {
+      setOrginalORCRUploaded(true);
+    } if (documentName === "Set stencils") {
+      setSetStencilsUploaded(true);
+    } if (documentName === "Car Insurance") {
+      setCarInsuranceUploaded(true);
+    } if (documentName === "Front Side") {
+      setFrontSideUploaded(true);
+    } if (documentName === "Back Side") {
+      setBackSideUploaded(true);
+    } if (documentName === "Right Side") {
+      setRightSideUploaded(true);
+    } if (documentName === "Left Side") {
+      setLeftSideUploaded(true);
+    } if (documentName === "Valid ID") {
+      setValidIdUploaded(true);
+    } if (documentName === "Employee Certificate" || documentName === "Payslip/ITR") {
+      setEmployeeCertificateUploaded(false);
+      setPaySlipUploaded(true);
+    } if (documentName === "Bank Statement" || documentName === "Mayor's Certificate") {
+      setBankStatementUploaded(true);
+      setMayorCertificateUploaded(true);
+    }
+  };
+  useEffect(() => {
+    console.log(location);
+    if (location.state == null) {
+      navigate('/vehicle-loan/loan-type/new');
+    }
+    let isAllImagesUploaded = false;
     if (optionValue === "Self-Employed") {
       Keys = ["Valid ID", "Mayor’s Certificate", "Bank Statement"];
     }

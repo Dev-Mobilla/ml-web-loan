@@ -9,7 +9,7 @@ import {
   LoanSelection,
   VehicleNewDetailsComponent,
   LoanDataComponent,
-} from "../..";
+} from "../../index";
 
 const LoanTypeNewComponent = () => {
   const { type } = useParams();
