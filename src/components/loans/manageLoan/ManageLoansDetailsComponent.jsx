@@ -15,6 +15,7 @@ import mlicon from "../../../assets/icons/Paynow_icn.png";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { GetLoansDetails } from "../../../api/api";
 import { GetCollateralDetails } from "../../../api/hatchit.api";
+
 const ManageLoansDetailsComponent = () => {
 
   const recentPayments = [

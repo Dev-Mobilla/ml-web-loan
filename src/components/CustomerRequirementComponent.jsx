@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-// import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import "../styles/requirements.css";
 import { useModal } from "../utils/modalContext";
 import {
@@ -17,8 +17,8 @@ import {
 import { CheckSessionStorage, GetSessionDocument } from "../utils/DataFunctions";
 
 const CustomerRequirementComponent = () => {
-  // const navigate = useNavigate();
-  // const location = useLocation();
+  const navigate = useNavigate();
+  const location = useLocation();
   const { modalOpen, modalTitle, modalDefaultGuideImage, closeModal } =
     useModal();
   const [showModal, setshowModal] = useState(false);
@@ -73,6 +73,10 @@ const CustomerRequirementComponent = () => {
     }
   };
   useEffect(() => {
+    console.log(location);
+    if (location.state == null) {
+      navigate('/vehicle-loan/loan-type/new');
+    }
     let isAllImagesUploaded = false;
     if (optionValue === "Self-Employed") {
       isAllImagesUploaded =

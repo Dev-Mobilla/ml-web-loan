@@ -1,14 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "../styles/receipt.css";
 import {
   CustomHeader,
   TopbarComponent,
 } from "./index";
-import {useNavigate} from "react-router-dom";
+import { useNavigate, useLocation  } from "react-router-dom";
+
 
 const ReceiptComponent = () => {
+  
   const navigate = useNavigate();
-
+  const location = useLocation();
+  useEffect(() => {
+    if (location.state == null) {
+      navigate('/vehicle-loan/loan-type/new');
+    }
+  });
   const BackToDashBoardHandler = () => {
     navigate('/');
   }
