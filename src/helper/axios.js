@@ -7,7 +7,6 @@ const SymphAxiosInstance = axios.create({
 
 const HatchITAxiosInstance = axios.create({
   baseURL: process.env.REACT_APP_HATCHIT_BASE_URL,
-  // withCredentials:true
 });
 
 // SYMPH AXIOS INTERCEPTORS
@@ -46,34 +45,5 @@ SymphAxiosInstance.interceptors.response.use(
     return error;
   }
 );
-
-// HATCH IT AXIOS INTERCEPTORS
-// Request interceptor
-// HatchITAxiosInstance.interceptors.request.use(
-//     (config) => {
-
-//         config.headers.crossorigin = true;
-//         config.headers.Accept = "application/json";
-//         config.headers["Content-Type"] = "application/json";
-//         config.headers["Access-Control-Allow-Origin"] = "*";
-//         // config.withCredentials = true;
-//         config.headers["crossorigin"] = true;
-//         return config;
-//     },
-//     (error) => {
-//         return error;
-//     }
-// )
-
-// Response interceptor
-// HatchITAxiosInstance.interceptors.response.use(
-//     (response) => {
-//       response.headers.crossorigin = true
-//         return response;
-//     },
-//     (error) => {
-//         return error;
-//     }
-// )
 
 export { SymphAxiosInstance, HatchITAxiosInstance };
