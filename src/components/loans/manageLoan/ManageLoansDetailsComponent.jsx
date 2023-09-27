@@ -43,12 +43,13 @@ const ManageLoansDetailsComponent = () => {
 
   const [params] = useSearchParams();
   const LoanReference = params.get("reference");
+  const LoanType = params.get("loan-type");
 
   const LoanDetailsHandler = async () => {
     const response = await GetLoanDetails({reference: LoanReference});
     // const response = await GetLoanDetails({reference: "QBLNUSBMDZT"});
-
     console.log(response);
+
     const displayError = (message) => {
       setAlertModal(true);
       setAlertProps({
@@ -65,14 +66,16 @@ const ManageLoansDetailsComponent = () => {
 
     switch (response.status) {
       case 200:
-        let loan = response[0];
+        let loan = response.data;
+
+        let loanPayment = loan.data;
 
         setLoanDetails({
-          dueAmount: loan.amountDue,
-          feesAndCharges: loan.charges,
-          paymentDueDate: loan.dueDate,
-          referenceNo: loan.referenceNo,
-          loanType: loan.loanType,
+          dueAmount: loanPayment.due_amount,
+          feesAndCharges: loanPayment.penalty_amount,
+          paymentDueDate: loanPayment.due_date,
+          referenceNo: loan.reference,
+          loanType: LoanType,
           status: loan.status,
         });
         break;
@@ -80,9 +83,10 @@ const ManageLoansDetailsComponent = () => {
         displayError("Loan does not exist");
         break;
       case 500:
-        displayError("An error occurred while fetching the loan payment schedule.")
+        displayError("An error occurred while fetching loan details.")
         break;
       default:
+        displayError("An error occurred while fetching loan details.")
         break;
     }
 
@@ -181,9 +185,9 @@ const ManageLoansDetailsComponent = () => {
               <CustomStatus
                 status={loanDetails.status}
                 styles={
-                  loanDetails.status?.toLowerCase() === "current"
+                  loanDetails.status?.toLowerCase() === "disbursed"
                     ? "custom-current"
-                    : loanDetails.status?.toLowerCase() === "past due"
+                    : loanDetails.status?.toLowerCase() === "closed"
                     ? "custom-pastdue"
                     : ""
                 }

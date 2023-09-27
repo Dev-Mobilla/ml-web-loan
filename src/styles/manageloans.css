@@ -267,13 +267,21 @@
   align-items: center;
 }
 .manage-loans .custom-button.details-btn,
-.manage-loans .custom-button.manage-btn {
+.manage-loans .custom-button.manage-btn  {
   border: none;
   color: var(--white);
   font-size: 18px;
   font-weight: 500;
   width: 163.96px;
   height: 30.35px;
+}
+.manage-loans .custom-button.approved-btn{
+  border: none;
+  font-size: 18px;
+  font-weight: 500;
+  width: 163.96px;
+  height: 30.35px;
+  cursor: no-drop;
 }
 
 .manage-loans .custom-button.manage-btn {
@@ -396,7 +404,8 @@
     margin: 0 auto;
   }
   .manage-loans .custom-button.manage-btn,
-  .manage-loans .custom-button.details-btn {
+  .manage-loans .custom-button.details-btn,
+  .manage-loans .custom-button.approved-btn {
     font-size: 15px;
     width: 100px;
     height: 30px;
@@ -448,7 +457,8 @@
     margin: 10px;
   }
   .manage-loans .custom-button.manage-btn,
-  .manage-loans .custom-button.details-btn {
+  .manage-loans .custom-button.details-btn,
+  .manage-loans .custom-button.approved-btn {
     font-size: 15px;
     width: 150px;
     height: 30px;
@@ -512,7 +522,8 @@
     margin: auto 5px auto 15px;
   }
   .manage-loans .custom-button.manage-btn,
-  .manage-loans .custom-button.details-btn {
+  .manage-loans .custom-button.details-btn,
+  .manage-loans .custom-button.approved-btn {
     padding: 7px 30px;
     margin-right: 40px;
     font-size: 15px;
@@ -573,7 +584,8 @@
     margin: auto 5px auto 15px;
   }
   .manage-loans .custom-button.manage-btn,
-  .manage-loans .custom-button.details-btn {
+  .manage-loans .custom-button.details-btn,
+  .manage-loans .custom-button.approved-btn {
     padding: 7px 30px;
     margin-right: 40px;
     font-size: 15px;

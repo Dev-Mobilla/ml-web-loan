@@ -31,7 +31,8 @@ const getServiceFee = async (amountfee) => {
       const response = await SymphAxiosInstance.get("/v1/api/1.0/ml-loans/service-fee", {
          params:{
             amount: amountfee
-         }
+         },
+         
       });
       return response;
   

@@ -15,7 +15,8 @@ const AlertModalComponent = ({ onClose, message }) => {
 
   return (
     <div>
-      <div className="alertbackground" onClick={onClose}>
+      <div className="alertbackground">
+      {/* <div className="alertbackground" onClick={onClose}> */}
         <div className="alertcontainer" ref={modalRef}>
           <div className="body">
             {/* <span>You have no existing loan at the moment</span> */}

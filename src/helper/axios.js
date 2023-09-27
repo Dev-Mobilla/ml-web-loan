@@ -20,11 +20,13 @@ SymphAxiosInstance.interceptors.request.use(
     if (accessToken) {
       if (config.headers) 
       {
-        config.headers.Authorization = accessToken;
+        // config.headers.co = accessToken;
+        // config.xsrfCookieName
+        config.withCredentials = true
         config.headers.Accept = 'application/json';
         config.headers["Content-Type"] = 'application/json';
-        config.headers["Access-Control-Allow-Origin"] = 'http://ml-loans-dev.mlhuillier.com:3000/';
-        config.headers["Access-Control-Request-Method"] = ['GET', 'POST', 'PATCH' , 'PUT']
+        // config.headers["Access-Control-Allow-Origin"] = 'http://ml-loans-dev.mlhuillier.com:3000';
+        // config.headers["Access-Control-Request-Method"] = ['GET', 'POST', 'PATCH' , 'PUT']
 
       } 
     }

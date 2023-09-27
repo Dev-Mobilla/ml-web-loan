@@ -12,6 +12,7 @@ import {
 import { useLocation, useNavigate } from "react-router-dom";
 import { Loans } from "../utils/ManageLoansMockData";
 import {GetLoans, GetLoanDetails} from "../api/hatchit.api";
+import {GetCookieByName} from "../utils/DataFunctions";
 
 const ManageLoanComponent = () => {
   const Location = useLocation();
@@ -21,6 +22,8 @@ const ManageLoanComponent = () => {
   const [inputErrorMsg, setInputErrorMsg] = useState("");
   const [inputErrorStyle, setInputErrorStyle] = useState("");
   const [loans, setLoans] = useState(null)
+  const [disabled, setDisabled] = useState(null)
+  const [btnName, setBtnName] = useState(null)
 
   const { Housing, Vehicle, QCL } = CustomIcon;
 
@@ -43,8 +46,10 @@ const ManageLoanComponent = () => {
   }, [modal]);
   
   const GetAllLoans = async () => {
-    const res = await GetLoans({ckyc_id: "X221200006549K1"});
-  console.log(res);
+    const getCkycId = GetCookieByName(process.env.REACT_APP_ACCOUNT_COOKIE_NAME);
+
+    const res = await GetLoans({ckyc_id: getCkycId?.ckycId});
+    console.log(res);
     if (res.status === 200) {
       setLoans(res.data.data)
     }
@@ -67,25 +72,45 @@ const ManageLoanComponent = () => {
       icon: <Vehicle />,
     },
   ];
+  const LoanStatusChecker = (status) => {
+    if (status?.toLowerCase() === "approved") {
+      return {
+        status: "Approved",
+        isDisabled: true,
+        btnStyle: "custom-button approved-btn"
+      };
+      
+    }else if (status?.toLowerCase() === "disbursed") {
+      return {
+        status: "Manage",
+        isDisabled: false,
+        btnStyle: "custom-button manage-btn"
+      };
+    }
+  }
 
   const CurrentLoansCards = () => {
     if (loans?.length !== 0) {
       let filteredLoans = loans?.filter((loan, key) => {
         // console.log(loan);
-        if (loan.status === "DISBURSED") {
+        if (loan.status === "DISBURSED" || loan.status === "APPROVED") {
           return loan
         }
       })
 
       return filteredLoans?.map((loan, key) => {
+
+        let statusChecker = LoanStatusChecker(loan.status);
+
         return (
           <ManageLoanCardComponent
             loanType={loan.loan_type.loan_type_name}
             referenceNo={loan.ref_num}
             key={key}
             icon={LoanTypeIconHandler(loan.loan_type.loan_type_name)}
-            btnName="Manage"
-            btnStyle="custom-button manage-btn"
+            btnName={statusChecker.status}
+            btnStyle={statusChecker.btnStyle}
+            disabled={statusChecker.isDisabled}
             loanCardName="loan-card"
             cardContainer="loan-card-container current-loan"
             loantypeTxt="loan-type current"
@@ -175,7 +200,7 @@ const ManageLoanComponent = () => {
     if ("quick-cash-loan" === loanType) {
       navigate(`/manage-loans/${loanType}/${referenceNo}`);
     } else {
-      navigate(`/manage-loans/loan-details?reference=${referenceNo}`);
+      navigate(`/manage-loans/loan-details?reference=${referenceNo}&loan-type=${type}`);
     }
   };
 

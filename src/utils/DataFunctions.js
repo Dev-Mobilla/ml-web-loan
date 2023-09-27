@@ -38,8 +38,25 @@ const CheckSessionStorage = () => {
     return isComplete
 }
 
+const GetCookieByName = (cookieName) => {
+    const cookies = document.cookie.split(`;`);
+
+    for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+        if (cookie.startsWith(cookieName + "=")) {
+
+            let cookieValue = cookie.replace(`${cookieName}=`, "");
+
+            return JSON.parse(decodeURIComponent(cookieValue));
+        }
+    }
+
+    return null;
+}
+
 export {
     GetSessionDocument,
     MakeRed,
-    CheckSessionStorage
+    CheckSessionStorage,
+    GetCookieByName
 }
