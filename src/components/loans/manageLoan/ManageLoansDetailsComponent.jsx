@@ -37,6 +37,7 @@ const ManageLoansDetailsComponent = () => {
   });
 
   const [alertModal, setAlertModal] = useState(false);
+  const [alertProps, setAlertProps] = useState(false);
 
   const navigate = useNavigate();
 
@@ -45,31 +46,48 @@ const ManageLoansDetailsComponent = () => {
 
   const LoanDetailsHandler = async () => {
     const response = await GetLoanDetails({reference: LoanReference});
+    // const response = await GetLoanDetails({reference: "QBLNUSBMDZT"});
 
     console.log(response);
+    const displayError = (message) => {
+      setAlertModal(true);
+      setAlertProps({
+        message: message
+      })
+      setLoanDetails({
+        dueAmount: "",
+        feesAndCharges: "",
+        paymentDueDate: "",
+        referenceNo: "",
+        loanType: "",
+      });
+    }
 
-    // if (response.length !== 0) {
-    //   let loan = response[0];
+    switch (response.status) {
+      case 200:
+        let loan = response[0];
 
-    //   setLoanDetails({
-    //     dueAmount: loan.amountDue,
-    //     feesAndCharges: loan.charges,
-    //     paymentDueDate: loan.dueDate,
-    //     referenceNo: loan.referenceNo,
-    //     loanType: loan.loanType,
-    //     status: loan.status,
-    //   });
-    // } else {
-    //   setAlertModal(true);
-    //   setLoanDetails({
-    //     dueAmount: "",
-    //     feesAndCharges: "",
-    //     paymentDueDate: "",
-    //     referenceNo: "",
-    //     loanType: "",
-    //   });
-    // }
+        setLoanDetails({
+          dueAmount: loan.amountDue,
+          feesAndCharges: loan.charges,
+          paymentDueDate: loan.dueDate,
+          referenceNo: loan.referenceNo,
+          loanType: loan.loanType,
+          status: loan.status,
+        });
+        break;
+      case 404:
+        displayError("Loan does not exist");
+        break;
+      case 500:
+        displayError("An error occurred while fetching the loan payment schedule.")
+        break;
+      default:
+        break;
+    }
+
   };
+
   useEffect(() => {
     LoanDetailsHandler();
 
@@ -81,11 +99,14 @@ const ManageLoansDetailsComponent = () => {
       const loanServiceFee = await getServiceFee(amountfee);
       console.log("Service Fee:", loanServiceFee);
     };
-    fetchServiceFee();
+    // fetchServiceFee();
   }, []);
 
   const OnModalCloseHandler = () => {
     setAlertModal(false);
+    setAlertProps({
+      message:""
+    })
     navigate("/manage-loans");
   };
 
@@ -137,7 +158,7 @@ const ManageLoansDetailsComponent = () => {
         <TopbarComponent />
         {alertModal ? (
           <AlertModalComponent
-            message="Loan does not exist"
+            message={alertProps.message}
             onClose={OnModalCloseHandler}
           />
         ) : (

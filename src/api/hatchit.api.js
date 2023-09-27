@@ -16,14 +16,27 @@ const MakeDigest = (payloads) => {
 };
 
 const MakeGetRequest = async (url, params) => {
+  console.log(url, params);
   try {
     const response = await HatchITAxiosInstance.get(url, {
       params: { ...params },
       responseType: "json"
     });
-    return response;
+
+    let data = {
+      data: response.data,
+      status: response.status
+    }
+    return data;
+
   } catch (error) {
-    throw error;
+    console.log(error);
+    let err = {
+      error,
+      status: error.response.status
+    }
+
+    return err;
   }
 };
 
