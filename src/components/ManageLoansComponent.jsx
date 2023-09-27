@@ -43,7 +43,7 @@ const ManageLoanComponent = () => {
   }, [modal]);
   
   const GetAllLoans = async () => {
-    const res = await GetLoans({ckyc_id: "X220700004626K1"});
+    const res = await GetLoans({ckyc_id: "X221200006549K1"});
   console.log(res);
     if (res.status === 200) {
       setLoans(res.data.data)
@@ -72,7 +72,7 @@ const ManageLoanComponent = () => {
     if (loans?.length !== 0) {
       let filteredLoans = loans?.filter((loan, key) => {
         // console.log(loan);
-        if (loan.status === "APPROVED") {
+        if (loan.status === "DISBURSED") {
           return loan
         }
       })
