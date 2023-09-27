@@ -1,8 +1,13 @@
 import { SymphAxiosInstance } from '../helper/axios';
 import { getCookieData } from "../utils/CookieChecker";
 
-const Login = () => { }
 const LoanBillsPay = () => { }
+const Login = () => {}
+const LoanBillsPay = () => {}
+
+const baseURL = process.env.REACT_APP_SYMPH_BASE_URL;
+const apiKey = process.env.REACT_APP_API_KEY;
+
 const Threshold = async () => {
     try {
         const urlToFetch = `/v1/api/1.0/ml-loans/threshold-amount`;
@@ -26,7 +31,6 @@ const Threshold = async () => {
         return error;
     }
 }
-
 
 const Paynow = async (amountDue, charges) => {
     try {
@@ -69,9 +73,25 @@ const Paynow = async (amountDue, charges) => {
         console.log('catch: ',error);
     }
 }
+const getServiceFee = async (amountfee) => {
+    try{
+      const response = await SymphAxiosInstance.get("/v1/api/1.0/ml-loans/service-fee", {
+         params:{
+            amount: amountfee
+         }
+      });
+      return response;
+  
+    }catch(error){
+      console.error("Error" , error)
+    }
+  
+  }
+
 export {
     Login,
     LoanBillsPay,
-    Threshold,
+    getServiceFee,
+    Threshold, 
     Paynow
 }

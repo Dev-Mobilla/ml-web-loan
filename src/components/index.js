@@ -3,6 +3,8 @@ import HousingLoanComponent from "./HousingLoanComponent";
 import FooterComponent from "./layout/FooterComponent";
 import HeaderComponent from "./layout/HeaderComponent";
 import TopbarComponent from "./layout/TopbarComponent";
+import LoadingComponent from "./layout/LoadingComponent";
+
 import LoginComponent from "./LoginComponent";
 import ManageLoanComponent from "./ManageLoansComponent";
 import QuickCashLoanComponent from "./QuickCashLoanComponent";
@@ -101,4 +103,5 @@ export {
   CustomAlert,
   ErrorComponent,
   FeatureNotAvailableModalComponent,
+  LoadingComponent,
 };

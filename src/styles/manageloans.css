@@ -238,7 +238,7 @@
 
 .manage-loans .prev-btn {
   width: 100%;
-  margin: auto 70px;
+  margin: 20px 70px;
 }
 
 .manage-loans .custom-button {
@@ -293,6 +293,9 @@
   font-size: 19px;
   font-weight: bold;
   color: rgb(167, 164, 164);
+  height: 20vh;
+  /* border-bottom:1px solid rgba(204, 204, 204, 0.511) ;
+  border-top:1px solid rgba(204, 204, 204, 0.511)  ; */
 }
 /* MODAL */
 .manage-loans .submit-modal {
@@ -373,7 +376,7 @@
     position: initial;
   }
   .manage-loans .prev-btn {
-    margin: auto 10px;
+    margin: 20px 10px;
   }
   .manage-loans .past-loan-btn-container {
     margin: 0 auto;
@@ -428,7 +431,7 @@
     position: initial;
   }
   .manage-loans .prev-btn {
-    margin: auto 10px;
+    margin: 20px 10px;
   }
   .manage-loans .past-loan-btn-container {
     margin: 0 auto;
@@ -478,7 +481,7 @@
     position: initial;
   }
   .manage-loans .prev-btn {
-    margin: auto 10px;
+    margin: 20px 10px;
   }
   .manage-loans .current-loan-btn-container {
     margin: auto 60px;
@@ -539,7 +542,7 @@
     position: initial;
   }
   .manage-loans .prev-btn {
-    margin: auto 10px;
+    margin: 20px 10px;
   }
   .manage-loans .current-loan-btn-container {
     margin: auto 60px;

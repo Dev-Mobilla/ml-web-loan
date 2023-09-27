@@ -6,8 +6,8 @@ import {
   CustomHeader,
   CustomPrevBtn,
   CustomStatus,
-  FooterComponent,
   TopbarComponent,
+  LoadingComponent,
 } from "../../index";
 
 import houseIcon from "../../../assets/icons/house.png";
@@ -16,9 +16,11 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { GetLoansDetails } from "../../../api/api";
 import { GetCollateralDetails } from "../../../api/hatchit.api";
 import { Paynow } from "../../../api/symph.api";
+import { GetLoanDetails } from "../../../api/hatchit.api";
+import { Threshold, getServiceFee, Paynow } from "../../../api/symph.api";
+import { GetLoanPaymentSchedule } from "../../../api/hatchit.api";
 
 const ManageLoansDetailsComponent = () => {
-
   const recentPayments = [
     { date: "05-14-2023", time: "16:23", amount: "30,625.00" },
     { date: "04-15-2023", time: "12:01", amount: "30,625.00" },
@@ -39,37 +41,80 @@ const ManageLoansDetailsComponent = () => {
     Paynow(loanDetails.dueAmount, loanDetails.feesAndCharges);
   };
   const [alertModal, setAlertModal] = useState(false);
+  const [alertProps, setAlertProps] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const navigate = useNavigate();
 
   const [params] = useSearchParams();
-  const LoanId = params.get("id");
+  const LoanReference = params.get("reference");
 
   const LoanDetailsHandler = async () => {
-    const response = await GetLoansDetails(LoanId);
-    if (response.length !== 0) {
-      let loan = response[0];
+    setIsLoading(true);
 
-      setLoanDetails({
-        dueAmount: loan.amountDue,
-        feesAndCharges: loan.charges,
-        paymentDueDate: loan.dueDate,
-        referenceNo: loan.referenceNo,
-        loanType: loan.loanType,
-        status: loan.status,
-      });
-    } else {
-      setAlertModal(true);
-      setLoanDetails({
-        dueAmount: "",
-        feesAndCharges: "",
-        paymentDueDate: "",
-        referenceNo: "",
-        loanType: "",
-      });
-    }
+    setTimeout(async () => {
+      try {
+        setLoanDetails({
+          dueAmount: "",
+          feesAndCharges: "",
+          paymentDueDate: "",
+          referenceNo: "",
+          loanType: "",
+          status: "",
+        });
+
+        const response = await GetLoanDetails({ reference: LoanReference });
+        console.log(response);
+
+        switch (response.status) {
+          case 200:
+            let loan = response[0];
+
+            setLoanDetails({
+              dueAmount: loan.amountDue,
+              feesAndCharges: loan.charges,
+              paymentDueDate: loan.dueDate,
+              referenceNo: loan.referenceNo,
+              loanType: loan.loanType,
+              status: loan.status,
+            });
+            break;
+          case 404:
+            displayError("Loan does not exist");
+            break;
+          case 500:
+            displayError("An error occurred while fetching the loan details.");
+            break;
+          default:
+            break;
+        }
+      } catch (error) {
+        displayError("An error occurred while fetching the loan details.");
+      }
+
+      setIsLoading(false);
+    }, 3000);
   };
+
+  const displayError = (message) => {
+    setAlertModal(true);
+    setAlertProps({
+      message: message,
+    });
+  };
+
+  const LoadingModalComponent = () => {
+    return (
+      <div className="alertbackground">
+        <LoadingComponent />
+      </div>
+    );
+  };
+
   useEffect(() => {
+    const fetchData = async () => {
+      const thresholding = await Threshold();
+    };
     // fetch("/api/getLoanData")
     //   .then((response) => response.json())
     //   .then((data) => {
@@ -82,6 +127,16 @@ const ManageLoansDetailsComponent = () => {
     //   });
     LoanDetailsHandler();
   }, []);
+
+  useEffect(() => {
+    const fetchServiceFee = async () => {
+      let amountfee = 100000;
+      const loanServiceFee = await getServiceFee(amountfee);
+      console.log("Service Fee:", loanServiceFee);
+    };
+    // fetchServiceFee();
+  }, []);
+
   const OnModalCloseHandler = () => {
     setAlertModal(false);
     navigate("/manage-loans");
@@ -118,19 +173,34 @@ const ManageLoansDetailsComponent = () => {
     </svg>
   );
 
+  const [paymentSchedule, setPaymentSchedule] = useState(null);
+
+  const handlePaymentScheduleClick = async () => {
+    try {
+      const schedule = await GetLoanPaymentSchedule();
+      setPaymentSchedule(schedule);
+    } catch (error) {
+      console.error("Error fetching payment schedule:", error);
+    }
+  };
+
   return (
     <div className="housing-loan">
       <div className="div">
         <TopbarComponent />
-        {alertModal ? (
-          <AlertModalComponent
-            message="Loan does not exist"
-            onClose={OnModalCloseHandler}
-          />
+        {isLoading ? (
+          <LoadingModalComponent />
         ) : (
-          <></>
+          <>
+            <CustomHeader title="Manage Existing Loan" />
+            {alertModal ? (
+              <AlertModalComponent
+                message={alertProps.message}
+                onClose={OnModalCloseHandler}
+              />
+            ) : null}
+          </>
         )}
-        <CustomHeader title="Manage Existing Loan" />
         <div className="housing-content">
           <CustomPrevBtn />
           <div className="card">
@@ -150,8 +220,8 @@ const ManageLoansDetailsComponent = () => {
                   loanDetails.status?.toLowerCase() === "current"
                     ? "custom-current"
                     : loanDetails.status?.toLowerCase() === "past due"
-                      ? "custom-pastdue"
-                      : ""
+                    ? "custom-pastdue"
+                    : ""
                 }
               />
             </div>
@@ -211,6 +281,7 @@ const ManageLoansDetailsComponent = () => {
                   styles="payment-schedule-btn"
                   icon={DownloadIcon}
                   iconStyle="download-icon"
+                  onClick={handlePaymentScheduleClick}
                 />
                 <CustomButton
                   name=" Collateral Details"
@@ -218,6 +289,8 @@ const ManageLoansDetailsComponent = () => {
                   icon={DownloadIcon}
                   iconStyle="download-icon"
                 />
+
+                <GetLoanPaymentSchedule paymentSchedule={paymentSchedule} />
               </div>
 
               <div className="hl-buttom">
