@@ -13,6 +13,7 @@ const ManageLoanCardComponent = ({
   referenceTxt,
   OnBtnClick,
   btnType,
+  disabled
 }) => {
   return (
     <div className={loanCardName}>
@@ -30,6 +31,7 @@ const ManageLoanCardComponent = ({
             styles={btnStyle}
             EventHandler={OnBtnClick}
             btnType={btnType}
+            disabled={disabled}
           />
         </div>
       </div>

@@ -1,11 +1,11 @@
 import React from "react";
 
-const LoadingComponent = () => {
+const LoadingComponent = ({ containerStyle }) => {
   const spinnerContainerStyle = {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    height: "100%",
+    // height: "100%",
     margin: "50px",
   };
 
@@ -15,7 +15,7 @@ const LoadingComponent = () => {
   };
 
   return (
-    <div style={spinnerContainerStyle}>
+    <div style={spinnerContainerStyle} className={containerStyle}>
       <div style={spinnerStyle}>
         <svg viewBox="0 0 50 50">
           <circle

@@ -45,59 +45,62 @@ const ManageLoansDetailsComponent = () => {
 
   const [params] = useSearchParams();
   const LoanReference = params.get("reference");
+  const LoanType = params.get("loan-type");
 
   const LoanDetailsHandler = async () => {
-    setIsLoading(true);
+    const response = await GetLoanDetails({reference: LoanReference});
+    // const response = await GetLoanDetails({reference: "QBLNUSBMDZT"});
+    console.log(response);
 
-    setTimeout(async () => {
-      try {
-        setLoanDetails({
-          dueAmount: "",
-          feesAndCharges: "",
-          paymentDueDate: "",
-          referenceNo: "",
-          loanType: "",
-          status: "",
-        });
+    const displayError = (message) => {
+      setAlertModal(true);
+      setAlertProps({
+        message: message
+      })
+      setLoanDetails({
+        dueAmount: "",
+        feesAndCharges: "",
+        paymentDueDate: "",
+        referenceNo: "",
+        loanType: "",
+      });
+    }
 
-        const response = await GetLoanDetails({ reference: LoanReference });
-        console.log(response);
+    switch (response.status) {
+      case 200:
+        let loan = response.data;
 
-        switch (response.status) {
-          case 200:
-            let loan = response[0];
+        let loanPayment = loan.data;
+        setIsLoading(true);
 
+        setTimeout(async () => {
+          try {
             setLoanDetails({
-              dueAmount: loan.amountDue,
-              feesAndCharges: loan.charges,
-              paymentDueDate: loan.dueDate,
-              referenceNo: loan.referenceNo,
-              loanType: loan.loanType,
+              dueAmount: loanPayment.due_amount,
+              feesAndCharges: loanPayment.penalty_amount,
+              paymentDueDate: loanPayment.due_date,
+              referenceNo: loan.reference,
+              loanType: LoanType,
               status: loan.status,
             });
-            break;
-          case 404:
-            displayError("Loan does not exist");
-            break;
-          case 500:
+            
+          } catch (error) {
             displayError("An error occurred while fetching the loan details.");
-            break;
-          default:
-            break;
-        }
-      } catch (error) {
-        displayError("An error occurred while fetching the loan details.");
-      }
-
-      setIsLoading(false);
-    }, 3000);
-  };
-
-  const displayError = (message) => {
-    setAlertModal(true);
-    setAlertProps({
-      message: message,
-    });
+          }
+          
+          setIsLoading(false);
+        }, 3000);
+        break;
+      case 404:
+        displayError("Loan does not exist");
+        break;
+      case 500:
+        displayError("An error occurred while fetching loan details.")
+        break;
+      default:
+        displayError("An error occurred while fetching loan details.")
+        break;
+    }
   };
 
   const LoadingModalComponent = () => {
@@ -214,9 +217,9 @@ const ManageLoansDetailsComponent = () => {
               <CustomStatus
                 status={loanDetails.status}
                 styles={
-                  loanDetails.status?.toLowerCase() === "current"
+                  loanDetails.status?.toLowerCase() === "disbursed"
                     ? "custom-current"
-                    : loanDetails.status?.toLowerCase() === "past due"
+                    : loanDetails.status?.toLowerCase() === "closed"
                     ? "custom-pastdue"
                     : ""
                 }
