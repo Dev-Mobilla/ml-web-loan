@@ -1,5 +1,5 @@
 import axios from "axios";
-import isCookiePresent  from "../utils/CookieChecker";
+import { isCookiePresent }  from "../utils/CookieChecker";
 
 const SymphAxiosInstance = axios.create({
   baseURL: process.env.REACT_APP_SYMPH_BASE_URL,
@@ -24,8 +24,8 @@ SymphAxiosInstance.interceptors.request.use(
         config.headers.Accept = 'application/json';
         config.headers["Content-Type"] = 'application/json';
         config.headers["Access-Control-Allow-Origin"] = 'http://ml-loans-dev.mlhuillier.com:3000/';
-        config.headers["Access-Control-Request-Method"] = ['GET', 'POST', 'PATCH' , 'PUT']
-
+        config.headers["Access-Control-Request-Method"] = ['GET', 'POST', 'PATCH' , 'PUT'];
+        config.headers.crossDomain = true;
       } 
     }
     return config;

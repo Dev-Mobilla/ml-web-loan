@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import isCookiePresent from "../../utils/CookieChecker";
+import {isCookiePresent} from "../../utils/CookieChecker";
 import "../../styles/topbar.css";
 
 const TopbarComponent = () => {

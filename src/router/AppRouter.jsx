@@ -13,7 +13,7 @@ import {
 import LoanType from "../pages/LoanType.page";
 import CustomerDetails from "../pages/CustomerDetails.page";
 import CustomerRequirements from "../pages/CustomerRequirements.page";
-import isCookiePresent from "../utils/CookieChecker";
+import {isCookiePresent} from "../utils/CookieChecker";
 
 const ProtectedRoute = ({ component: Component, ...rest }) => {
   const sessionCookieName = process.env.REACT_APP_SESSION_COOKIE_NAME;

@@ -15,7 +15,7 @@ import mlicon from "../../../assets/icons/Paynow_icn.png";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { GetLoansDetails } from "../../../api/api";
 import { GetCollateralDetails, GetLoanDetails } from "../../../api/hatchit.api";
-import { Threshold, getServiceFee } from "../../../api/symph.api";
+import { Threshold, getServiceFee,Paynow } from "../../../api/symph.api";
 import { GetLoanPaymentSchedule } from "../../../api/hatchit.api";
 
 const ManageLoansDetailsComponent = () => {
@@ -35,7 +35,9 @@ const ManageLoansDetailsComponent = () => {
     referenceNo: "",
     status: "",
   });
-
+  const handlePayNowButton = () => {
+    Paynow(loanDetails.dueAmount, loanDetails.feesAndCharges);
+  };
   const [alertModal, setAlertModal] = useState(false);
 
   const navigate = useNavigate();
@@ -71,6 +73,20 @@ const ManageLoansDetailsComponent = () => {
     // }
   };
   useEffect(() => {
+    const fetchData = async () => {
+      const thresholding = await Threshold();
+      
+    }
+    // fetch("/api/getLoanData")
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    //     setDueAmount(data.dueAmount);
+    //     setFeesAndCharges(data.feesAndCharges);
+    //     setPaymentDueDate(data.paymentDueDate);
+    //   })
+    //   .catch((error) => {
+    //     console.error("Error fetching data:", error);
+    //   });
     LoanDetailsHandler();
 
   }, []);
@@ -163,8 +179,8 @@ const ManageLoansDetailsComponent = () => {
                   loanDetails.status?.toLowerCase() === "current"
                     ? "custom-current"
                     : loanDetails.status?.toLowerCase() === "past due"
-                    ? "custom-pastdue"
-                    : ""
+                      ? "custom-pastdue"
+                      : ""
                 }
               />
             </div>
@@ -208,7 +224,7 @@ const ManageLoansDetailsComponent = () => {
                       charges
                     </p>
                   </div>
-                  <div className="pay-btn">
+                  <div className="pay-btn" onClick={handlePayNowButton}>
                     <button className="pay-now-button">
                       <img src={mlicon} alt="ML Icon" />
                       Pay Now
