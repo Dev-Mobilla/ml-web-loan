@@ -7,7 +7,7 @@ import {
   TopbarComponent,
   FeatureNotAvailableModalComponent,
 } from "./index";
-import isCookiePresent from "../utils/CookieChecker";
+import { isCookiePresent } from "../utils/CookieChecker";
 
 const DashboardComponent = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
