@@ -1,10 +1,6 @@
 import { SymphAxiosInstance } from '../helper/axios';
 import { getCookieData } from "../utils/CookieChecker";
 
-
-const baseURL = process.env.REACT_APP_SYMPH_BASE_URL;
-const apiKey = process.env.REACT_APP_API_KEY;
-
 const Login = () => { }
 const LoanBillsPay = () => { }
 const Threshold = async () => {
@@ -57,14 +53,20 @@ const Paynow = async (amountDue, charges) => {
                 body: JSON.stringify(RequestBody)
             });
 
-            if (response == 200) {
+            if (response.status == 200) {
                 console.log('Data:', response);
-            } else {
-                console.error('Error:', response.JSON);
+            } else if (response.status == 401) {
+                console.log('Authentication Error: ', response.status);
+            } else if (response.status == 400){
+                console.log('Cash Transfer Not Enough Balance Error: ', response.status);
+            } else if (response.status == 403){
+                console.log('Tier Limit Error: ', response.status);
+            }else {
+                console.error('Error ni siya:', response.status);
             }
         }
     } catch (error) {
-        console.log(error);
+        console.log('catch: ',error);
     }
 }
 export {

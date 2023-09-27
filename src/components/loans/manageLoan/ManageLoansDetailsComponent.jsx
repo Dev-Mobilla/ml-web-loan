@@ -15,7 +15,7 @@ import mlicon from "../../../assets/icons/Paynow_icn.png";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { GetLoansDetails } from "../../../api/api";
 import { GetCollateralDetails } from "../../../api/hatchit.api";
-import { Threshold, Paynow } from "../../../api/symph.api";
+import { Paynow } from "../../../api/symph.api";
 
 const ManageLoansDetailsComponent = () => {
 
@@ -70,10 +70,6 @@ const ManageLoansDetailsComponent = () => {
     }
   };
   useEffect(() => {
-    const fetchData = async () => {
-      const thresholding = await Threshold();
-      
-    }
     // fetch("/api/getLoanData")
     //   .then((response) => response.json())
     //   .then((data) => {
