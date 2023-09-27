@@ -1,8 +1,5 @@
 import { SymphAxiosInstance } from '../helper/axios';
 import { getCookieData } from "../utils/CookieChecker";
-
-=======
-import { SymphAxiosInstance } from "../helper/axios";
 const Login = () => {}
 const LoanBillsPay = () => {}
 
@@ -68,11 +65,6 @@ const Paynow = async (amountDue, charges) => {
         console.log(error);
     }
 }
-export {
-    Login,
-    LoanBillsPay,
-    Threshold,
-    Paynow
 const getServiceFee = async (amountfee) => {
     try{
       const response = await SymphAxiosInstance.get("/v1/api/1.0/ml-loans/service-fee", {
@@ -92,5 +84,6 @@ export {
     Login,
     LoanBillsPay,
     getServiceFee,
-    Threshold
+    Threshold, 
+    Paynow
 }
