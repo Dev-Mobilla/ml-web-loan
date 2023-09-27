@@ -14,7 +14,7 @@ import houseIcon from "../../../assets/icons/house.png";
 import mlicon from "../../../assets/icons/Paynow_icn.png";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { GetLoansDetails } from "../../../api/api";
-import { GetCollateralDetails } from "../../../api/hatchit.api";
+import { GetCollateralDetails, GetLoanDetails } from "../../../api/hatchit.api";
 import { Threshold, getServiceFee } from "../../../api/symph.api";
 import { GetLoanPaymentSchedule } from "../../../api/hatchit.api";
 
@@ -41,35 +41,38 @@ const ManageLoansDetailsComponent = () => {
   const navigate = useNavigate();
 
   const [params] = useSearchParams();
-  const LoanId = params.get("id");
+  const LoanReference = params.get("reference");
 
   const LoanDetailsHandler = async () => {
-    const response = await GetLoansDetails(LoanId);
+    const response = await GetLoanDetails({reference: LoanReference});
 
-    if (response.length !== 0) {
-      let loan = response[0];
+    console.log(response);
 
-      setLoanDetails({
-        dueAmount: loan.amountDue,
-        feesAndCharges: loan.charges,
-        paymentDueDate: loan.dueDate,
-        referenceNo: loan.referenceNo,
-        loanType: loan.loanType,
-        status: loan.status,
-      });
-    } else {
-      setAlertModal(true);
-      setLoanDetails({
-        dueAmount: "",
-        feesAndCharges: "",
-        paymentDueDate: "",
-        referenceNo: "",
-        loanType: "",
-      });
-    }
+    // if (response.length !== 0) {
+    //   let loan = response[0];
+
+    //   setLoanDetails({
+    //     dueAmount: loan.amountDue,
+    //     feesAndCharges: loan.charges,
+    //     paymentDueDate: loan.dueDate,
+    //     referenceNo: loan.referenceNo,
+    //     loanType: loan.loanType,
+    //     status: loan.status,
+    //   });
+    // } else {
+    //   setAlertModal(true);
+    //   setLoanDetails({
+    //     dueAmount: "",
+    //     feesAndCharges: "",
+    //     paymentDueDate: "",
+    //     referenceNo: "",
+    //     loanType: "",
+    //   });
+    // }
   };
   useEffect(() => {
     LoanDetailsHandler();
+
   }, []);
 
   useEffect(() => {

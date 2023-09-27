@@ -220,7 +220,7 @@ const DashboardComponent = () => {
             </div>
           </div>
         </div>
-        <FooterComponent />
+        {/* <FooterComponent /> */}
       </div>
       {isModalOpen && (
         <FeatureNotAvailableModalComponent onClose={closeModal} />

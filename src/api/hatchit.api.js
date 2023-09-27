@@ -3,6 +3,9 @@ import { sha512 } from "js-sha512";
 import { HatchITAxiosInstance } from "../helper/axios";
 import CustomAlert from "../components/custom/Custom.Alert";
 
+// const MakeDigest = (payloadString) => {
+
+//   const digest = sha512(payloadString + "|" + "W1@KLDMWLk@ek$lkj"	);
 const api_key = process.env.REACT_APP_API_KEY;
 const baseURL = process.env.REACT_APP_HATCHIT_BASE_URL;
 
@@ -16,7 +19,7 @@ const MakeGetRequest = async (url, params) => {
   try {
     const response = await HatchITAxiosInstance.get(url, {
       params: { ...params },
-      responseType: "json",
+      responseType: "json"
     });
     return response;
   } catch (error) {
@@ -44,6 +47,7 @@ const handleErrorResponse = (response) => {
 };
 
 const GetLoans = async (ckycID) => {
+
   const payloadString = JSON.stringify(ckycID);
   const ckyc_id = ckycID.ckyc_id;
   const digest = MakeDigest([payloadString, "W1@KLDMWLk@ek$lkj"]);
@@ -55,9 +59,10 @@ const GetLoans = async (ckycID) => {
   return MakeGetRequest(endpoint, params);
 };
 
-const GetLoanDetails = async (referenceID) => {
-  const payloadString = JSON.stringify(referenceID);
-  const reference = referenceID.reference;
+const GetLoanDetails = async (referenceNum) => {
+  console.log(referenceNum);
+  const payloadString = JSON.stringify(referenceNum);
+  const reference = referenceNum.reference;
   const digest = MakeDigest([payloadString, "W1@KLDMWLk@ek$lkj"]);
   const endpoint = `/loan_schedules/get/customer/loans/details`;
   const params = {
