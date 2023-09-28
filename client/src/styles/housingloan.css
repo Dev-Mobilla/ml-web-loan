@@ -67,9 +67,23 @@
   align-items: center;
   width: 400px;
 }
-
 .input-label {
   font-size: 18px;
+  font-weight: 400;
+  margin-right: 10px;
+  line-height: 21px;
+  letter-spacing: -0.3px;
+  color: var(--text-gray);
+}
+.remarks{
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 30px;
+  align-items: center;
+}
+.past-remarks {
+  font-size: 18px;
+  font-style: italic;
   font-weight: 400;
   margin-right: 10px;
   line-height: 21px;
@@ -253,5 +267,8 @@
 
   .hl-transactions .ammount {
     margin-left: 50px;
+  }
+  .past-remarks{
+    font-size: 16px;
   }
 }
