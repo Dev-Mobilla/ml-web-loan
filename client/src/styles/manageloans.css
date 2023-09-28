@@ -267,7 +267,7 @@
   align-items: center;
 }
 .manage-loans .custom-button.details-btn,
-.manage-loans .custom-button.manage-btn {
+.manage-loans .custom-button.manage-btn ,.manage-loans .custom-button.approved-btn {
   border: none;
   color: var(--white);
   font-size: 18px;
@@ -275,8 +275,11 @@
   width: 163.96px;
   height: 30.35px;
 }
+.manage-loans .custom-button.approved-btn{
+  cursor: no-drop;
+}
 
-.manage-loans .custom-button.manage-btn {
+.manage-loans .custom-button.manage-btn, .manage-loans .custom-button.approved-btn {
   background-image: url(https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e492714fd92dc35e55a22f/img/mng2-card-1@2x.png);
   background-size: 100% 100%;
 }
@@ -296,6 +299,10 @@
   height: 20vh;
   /* border-bottom:1px solid rgba(204, 204, 204, 0.511) ;
   border-top:1px solid rgba(204, 204, 204, 0.511)  ; */
+}
+.manage-loans .container-loading{
+  height: 20vh;
+  margin: 50px 20px;
 }
 /* MODAL */
 .manage-loans .submit-modal {
@@ -396,7 +403,8 @@
     margin: 0 auto;
   }
   .manage-loans .custom-button.manage-btn,
-  .manage-loans .custom-button.details-btn {
+  .manage-loans .custom-button.details-btn,
+  .manage-loans .custom-button.approved-btn {
     font-size: 15px;
     width: 100px;
     height: 30px;
@@ -448,7 +456,8 @@
     margin: 10px;
   }
   .manage-loans .custom-button.manage-btn,
-  .manage-loans .custom-button.details-btn {
+  .manage-loans .custom-button.details-btn,
+  .manage-loans .custom-button.approved-btn {
     font-size: 15px;
     width: 150px;
     height: 30px;
@@ -512,7 +521,8 @@
     margin: auto 5px auto 15px;
   }
   .manage-loans .custom-button.manage-btn,
-  .manage-loans .custom-button.details-btn {
+  .manage-loans .custom-button.details-btn,
+  .manage-loans .custom-button.approved-btn {
     padding: 7px 30px;
     margin-right: 40px;
     font-size: 15px;
@@ -573,7 +583,8 @@
     margin: auto 5px auto 15px;
   }
   .manage-loans .custom-button.manage-btn,
-  .manage-loans .custom-button.details-btn {
+  .manage-loans .custom-button.details-btn,
+  .manage-loans .custom-button.approved-btn {
     padding: 7px 30px;
     margin-right: 40px;
     font-size: 15px;

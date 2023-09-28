@@ -21,9 +21,21 @@ const MakeGetRequest = async (url, params) => {
       params: { ...params },
       responseType: "json"
     });
-    return response;
+    // console.log(response);
+
+    let data = {
+      data: response.data,
+      status: response.status
+    }
+    return data;
+
   } catch (error) {
-    throw error;
+    let err = {
+      error,
+      status: error.response.status
+    }
+
+    return err;
   }
 };
 

@@ -6,8 +6,8 @@ import {
   CustomHeader,
   CustomPrevBtn,
   CustomStatus,
-  FooterComponent,
   TopbarComponent,
+  LoadingComponent,
 } from "../../index";
 import houseIcon from "../../../assets/icons/house.png";
 import mlicon from "../../../assets/icons/Paynow_icn.png";
@@ -38,44 +38,83 @@ const ManageLoansDetailsComponent = () => {
     Paynow(loanDetails.dueAmount, loanDetails.feesAndCharges);
   };
   const [alertModal, setAlertModal] = useState(false);
+  const [alertProps, setAlertProps] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const navigate = useNavigate();
 
   const [params] = useSearchParams();
   const LoanReference = params.get("reference");
+  const LoanType = params.get("loan-type");
 
   const LoanDetailsHandler = async () => {
     const response = await GetLoanDetails({reference: LoanReference});
-
+    // const response = await GetLoanDetails({reference: "QBLNUSBMDZT"});
     console.log(response);
 
-    // if (response.length !== 0) {
-    //   let loan = response[0];
+    const displayError = (message) => {
+      setAlertModal(true);
+      setAlertProps({
+        message: message
+      })
+      setLoanDetails({
+        dueAmount: "",
+        feesAndCharges: "",
+        paymentDueDate: "",
+        referenceNo: "",
+        loanType: "",
+      });
+    }
 
-    //   setLoanDetails({
-    //     dueAmount: loan.amountDue,
-    //     feesAndCharges: loan.charges,
-    //     paymentDueDate: loan.dueDate,
-    //     referenceNo: loan.referenceNo,
-    //     loanType: loan.loanType,
-    //     status: loan.status,
-    //   });
-    // } else {
-    //   setAlertModal(true);
-    //   setLoanDetails({
-    //     dueAmount: "",
-    //     feesAndCharges: "",
-    //     paymentDueDate: "",
-    //     referenceNo: "",
-    //     loanType: "",
-    //   });
-    // }
+    switch (response.status) {
+      case 200:
+        let loan = response.data;
+
+        let loanPayment = loan.data;
+        setIsLoading(true);
+
+        setTimeout(async () => {
+          try {
+            setLoanDetails({
+              dueAmount: loanPayment.due_amount,
+              feesAndCharges: loanPayment.penalty_amount,
+              paymentDueDate: loanPayment.due_date,
+              referenceNo: loan.reference,
+              loanType: LoanType,
+              status: loan.status,
+            });
+            
+          } catch (error) {
+            displayError("An error occurred while fetching the loan details.");
+          }
+          
+          setIsLoading(false);
+        }, 3000);
+        break;
+      case 404:
+        displayError("Loan does not exist");
+        break;
+      case 500:
+        displayError("An error occurred while fetching loan details.")
+        break;
+      default:
+        displayError("An error occurred while fetching loan details.")
+        break;
+    }
   };
+
+  const LoadingModalComponent = () => {
+    return (
+      <div className="alertbackground">
+        <LoadingComponent />
+      </div>
+    );
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       const thresholding = await Threshold();
-      
-    }
+    };
     // fetch("/api/getLoanData")
     //   .then((response) => response.json())
     //   .then((data) => {
@@ -87,7 +126,6 @@ const ManageLoansDetailsComponent = () => {
     //     console.error("Error fetching data:", error);
     //   });
     LoanDetailsHandler();
-
   }, []);
 
   useEffect(() => {
@@ -96,7 +134,7 @@ const ManageLoansDetailsComponent = () => {
       const loanServiceFee = await getServiceFee(amountfee);
       console.log("Service Fee:", loanServiceFee);
     };
-    fetchServiceFee();
+    // fetchServiceFee();
   }, []);
 
   useEffect(() => {
@@ -186,15 +224,19 @@ const ManageLoansDetailsComponent = () => {
     <div className="housing-loan">
       <div className="div">
         <TopbarComponent />
-        {alertModal ? (
-          <AlertModalComponent
-            message="Loan does not exist"
-            onClose={OnModalCloseHandler}
-          />
+        {isLoading ? (
+          <LoadingModalComponent />
         ) : (
-          <></>
+          <>
+            <CustomHeader title="Manage Existing Loan" />
+            {alertModal ? (
+              <AlertModalComponent
+                message={alertProps.message}
+                onClose={OnModalCloseHandler}
+              />
+            ) : null}
+          </>
         )}
-        <CustomHeader title="Manage Existing Loan" />
         <div className="housing-content">
           <CustomPrevBtn />
           <div className="card">
@@ -211,11 +253,11 @@ const ManageLoansDetailsComponent = () => {
               <CustomStatus
                 status={loanDetails.status}
                 styles={
-                  loanDetails.status?.toLowerCase() === "current"
+                  loanDetails.status?.toLowerCase() === "disbursed"
                     ? "custom-current"
-                    : loanDetails.status?.toLowerCase() === "past due"
-                      ? "custom-pastdue"
-                      : ""
+                    : loanDetails.status?.toLowerCase() === "closed"
+                    ? "custom-pastdue"
+                    : ""
                 }
               />
             </div>
