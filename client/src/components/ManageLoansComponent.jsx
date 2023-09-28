@@ -9,6 +9,7 @@ import {
   CustomIcon,
   CustomSubmitModal,
   LoadingComponent,
+  AlertModalComponent,
 } from "./index";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Loans } from "../utils/ManageLoansMockData";
@@ -24,6 +25,8 @@ const ManageLoanComponent = () => {
   const [inputErrorStyle, setInputErrorStyle] = useState("");
   const [loans, setLoans] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [alertModal, setAlertModal] = useState(false);
+  const [alertProps, setAlertProps] = useState({});
 
   const { Housing, Vehicle, QCL } = CustomIcon;
 
@@ -33,39 +36,60 @@ const ManageLoanComponent = () => {
   };
 
   const GetAllLoans = async () => {
-    try {
       const getCkycId = GetCookieByName(process.env.REACT_APP_ACCOUNT_COOKIE_NAME);
 
-      const res = await GetLoans({ckyc_id: getCkycId?.ckycId});
+      const response = await GetLoans({ckyc_id: getCkycId?.ckycId});
 
       setLoading(true);
 
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
-      console.log(res);
-      
-      if (res.status === 200) {
-        const loanData = res.data.data.map((loan) => ({
-          ...loan,
-          // isLoading: true,
-        }));
-        
-        setLoans(loanData);
-        setLoading(false);
-
-        // await new Promise((resolve) => setTimeout(resolve, 1000));
-
-        // const updatedLoanData = loanData.map((loan) => ({
-        //   ...loan,
-        //   isLoading: false,
-        // }));
-        // setLoans(updatedLoanData);
-      } else {
-        console.log(res.status);
+      const displayError = (message) => {
+        setAlertModal(true);
+        setAlertProps({
+          message: message
+        })
       }
-    } catch (error) {
-      console.error(error);
-    }
+
+      switch (response.status) {
+        case 200:
+
+          setTimeout(async () => {
+            try {
+              const loanData = response.data.data.map((loan) => ({
+                ...loan,
+                // isLoading: true,
+              }));
+              setLoans(loanData);
+              setLoading(false);
+              // await new Promise((resolve) => setTimeout(resolve, 1000));
+
+          // const updatedLoanData = loanData.map((loan) => ({
+          //   ...loan,
+          //   isLoading: false,
+          // }));
+          // setLoans(updatedLoanData);
+              
+            } catch (error) {
+              displayError("An error occurred while fetching the loan details.");
+            }
+            setLoading(false);
+          }, 3000);
+
+          break;
+        case 404:
+          displayError("Loan does not exist");
+          break;
+        case 401:
+          displayError("Session Expired. Please Login again")
+          break;
+        case 500:
+          displayError("An error occurred while fetching loan details.")
+          break;
+        default:
+          displayError("An error occurred while fetching loan details.")
+          break;
+      }
   };
 
   useEffect(() => {
@@ -92,10 +116,16 @@ const ManageLoanComponent = () => {
       icon: <QCL />,
     },
     {
-      loanType: "Vehicle Loan",
+      loanType: "Car Loan",
       icon: <Vehicle />,
     },
   ];
+
+  const OnModalCloseHandler = () => {
+    setAlertModal(false);
+    navigate("/dashboard");
+  };
+
   const LoanStatusChecker = (status) => {
     if (status?.toLowerCase() === "approved") {
       return {
@@ -222,6 +252,12 @@ const ManageLoanComponent = () => {
 
   return (
     <div className="manage-loans">
+      {alertModal ? (
+        <AlertModalComponent
+          message={alertProps.message}
+          onClose={OnModalCloseHandler}
+        />
+      ) : null}
       {modal ? (
         <div className="submit-modal">
           <CustomSubmitModal

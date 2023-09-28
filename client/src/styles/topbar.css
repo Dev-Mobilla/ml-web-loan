@@ -5,7 +5,7 @@
   left: 37px;
   top: 19px;
   width: 100%;
-  max-width: 20%;
+  max-width: 16%;
   margin: 20px 20px;
 }
 #logout-button{
@@ -17,8 +17,10 @@
   position: absolute;
   right: 30px;
   width: 100px;
-  height: 30px;
+  height: 35px;
   cursor: pointer;
+  font-size: 15px;
+  font-weight: 500;
 }
 
 @media screen and (min-width: 360px) and (max-width: 480px) {
@@ -27,12 +29,13 @@
     max-width: 100%;
     background-size: 50%;
     background-repeat: no-repeat;
+    margin: 20px 10px;
   }
   #logout-button{
     right: 20px;
     top:25px;
     width: 90px;
-    height: 25px;
+    height: 30px;
   }
 }
 @media screen and (min-width: 481px) and (max-width: 768px) {
@@ -41,6 +44,8 @@
     max-width: 100%;
     background-size: 50%;
     background-repeat: no-repeat;
+    margin: 20px 10px;
+
   }
   #logout-button{
     right: 15px;

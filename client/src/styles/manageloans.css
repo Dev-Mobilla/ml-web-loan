@@ -63,11 +63,11 @@
 
 .manage-loans .loan-card-container.current-loan,
 .manage-loans .loan-card-container.past-loan {
-  height: 90px;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  border-radius: 20px;
+  /* height: 90px; */
+  /* display: flex; */
+  /* align-items: center;
+  justify-content: space-around; */
+  border-radius: 15px;
 }
 
 .manage-loans .loan-card-container.current-loan {
@@ -265,6 +265,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin: 20px 30px;
 }
 .manage-loans .custom-button.details-btn,
 .manage-loans .custom-button.manage-btn ,.manage-loans .custom-button.approved-btn {
@@ -279,9 +280,18 @@
   cursor: no-drop;
 }
 
-.manage-loans .custom-button.manage-btn, .manage-loans .custom-button.approved-btn {
+.manage-loans .custom-button.manage-btn, .manage-loans 
+/* .custom-button.approved-btn  */
+{
   background-image: url(https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e492714fd92dc35e55a22f/img/mng2-card-1@2x.png);
   background-size: 100% 100%;
+}
+
+.manage-loans .custom-button.approved-btn {
+  background-color: #FFE0B2;
+  color:#FF6D00;
+  border: 1px solid #FFD54F;
+  border-radius: var(--radius);
 }
 .manage-loans .custom-button.details-btn {
   background-color: #ff7700;
@@ -365,6 +375,14 @@
 .manage-loans .submit-modal .modal-btn-wrapper {
   text-align: end;
 }
+.manage-loans .hlmng-icon{
+  margin-right: 25px;
+}
+.manage-loans .loan-type-wrapper{
+  display: flex;
+  justify-content: center;
+  margin: auto 30px;
+}
 
 /* MOBILE RESPONSIVE */
 
@@ -381,6 +399,7 @@
   }
   .manage-loans .custom-prevbtn.prevpagebtn {
     position: initial;
+    display:none;
   }
   .manage-loans .prev-btn {
     margin: 20px 10px;
@@ -400,7 +419,18 @@
     margin: 10px;
   }
   .manage-loans .icon-content {
-    margin: 0 auto;
+    /* margin: 0 auto; */
+    margin:10px 20px;
+
+  }
+  .manage-loans .hlmng-icon{
+    margin-right: 8px;
+  }
+  .manage-loans .loan-type-wrapper{
+    margin: auto 0px;
+  }
+  .manage-loans .details-overlap-3{
+    height: 0;
   }
   .manage-loans .custom-button.manage-btn,
   .manage-loans .custom-button.details-btn,
@@ -408,13 +438,14 @@
     font-size: 15px;
     width: 100px;
     height: 30px;
+    border-radius: var(--radius);
   }
   .manage-loans .loan-type.past,
   .manage-loans .loan-type.current {
-    font-size: 21px;
+    font-size: 19px;
   }
   .manage-loans .reference-txt {
-    font-size: 15px;
+    font-size: 14px;
     width: 165px;
   }
   .manage-loans .footer {
@@ -437,6 +468,7 @@
   }
   .manage-loans .custom-prevbtn.prevpagebtn {
     position: initial;
+    display:none;
   }
   .manage-loans .prev-btn {
     margin: 20px 10px;
@@ -455,13 +487,27 @@
   .manage-loans .loan-card {
     margin: 10px;
   }
+  .manage-loans .icon-content {
+    /* margin: 0 auto; */
+    margin:10px 20px;
+
+  }
+  .manage-loans .hlmng-icon{
+    margin-right: 8px;
+  }
+  .manage-loans .loan-type-wrapper{
+    margin: auto 0px;
+  }
+  .manage-loans .details-overlap-3{
+    height: 0;
+  }
   .manage-loans .custom-button.manage-btn,
   .manage-loans .custom-button.details-btn,
   .manage-loans .custom-button.approved-btn {
     font-size: 15px;
-    width: 150px;
+    width: 130px;
     height: 30px;
-    margin-left: 80px;
+    margin-left:0px;
   }
   .manage-loans .loan-type.past,
   .manage-loans .loan-type.current {
