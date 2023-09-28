@@ -227,36 +227,61 @@ const ManageLoansDetailsComponent = () => {
             </div>
 
             <div className="hl-inputs">
-              <div className="input-group">
-                <div className="input-label">Due this month</div>
-                <div className="input-wrapper">
-                  <input
-                    className="disable-data"
-                    value={loanDetails.dueAmount}
-                    disabled
-                  />
+              
+            {loanDetails.status?.toLowerCase() !== "closed" ? (
+              <>
+                    <div className="input-group">
+                    <div className="input-label">Due this month</div>
+                    <div className="input-wrapper">
+                      <input
+                        className="disable-data"
+                        value={loanDetails.dueAmount}
+                        disabled
+                      />
+                    </div>
+                  </div>
+                  <div className="input-group">
+                  <div className="input-label">Late fees &amp; charges</div>
+                  <div className="input-wrapper">
+                    <input
+                      className="disable-data"
+                      value={loanDetails.feesAndCharges}
+                      disabled
+                    />
+                  </div>
                 </div>
-              </div>
-              <div className="input-group">
-                <div className="input-label">Late fees &amp; charges</div>
-                <div className="input-wrapper">
-                  <input
-                    className="disable-data"
-                    value={loanDetails.feesAndCharges}
-                    disabled
-                  />
+                <div className="input-group">
+                  <div className="input-label">Payment due by</div>
+                  <div className="input-wrapper">
+                    <input
+                      className="disable-data"
+                      value={loanDetails.paymentDueDate}
+                      disabled
+                    />
+                  </div>
                 </div>
-              </div>
-              <div className="input-group">
-                <div className="input-label">Payment due by</div>
-                <div className="input-wrapper">
-                  <input
-                    className="disable-data"
-                    value={loanDetails.paymentDueDate}
-                    disabled
-                  />
+                </>
+              ) : (
+                <></>
+              ) }
+              {loanDetails.status?.toLowerCase() === "closed" ? (
+                <div className="remarks">
+                  <div className="past-remarks">
+                    <p>
+                     Note/Remarks
+                    </p>
+                    <p>
+                      This {loanDetails.loanType} has been fully paid.
+                    </p><br></br>
+                    <p>
+                      Please contact loans@mlhuillier.com for more details.
+                    </p>
+                  </div>
                 </div>
-              </div>
+              ) : (
+                <></>
+              )}
+              
               {loanDetails.status?.toLowerCase() === "current" ? (
                 <div className="note">
                   <div className="paynote">
