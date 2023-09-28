@@ -5,7 +5,6 @@ const LoanBillsPay = () => {}
 
 const baseURL = process.env.REACT_APP_SYMPH_BASE_URL;
 const apiKey = process.env.REACT_APP_API_KEY;
-
 const Threshold = async () => {
     try {
         const urlToFetch = `/v1/api/1.0/ml-loans/threshold-amount`;
@@ -80,10 +79,26 @@ const getServiceFee = async (amountfee) => {
   
   }
 
+const validateAccountNumber =  async(acc_num, acc_fname, acc_lname) =>{
+    try{
+        const response = await SymphAxiosInstance.post("/v1/api/1.0/ml-loans/validate-account-number",{
+            params:{
+                accountNo:acc_num,
+                accountFname:acc_fname,
+                accountLname:acc_lname
+            }
+        });
+        return response;
+    }catch(error){
+        console.error("Error", error)
+    }
+}
+
 export {
     Login,
     LoanBillsPay,
     getServiceFee,
-    Threshold, 
+    Threshold,
+    validateAccountNumber,
     Paynow
 }
