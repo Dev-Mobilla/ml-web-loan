@@ -282,7 +282,7 @@ const ManageLoansDetailsComponent = () => {
                 <></>
               )}
               
-              {loanDetails.status?.toLowerCase() === "current" ? (
+              {loanDetails.status?.toLowerCase() === "disbursed" ? (
                 <div className="note">
                   <div className="paynote">
                     <p>
