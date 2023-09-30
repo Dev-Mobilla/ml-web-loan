@@ -15,6 +15,8 @@ import {
   CustomAlert
 } from "./index";
 import { GetSessionDocument } from "../utils/DataFunctions";
+import { AddCarLoan } from "../api/mlloan.api";
+
 
 const CustomerRequirementComponent = () => {
   const navigate = useNavigate();
@@ -47,10 +49,27 @@ const CustomerRequirementComponent = () => {
     const isCheckEmpty = !CheckRequiredDocuments() && !CheckVehicleDocuments(vehicleKeys) && !storageLength;
     console.log(storageLength);
     setIsSubmitButtonDisabled(!isCheckEmpty);
-
-  }, [ optionValue, isSubmitButtonDisabled, sessionStorage]);
-
- 
+    console.log(location.state.secondStepDetails.preffered_branch);
+    // handleSubmitDocuments();
+  }, [ optionValue, isSubmitButtonDisabled, sessionStorage, ]);
+  
+  const handleSubmitDocuments = () => {
+    const baseData = location.state.secondStepDetails;
+    const request = {
+      'vehicle_type': baseData.vehicleDetails.selectedVehicle,
+      'loan_type': baseData.vehicleDetails.type,
+      'year': baseData.vehicleDetails.year,
+      'make': baseData.vehicleDetails.make,
+      'model': baseData.vehicleDetails.model,
+      'variant': baseData.vehicleDetails.variant,
+      'plate_number': baseData.vehicleDetails.plateNo,
+      'engine_number': baseData.vehicleDetails.engineNo,
+      'chassis_number': baseData.vehicleDetails.chassisNo,
+      'preferred_branch': baseData.preffered_branch,
+      
+    };
+    AddCarLoan(request);
+  }
   // useEffect(() => {
   //   console.log(location);
   //   if (location.state == null) {
@@ -107,6 +126,8 @@ const CustomerRequirementComponent = () => {
   }
 
   const OnImageSubmitHandler = (imageName, documentName, url) => {
+    console.log(location.state);
+    console.log(location.state.employeeCert);
     let imageItem = { imageName, url, documentName };
     sessionStorage.setItem([modalTitle], JSON.stringify(imageItem));
 
@@ -117,13 +138,10 @@ const CustomerRequirementComponent = () => {
   };
 
   const OnSubmitRequirementsHandler = () => {
-    console.log(location.state);
     if (sessionStorage.length !== 0 && location.state) {
       for (const key in sessionStorage) {
         if (Object.hasOwnProperty.call(sessionStorage, key)) {
           const element = sessionStorage[key];
-
-          // console.log(JSON.parse(element));
           setshowModal(true)
           setModalProps({
             title:"We have received your application",
@@ -187,6 +205,7 @@ const CustomerRequirementComponent = () => {
               styles={isSubmitButtonDisabled ? "btn-disabled" : "btn-enabled"}
               disabled={isSubmitButtonDisabled}
               EventHandler={OnSubmitRequirementsHandler}
+              onClick={handleSubmitDocuments}
             ></CustomButton>
           </div>
         </div>

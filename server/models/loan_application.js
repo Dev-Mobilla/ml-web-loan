@@ -1,4 +1,4 @@
-const {  DataTypes } = require('sequelize');
+const { DataTypes } = require('sequelize');
 const sequelize = require('../config/mlloan.server');
 
 const loan_applications = sequelize.define('loan_applications', {
@@ -68,14 +68,6 @@ const loan_applications = sequelize.define('loan_applications', {
         type: DataTypes.STRING,
         allowNull: true
     },
-    delete_date: {
-        type: DataTypes.DATE,
-        allowNull: false
-    },
-    update_date: {
-        type: DataTypes.DATE,
-        allowNull: false
-    },
     customer_details_customer_details_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -91,9 +83,46 @@ const loan_applications = sequelize.define('loan_applications', {
         allowNull: false,
         primaryKey: true
     },
+    // created_at: {
+    //     type: DataTypes.DATE,
+    // },
+    update_date: {
+        type: DataTypes.DATE,
+    },
+    delete_date: {
+        type: DataTypes.DATE,
+    }
 }, {
-    timestamps: false
+    createdAt: false,
+    updatedAt: 'update_date',
+    deletedAt: 'delete_date'
 });
+
+loan_applications.customeCreate = async function (data, customerId, vehicleId, employmentId, options) {
+    return this.create({
+        id_loan_application: data.id_loan_application,
+        application_reference: data.application_reference,
+        approved_reference: data.approved_reference,
+        application_date: data.application_date,
+        vehicle_type: data.vehicle_type,
+        loan_type: data.loan_type,
+        year: data.year,
+        make: data.make,
+        model: data.model,
+        color: data.color,
+        variant: data.variant,
+        plate_number: data.plate_number,
+        engine_number: data.engine_number,
+        chassis_number: data.chassis_number,
+        preferred_branch: data.preferred_branch,
+        branch_approver_id: data.branch_approver_id,
+        customer_details_customer_details_id: customerId,
+        vehicle_docs_vehicle_docu_id: vehicleId,
+        employment_docs_employment_docu_id: employmentId
+    }, options);
+};
+
+
 
 module.exports = loan_applications;
 

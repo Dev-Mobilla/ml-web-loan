@@ -1,46 +1,12 @@
 const { loan_applications, customer_details, employment_docs, vehicle_docs } = require('../models/associations');
 
-async function createLoanApplication(LoanApplicationJsonData, customerId, vehicleId, employmentId) {
+async function createLoanApplication(LoanApplicationJsonData, customerId, vehicleId, employmentId, options) {
     try {
-        const createdLoan = await loan_application.create({
-            id_loan_application: LoanApplicationJsonData.id_loan_application,
-            application_reference: LoanApplicationJsonData.application_reference,
-            approved_reference: LoanApplicationJsonData.approved_reference,
-            application_date: LoanApplicationJsonData.application_date,
-            vehicle_type: LoanApplicationJsonData.vehicle_type,
-            loan_type: LoanApplicationJsonData.loan_type,
-            year: LoanApplicationJsonData.year,
-            make: LoanApplicationJsonData.make,
-            model: LoanApplicationJsonData.model,
-            color: LoanApplicationJsonData.color,
-            variant: LoanApplicationJsonData.variant,
-            plate_number: LoanApplicationJsonData.plate_number,
-            engine_number: LoanApplicationJsonData.engine_number,
-            chassis_number: LoanApplicationJsonData.chassis_number,
-            employment_type: LoanApplicationJsonData.employment_type,
-            preferred_branch: LoanApplicationJsonData.preferred_branch,
-            branch_approver_id: LoanApplicationJsonData.branch_approver_id,
-            delete_date: LoanApplicationJsonData.delete_date,
-            update_date: LoanApplicationJsonData.update_date,
-            customer_details_customer_details_id: customerId,
-            vehicle_docs_vehicle_docu_id: vehicleId,
-            employment_docs_employment_docu_id: employmentId
-        });
+        console.log("Customer ID: ",customerId, " Vehicle ID: ",vehicleId, " Employment ID: ", employmentId);
+        const createdLoan = await loan_applications.customeCreate(LoanApplicationJsonData, customerId, vehicleId, employmentId, options);
         return createdLoan;
     } catch (error) {
         console.error('Error creating user:', error);
-        return null;
-    }
-}
-
-async function createLoanApplication(LoanApplicationJsonData, customerId, vehicleId, employmentId) {
-    try {
-        const createdLoan = await loan_application.create({
-            // Loan application properties...
-        });
-        return createdLoan;
-    } catch (error) {
-        console.error('Error creating loan application:', error);
         return null;
     }
 }

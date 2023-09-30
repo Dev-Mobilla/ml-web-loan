@@ -75,6 +75,9 @@ const customer_details = sequelize.define('customer_details', {
   timestamps: false
 });
 
+customer_details.customeCreate = async function (data, options) {
+  return this.create(data, options);
+};
 
 module.exports = customer_details;
 

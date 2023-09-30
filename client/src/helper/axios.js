@@ -8,7 +8,9 @@ const SymphAxiosInstance = axios.create({
 const HatchITAxiosInstance = axios.create({
   baseURL: process.env.REACT_APP_HATCHIT_BASE_URL,
 });
-
+const MLAxiousInstance = axios.create({
+  baseURL: process.env.REACT_APP_BASE_URL,
+});
 // SYMPH AXIOS INTERCEPTORS
 // Request interceptor
 SymphAxiosInstance.interceptors.request.use(
@@ -45,4 +47,4 @@ SymphAxiosInstance.interceptors.response.use(
   }
 );
 
-export { SymphAxiosInstance, HatchITAxiosInstance };
+export { SymphAxiosInstance, HatchITAxiosInstance, MLAxiousInstance };

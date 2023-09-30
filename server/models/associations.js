@@ -5,13 +5,14 @@ const vehicle_docs = require('./vehicle_docs');
 const sequelize = require('../config/mlloan.server');
 
 customer_details.hasMany(loan_applications, { as: 'loan_applications', foreignKey: 'customer_details_customer_details_id' });
-loan_applications.belongsTo(customer_details, { as: 'customer_details', foreignKey: 'customer_details_customer_details_id' });
+loan_applications.belongsToMany(customer_details, { as: 'customer_details', foreignKey: 'customer_details_customer_details_id' });
 
-employment_docs.hasOne(loan_applications, { as: 'loan_applications', foreignKey: 'employment_docs_employment_docu_id' });
-loan_applications.belongsTo(employment_docs, { as: 'employment_docs', foreignKey: 'employment_docs_employment_docu_id' });
+loan_applications.hasOne(employment_docs, { as: 'employment_docs', foreignKey: 'employment_docs_employment_docu_id' });
+employment_docs.belongsTo(loan_applications, { as: 'loan_applications', foreignKey: 'employment_docs_employment_docu_id' });
 
-vehicle_docs.hasOne(loan_applications, { as: 'loan_applications', foreignKey: 'vehicle_docs_vehicle_docu_id' });
-loan_applications.belongsTo(vehicle_docs, { as: 'vehicle_docs', foreignKey: 'vehicle_docs_vehicle_docu_id' });
+
+loan_applications.hasOne(vehicle_docs, { as: 'vehicle_docs', foreignKey: 'vehicle_docs_vehicle_docu_id' });
+vehicle_docs.belongsTo(loan_applications, { as: 'loan_applications', foreignKey: 'vehicle_docs_vehicle_docu_id' });
 
 module.exports = {
   loan_applications,

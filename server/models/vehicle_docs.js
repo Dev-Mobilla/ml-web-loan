@@ -43,6 +43,10 @@ const vehicle_docs = sequelize.define('vehicle_docs', {
     timestamps: false
 });
 
+vehicle_docs.customeCreate = async function (data, options) {
+    return this.create(data, options);
+};
+
 module.exports = vehicle_docs;
 
 // class vehicle_docs extends Model {
