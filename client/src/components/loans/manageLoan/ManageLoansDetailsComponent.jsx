@@ -9,12 +9,13 @@ import {
   TopbarComponent,
   LoadingComponent,
 } from "../../index";
-
 import houseIcon from "../../../assets/icons/house.png";
 import mlicon from "../../../assets/icons/Paynow_icn.png";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { GetLoanDetails, GetPaymentHistory } from "../../../api/hatchit.api";
-import { Threshold, getServiceFee, Paynow } from "../../../api/symph.api";
+import { getServiceFee, validateAccountNumber, Threshold ,Paynow } from "../../../api/symph.api";
+import getCookieValue from "../../../utils/GetCookieValue";
+import { GetCollateralDetails, GetLoanDetails, GetPaymentHistory } from "../../../api/hatchit.api";
+
 import { GetLoanPaymentSchedule } from "../../../api/hatchit.api";
 import {GetCookieByName} from "../../../utils/DataFunctions";
 
@@ -186,6 +187,42 @@ const ManageLoansDetailsComponent = () => {
     };
     // fetchServiceFee();
   }, []);
+
+  useEffect(() => {
+    const validateAccNumber = async () => {
+      const decodedAccountDetails = decodeURIComponent(getCookieValue("account_details"));
+      const cookieValue = decodedAccountDetails.substring(decodedAccountDetails.indexOf('=') + 1);
+      try {
+
+        let parsedValue;
+
+        if (typeof cookieValue === "string") {
+          try {
+            parsedValue = JSON.parse(cookieValue);
+          } catch (error) {
+            console.error("Error parsing cookie value:", error);
+            parsedValue = null;
+          }
+        }
+        // console.log(parsedValue)
+        let acc_num, acc_fname, acc_lname;
+        if (parsedValue) {
+          acc_num = parsedValue.mobileNumber;
+          acc_fname = parsedValue.firstName;
+          acc_lname = parsedValue.lastName;
+        }
+
+        const validAccountNumber = await validateAccountNumber(acc_num, acc_fname, acc_lname);
+
+        console.log("Valid account number", validAccountNumber);
+      } catch (error) {
+
+        console.log("Error:", error);
+      }
+    };
+    validateAccNumber();
+  }, []);
+
 
   const OnModalCloseHandler = () => {
     setAlertModal(false);

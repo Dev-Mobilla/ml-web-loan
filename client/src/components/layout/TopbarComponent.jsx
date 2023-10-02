@@ -28,13 +28,17 @@ const TopbarComponent = () => {
   };
 
   return (
-    <div className="top-bar">
-      {areCookiesPresent && (
-        <button id="logout-button" onClick={handleLogout}>
-          Log out
-        </button>
-      )}
+    <div className="topbar-group">
+        <div className="top-bar">
+      
+        </div>
+        {areCookiesPresent && (
+          <button id="logout-button" onClick={handleLogout}>
+            Log out
+          </button>
+        )}
     </div>
+  
   );
 };
 

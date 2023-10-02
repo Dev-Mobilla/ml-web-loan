@@ -169,10 +169,27 @@ const getServiceFee = async (amountfee) => {
   
   }
 
+const validateAccountNumber =  async(acc_num, acc_fname, acc_lname) =>{
+    try{
+        const response = await SymphAxiosInstance.post("/v1/api/1.0/ml-loans/validate-account-number",{
+            params:{
+                accountNo:acc_num,
+                accountFname:acc_fname,
+                accountLname:acc_lname
+            }
+        });
+        return response;
+    }catch(error){
+        console.error("Error", error)
+    }
+}
+
 export {
     Login,
     LoanBillsPay,
     getServiceFee,
     ThresholdAmount, 
+    Threshold,
+    validateAccountNumber,
     Paynow
 }
