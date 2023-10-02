@@ -22,7 +22,6 @@ SymphAxiosInstance.interceptors.request.use(
       {
         // config.headers.co = accessToken;
         // config.xsrfCookieName
-        config.withCredentials = true
         config.headers.Accept = 'application/json';
         config.headers["Content-Type"] = 'application/json';
       } 

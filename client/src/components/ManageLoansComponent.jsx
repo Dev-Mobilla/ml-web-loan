@@ -156,7 +156,7 @@ const ManageLoanComponent = () => {
       return (
         <div className="loans-unavailable">
           <h1>
-            You have no {status === "DISBURSED" || status === "APPROVED" ? "loans" : "past loans"}.
+            You have no {status === "DISBURSED" || status === "APPROVED" ? `${LoanStatusChecker(status).btnName} loans` : "past loans"}.
           </h1>
         </div>
       );

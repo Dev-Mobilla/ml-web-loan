@@ -6,10 +6,11 @@ import CustomAlert from "../components/custom/Custom.Alert";
 // const MakeDigest = (payloadString) => {
 
 //   const digest = sha512(payloadString + "|" + "W1@KLDMWLk@ek$lkj"	);
-const api_key = process.env.REACT_APP_API_KEY;
+const api_key = "W1@KLDMWLk@ek$lkj";
 const baseURL = process.env.REACT_APP_HATCHIT_BASE_URL;
 
 const MakeDigest = (payloads) => {
+  console.log(payloads);
   const payloadString = payloads.join("|");
   const digest = sha512(payloadString);
   return digest;
@@ -23,19 +24,17 @@ const MakeGetRequest = async (url, params) => {
     });
     // console.log(response);
 
-    let data = {
+    return  {
       data: response.data,
       status: response.status
-    }
-    return data;
+    };
 
   } catch (error) {
-    let err = {
+    return {
       error,
       status: error.response.status
     }
 
-    return err;
   }
 };
 
@@ -62,7 +61,7 @@ const GetLoans = async (ckycID) => {
 
   const payloadString = JSON.stringify(ckycID);
   const ckyc_id = ckycID.ckyc_id;
-  const digest = MakeDigest([payloadString, "W1@KLDMWLk@ek$lkj"]);
+  const digest = MakeDigest([payloadString, api_key]);
   const endpoint = `/transactions/get/customer/loans`;
   const params = {
     ckyc_id,
@@ -72,10 +71,9 @@ const GetLoans = async (ckycID) => {
 };
 
 const GetLoanDetails = async (referenceNum) => {
-  console.log(referenceNum);
   const payloadString = JSON.stringify(referenceNum);
   const reference = referenceNum.reference;
-  const digest = MakeDigest([payloadString, "W1@KLDMWLk@ek$lkj"]);
+  const digest = MakeDigest([payloadString, api_key]);
   const endpoint = `/loan_schedules/get/customer/loans/details`;
   const params = {
     reference,
@@ -83,6 +81,19 @@ const GetLoanDetails = async (referenceNum) => {
   };
   return await MakeGetRequest(endpoint, params);
 };
+
+const GetPaymentHistory = async (referenceNo) => {
+  console.log("api_key", api_key);
+  const payloadString = JSON.stringify(referenceNo);
+  const reference = referenceNo.reference;
+  const digest = MakeDigest([payloadString, api_key]);
+  const endpoint = `/loan_schedules/get/customer/loans/history`;
+  const params = {
+    reference,
+    digest,
+  };
+  return await MakeGetRequest(endpoint, params);
+}
 
 const GetLoanPaymentSchedule = ({ reference, digest }) => {
   const [errorModalOpen, setErrorModalOpen] = useState(false);
@@ -135,4 +146,4 @@ const GetLoanPaymentSchedule = ({ reference, digest }) => {
   );
 };
 
-export { GetLoans, GetLoanDetails, GetLoanPaymentSchedule };
+export { GetLoans, GetLoanDetails, GetLoanPaymentSchedule, GetPaymentHistory };
