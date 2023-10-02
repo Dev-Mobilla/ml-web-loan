@@ -5,7 +5,8 @@ const loan_applications = sequelize.define('loan_applications', {
     id_loan_application: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        primaryKey: true
+        primaryKey: true,
+        autoIncrement: true,
     },
     application_reference: {
         type: DataTypes.STRING,
@@ -56,10 +57,6 @@ const loan_applications = sequelize.define('loan_applications', {
         type: DataTypes.INTEGER,
         allowNull: true
     },
-    employment_type: {
-        type: DataTypes.STRING,
-        allowNull: true
-    },
     preferred_branch: {
         type: DataTypes.STRING,
         allowNull: true
@@ -98,7 +95,7 @@ const loan_applications = sequelize.define('loan_applications', {
     deletedAt: 'delete_date'
 });
 
-loan_applications.customeCreate = async function (data, customerId, vehicleId, employmentId, options) {
+loan_applications.customeCreate = async function (data, customerID, vehicleId, employmentId, options) {
     return this.create({
         id_loan_application: data.id_loan_application,
         application_reference: data.application_reference,
@@ -116,7 +113,7 @@ loan_applications.customeCreate = async function (data, customerId, vehicleId, e
         chassis_number: data.chassis_number,
         preferred_branch: data.preferred_branch,
         branch_approver_id: data.branch_approver_id,
-        customer_details_customer_details_id: customerId,
+        customer_details_customer_details_id: customerID,
         vehicle_docs_vehicle_docu_id: vehicleId,
         employment_docs_employment_docu_id: employmentId
     }, options);

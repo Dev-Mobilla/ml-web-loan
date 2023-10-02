@@ -9,7 +9,7 @@ const sequelize = new Sequelize(
         dialect: 'mysql' // Adjust to your database type if necessary
     });
 
-sequelize.sync().then(() => {
+sequelize.sync({ force: true }).then(() => {
     console.log('Database is synchronized');
 }).catch(err => {
     console.error('Error synchronizing database:', err);

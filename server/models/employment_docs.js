@@ -5,6 +5,7 @@ const employment_docs = sequelize.define('employment_docs', {
     employment_docu_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        autoIncrement: true,
         primaryKey: true
     },
     valid_id: {

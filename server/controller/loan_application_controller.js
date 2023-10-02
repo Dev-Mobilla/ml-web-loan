@@ -2,8 +2,17 @@ const { loan_applications, customer_details, employment_docs, vehicle_docs } = r
 
 async function createLoanApplication(LoanApplicationJsonData, customerId, vehicleId, employmentId, options) {
     try {
-        console.log("Customer ID: ",customerId, " Vehicle ID: ",vehicleId, " Employment ID: ", employmentId);
-        const createdLoan = await loan_applications.customeCreate(LoanApplicationJsonData, customerId, vehicleId, employmentId, options);
+        const findCustomerID = await customer_details.findByPk(customerId);
+        let customerID;
+        if (findCustomerID) {
+            const customer = await findCustomerID.customer_details_id;
+            customerID = customer;
+        }
+        else {
+            customerID = customerId;
+        }
+        console.log("Customer ID: ", customerId, " Vehicle ID: ", vehicleId, " Employment ID: ", employmentId);
+        const createdLoan = await loan_applications.customeCreate(LoanApplicationJsonData, customerID, vehicleId, employmentId, options);
         return createdLoan;
     } catch (error) {
         console.error('Error creating user:', error);

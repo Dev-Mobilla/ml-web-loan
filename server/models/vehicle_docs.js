@@ -5,6 +5,7 @@ const vehicle_docs = sequelize.define('vehicle_docs', {
     vehicle_docu_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        autoIncrement: true,
         primaryKey: true
     },
     original_or: {

@@ -5,6 +5,7 @@ const customer_details = sequelize.define('customer_details', {
   customer_details_id: {
     type: DataTypes.INTEGER,
     allowNull: false,
+    autoIncrement: true,
     primaryKey: true
   },
   last_name: {
