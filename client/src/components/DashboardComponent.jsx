@@ -2,13 +2,11 @@ import React, { useEffect, useState } from "react";
 import "../styles/dashboard.css";
 
 import {
-  FooterComponent,
   HeaderComponent,
   TopbarComponent,
   FeatureNotAvailableModalComponent,
 } from "./index";
 import { isCookiePresent } from "../utils/CookieChecker";
-// import {getCookie} from "../api/api";
 
 const DashboardComponent = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -33,16 +31,6 @@ const DashboardComponent = () => {
   const closeModal = () => {
     setIsModalOpen(false);
   };
-
-  useEffect(() => {
-    // GetCookie()
-  })
-
-  // const GetCookie = async () => {
-  //   const res = await getCookie();
-
-  //   console.log(res);
-  // }
 
   return (
     <div className="dashboard">

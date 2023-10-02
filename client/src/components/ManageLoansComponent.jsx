@@ -11,13 +11,11 @@ import {
   LoadingComponent,
   AlertModalComponent,
 } from "./index";
-import { useLocation, useNavigate } from "react-router-dom";
-import { Loans } from "../utils/ManageLoansMockData";
-import {GetLoans, GetLoanDetails} from "../api/hatchit.api";
-import {GetCookieByName} from "../utils/DataFunctions";
+import { useNavigate } from "react-router-dom";
+import { GetLoans } from "../api/hatchit.api";
+import { GetCookieByName } from "../utils/DataFunctions";
 
 const ManageLoanComponent = () => {
-  const Location = useLocation();
   const navigate = useNavigate();
   const [modal, setModal] = useState(false);
   const [referenceInput, setReferenceInput] = useState("");
@@ -131,23 +129,22 @@ const ManageLoanComponent = () => {
       return {
         btnName: "Pending",
         isDisabled: true,
-        btnStyle: "custom-button approved-btn"
+        btnStyle: "custom-button approved-btn",
       };
-      
-    }else if (status?.toLowerCase() === "disbursed") {
+    } else if (status?.toLowerCase() === "disbursed") {
       return {
         btnName: "Manage",
         isDisabled: false,
-        btnStyle: "custom-button manage-btn"
+        btnStyle: "custom-button manage-btn",
       };
-    }else if (status?.toLowerCase() === "closed") {
+    } else if (status?.toLowerCase() === "closed") {
       return {
         btnName: "Details",
         isDisabled: false,
-        btnStyle: "custom-button details-btn"
+        btnStyle: "custom-button details-btn",
       };
     }
-  }
+  };
 
   const LoansCards = ({ status }) => {
     const filteredLoans = loans?.filter((loan) => loan.status === status);
@@ -161,10 +158,10 @@ const ManageLoanComponent = () => {
         </div>
       );
     }
-    
+
     return filteredLoans?.map((loan, key) => {
       let statusChecker = LoanStatusChecker(loan.status);
-      
+
       return (
         <ManageLoanCardComponent
           loanType={loan.loan_type.loan_type_name}
@@ -176,40 +173,29 @@ const ManageLoanComponent = () => {
           disabled={statusChecker.isDisabled}
           loanCardName="loan-card"
           cardContainer={`loan-card-container ${
-            status === "DISBURSED" || status === "APPROVED" ? "current-loan" : "past-loan"
+            status === "DISBURSED" || status === "APPROVED"
+              ? "current-loan"
+              : "past-loan"
           }`}
-          loantypeTxt={`loan-type ${status === "DISBURSED" || status === "APPROVED" ? "current" : "past"}`}
+          loantypeTxt={`loan-type ${
+            status === "DISBURSED" || status === "APPROVED" ? "current" : "past"
+          }`}
           referenceTxt="reference-txt"
           OnBtnClick={() =>
             CardBtnClick(loan.ref_num, loan.loan_type.loan_type_name)
           }
           btnType="button"
         />
-      )
+      );
     });
   };
-
-
-  // const ConditionalRender = ({ status }) => (
-  //   <div>
-  //     {loans?.some((loan) => loan.status === status && loan.isLoading) ? (
-  //       <LoadingComponent />
-  //     ) : (
-  //       <LoansCards status={status} />
-  //     )}
-  //   </div>
-  // );
-
-  // const CurrentLoansCards = () => <ConditionalRender status="DISBURSED" />;
-  // const ApprovedLoansCards = () => <ConditionalRender status="APPROVED" />;
-  // const PastLoansCards = () => <ConditionalRender status="CLOSED" />;
 
   const CurrentLoansCards = () => <LoansCards status="DISBURSED" />;
   const ApprovedLoansCards = () => <LoansCards status="APPROVED" />;
   const PastLoansCards = () => <LoansCards status="CLOSED" />;
 
   const LoanTypeIconHandler = (loanType) => {
-    return loansIcon?.map((icon, key) => {
+    return loansIcon?.map((icon) => {
       return icon.loanType === loanType ? icon.icon : <></>;
     });
   };
@@ -238,7 +224,9 @@ const ManageLoanComponent = () => {
     if ("quick-cash-loan" === loanType) {
       navigate(`/manage-loans/${loanType}/${referenceNo}`);
     } else {
-      navigate(`/manage-loans/loan-details?reference=${referenceNo}&loan-type=${type}`);
+      navigate(
+        `/manage-loans/loan-details?reference=${referenceNo}&loan-type=${type}`
+      );
     }
   };
 
@@ -297,24 +285,25 @@ const ManageLoanComponent = () => {
                   EventHandler={AddBtnHandler}
                 />
               </div>
-              {
-                loading ? <LoadingComponent containerStyle="container-loading"/> 
-                : 
+              {loading ? (
+                <LoadingComponent containerStyle="container-loading" />
+              ) : (
                 <>
                   <CurrentLoansCards />
-                  <ApprovedLoansCards/>
+                  <ApprovedLoansCards />
                 </>
-              }
+              )}
             </div>
             <div className="past-loan-card">
               <div className="past-loan-btn-container">
                 <div className="pastloanstxt">Past Loans</div>
               </div>
 
-              {
-                loading ? <LoadingComponent containerStyle="container-loading"/> : <PastLoansCards />
-              }
-              
+              {loading ? (
+                <LoadingComponent containerStyle="container-loading" />
+              ) : (
+                <PastLoansCards />
+              )}
             </div>
           </div>
         </div>
