@@ -1,9 +1,10 @@
 .housing-content {
   padding: 30px;
   font-family: var(--font-family);
+  margin-bottom: 100px;
 }
 
-.housing-loan .card {
+.loan-details .card {
   border: 1px solid var(--border-color);
   padding: 20px;
   border-radius: 8px;
@@ -67,9 +68,23 @@
   align-items: center;
   width: 400px;
 }
-
 .input-label {
   font-size: 18px;
+  font-weight: 400;
+  margin-right: 10px;
+  line-height: 21px;
+  letter-spacing: -0.3px;
+  color: var(--text-gray);
+}
+.remarks{
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 30px;
+  align-items: center;
+}
+.past-remarks {
+  font-size: 18px;
+  font-style: italic;
   font-weight: 400;
   margin-right: 10px;
   line-height: 21px;
@@ -173,15 +188,42 @@
   background-color: #ebebeb;
 }
 
+.payment-history{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 400px;
+}
+
 @media screen and (min-width: 360px) and (max-width: 480px) {
   .housing-content {
-    padding: 10px;
+    padding: 10px 0px 10px 15px;
+  }
+  .custom-prevbtn.prevpagebtn{
+    display: none;
+  }
+  .loan-details .card{
+    padding: 15px 5px;
   }
 
-  .card img {
+  .loan-details .h-card{
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  /* .card img {
     width: 50px;
     height: 50px;
     margin: 0px 10px 0 0;
+  } */
+  .card .h-card-header img{
+    width: 55px;
+    height: 55px;
+  }
+
+  .loan-details .input-group{
+    justify-content: end;
+    width: 300px;
   }
 
   .input-label {
@@ -220,6 +262,9 @@
     font-size: 16px;
     font-weight: 400;
   }
+  .note{
+    width: 300px;
+  }
 
   .note .paynote {
     min-width: 140px;
@@ -254,4 +299,137 @@
   .hl-transactions .ammount {
     margin-left: 50px;
   }
+  .past-remarks{
+    font-size: 16px;
+  }
+  .loan-details .payment-history{
+    width: 300px;
+  }
+}
+
+@media screen and (min-width: 481px) and (max-width: 768px) {
+  .housing-content {
+    padding: 10px 15px 10px 15px;
+  }
+  .custom-prevbtn.prevpagebtn{
+    display: none;
+  }
+  .loan-details .card{
+    padding: 15px 10px;
+  }
+
+  .loan-details .h-card{
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .loan-details .custom-current{
+    width: 150px;
+    margin: auto 5px;
+    height: 30px;
+  }
+
+  /* .card img {
+    width: 50px;
+    height: 50px;
+    margin: 0px 10px 0 0;
+  } */
+  .card .h-card-header img{
+    width: 60px;
+    height: 60px;
+  }
+
+  .loan-details .input-group{
+    justify-content: end;
+    /* width: 300px; */
+  }
+
+  .input-label {
+    font-size: 14px;
+  }
+
+  .h-card-text {
+    max-width: 130px;
+  }
+
+  .h-card-header {
+    padding: 5px;
+  }
+
+  /* .hl-inputs {
+    margin-top: 22px;
+  } */
+
+  .loan-details .h-ltxt {
+    font-size: 20px;
+  }
+
+  .loan-details .h-lrefno {
+    font-size: 16px;
+  }
+
+  .hl-inputs .input-label {
+    font-size: 17px;
+    /* width: 150px; */
+    padding-right: 10px;
+    text-align: end;
+  }
+  .loan-details .input-wrapper{
+    flex-grow: inherit;
+  }
+
+  .hl-inputs .input-wrapper input {
+    width: 170px;
+    height: 32px;
+    font-size: 16px;
+    font-weight: 400;
+  }
+  .note{
+    width: 400px;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .note .paynote {
+    min-width: 140px;
+    max-width: 210px;
+    width: fit-content;
+    margin-right: 10px;
+    font-size: 15px;
+  }
+
+  .pay-now-button {
+    border-radius: 5px;
+    width: 136px;
+    height: 36px;
+    font-size: 15px;
+  }
+
+  .pay-now-button img {
+    margin-right: 8px;
+    width: 28px;
+    height: 22px;
+  }
+  .payment-schedule-btn, .collateral-details-btn{
+    padding: 5px 12px;
+  }
+
+  .rec-payment-txt {
+    font-size: 20px;
+  }
+
+  .hl-transactions {
+    margin-left: 15px;
+    font-size: 15px;
+  }
+
+  .hl-transactions .ammount {
+    margin-left: 50px;
+  }
+  .past-remarks{
+    font-size: 16px;
+  }
+  /* .loan-details .payment-history{
+    width: 300px;
+  } */
 }

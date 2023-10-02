@@ -9,13 +9,15 @@ import {
   TopbarComponent,
   LoadingComponent,
 } from "../../index";
-
 import houseIcon from "../../../assets/icons/house.png";
 import mlicon from "../../../assets/icons/Paynow_icn.png";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { GetLoanDetails } from "../../../api/hatchit.api";
-import { Threshold, getServiceFee, Paynow } from "../../../api/symph.api";
+import { getServiceFee, validateAccountNumber, Threshold ,Paynow } from "../../../api/symph.api";
+import getCookieValue from "../../../utils/GetCookieValue";
+import { GetCollateralDetails, GetLoanDetails, GetPaymentHistory } from "../../../api/hatchit.api";
+
 import { GetLoanPaymentSchedule } from "../../../api/hatchit.api";
+import {GetCookieByName} from "../../../utils/DataFunctions";
 
 const ManageLoansDetailsComponent = () => {
   const recentPayments = [
@@ -26,6 +28,8 @@ const ManageLoansDetailsComponent = () => {
     { date: "01-10-2023", time: "22:04", amount: "30,626.00" },
   ];
 
+  const [paymentsHistory, setPaymentHistory] = useState([]);
+
   const [loanDetails, setLoanDetails] = useState({
     dueAmount: "",
     feesAndCharges: "",
@@ -34,12 +38,35 @@ const ManageLoansDetailsComponent = () => {
     referenceNo: "",
     status: "",
   });
-  const handlePayNowButton = () => {
-    Paynow(loanDetails.dueAmount, loanDetails.feesAndCharges);
+  const handlePayNowButton = async () => {
+
+    let account = GetCookieByName("account_details");
+
+    const res = await Paynow(loanDetails.dueAmount, loanDetails.feesAndCharges, account?.mobileNumber, account?.firstName, account?.lastName);
+
+
+    console.log("res", res);
+    // switch (res.status) {
+    //   case 200:
+
+    //   console.log(res);
+        
+    //   //   break;
+    //   // case 404:
+    //   //   displayError("Loan does not exist");
+    //   //   break;
+    //   // case 500:
+    //   //   displayError("An error occurred while fetching loan details.")
+    //   //   break;
+    //   default:
+    //     // displayError("An error occurred while fetching loan details.")
+    //     break;
+    // }
   };
   const [alertModal, setAlertModal] = useState(false);
   const [alertProps, setAlertProps] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [message, setMessage] = useState("");
 
   const navigate = useNavigate();
 
@@ -50,9 +77,9 @@ const ManageLoansDetailsComponent = () => {
   const LoanDetailsHandler = async () => {
     const response = await GetLoanDetails({reference: LoanReference});
     // const response = await GetLoanDetails({reference: "QBLNUSBMDZT"});
-    console.log(response);
 
     const displayError = (message) => {
+      setIsLoading(false)
       setAlertModal(true);
       setAlertProps({
         message: message
@@ -92,7 +119,7 @@ const ManageLoansDetailsComponent = () => {
         }, 3000);
         break;
       case 404:
-        displayError("Loan does not exist");
+        displayError("No data found");
         break;
       case 500:
         displayError("An error occurred while fetching loan details.")
@@ -103,6 +130,42 @@ const ManageLoansDetailsComponent = () => {
     }
   };
 
+  const PaymentHistoryHandler = async () => {
+    const response = await GetPaymentHistory({reference: LoanReference});
+    // const response = await GetPaymentHistory({reference: "QPNWIJPKDLD"});
+
+    const displayError = (message) => {
+      // setAlertModal(true);
+      // setAlertProps({
+      //   message: message
+      // })
+      setMessage(message);
+      setPaymentHistory([])
+    }
+
+    switch (response.status) {
+      case 200:
+        let payment = response.data;
+
+        let paymentHistory = payment.data.loan_schedules;
+
+        console.log(paymentHistory);
+        setPaymentHistory(paymentHistory)
+
+        break;
+      case 404:
+        displayError(response.error.response.data.data);
+        break;
+      case 500:
+        setPaymentHistory(response.error.response.data.data)
+        setMessage(response.error.response.data.message);
+        break;
+      default:
+        displayError("An error occurred while fetching payment history.")
+        break;
+    }
+  }
+
   const LoadingModalComponent = () => {
     return (
       <div className="alertbackground">
@@ -112,30 +175,54 @@ const ManageLoansDetailsComponent = () => {
   };
 
   useEffect(() => {
-    const fetchData = async () => {
-      const thresholding = await Threshold();
-    };
-    // fetch("/api/getLoanData")
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     setDueAmount(data.dueAmount);
-    //     setFeesAndCharges(data.feesAndCharges);
-    //     setPaymentDueDate(data.paymentDueDate);
-    //   })
-    //   .catch((error) => {
-    //     console.error("Error fetching data:", error);
-    //   });
+
     LoanDetailsHandler();
+    PaymentHistoryHandler()
   }, []);
 
   useEffect(() => {
     const fetchServiceFee = async () => {
       let amountfee = 100000;
       const loanServiceFee = await getServiceFee(amountfee);
-      console.log("Service Fee:", loanServiceFee);
     };
     // fetchServiceFee();
   }, []);
+
+  useEffect(() => {
+    const validateAccNumber = async () => {
+      const decodedAccountDetails = decodeURIComponent(getCookieValue("account_details"));
+      const cookieValue = decodedAccountDetails.substring(decodedAccountDetails.indexOf('=') + 1);
+      try {
+
+        let parsedValue;
+
+        if (typeof cookieValue === "string") {
+          try {
+            parsedValue = JSON.parse(cookieValue);
+          } catch (error) {
+            console.error("Error parsing cookie value:", error);
+            parsedValue = null;
+          }
+        }
+        // console.log(parsedValue)
+        let acc_num, acc_fname, acc_lname;
+        if (parsedValue) {
+          acc_num = parsedValue.mobileNumber;
+          acc_fname = parsedValue.firstName;
+          acc_lname = parsedValue.lastName;
+        }
+
+        const validAccountNumber = await validateAccountNumber(acc_num, acc_fname, acc_lname);
+
+        console.log("Valid account number", validAccountNumber);
+      } catch (error) {
+
+        console.log("Error:", error);
+      }
+    };
+    validateAccNumber();
+  }, []);
+
 
   const OnModalCloseHandler = () => {
     setAlertModal(false);
@@ -185,7 +272,7 @@ const ManageLoansDetailsComponent = () => {
   };
 
   return (
-    <div className="housing-loan">
+    <div className="loan-details">
       <div className="div">
         <TopbarComponent />
         {isLoading ? (
@@ -215,7 +302,7 @@ const ManageLoansDetailsComponent = () => {
                 </div>
               </div>
               <CustomStatus
-                status={loanDetails.status}
+                status={loanDetails.status === "DISBURSED" ? "Current" : loanDetails.status}
                 styles={
                   loanDetails.status?.toLowerCase() === "disbursed"
                     ? "custom-current"
@@ -227,37 +314,62 @@ const ManageLoansDetailsComponent = () => {
             </div>
 
             <div className="hl-inputs">
-              <div className="input-group">
-                <div className="input-label">Due this month</div>
-                <div className="input-wrapper">
-                  <input
-                    className="disable-data"
-                    value={loanDetails.dueAmount}
-                    disabled
-                  />
+              
+            {loanDetails.status?.toLowerCase() !== "closed" ? (
+              <>
+                    <div className="input-group">
+                    <div className="input-label">Due this month</div>
+                    <div className="input-wrapper">
+                      <input
+                        className="disable-data"
+                        value={loanDetails.dueAmount}
+                        disabled
+                      />
+                    </div>
+                  </div>
+                  <div className="input-group">
+                  <div className="input-label">Late fees &amp; charges</div>
+                  <div className="input-wrapper">
+                    <input
+                      className="disable-data"
+                      value={loanDetails.feesAndCharges}
+                      disabled
+                    />
+                  </div>
                 </div>
-              </div>
-              <div className="input-group">
-                <div className="input-label">Late fees &amp; charges</div>
-                <div className="input-wrapper">
-                  <input
-                    className="disable-data"
-                    value={loanDetails.feesAndCharges}
-                    disabled
-                  />
+                <div className="input-group">
+                  <div className="input-label">Payment due by</div>
+                  <div className="input-wrapper">
+                    <input
+                      className="disable-data"
+                      value={loanDetails.paymentDueDate}
+                      disabled
+                    />
+                  </div>
                 </div>
-              </div>
-              <div className="input-group">
-                <div className="input-label">Payment due by</div>
-                <div className="input-wrapper">
-                  <input
-                    className="disable-data"
-                    value={loanDetails.paymentDueDate}
-                    disabled
-                  />
+                </>
+              ) : (
+                <></>
+              ) }
+              {loanDetails.status?.toLowerCase() === "closed" ? (
+                <div className="remarks">
+                  <div className="past-remarks">
+                    <p>
+                     Note/Remarks
+                    </p>
+                    <p>
+                      This {loanDetails.loanType} has been fully paid.
+                    </p><br></br>
+                    <p>
+                      Please contact loans@mlhuillier.com for more details.
+                    </p>
+                  </div>
                 </div>
-              </div>
-              {loanDetails.status?.toLowerCase() === "current" ? (
+              ) : (
+                <></>
+              )}
+              
+              {loanDetails.status?.toLowerCase() === "disbursed" ? (
                 <div className="note">
                   <div className="paynote">
                     <p>
@@ -293,18 +405,26 @@ const ManageLoansDetailsComponent = () => {
                 <GetLoanPaymentSchedule paymentSchedule={paymentSchedule} />
               </div>
 
-              <div className="hl-buttom">
+              <div className="hl-buttom payment-history">
                 <div className="rec-payment-txt">
                   <h1>Recent Payments</h1>
                 </div>
                 <div className="rc-details">
-                  {recentPayments.map((payment, index) => (
-                    <div className="hl-transactions" key={index}>
-                      <div className="date">{payment.date}</div>
-                      <div className="time"> {payment.time}</div>
-                      <div className="ammount">{payment.amount}</div>
+                  
+                  {
+                    // console.log(paymentsHistory)
+                    paymentsHistory ? 
+                    paymentsHistory.map((payment, index) => (
+                        <div className="hl-transactions" key={index}>
+                          <div className="date">{payment.paid_date}</div>
+                          {/* <div className="time"> {payment.time}</div> */}
+                          <div className="ammount">{payment.paid_amount}</div>
+                        </div>
+                      ))
+                    : <div style={{ marginTop: "10px" }}>
+                      <p>{message}</p>
                     </div>
-                  ))}
+                  }
                 </div>
               </div>
             </div>
