@@ -197,7 +197,7 @@
 
 @media screen and (min-width: 360px) and (max-width: 480px) {
   .housing-content {
-    padding: 10px 0px 10px 15px;
+    padding: 10px 10px 10px 10px;
   }
   .custom-prevbtn.prevpagebtn{
     display: none;
