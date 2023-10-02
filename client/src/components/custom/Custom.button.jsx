@@ -12,13 +12,13 @@ const CustomButton = (props) => {
     iconStyle,
     btnType,
   } = props;
-  // console.log(disabled);
 
   const handleClick = () => {
     if (!disabled && EventHandler) {
       EventHandler();
     }
   };
+
   return (
     <button
       className={styles}
@@ -27,8 +27,7 @@ const CustomButton = (props) => {
       style={{ inline }}
       type={btnType}
     >
-      {/* <img src={icon} alt="download" className={iconStyle}/> */}
-      {icon ? <span className={iconStyle}>{icon}</span> : <></>}
+      {icon ? <span className={iconStyle}>{icon}</span> : null}
       {name}
     </button>
   );

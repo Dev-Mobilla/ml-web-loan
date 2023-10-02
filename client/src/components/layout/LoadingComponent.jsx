@@ -5,7 +5,6 @@ const LoadingComponent = ({ containerStyle }) => {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    // height: "100%",
     margin: "50px",
   };
 
