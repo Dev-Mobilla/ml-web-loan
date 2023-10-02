@@ -457,7 +457,8 @@
 
 @media screen and (min-width: 481px) and (max-width: 768px) {
   .manage-loans .body-bg {
-    margin-top: 40px;
+    margin: 40px auto;
+    width: 100%;
   }
   .manage-loans .past-loan-card {
     margin-top: 100px;
@@ -473,23 +474,27 @@
   .manage-loans .prev-btn {
     margin: 20px 10px;
   }
+  .manage-loans .current-loan-btn-container,
   .manage-loans .past-loan-btn-container {
-    margin: 0 auto;
-    margin-left: 15px;
-  }
-  .manage-loans .current-loan-btn-container {
-    margin: auto 15px;
+    margin: auto;
+    width: 95%;
   }
   .manage-loans .custom-button.add-btn {
-    padding: 5px 30px;
+    padding: 5px 40px;
     font-size: 16px;
   }
   .manage-loans .loan-card {
     margin: 10px;
   }
+  .manage-loans .loan-card-container.current-loan, 
+  .manage-loans .loan-card-container.past-loan{
+    height: 80px;
+    margin: 20px 0px;
+  }
   .manage-loans .icon-content {
     /* margin: 0 auto; */
     margin:10px 20px;
+    /* justify-content: space-around; */
 
   }
   .manage-loans .hlmng-icon{
@@ -497,9 +502,6 @@
   }
   .manage-loans .loan-type-wrapper{
     margin: auto 0px;
-  }
-  .manage-loans .details-overlap-3{
-    height: 0;
   }
   .manage-loans .custom-button.manage-btn,
   .manage-loans .custom-button.details-btn,
@@ -515,7 +517,7 @@
   }
   .manage-loans .reference-txt {
     font-size: 15px;
-    width: 165px;
+    width: 250px;
   }
   .manage-loans .footer {
     display: none;
@@ -524,7 +526,11 @@
 
 /* LAPTOPS && DESKTOPS RESPONSIVE */
 
-@media screen and (min-width: 769px) and (max-width: 1200px) {
+@media screen and (min-width: 769px) and (max-width: 1350px) {
+  .manage-loans .body-bg {
+    margin: 40px auto;
+    width: 90%;
+  }
   .manage-loans .header {
     height: 10%;
   }
@@ -533,16 +539,20 @@
     margin-top: 20px;
   }
   .manage-loans .custom-prevbtn.prevpagebtn {
-    position: initial;
+    display:block;
+
   }
-  .manage-loans .prev-btn {
+  /* .manage-loans .prev-btn {
     margin: 20px 10px;
-  }
-  .manage-loans .current-loan-btn-container {
-    margin: auto 60px;
-  }
+  } */
   .manage-loans .past-loan-btn-container {
-    margin: auto 20px;
+    margin: 0 auto;
+    margin-left: 15px;
+  }
+  .manage-loans .current-loan-btn-container,
+  .manage-loans .past-loan-btn-container {
+    margin: auto;
+    width: 90%;
   }
   .manage-loans .custom-button.add-btn {
     padding: 5px 50px;
@@ -555,23 +565,34 @@
   .manage-loans .loan-card {
     width: 90%;
   }
-  .manage-loans .loan-card-container {
+  /* .manage-loans .loan-card-container {
     display: grid;
     grid-template-columns: 50% auto;
+  } */
+  .manage-loans .loan-card-container.current-loan, 
+  .manage-loans .loan-card-container.past-loan{
+    height: 80px;
+    margin: 20px 0px;
   }
   .manage-loans .icon-content {
-    margin: auto 0px auto 40px;
+    margin: 10px 20px;
   }
-  .manage-loans .details-overlap-3,
+  .manage-loans .loan-type-wrapper{
+    margin: auto 0px;
+  }
+  /* .manage-loans .details-overlap-3,
   .manage-loans .overlap-group {
     margin: auto 5px auto 15px;
-  }
+  } */
   .manage-loans .custom-button.manage-btn,
   .manage-loans .custom-button.details-btn,
   .manage-loans .custom-button.approved-btn {
     padding: 7px 30px;
-    margin-right: 40px;
+    /* margin-right: 40px; */
     font-size: 15px;
+    width: 140px;
+    margin-left:0px;
+
   }
   .manage-loans .loan-type,
   .manage-loans .QC-lmngtxt,
@@ -590,21 +611,30 @@
 
 /* EXTRA LARGE SCREENS RESPONSIVE */
 
-@media screen and (min-width: 1201px) and (max-width: 1350px) {
+/* @media screen and (min-width: 1201px) and (max-width: 1350px) {
+  .manage-loans .body-bg {
+    margin: 40px auto;
+    width: 90%;
+  }
+  .manage-loans .header {
+    height: 10%;
+  }
   .manage-loans .container {
-    width: 60%;
+    width: 90%;
+    margin-top: 20px;
   }
   .manage-loans .custom-prevbtn.prevpagebtn {
-    position: initial;
-  }
-  .manage-loans .prev-btn {
-    margin: 20px 10px;
-  }
-  .manage-loans .current-loan-btn-container {
-    margin: auto 60px;
+    display:none;
+
   }
   .manage-loans .past-loan-btn-container {
-    margin: auto 60px;
+    margin: 0 auto;
+    margin-left: 15px;
+  }
+  .manage-loans .current-loan-btn-container,
+  .manage-loans .past-loan-btn-container {
+    margin: auto;
+    width: 90%;
   }
   .manage-loans .custom-button.add-btn {
     padding: 5px 50px;
@@ -617,23 +647,25 @@
   .manage-loans .loan-card {
     width: 90%;
   }
-  .manage-loans .loan-card-container {
-    display: grid;
-    grid-template-columns: 50% auto;
+  .manage-loans .loan-card-container.current-loan, 
+  .manage-loans .loan-card-container.past-loan{
+    height: 80px;
+    margin: 20px 0px;
   }
   .manage-loans .icon-content {
-    margin: auto 0px auto 40px;
+    margin: 10px 20px;
   }
-  .manage-loans .details-overlap-3,
-  .manage-loans .overlap-group {
-    margin: auto 5px auto 15px;
+  .manage-loans .loan-type-wrapper{
+    margin: auto 0px;
   }
   .manage-loans .custom-button.manage-btn,
   .manage-loans .custom-button.details-btn,
   .manage-loans .custom-button.approved-btn {
     padding: 7px 30px;
-    margin-right: 40px;
     font-size: 15px;
+    width: 140px;
+    margin-left:0px;
+
   }
   .manage-loans .loan-type,
   .manage-loans .QC-lmngtxt,
@@ -648,4 +680,4 @@
   .manage-loans .footer {
     display: none;
   }
-}
+} */

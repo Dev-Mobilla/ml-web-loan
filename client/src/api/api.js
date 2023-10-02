@@ -27,14 +27,15 @@ const fetchBranch = async () => {
   }
 };
 
-const getCookie = async () => {
+const GetSessionCookie = async () => {
   try {
     const response = await axios.get("http://ml-loans-dev.mlhuillier.com:5000/api/get-cookie", {
       withCredentials: true
     });
     const res = {
       data: response.data,
-      status: response.status
+      status: response.status,
+      message: response.statusText
     }
 
     return res;
@@ -44,7 +45,7 @@ const getCookie = async () => {
 
     const res = {
       error: error,
-      status: error.status
+      status: error.status,
     }
 
     return res;
@@ -54,5 +55,5 @@ const getCookie = async () => {
 export {
   GetLoansDetails,
   fetchBranch,
-  getCookie
+  GetSessionCookie
 };
