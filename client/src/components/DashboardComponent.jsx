@@ -8,7 +8,7 @@ import {
   FeatureNotAvailableModalComponent,
 } from "./index";
 import { isCookiePresent } from "../utils/CookieChecker";
-import {getCookie} from "../api/api";
+// import {getCookie} from "../api/api";
 
 const DashboardComponent = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -35,14 +35,14 @@ const DashboardComponent = () => {
   };
 
   useEffect(() => {
-    GetCookie()
+    // GetCookie()
   })
 
-  const GetCookie = async () => {
-    const res = await getCookie();
+  // const GetCookie = async () => {
+  //   const res = await getCookie();
 
-    console.log(res);
-  }
+  //   console.log(res);
+  // }
 
   return (
     <div className="dashboard">

@@ -131,8 +131,8 @@ const ManageLoansDetailsComponent = () => {
   };
 
   const PaymentHistoryHandler = async () => {
-    const response = await GetPaymentHistory({reference: LoanReference});
-    // const response = await GetPaymentHistory({reference: "QPNWIJPKDLD"});
+    // const response = await GetPaymentHistory({reference: LoanReference});
+    const response = await GetPaymentHistory({reference: "QPNWIJPKDLD"});
 
     const displayError = (message) => {
       // setAlertModal(true);
