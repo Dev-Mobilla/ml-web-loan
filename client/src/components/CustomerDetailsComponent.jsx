@@ -34,6 +34,9 @@ const CustomerDetailsComponent = () => {
   const navigate = useNavigate();
   const location = useLocation();
   useEffect(() => {
+    console.log(
+      'details', location.state
+    );
     if (location.state == null) {
       navigate('/vehicle-loan/loan-type/new');
     }

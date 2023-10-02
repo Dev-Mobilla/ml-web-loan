@@ -41,6 +41,9 @@ const CustomerRequirementComponent = () => {
   useEffect(() => {
 
     // setIsSubmitButtonDisabled(isSubmitButtonDisabled);
+    if (location.state == null) {
+      navigate(-1);
+    }
 
     const storageLength = sessionStorage.length < 10;
     
@@ -66,7 +69,7 @@ const CustomerRequirementComponent = () => {
         requiredItems.push(value?.url);
       }
 
-      return requiredItems?.includes("") || requiredItems?.includes(null) || requiredItems?.includes("") || requiredItems?.includes(undefined);
+      return requiredItems?.includes("") || requiredItems?.includes(null) || requiredItems?.includes(undefined);
     
   };
 
