@@ -7,7 +7,6 @@ import {
   FeatureNotAvailableModalComponent,
 } from "./index";
 import { isCookiePresent } from "../utils/CookieChecker";
-import { GetSessionCookie } from "../api/api";
 
 const DashboardComponent = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -31,16 +30,6 @@ const DashboardComponent = () => {
 
   const closeModal = () => {
     setIsModalOpen(false);
-  };
-
-  useEffect(() => {
-    GetCookie();
-  });
-
-  const GetCookie = async () => {
-    const res = await GetSessionCookie();
-
-    console.log(res);
   };
 
   return (
