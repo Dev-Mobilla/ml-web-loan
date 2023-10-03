@@ -1,11 +1,12 @@
 require("dotenv").config();
+
 const express = require("express");
 const path = require("path");
 const cors = require("cors");
 
-// const ROUTER = require("./router/router");
 
 const { SYMPH_API_ROUTER } = require("./router/index.routes"); 
+const Logger = require("./config/logger.config");
 
 const app = express();
 
@@ -31,5 +32,11 @@ app.use('/api/loans/symph', SYMPH_API_ROUTER);
 
 
 app.listen(PORT, () => {
+    Logger.loggerInfo.addContext("context", "ML LOANS");
+    Logger.loggerInfo.info(`Server listening on port: ${PORT}`);
+    Logger.loggerError.addContext("context", "ML LOANS");
+    Logger.loggerError.error(`Server listening on port: ${PORT}`);
+    Logger.loggerFatal.addContext("context", "ML LOANS");
+    Logger.loggerFatal.fatal(`Server listening on port: ${PORT}`);
     console.log("Server listening on port: ", PORT);
 })
