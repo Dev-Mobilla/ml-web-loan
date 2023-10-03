@@ -287,10 +287,16 @@
   background-size: 100% 100%;
 }
 
-.manage-loans .custom-button.approved-btn {
+/* .manage-loans .custom-button.approved-btn {
   background-color: #FFE0B2;
   color:#FF6D00;
   border: 1px solid #FFD54F;
+  border-radius: var(--radius);
+} */
+.manage-loans .custom-button.approved-btn {
+  background-color: #FFCCBC;
+  color:#DD2C00;
+  border: 1px solid #DD2C00;
   border-radius: var(--radius);
 }
 .manage-loans .custom-button.details-btn {
