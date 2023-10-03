@@ -39,7 +39,7 @@ import ManageLoanCardComponent from "./loans/manageLoan/ManageLoanCardComponent"
 import ManageLoansDetailsComponent from "./loans/manageLoan/ManageLoansDetailsComponent";
 import PersonalContactComponent from "./loans/vehicle/PersonalContactComponent";
 import PersonalInformationComponent from "./loans/vehicle/PersonalInformationComponent";
-
+import CollateralDetailsComponent from "./loans/manageLoan/CollateralDetailsComponent";
 
 // CUSTOM COMPONENTS
 import OTPModalComponent from "./OTPModalComponent";
@@ -104,4 +104,5 @@ export {
   ErrorComponent,
   FeatureNotAvailableModalComponent,
   LoadingComponent,
+  CollateralDetailsComponent,
 };

@@ -1,7 +1,7 @@
-.housing-content {
+.housing-content,
+.collateral-content {
   padding: 30px;
   font-family: var(--font-family);
-  margin-bottom: 100px;
 }
 
 .loan-details .card {
@@ -36,7 +36,7 @@
 }
 
 .h-ltxt {
-  color:var(--text-red);
+  color: var(--text-red);
   font-size: 24px;
   font-weight: 700;
   letter-spacing: -0.33px;
@@ -61,14 +61,24 @@
   align-items: center;
 }
 
-.input-group {
+.input-group,
+.input-group-collateral {
   display: flex;
   justify-content: space-around;
   margin-bottom: 30px;
   align-items: center;
+}
+
+.input-group {
   width: 400px;
 }
-.input-label {
+
+.input-group-collateral {
+  width: 550px;
+}
+
+.input-label,
+.text-label {
   font-size: 18px;
   font-weight: 400;
   margin-right: 10px;
@@ -76,12 +86,14 @@
   letter-spacing: -0.3px;
   color: var(--text-gray);
 }
-.remarks{
+
+.remarks {
   display: flex;
   justify-content: space-around;
   margin-bottom: 30px;
   align-items: center;
 }
+
 .past-remarks {
   font-size: 18px;
   font-style: italic;
@@ -92,27 +104,34 @@
   color: var(--text-gray);
 }
 
-.input-wrapper {
+.input-wrapper,
+.collateral-input {
   flex-grow: 1;
   display: flex;
   justify-content: end !important;
 }
 
-.input-wrapper input {
+.input-wrapper input,
+.collateral-input input {
   width: 157px;
   height: 38px;
   padding: 10px;
   border-radius: var(--radius);
   margin-right: 10px;
   border: 1px solid;
-  border-color: #555555;
+  border-color: var(--text-gray);
   font-size: 20px;
   font-weight: 400;
   line-height: 30px;
   text-align: right;
 }
 
-.input-wrapper input::placeholder {
+.collateral-input input {
+  width: 300px;
+}
+
+.input-wrapper input::placeholder,
+.collateral-input input::placeholder {
   color: var(--text-gray);
 }
 
@@ -188,7 +207,7 @@
   background-color: #ebebeb;
 }
 
-.payment-history{
+.payment-history {
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -197,37 +216,38 @@
 
 @media screen and (min-width: 360px) and (max-width: 480px) {
   .housing-content {
-    padding: 10px 10px 10px 10px;
-  }
-  .custom-prevbtn.prevpagebtn{
-    display: none;
-  }
-  .loan-details .card{
-    padding: 15px 5px;
+    padding: 10px 15px 10px 15px;
   }
 
-  .loan-details .h-card{
+  .custom-prevbtn.prevpagebtn {
+    display: none;
+  }
+
+  .loan-details .card {
+    padding: 30px;
+  }
+
+  .loan-details .h-card {
     align-items: center;
     justify-content: space-between;
   }
 
-  /* .card img {
-    width: 50px;
-    height: 50px;
-    margin: 0px 10px 0 0;
-  } */
-  .card .h-card-header img{
+  .card .h-card-header img {
     width: 55px;
     height: 55px;
   }
 
-  .loan-details .input-group{
+  .loan-details .input-group {
     justify-content: end;
     width: 300px;
   }
 
   .input-label {
     font-size: 14px;
+  }
+
+  .text-label {
+    margin-bottom: 10px;
   }
 
   .h-card-text {
@@ -262,7 +282,17 @@
     font-size: 16px;
     font-weight: 400;
   }
-  .note{
+
+  .input-group-collateral {
+    display: block;
+    width: 100%;
+  }
+
+  .collateral-input {
+    justify-content: start !important;
+  }
+
+  .note {
     width: 300px;
   }
 
@@ -299,10 +329,11 @@
   .hl-transactions .ammount {
     margin-left: 50px;
   }
-  .past-remarks{
+
+  .past-remarks {
     font-size: 16px;
   }
-  .loan-details .payment-history{
+  .loan-details .payment-history {
     width: 300px;
   }
 }
@@ -311,37 +342,33 @@
   .housing-content {
     padding: 10px 15px 10px 15px;
   }
-  .custom-prevbtn.prevpagebtn{
+
+  .custom-prevbtn.prevpagebtn {
     display: none;
   }
-  .loan-details .card{
+
+  .loan-details .card {
     padding: 15px 10px;
   }
 
-  .loan-details .h-card{
+  .loan-details .h-card {
     align-items: center;
     justify-content: space-between;
   }
 
-  .loan-details .custom-current{
+  .loan-details .custom-current {
     width: 150px;
     margin: auto 5px;
     height: 30px;
   }
 
-  /* .card img {
-    width: 50px;
-    height: 50px;
-    margin: 0px 10px 0 0;
-  } */
-  .card .h-card-header img{
+  .card .h-card-header img {
     width: 60px;
     height: 60px;
   }
 
-  .loan-details .input-group{
+  .loan-details .input-group {
     justify-content: end;
-    /* width: 300px; */
   }
 
   .input-label {
@@ -356,10 +383,6 @@
     padding: 5px;
   }
 
-  /* .hl-inputs {
-    margin-top: 22px;
-  } */
-
   .loan-details .h-ltxt {
     font-size: 20px;
   }
@@ -370,11 +393,10 @@
 
   .hl-inputs .input-label {
     font-size: 17px;
-    /* width: 150px; */
     padding-right: 10px;
     text-align: end;
   }
-  .loan-details .input-wrapper{
+  .loan-details .input-wrapper {
     flex-grow: inherit;
   }
 
@@ -384,7 +406,8 @@
     font-size: 16px;
     font-weight: 400;
   }
-  .note{
+
+  .note {
     width: 400px;
     justify-content: space-between;
     align-items: center;
@@ -410,7 +433,9 @@
     width: 28px;
     height: 22px;
   }
-  .payment-schedule-btn, .collateral-details-btn{
+
+  .payment-schedule-btn,
+  .collateral-details-btn {
     padding: 5px 12px;
   }
 
@@ -426,10 +451,29 @@
   .hl-transactions .ammount {
     margin-left: 50px;
   }
-  .past-remarks{
+
+  .past-remarks {
     font-size: 16px;
   }
-  /* .loan-details .payment-history{
-    width: 300px;
-  } */
+}
+
+@media screen and (min-width: 481px) and (max-width: 600px) {
+  .text-label {
+    margin-bottom: 10px;
+  }
+
+  .collateral {
+    padding: 20px;
+  }
+
+  .input-group-collateral {
+    display: block;
+    width: 100%;
+  }
+}
+
+@media screen and (min-width: 601px) and (max-width: 768px) {
+  .input-group-collateral {
+    width: 80%;
+  }
 }
