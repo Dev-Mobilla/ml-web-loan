@@ -2,17 +2,7 @@ const { loan_applications, customer_details, employment_docs, vehicle_docs } = r
 
 async function createLoanApplication(LoanApplicationJsonData, customerId, vehicleId, employmentId, options) {
     try {
-        const findCustomerID = await customer_details.findByPk(customerId);
-        let customerID;
-        if (findCustomerID) {
-            const customer = await findCustomerID.customer_details_id;
-            customerID = customer;
-        }
-        else {
-            customerID = customerId;
-        }
-        console.log("Customer ID: ", customerId, " Vehicle ID: ", vehicleId, " Employment ID: ", employmentId);
-        const createdLoan = await loan_applications.customeCreate(LoanApplicationJsonData, customerID, vehicleId, employmentId, options);
+        const createdLoan = await loan_applications.customeCreate(LoanApplicationJsonData, customerId, vehicleId, employmentId, options);
         return createdLoan;
     } catch (error) {
         console.error('Error creating user:', error);
@@ -23,8 +13,6 @@ async function createLoanApplication(LoanApplicationJsonData, customerId, vehicl
 async function getAllLoanApplicants(req, res) {
     try {
         console.log('Models synchronized with the database.');
-
-        // Fetch loan applications with associated columns
         const loanApplications = await loan_applications.findAll({
             include: [
                 { model: customer_details, attributes: ['customer_details_id'], as: 'customer_details' },
@@ -32,7 +20,6 @@ async function getAllLoanApplicants(req, res) {
                 { model: vehicle_docs, attributes: ['vehicle_docu_id'], as: 'vehicle_docs' },
             ],
         });
-        // Extract the customer_details_id, employment_docs_id, and vehicle_docs_id values
         const customerDetailsIds = loanApplications.map((loanApp) => loanApp.customer_details_customer_details_id);
         const employmentDocsIds = loanApplications.map((loanApp) => loanApp.employment_docs_employment_docu_id);
         const vehicleDocsIds = loanApplications.map((loanApp) => loanApp.vehicle_docs_vehicle_docu_id);

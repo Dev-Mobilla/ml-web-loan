@@ -1,25 +1,33 @@
 const { customer_details } = require('../models/associations');
 
 
-async function createCustomerDetails(CustomerDetailsJsonData, options) {
+async function createCustomerDetails(customerValue, options) {
     try {
-        const customerID = CustomerDetailsJsonData.customer_details_id;
-        const findCustomer = await customer_details.findByPk(customerID);
-        let createdCustomer;
-        if (findCustomer){
-            createdCustomer = findCustomer;
-        }
-        else{
-            const createNewCustomer = await customer_details.customeCreate(CustomerDetailsJsonData, options);
-            createdCustomer = createNewCustomer;
-        }
-
-        console.log("Customer Details ",CustomerDetailsJsonData);
+        const createdCustomer = await customer_details.customCreate(customerValue, options);
         return createdCustomer;
     } catch (error) {
-        console.error('Error creating user:', error);
         return null;
     }
 }
 
-module.exports = { createCustomerDetails };
+async function findCustomerDetails(last_name, first_name, middle_name, mobile_number) {
+    const findByName = await customer_details.findOne({
+        where: {
+            first_name: first_name,
+            last_name: last_name,
+            middle_name: middle_name,
+            mobile_number: mobile_number
+        },
+        limit: 1,
+    });
+
+    if (findByName) {
+        return findByName;
+    } else {
+        return null;
+    }
+}
+
+
+
+module.exports = { findCustomerDetails, createCustomerDetails };

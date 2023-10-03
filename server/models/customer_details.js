@@ -76,8 +76,30 @@ const customer_details = sequelize.define('customer_details', {
   timestamps: false
 });
 
-customer_details.customeCreate = async function (data, options) {
-  return this.create(data, options);
+customer_details.customCreate = async function (data, options) {
+  try {
+    const createdData = await this.create({
+      'last_name': data.last_name,
+      'first_name': data.first_name,
+      'middle_name': data.middle_name,
+      'birth_date': data.birth_date,
+      'nationality': data.nationality,
+      'civil_status': data.civil_status,
+      'employer': data.employer,
+      'nature_of_business': data.nature_of_business,
+      'tenure_length': data.tenure_length,
+      'office_address': data.office_address,
+      'office_landline': data.office_landline,
+      'source_of_income': data.source_of_income,
+      'gross_monthly_income': data.gross_monthly_income,
+      'current_address': data.current_address,
+      'mobile_number': data.mobile_number,
+      'email': data.email
+    }, options);
+    return createdData;
+  } catch (error) {
+    throw new Error("Failed to create customer details");
+  }
 };
 
 module.exports = customer_details;

@@ -13,42 +13,45 @@ app.use(router);
 
 
 router.post('/ml-loans/create', async (req, res) => {
-    const transaction = await sequelize.transaction();
-    const { LoanApplicationJsonData, CustomerDetailsJsonData, EmploymentJsonData, VehicleJsonData } = req.body;
-    try {
-        const createdCustomerDetails = await CustomerController.createCustomerDetails(CustomerDetailsJsonData, { transaction });
-        if (!createdCustomerDetails) {
-            return res.json({ error: 'Failed to create customer details' });
-        }
-        const customerId = createdCustomerDetails.customer_details_id;
-        const createdEmploymentDetails = await EmploymentController.createEmploymentDocs(EmploymentJsonData, { transaction });
-        if (!createdEmploymentDetails) {
-            return res.json({ error: 'Failed to create employment details' });
-        }
-        const employmentId = createdEmploymentDetails.employment_docu_id;
-        const createdVehicleDetails = await VehicleController.createVehicleDocs(VehicleJsonData, { transaction });
-        if (!createdVehicleDetails) {
-            return res.json({ error: 'Failed to create vehicle details' });
-        }
-        const vehicleId = createdVehicleDetails.vehicle_docu_id;
-        console.log("Vehicle ID: ", vehicleId);
-        const createdLoanApplicants = await LoanApplicationsController.createLoanApplication(LoanApplicationJsonData, customerId, vehicleId, employmentId, { transaction });
-        if (!createdLoanApplicants) {
-            return res.json({ error: 'Failed to create loan applicants' });
-        }
-        await transaction.commit();
-        res.json({ message: 'Entities created successfully' });
-    } catch (error) {
-        console.error(error);
-        await transaction.rollback();
-        res.json({ error: 'Internal server error' });
+  const reqBody = req.body.body;
+  const parsedReqBody = JSON.parse(reqBody);
+  try {
+    let customerValue;
+    const { last_name, first_name, middle_name, mobile_number } = parsedReqBody.CustomerDetailsJsonData;
+    const findCustomerDetails = await CustomerController.findCustomerDetails(last_name, first_name, middle_name, mobile_number);
+
+    if (findCustomerDetails) {
+      customerValue = findCustomerDetails;
+    } else {
+      customerValue = parsedReqBody.CustomerDetailsJsonData;
     }
+    await sequelize.transaction(async (transaction) => {
+      const createdCustomerDetails = await CustomerController.createCustomerDetails(customerValue, { transaction });
+      if (!createdCustomerDetails) {
+        return res.status(400).json({ error: 'Failed to Add Loan' });
+      }
+      const customerId = createdCustomerDetails.customer_details_id;
+      const createdEmploymentDetails = await EmploymentController.createEmploymentDocs(parsedReqBody.EmploymentJsonData, { transaction });
+      if (!createdEmploymentDetails) {
+        return res.status(400).json({ error: 'Failed to Add Loan' });
+      }
+      const employmentId = createdEmploymentDetails.employment_docu_id;
+      const createdVehicleDetails = await VehicleController.createVehicleDocs(parsedReqBody.VehicleJsonData, { transaction });
+      if (!createdVehicleDetails) {
+        return res.status(400).json({ error: 'Failed to Add Loan' });
+      }
+      const vehicleId = createdVehicleDetails.vehicle_docu_id;
+      const createdLoanApplicants = await LoanApplicationsController.createLoanApplication(parsedReqBody.LoanApplicationJsonData, customerId, vehicleId, employmentId, { transaction });
+      if (!createdLoanApplicants) {
+        return res.status(400).json({ error: 'Failed to Add Loan' });
+      }
+      return res.status(200).json({ success: 'Added Loan!' });
+    });
+  } catch (error) {
+    return res.status(500).json({ error: 'Internal server error' });
+  }
 });
 
 router.get('/ml-loans/tables', LoanApplicationsController.getAllLoanApplicants);
 
 module.exports = router;
-
-// app.listen(3000, () => {
-//     console.log('Server is running on port 3000');
-// });
