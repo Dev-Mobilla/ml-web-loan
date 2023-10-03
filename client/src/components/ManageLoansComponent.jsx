@@ -9,14 +9,13 @@ import {
   CustomIcon,
   CustomSubmitModal,
   LoadingComponent,
+  AlertModalComponent,
 } from "./index";
-import { useLocation, useNavigate } from "react-router-dom";
-import { Loans } from "../utils/ManageLoansMockData";
-import {GetLoans, GetLoanDetails} from "../api/hatchit.api";
-import {GetCookieByName} from "../utils/DataFunctions";
+import { useNavigate } from "react-router-dom";
+import { GetLoans } from "../api/hatchit.api";
+import { GetCookieByName } from "../utils/DataFunctions";
 
 const ManageLoanComponent = () => {
-  const Location = useLocation();
   const navigate = useNavigate();
   const [modal, setModal] = useState(false);
   const [referenceInput, setReferenceInput] = useState("");
@@ -24,6 +23,8 @@ const ManageLoanComponent = () => {
   const [inputErrorStyle, setInputErrorStyle] = useState("");
   const [loans, setLoans] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [alertModal, setAlertModal] = useState(false);
+  const [alertProps, setAlertProps] = useState({});
 
   const { Housing, Vehicle, QCL } = CustomIcon;
 
@@ -33,39 +34,60 @@ const ManageLoanComponent = () => {
   };
 
   const GetAllLoans = async () => {
-    try {
       const getCkycId = GetCookieByName(process.env.REACT_APP_ACCOUNT_COOKIE_NAME);
 
-      const res = await GetLoans({ckyc_id: getCkycId?.ckycId});
+      const response = await GetLoans({ckyc_id: getCkycId?.ckycId});
 
       setLoading(true);
 
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
-      console.log(res);
-      
-      if (res.status === 200) {
-        const loanData = res.data.data.map((loan) => ({
-          ...loan,
-          // isLoading: true,
-        }));
-        
-        setLoans(loanData);
-        setLoading(false);
-
-        // await new Promise((resolve) => setTimeout(resolve, 1000));
-
-        // const updatedLoanData = loanData.map((loan) => ({
-        //   ...loan,
-        //   isLoading: false,
-        // }));
-        // setLoans(updatedLoanData);
-      } else {
-        console.log(res.status);
+      const displayError = (message) => {
+        setAlertModal(true);
+        setAlertProps({
+          message: message
+        })
       }
-    } catch (error) {
-      console.error(error);
-    }
+
+      switch (response.status) {
+        case 200:
+
+          setTimeout(async () => {
+            try {
+              const loanData = response.data.data.map((loan) => ({
+                ...loan,
+                // isLoading: true,
+              }));
+              setLoans(loanData);
+              setLoading(false);
+              // await new Promise((resolve) => setTimeout(resolve, 1000));
+
+          // const updatedLoanData = loanData.map((loan) => ({
+          //   ...loan,
+          //   isLoading: false,
+          // }));
+          // setLoans(updatedLoanData);
+              
+            } catch (error) {
+              displayError("An error occurred while fetching the loan details.");
+            }
+            setLoading(false);
+          }, 3000);
+
+          break;
+        case 404:
+          displayError("Loan does not exist");
+          break;
+        case 401:
+          displayError("Session Expired. Please Login again")
+          break;
+        case 500:
+          displayError("An error occurred while fetching loan details.")
+          break;
+        default:
+          displayError("An error occurred while fetching loan details.")
+          break;
+      }
   };
 
   useEffect(() => {
@@ -92,32 +114,37 @@ const ManageLoanComponent = () => {
       icon: <QCL />,
     },
     {
-      loanType: "Vehicle Loan",
+      loanType: "Car Loan",
       icon: <Vehicle />,
     },
   ];
+
+  const OnModalCloseHandler = () => {
+    setAlertModal(false);
+    navigate("/dashboard");
+  };
+
   const LoanStatusChecker = (status) => {
     if (status?.toLowerCase() === "approved") {
       return {
         btnName: "Pending",
         isDisabled: true,
-        btnStyle: "custom-button approved-btn"
+        btnStyle: "custom-button approved-btn",
       };
-      
-    }else if (status?.toLowerCase() === "disbursed") {
+    } else if (status?.toLowerCase() === "disbursed") {
       return {
         btnName: "Manage",
         isDisabled: false,
-        btnStyle: "custom-button manage-btn"
+        btnStyle: "custom-button manage-btn",
       };
-    }else if (status?.toLowerCase() === "closed") {
+    } else if (status?.toLowerCase() === "closed") {
       return {
         btnName: "Details",
         isDisabled: false,
-        btnStyle: "custom-button details-btn"
+        btnStyle: "custom-button details-btn",
       };
     }
-  }
+  };
 
   const LoansCards = ({ status }) => {
     const filteredLoans = loans?.filter((loan) => loan.status === status);
@@ -126,15 +153,15 @@ const ManageLoanComponent = () => {
       return (
         <div className="loans-unavailable">
           <h1>
-            You have no {status === "DISBURSED" || status === "APPROVED" ? "loans" : "past loans"}.
+            You have no {status === "DISBURSED" || status === "APPROVED" ? `${LoanStatusChecker(status).btnName} loans` : "past loans"}.
           </h1>
         </div>
       );
     }
-    
+
     return filteredLoans?.map((loan, key) => {
       let statusChecker = LoanStatusChecker(loan.status);
-      
+
       return (
         <ManageLoanCardComponent
           loanType={loan.loan_type.loan_type_name}
@@ -146,40 +173,29 @@ const ManageLoanComponent = () => {
           disabled={statusChecker.isDisabled}
           loanCardName="loan-card"
           cardContainer={`loan-card-container ${
-            status === "DISBURSED" || status === "APPROVED" ? "current-loan" : "past-loan"
+            status === "DISBURSED" || status === "APPROVED"
+              ? "current-loan"
+              : "past-loan"
           }`}
-          loantypeTxt={`loan-type ${status === "DISBURSED" || status === "APPROVED" ? "current" : "past"}`}
+          loantypeTxt={`loan-type ${
+            status === "DISBURSED" || status === "APPROVED" ? "current" : "past"
+          }`}
           referenceTxt="reference-txt"
           OnBtnClick={() =>
             CardBtnClick(loan.ref_num, loan.loan_type.loan_type_name)
           }
           btnType="button"
         />
-      )
+      );
     });
   };
-
-
-  // const ConditionalRender = ({ status }) => (
-  //   <div>
-  //     {loans?.some((loan) => loan.status === status && loan.isLoading) ? (
-  //       <LoadingComponent />
-  //     ) : (
-  //       <LoansCards status={status} />
-  //     )}
-  //   </div>
-  // );
-
-  // const CurrentLoansCards = () => <ConditionalRender status="DISBURSED" />;
-  // const ApprovedLoansCards = () => <ConditionalRender status="APPROVED" />;
-  // const PastLoansCards = () => <ConditionalRender status="CLOSED" />;
 
   const CurrentLoansCards = () => <LoansCards status="DISBURSED" />;
   const ApprovedLoansCards = () => <LoansCards status="APPROVED" />;
   const PastLoansCards = () => <LoansCards status="CLOSED" />;
 
   const LoanTypeIconHandler = (loanType) => {
-    return loansIcon?.map((icon, key) => {
+    return loansIcon?.map((icon) => {
       return icon.loanType === loanType ? icon.icon : <></>;
     });
   };
@@ -208,7 +224,9 @@ const ManageLoanComponent = () => {
     if ("quick-cash-loan" === loanType) {
       navigate(`/manage-loans/${loanType}/${referenceNo}`);
     } else {
-      navigate(`/manage-loans/loan-details?reference=${referenceNo}&loan-type=${type}`);
+      navigate(
+        `/manage-loans/loan-details?reference=${referenceNo}&loan-type=${type}`
+      );
     }
   };
 
@@ -222,6 +240,12 @@ const ManageLoanComponent = () => {
 
   return (
     <div className="manage-loans">
+      {alertModal ? (
+        <AlertModalComponent
+          message={alertProps.message}
+          onClose={OnModalCloseHandler}
+        />
+      ) : null}
       {modal ? (
         <div className="submit-modal">
           <CustomSubmitModal
@@ -261,24 +285,25 @@ const ManageLoanComponent = () => {
                   EventHandler={AddBtnHandler}
                 />
               </div>
-              {
-                loading ? <LoadingComponent containerStyle="container-loading"/> 
-                : 
+              {loading ? (
+                <LoadingComponent containerStyle="container-loading" />
+              ) : (
                 <>
                   <CurrentLoansCards />
-                  <ApprovedLoansCards/>
+                  <ApprovedLoansCards />
                 </>
-              }
+              )}
             </div>
             <div className="past-loan-card">
               <div className="past-loan-btn-container">
                 <div className="pastloanstxt">Past Loans</div>
               </div>
 
-              {
-                loading ? <LoadingComponent containerStyle="container-loading"/> : <PastLoansCards />
-              }
-              
+              {loading ? (
+                <LoadingComponent containerStyle="container-loading" />
+              ) : (
+                <PastLoansCards />
+              )}
             </div>
           </div>
         </div>

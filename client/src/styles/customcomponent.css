@@ -86,7 +86,8 @@
 }
 
 .payment-schedule-btn,
-.collateral-details-btn {
+.collateral-details-btn,
+.confirmation-btn {
   background-color: var(--red);
   font-size: 18px;
   font-weight: 500;
@@ -96,7 +97,11 @@
   border: none;
   cursor: pointer;
 }
-
+.confirmation-btn {
+  margin: 10px;
+  width: 100px;
+  height: 35px;
+}
 .collateral-details-btn {
   margin-left: 35px;
 }
@@ -186,7 +191,6 @@
 .loan-input-wrapper input:focus {
   border-color: var(--border-color);
   outline: none;
-
 }
 
 .custom-card-subtitle {

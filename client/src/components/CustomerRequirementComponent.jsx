@@ -33,7 +33,7 @@ const CustomerRequirementComponent = () => {
   let vehicleKeys = [
     "Orginal OR/CR", 
     "Set stencils", 
-    "Car Insurance", 
+    "Vehicle Insurance", 
     "Front Side", 
     "Back Side", 
     "Right Side", 
@@ -42,7 +42,10 @@ const CustomerRequirementComponent = () => {
   
   useEffect(() => {
 
-    setIsSubmitButtonDisabled(isSubmitButtonDisabled);
+    // setIsSubmitButtonDisabled(isSubmitButtonDisabled);
+    if (location.state == null) {
+      navigate(-1);
+    }
 
     const storageLength = sessionStorage.length < 10;
     
@@ -119,6 +122,8 @@ const CustomerRequirementComponent = () => {
   //   return requiredItems?.includes("");
 
   // }
+  }, [ optionValue, isSubmitButtonDisabled, sessionStorage]);
+
    const CheckRequiredDocuments = () => {
       let requiredItems = []
       let Keys = []
@@ -134,7 +139,8 @@ const CustomerRequirementComponent = () => {
         const value = JSON.parse(sessionStorage.getItem(key));
         requiredItems.push(value?.url);
       }
-      return requiredItems?.includes("");
+
+      return requiredItems?.includes("") || requiredItems?.includes(null) || requiredItems?.includes(undefined);
     
   };
 
@@ -209,7 +215,7 @@ const CustomerRequirementComponent = () => {
               session={GetSessionDocument("Orginal OR/CR")}
               orDoc={GetSessionDocument("Orginal OR/CR")}
               stencils={GetSessionDocument("Set stencils")}
-              carInsurance={GetSessionDocument("Car Insurance")}
+              carInsurance={GetSessionDocument("Vehicle Insurance")}
               front={GetSessionDocument("Front Side")}
               back={GetSessionDocument("Back Side")}
               right={GetSessionDocument("Right Side")}

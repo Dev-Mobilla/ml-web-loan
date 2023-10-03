@@ -71,7 +71,7 @@ const VehicleRequirementComponent = ({
         className="requirement"
         onClick={() =>
           openModal(
-            "Car Insurance",
+            "Vehicle Insurance",
             file
           )
         }
@@ -82,7 +82,7 @@ const VehicleRequirementComponent = ({
           src="https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64f13348e9f50c7315603815/img/carinsuranceicon@2x.png"
         />
         <div className="requirement-text">
-          <div className="requirement-title">Car Insurance</div>
+          <div className="requirement-title">Vehicle Insurance</div>
           <div className="re-file">
             <div className="re-close">[x]</div>
             <div className={`requirement-file ${MakeRed(carInsurance)}`}>
