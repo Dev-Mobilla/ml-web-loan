@@ -3,7 +3,9 @@ const express = require("express");
 const path = require("path");
 const cors = require("cors");
 
-const ROUTER = require("./router/router");
+// const ROUTER = require("./router/router");
+
+const { SYMPH_API_ROUTER } = require("./router/index.routes"); 
 
 const app = express();
 
@@ -25,7 +27,7 @@ app.get('/', (req, res) => {
   res.sendFile(path.resolve(__dirname, '..' ,'client', 'build', 'index.html'));
 });
 
-app.use('/', ROUTER);
+app.use('/api/loans/symph', SYMPH_API_ROUTER);
 
 
 app.listen(PORT, () => {
