@@ -12,11 +12,7 @@ import {
 import houseIcon from "../../../assets/icons/house.png";
 import mlicon from "../../../assets/icons/Paynow_icn.png";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import {
-  GetCollateralDetails,
-  GetLoanDetails,
-  GetPaymentHistory,
-} from "../../../api/hatchit.api";
+import { GetLoanDetails, GetPaymentHistory } from "../../../api/hatchit.api";
 import {
   getServiceFee,
   validateAccountNumber,
@@ -28,7 +24,6 @@ import pdfFonts from "pdfmake/build/vfs_fonts";
 import getCookieValue from "../../../utils/GetCookieValue";
 import { GetLoanPaymentSchedule } from "../../../api/hatchit.api";
 import { GetCookieByName } from "../../../utils/DataFunctions";
-
 
 const ConfirmationModal = ({ isOpen, onClose, onConfirm }) => {
   if (!isOpen) return null;
@@ -43,7 +38,7 @@ const ConfirmationModal = ({ isOpen, onClose, onConfirm }) => {
           <div className="modal-actions">
             <CustomButton
               name=" Cancel"
-              styles="confirmation-btn"
+              styles="confirmation-cancel-btn"
               EventHandler={onClose}
             />
             <CustomButton
@@ -58,18 +53,21 @@ const ConfirmationModal = ({ isOpen, onClose, onConfirm }) => {
   );
 };
 
-pdfMake.vfs = pdfFonts.pdfMake.vfs;
-
 const ManageLoansDetailsComponent = () => {
-  const recentPayments = [
-    { date: "05-14-2023", time: "16:23", amount: "30,625.00" },
-    { date: "04-15-2023", time: "12:01", amount: "30,625.00" },
-    { date: "03-15-2023", time: "10:30", amount: "30,625.00" },
-    { date: "02-09-2023", time: "08:15", amount: "30,625.00" },
-    { date: "01-10-2023", time: "22:04", amount: "30,626.00" },
-  ];
+  const navigate = useNavigate();
+
+  const [params] = useSearchParams();
+  const LoanReference = params.get("reference");
+  const LoanType = params.get("loan-type");
 
   const [paymentsHistory, setPaymentHistory] = useState([]);
+  const [alertModal, setAlertModal] = useState(false);
+  const [alertProps, setAlertProps] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [pdfContent, setPdfContent] = useState(null);
+  const [showConfirmation, setShowConfirmation] = useState(false);
+  const [message, setMessage] = useState("");
 
   const [loanDetails, setLoanDetails] = useState({
     dueAmount: "",
@@ -79,6 +77,7 @@ const ManageLoansDetailsComponent = () => {
     referenceNo: "",
     status: "",
   });
+
   const handlePayNowButton = async () => {
     let account = GetCookieByName("account_details");
 
@@ -108,19 +107,6 @@ const ManageLoansDetailsComponent = () => {
     //     break;
     // }
   };
-  const [alertModal, setAlertModal] = useState(false);
-  const [alertProps, setAlertProps] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [pdfContent, setPdfContent] = useState(null);
-  const [showConfirmation, setShowConfirmation] = useState(false);
-  const [message, setMessage] = useState("");
-
-  const navigate = useNavigate();
-
-  const [params] = useSearchParams();
-  const LoanReference = params.get("reference");
-  const LoanType = params.get("loan-type");
 
   const displayError = (message) => {
     setAlertModal(true);
@@ -263,6 +249,8 @@ const ManageLoansDetailsComponent = () => {
   };
 
   useEffect(() => {
+    pdfMake.vfs = pdfFonts.pdfMake.vfs;
+
     const { data, firstName, lastName, reference, term, status } =
       paymentSchedule;
 
@@ -375,53 +363,22 @@ const ManageLoansDetailsComponent = () => {
     }
   }, [paymentSchedule]);
 
-  const [collateralDetails, setCollateralDetails] = useState({
-    error: false,
-    data: [],
-    fields: [],
-  });
-
-  const CollateralDetails = async () => {
-    try {
-      const response = await GetCollateralDetails({ reference: LoanReference });
-      const { data, fields } = response.data;
-
-      const collateralData = data.map((dataItem) => ({ ...dataItem }));
-
-      const collateralFields = fields.map((field) => ({ ...field }));
-
-      setCollateralDetails({
-        error: false,
-        data: collateralData,
-        fields: collateralFields,
-      });
-    } catch (error) {
-      displayError(
-        "An internal server error occurred while fetching collateral details."
-      );
-    }
-  };
-
   const handleCollateralDetails = () => {
-    CollateralDetails();
+    !LoanReference
+      ? displayError("No loan reference found.")
+      : navigate(
+          `/manage-loans/loan-details/collateral-details?reference=${LoanReference}`
+        );
   };
-
-  useEffect(() => {
-    // console.log("collateralDetails", collateralDetails);
-  }, [collateralDetails]);
 
   const PaymentHistoryHandler = async () => {
     // const response = await GetPaymentHistory({reference: LoanReference});
     const response = await GetPaymentHistory({reference: "QPNWIJPKDLD"});
 
     const displayError = (message) => {
-      // setAlertModal(true);
-      // setAlertProps({
-      //   message: message
-      // })
       setMessage(message);
-      setPaymentHistory([])
-    }
+      setPaymentHistory([]);
+    };
 
     switch (response.status) {
       case 200:
@@ -430,21 +387,21 @@ const ManageLoansDetailsComponent = () => {
         let paymentHistory = payment.data.loan_schedules;
 
         console.log(paymentHistory);
-        setPaymentHistory(paymentHistory)
+        setPaymentHistory(paymentHistory);
 
         break;
       case 404:
         displayError(response.error.response.data.data);
         break;
       case 500:
-        setPaymentHistory(response.error.response.data.data)
+        setPaymentHistory(response.error.response.data.data);
         setMessage(response.error.response.data.message);
         break;
       default:
-        displayError("An error occurred while fetching payment history.")
+        displayError("An error occurred while fetching payment history.");
         break;
     }
-  }
+  };
 
   const LoadingModalComponent = () => {
     return (
@@ -518,32 +475,43 @@ const ManageLoansDetailsComponent = () => {
 
   const DownloadIcon = (
     <svg
-      width="20px"
-      height="20px"
+      width="24"
+      height="24"
       viewBox="0 0 24 24"
-      fill="white"
+      fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      stroke="#ffffff"
     >
-      <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
-      <g
-        id="SVGRepo_tracerCarrier"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      ></g>
-      <g id="SVGRepo_iconCarrier">
-        <g id="Interface / Download">
-          {" "}
-          <path
-            id="Vector"
-            d="M6 21H18M12 3V17M12 17L17 12M12 17L7 12"
-            stroke="ffffff"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          ></path>{" "}
-        </g>{" "}
-      </g>
+      <path
+        d="M11 5C11 4.44772 11.4477 4 12 4C12.5523 4 13 4.44772 13 5V12.1578L16.2428 8.91501L17.657 10.3292L12.0001 15.9861L6.34326 10.3292L7.75748 8.91501L11 12.1575V5Z"
+        fill="currentColor"
+      />
+      <path
+        d="M4 14H6V18H18V14H20V18C20 19.1046 19.1046 20 18 20H6C4.89543 20 4 19.1046 4 18V14Z"
+        fill="currentColor"
+      />
+    </svg>
+  );
+
+  const EyeIcon = (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M16 12C16 14.2091 14.2091 16 12 16C9.79086 16 8 14.2091 8 12C8 9.79086 9.79086 8 12 8C14.2091 8 16 9.79086 16 12ZM14 12C14 13.1046 13.1046 14 12 14C10.8954 14 10 13.1046 10 12C10 10.8954 10.8954 10 12 10C13.1046 10 14 10.8954 14 12Z"
+        fill="currentColor"
+      />
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M12 3C17.5915 3 22.2898 6.82432 23.6219 12C22.2898 17.1757 17.5915 21 12 21C6.40848 21 1.71018 17.1757 0.378052 12C1.71018 6.82432 6.40848 3 12 3ZM12 19C7.52443 19 3.73132 16.0581 2.45723 12C3.73132 7.94186 7.52443 5 12 5C16.4756 5 20.2687 7.94186 21.5428 12C20.2687 16.0581 16.4756 19 12 19Z"
+        fill="currentColor"
+      />
     </svg>
   );
 
@@ -672,7 +640,7 @@ const ManageLoansDetailsComponent = () => {
                 <CustomButton
                   name=" Collateral Details"
                   styles="collateral-details-btn"
-                  icon={DownloadIcon}
+                  icon={EyeIcon}
                   iconStyle="download-icon"
                   EventHandler={handleCollateralDetails}
                 />
