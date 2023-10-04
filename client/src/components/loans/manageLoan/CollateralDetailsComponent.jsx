@@ -102,19 +102,36 @@ const CollateralDetailsComponent = () => {
 
   const collateral = data[0];
 
-  const handleDownload = (fileName) => {
-    // TODO: download file
-    console.log(`Downloading file: ${fileName}`);
-  };
+  const handleDownload = (fileName, fieldTitle) => {
+    const fileExtension = fileName.split('.').pop().toLowerCase();
+    const allowedExtensions = ['png', 'pdf', 'jpg'];
+    console.log(fieldTitle);
 
-  const DownloadIcon = ({ fileName }) => (
+    if (allowedExtensions.includes(fileExtension)) {
+        fetch(fileName)
+        .then(response => response.blob())
+        .then(blob => {
+          const link = document.createElement('a');
+          link.href = URL.createObjectURL(blob);
+          link.download = `${fieldTitle}-collateral-details.${fileExtension}`;
+          link.click();
+          })
+          .catch(error => {
+          console.error('Error downloading the file:', error);
+          });
+          } else {
+          console.log(`Cannot download file with extension '${fileExtension}'.`);
+          }
+    };
+
+  const DownloadIcon = ({ fileName, fieldTitle }) => (
     <svg
       width="24"
       height="24"
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      onClick={() => handleDownload(fileName)}
+      onClick={() => handleDownload(fileName,fieldTitle)}
     >
       <path
         d="M11 5C11 4.44772 11.4477 4 12 4C12.5523 4 13 4.44772 13 5V12.1578L16.2428 8.91501L17.657 10.3292L12.0001 15.9861L6.34326 10.3292L7.75748 8.91501L11 12.1575V5Z"
@@ -127,7 +144,8 @@ const CollateralDetailsComponent = () => {
     </svg>
   );
 
-  const displayFileName = (fileName) => {
+  const displayFileName = (fileName, fieldTitle) => {
+    console.log("fieldTitle", fieldTitle);
     const maxLength = 0;
     const display = fileName
       ? fileName.length > maxLength
@@ -138,7 +156,7 @@ const CollateralDetailsComponent = () => {
     return (
       <>
         {display && <span style={{ marginRight: "20px" }}>{display}</span>}
-        {fileName && <DownloadIcon fileName={fileName} />}
+        {fileName && <DownloadIcon fileName={fileName} fieldTitle ={fieldTitle}/>}
       </>
     );
   };
@@ -227,7 +245,7 @@ const CollateralDetailsComponent = () => {
                       <div className="field" key={index}>
                         <h2 className="field-title">{field.title}</h2>
                         <span className="field-value">
-                          {displayFileName(collateral[field.name])}
+                          {displayFileName(collateral[field.name],field.title)}
                         </span>
                       </div>
                     );
@@ -251,7 +269,7 @@ const CollateralDetailsComponent = () => {
                       <div className="field" key={index}>
                         <h2 className="field-title">{field.title}</h2>
                         <span className="field-value">
-                          {displayFileName(collateral[field.name])}
+                          {displayFileName(collateral[field.name], field.title)}
                         </span>
                       </div>
                     );
