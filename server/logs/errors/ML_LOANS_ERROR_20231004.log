@@ -1,0 +1,366 @@
+ERROR 2023-10-04T09:51:22.437 Logging.. Converting circular structure to JSON
+    --> starting at object with constructor 'ClientRequest'
+    |     property 'socket' -> object with constructor 'TLSSocket'
+    --- property '_httpMessage' closes the circle
+ERROR 2023-10-04T09:51:47.236 Logging.. Converting circular structure to JSON
+    --> starting at object with constructor 'ClientRequest'
+    |     property 'socket' -> object with constructor 'TLSSocket'
+    --- property '_httpMessage' closes the circle
+ERROR 2023-10-04T10:05:36.711 Logging.. response is not a constructor
+ERROR 2023-10-04T10:06:10.128 Logging.. response is not a constructor
+ERROR 2023-10-04T11:04:53.223 Logging.. response is not a constructor
+ERROR 2023-10-04T11:05:08.034 Logging.. response is not a constructor
+ERROR 2023-10-04T11:05:26.300 Logging.. response is not a constructor
+ERROR 2023-10-04T11:06:07.039 Logging.. undefined
+ERROR 2023-10-04T11:07:36.424 Logging.. undefined
+ERROR 2023-10-04T11:09:30.596 Logging.. No kptn provided
+ERROR 2023-10-04T11:12:45.178 Logging.. No kptn provided
+ERROR 2023-10-04T11:13:13.839 Logging.. No kptn provided
+ERROR 2023-10-04T11:14:38.992 Logging.. Request failed with status code 401
+ERROR 2023-10-04T11:15:47.163 Logging.. Request failed with status code 401
+ERROR 2023-10-04T11:17:33.027 Logging.. Request failed with status code 404
+ERROR 2023-10-04T11:21:53.514 Logging.. {
+  status: 404,
+  statusText: 'Not Found',
+  headers: Object [AxiosHeaders] {
+    'content-type': 'application/json; charset=utf-8',
+    vary: 'Accept-Encoding, Origin',
+    'x-powered-by': 'Express',
+    'access-control-allow-credentials': 'true',
+    'access-control-expose-headers': 'accesstoken,content-disposition,filename,control-number',
+    etag: 'W/"23b-JM76JSN7h2xj2kF/mJAQ/Zdolpk"',
+    'x-cloud-trace-context': 'e64b4331c38841d3e7cf895ec4dbf714;o=1',
+    date: 'Wed, 04 Oct 2023 03:22:27 GMT',
+    server: 'Google Frontend',
+    'cache-control': 'private',
+    connection: 'close',
+    'transfer-encoding': 'chunked'
+  },
+  config: {
+    transitional: {
+      silentJSONParsing: true,
+      forcedJSONParsing: true,
+      clarifyTimeoutError: false
+    },
+    adapter: [ 'xhr', 'http' ],
+    transformRequest: [ [Function: transformRequest] ],
+    transformResponse: [ [Function: transformResponse] ],
+    timeout: 0,
+    xsrfCookieName: 'XSRF-TOKEN',
+    xsrfHeaderName: 'X-XSRF-TOKEN',
+    maxContentLength: -1,
+    maxBodyLength: -1,
+    env: { FormData: [Function], Blob: [class Blob] },
+    validateStatus: [Function: validateStatus],
+    headers: Object [AxiosHeaders] {
+      Accept: 'application/json, text/plain, */*',
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlLZXkiOiJtbExvYW5zQXBpS2V5IiwibmFtZSI6Ik1MIExPQU5TIiwiZXhwaXJlc0luIjoxNjk2MzkwMDQ3MDgwLCJpYXQiOjE2OTYzODk3NDcsImV4cCI6MTY5NjM5MDA0N30.inM7BUQUK8ww647JAQFLVdxasVIPJL8vv8yGdonY1Yc',
+      'User-Agent': 'axios/1.5.1',
+      'Content-Length': '2',
+      'Accept-Encoding': 'gzip, compress, deflate, br'
+    },
+    method: 'post',
+    url: 'https://napu.mlhuillier.com/v1/api/1.0/billspay/refund/MCRYTGGDBJA',
+    data: '{}'
+  },
+  request: <ref *1> ClientRequest {
+    _events: [Object: null prototype] {
+      abort: [Function (anonymous)],
+      aborted: [Function (anonymous)],
+      connect: [Function (anonymous)],
+      error: [Function (anonymous)],
+      socket: [Function (anonymous)],
+      timeout: [Function (anonymous)],
+      finish: [Function: requestOnFinish]
+    },
+    _eventsCount: 7,
+    _maxListeners: undefined,
+    outputData: [],
+    outputSize: 0,
+    writable: true,
+    destroyed: true,
+    _last: true,
+    chunkedEncoding: false,
+    shouldKeepAlive: false,
+    maxRequestsOnConnectionReached: false,
+    _defaultKeepAlive: true,
+    useChunkedEncodingByDefault: true,
+    sendDate: false,
+    _removedConnection: false,
+    _removedContLen: false,
+    _removedTE: false,
+    strictContentLength: false,
+    _contentLength: '2',
+    _hasBody: true,
+    _trailer: '',
+    finished: true,
+    _headerSent: true,
+    _closed: true,
+    socket: TLSSocket {
+      _tlsOptions: [Object],
+      _secureEstablished: true,
+      _securePending: false,
+      _newSessionPending: false,
+      _controlReleased: true,
+      secureConnecting: false,
+      _SNICallback: null,
+      servername: 'napu.mlhuillier.com',
+      alpnProtocol: false,
+      authorized: true,
+      authorizationError: null,
+      encrypted: true,
+      _events: [Object: null prototype],
+      _eventsCount: 9,
+      connecting: false,
+      _hadError: false,
+      _parent: null,
+      _host: 'napu.mlhuillier.com',
+      _closeAfterHandlingError: false,
+      _readableState: [ReadableState],
+      _maxListeners: undefined,
+      _writableState: [WritableState],
+      allowHalfOpen: false,
+      _sockname: null,
+      _pendingData: null,
+      _pendingEncoding: '',
+      server: undefined,
+      _server: null,
+      ssl: null,
+      _requestCert: true,
+      _rejectUnauthorized: true,
+      parser: null,
+      _httpMessage: [Circular *1],
+      [Symbol(res)]: null,
+      [Symbol(verified)]: true,
+      [Symbol(pendingSession)]: null,
+      [Symbol(async_id_symbol)]: 53,
+      [Symbol(kHandle)]: null,
+      [Symbol(lastWriteQueueSize)]: 0,
+      [Symbol(timeout)]: null,
+      [Symbol(kBuffer)]: null,
+      [Symbol(kBufferCb)]: null,
+      [Symbol(kBufferGen)]: null,
+      [Symbol(kCapture)]: false,
+      [Symbol(kSetNoDelay)]: false,
+      [Symbol(kSetKeepAlive)]: true,
+      [Symbol(kSetKeepAliveInitialDelay)]: 60,
+      [Symbol(kBytesRead)]: 1061,
+      [Symbol(kBytesWritten)]: 514,
+      [Symbol(connect-options)]: [Object]
+    },
+    _header: 'POST /v1/api/1.0/billspay/refund/MCRYTGGDBJA HTTP/1.1\r\n' +
+      'Accept: application/json, text/plain, */*\r\n' +
+      'Content-Type: application/json\r\n' +
+      'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlLZXkiOiJtbExvYW5zQXBpS2V5IiwibmFtZSI6Ik1MIExPQU5TIiwiZXhwaXJlc0luIjoxNjk2MzkwMDQ3MDgwLCJpYXQiOjE2OTYzODk3NDcsImV4cCI6MTY5NjM5MDA0N30.inM7BUQUK8ww647JAQFLVdxasVIPJL8vv8yGdonY1Yc\r\n' +
+      'User-Agent: axios/1.5.1\r\n' +
+      'Content-Length: 2\r\n' +
+      'Accept-Encoding: gzip, compress, deflate, br\r\n' +
+      'Host: napu.mlhuillier.com\r\n' +
+      'Connection: close\r\n' +
+      '\r\n',
+    _keepAliveTimeout: 0,
+    _onPendingData: [Function: nop],
+    agent: Agent {
+      _events: [Object: null prototype],
+      _eventsCount: 2,
+      _maxListeners: undefined,
+      defaultPort: 443,
+      protocol: 'https:',
+      options: [Object: null prototype],
+      requests: [Object: null prototype] {},
+      sockets: [Object: null prototype] {},
+      freeSockets: [Object: null prototype] {},
+      keepAliveMsecs: 1000,
+      keepAlive: false,
+      maxSockets: Infinity,
+      maxFreeSockets: 256,
+      scheduling: 'lifo',
+      maxTotalSockets: Infinity,
+      totalSocketCount: 0,
+      maxCachedSessions: 100,
+      _sessionCache: [Object],
+      [Symbol(kCapture)]: false
+    },
+    socketPath: undefined,
+    method: 'POST',
+    maxHeaderSize: undefined,
+    insecureHTTPParser: undefined,
+    joinDuplicateHeaders: undefined,
+    path: '/v1/api/1.0/billspay/refund/MCRYTGGDBJA',
+    _ended: true,
+    res: IncomingMessage {
+      _readableState: [ReadableState],
+      _events: [Object: null prototype],
+      _eventsCount: 4,
+      _maxListeners: undefined,
+      socket: [TLSSocket],
+      httpVersionMajor: 1,
+      httpVersionMinor: 1,
+      httpVersion: '1.1',
+      complete: true,
+      rawHeaders: [Array],
+      rawTrailers: [],
+      joinDuplicateHeaders: undefined,
+      aborted: false,
+      upgrade: false,
+      url: '',
+      method: null,
+      statusCode: 404,
+      statusMessage: 'Not Found',
+      client: [TLSSocket],
+      _consuming: true,
+      _dumped: false,
+      req: [Circular *1],
+      responseUrl: 'https://napu.mlhuillier.com/v1/api/1.0/billspay/refund/MCRYTGGDBJA',
+      redirects: [],
+      [Symbol(kCapture)]: false,
+      [Symbol(kHeaders)]: [Object],
+      [Symbol(kHeadersCount)]: 28,
+      [Symbol(kTrailers)]: null,
+      [Symbol(kTrailersCount)]: 0
+    },
+    aborted: false,
+    timeoutCb: null,
+    upgradeOrConnect: false,
+    parser: null,
+    maxHeadersCount: null,
+    reusedSocket: false,
+    host: 'napu.mlhuillier.com',
+    protocol: 'https:',
+    _redirectable: Writable {
+      _writableState: [WritableState],
+      _events: [Object: null prototype],
+      _eventsCount: 3,
+      _maxListeners: undefined,
+      _options: [Object],
+      _ended: true,
+      _ending: true,
+      _redirectCount: 0,
+      _redirects: [],
+      _requestBodyLength: 2,
+      _requestBodyBuffers: [],
+      _onNativeResponse: [Function (anonymous)],
+      _currentRequest: [Circular *1],
+      _currentUrl: 'https://napu.mlhuillier.com/v1/api/1.0/billspay/refund/MCRYTGGDBJA',
+      [Symbol(kCapture)]: false
+    },
+    [Symbol(kCapture)]: false,
+    [Symbol(kBytesWritten)]: 0,
+    [Symbol(kNeedDrain)]: false,
+    [Symbol(corked)]: 0,
+    [Symbol(kOutHeaders)]: [Object: null prototype] {
+      accept: [Array],
+      'content-type': [Array],
+      authorization: [Array],
+      'user-agent': [Array],
+      'content-length': [Array],
+      'accept-encoding': [Array],
+      host: [Array]
+    },
+    [Symbol(errored)]: null,
+    [Symbol(kUniqueHeaders)]: null
+  },
+  data: {
+    error: {
+      code: 'NOT_FOUND_ERROR',
+      error: [Object],
+      message: 'Resource not found',
+      stack: 'NotFoundError: Resource not found\n' +
+        '    at BillsPayServiceApi.<anonymous> (/workspace/server-api/build/services/BillsPay/BillsPayServiceApi.js:455:23)\n' +
+        '    at Generator.next (<anonymous>)\n' +
+        '    at fulfilled (/workspace/server-api/build/services/BillsPay/BillsPayServiceApi.js:5:58)\n' +
+        '    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)',
+      status: 404,
+      success: false
+    }
+  }
+}
+ERROR 2023-10-04T11:22:40.067 Logging.. undefined
+ERROR 2023-10-04T11:22:57.671 Logging.. Request failed with status code 404
+ERROR 2023-10-04T11:23:39.486 Logging.. Request failed with status code 404
+ERROR 2023-10-04T11:24:03.465 Logging.. Request failed with status code 404
+ERROR 2023-10-04T11:24:38.398 Logging.. - [object Object] Request failed with status code 404
+ERROR 2023-10-04T11:24:53.664 Logging.. - undefined Request failed with status code 404
+ERROR 2023-10-04T11:25:12.004 Logging.. - undefined Request failed with status code 404
+ERROR 2023-10-04T11:30:29.838 Logging.. - "/api/loans/symph/billspay-refund?kptn=MCRYTGGDBJA" Request failed with status code 404
+ERROR 2023-10-04T11:42:02.493 Logging.. - "/api/loans/symph/billspay-refund?kptn=MCRYTGGDBJA" Request failed with status code 404
+ERROR 2023-10-04T11:45:57.621 Logging.. - "/api/loans/symph/billspay-refund?kptn=MCRYTGGDBJA" Request failed with status code 404
+ERROR 2023-10-04T11:47:56.651 Logging.. - "/api/loans/symph/billspay-refund?kptn=MCRYTGGDBJA" Request failed with status code 404
+ERROR 2023-10-04T11:53:17.334 Logging.. - "/api/loans/symph/billspay-refund?kptn=MCRYTGGDBJA" Request failed with status code 404
+ERROR 2023-10-04T11:53:47.073 Logging.. - "/api/loans/symph/billspay-refund?kptn=MCRYTGGDBJA" Request failed with status code 404
+ERROR 2023-10-04T11:55:19.307 Logging.. - "/api/loans/symph/billspay-refund?kptn=MCRYTGGDBJA" Request failed with status code 404
+ERROR 2023-10-04T11:56:20.320 Logging.. - "/api/loans/symph/billspay-refund?kptn=MCRYTGGDBJA" Request failed with status code 404
+ERROR 2023-10-04T11:56:48.243 Logging.. - "/api/loans/symph/billspay-refund?kptn=MCRYTGGDBJA" Request failed with status code 404
+ERROR 2023-10-04T11:57:11.382 Logging.. - "/api/loans/symph/billspay-refund?kptn=MCRYTGGDBJA" Request failed with status code 404
+ERROR 2023-10-04T11:58:07.710 Logging.. - "/api/loans/symph/billspay-refund?kptn=MCRYTGGDBJA" Request failed with status code 404
+ERROR 2023-10-04T11:59:20.863 Logging.. - "/api/loans/symph/billspay-refund?kptn=MCRYTGGDBJA" Request failed with status code 404
+ERROR 2023-10-04T11:59:45.755 Logging.. - "/api/loans/symph/billspay-refund?kptn=MCRYTGGDBJA" Request failed with status code 404
+ERROR 2023-10-04T11:59:58.033 Logging.. - "/api/loans/symph/billspay-refund?kptn=MCRYTGGDBJA" Request failed with status code 404
+ERROR 2023-10-04T12:00:58.929 Logging.. - "/api/loans/symph/billspay-refund?kptn=MCRYTGGDBJA" Request failed with status code 404
+ERROR 2023-10-04T12:01:09.464 Logging.. - "/api/loans/symph/billspay-refund?kptn=MCRYTGGDBJA" Request failed with status code 404
+ERROR 2023-10-04T12:02:07.315 Logging.. - "/api/loans/symph/billspay-refund?kptn=MCRYTGGDBJA" Request failed with status code 404
+ERROR 2023-10-04T12:02:48.849 Logging.. - "/api/loans/symph/billspay-refund?kptn=MCRYTGGDBJA" Request failed with status code 404
+ERROR 2023-10-04T12:04:00.003 Logging.. - "/api/loans/symph/billspay-refund?kptn=MCRYTGGDBJA" - undefined Request failed with status code 404
+ERROR 2023-10-04T12:04:37.732 Logging.. - "/api/loans/symph/billspay-refund?kptn=MCRYTGGDBJA" - undefined Request failed with status code 404
+ERROR 2023-10-04T12:06:15.139 Logging.. - "/api/loans/symph/billspay-refund?kptn=MCRYTGGDBJA" - undefined Request failed with status code 404
+ERROR 2023-10-04T12:06:25.319 Logging.. - "/api/loans/symph/billspay-refund?kptn=MCRYTGGDBJA" - undefined Request failed with status code 404
+ERROR 2023-10-04T12:09:35.471 Logging.. - "/api/loans/symph/billspay-refund?kptn=MCRYTGGDBJA" - "https://napu.mlhuillier.com/v1/api/1.0/billspay/refund/MCRYTGGDBJA" Request failed with status code 404
+ERROR 2023-10-04T12:10:05.046 Logging.. - "/api/loans/symph/billspay-refund?kptn=MCRYTGGDBJA" - "https://napu.mlhuillier.com/v1/api/1.0/billspay/refund/MCRYTGGDBJA" Request failed with status code 404
+ERROR 2023-10-04T12:11:51.489 Logging.. - "/api/loans/symph/billspay-refund?kptn=MCRYTGGDBJA" - "https://napu.mlhuillier.com/v1/api/1.0/billspay/refund/MCRYTGGDBJA" Request failed with status code 404
+ERROR 2023-10-04T12:13:43.003 Logging.. - "/api/loans/symph/billspay-refund?kptn=MCRYTGGDBJA" - "https://napu.mlhuillier.com/v1/api/1.0/billspay/refund/MCRYTGGDBJA" Request failed with status code 404
+ERROR 2023-10-04T12:14:16.814 Logging.. - "/api/loans/symph/billspay-refund?kptn=MCRYTGGDBJA" - "https://napu.mlhuillier.com/v1/api/1.0/billspay/refund/MCRYTGGDBJA" Request failed with status code 404
+ERROR 2023-10-04T12:17:10.988 Logging.. - "/api/loans/symph/billspay-refund?kptn=MCRYTGGDBJA" - "https://napu.mlhuillier.com/v1/api/1.0/billspay/refund/MCRYTGGDBJA" Request failed with status code 404
+ERROR 2023-10-04T12:17:22.538 Logging.. - "/api/loans/symph/billspay-refund?kptn=MCRYTGGDBJA" - "https://napu.mlhuillier.com/v1/api/1.0/billspay/refund/MCRYTGGDBJA" Request failed with status code 401
+ERROR 2023-10-04T12:18:05.273 Logging.. - "/api/loans/symph/billspay-refund?kptn=MCRYTGGDBJA" - "https://napu.mlhuillier.com/v1/api/1.0/billspay/refund/MCRYTGGDBJA" Request failed with status code 401
+ERROR 2023-10-04T12:18:20.543 Logging.. - "/api/loans/symph/billspay-refund?kptn=MCRYTGGDBJA" - "https://napu.mlhuillier.com/v1/api/1.0/billspay/refund/MCRYTGGDBJA" Request failed with status code 401
+ERROR 2023-10-04T12:19:34.025 Logging.. - "/api/loans/symph/billspay-refund?kptn=MCRYTGGDBJA" - "https://napu.mlhuillier.com/v1/api/1.0/billspay/refund/MCRYTGGDBJA" Request failed with status code 401
+ERROR 2023-10-04T12:19:55.157 Logging.. - "/api/loans/symph/billspay-refund?kptn=MCRYTGGDBJA" - "https://napu.mlhuillier.com/v1/api/1.0/billspay/refund/MCRYTGGDBJA" Request failed with status code 401
+ERROR 2023-10-04T13:26:06.624 Logging.. - "/api/loans/symph/billspay-refund?kptn=MCRYTGGDBJA" - "https://napu.mlhuillier.com/v1/api/1.0/billspay/refund/MCRYTGGDBJA" Request failed with status code 401
+ERROR 2023-10-04T13:26:43.904 Logging.. - "/api/loans/symph/billspay-refund?kptn=MCRYTGGDBJA" - "https://napu.mlhuillier.com/v1/api/1.0/billspay/refund/MCRYTGGDBJA" Request failed with status code 401
+ERROR 2023-10-04T13:27:09.132 Logging.. - "/api/loans/symph/billspay-refund?kptn=MCRYTGGDBJA" - "https://napu.mlhuillier.com/v1/api/1.0/billspay/refund/MCRYTGGDBJA" Request failed with status code 404
+ERROR 2023-10-04T13:28:41.658 Logging.. - "/api/loans/symph/billspay-refund?kptn=MCRYTGGDBJA" - "https://napu.mlhuillier.com/v1/api/1.0/billspay/refund/MCRYTGGDBJA" Request failed with status code 404
+ERROR 2023-10-04T13:30:49.116 Logging.. - "/api/loans/symph/billspay-refund?kptn=MCRYTGGDBJA" - "https://napu.mlhuillier.com/v1/api/1.0/billspay/refund/MCRYTGGDBJA" Request failed with status code 404
+ERROR 2023-10-04T13:31:54.542 Logging.. - "/api/loans/symph/billspay-refund?kptn=MCRYTGGDBJA" - "https://napu.mlhuillier.com/v1/api/1.0/billspay/refund/MCRYTGGDBJA" Request failed with status code 404
+ERROR 2023-10-04T13:32:18.627 Logging.. - "/api/loans/symph/billspay-refund?kptn=MCRYTGGDBJA" - "https://napu.mlhuillier.com/v1/api/1.0/billspay/refund/MCRYTGGDBJA" Request failed with status code 404
+ERROR 2023-10-04T13:33:15.975 Logging.. - "/api/loans/symph/billspay-refund?kptn=MCRYTGGDBJA" - "https://napu.mlhuillier.com/v1/api/1.0/billspay/refund/MCRYTGGDBJA" Request failed with status code 404
+ERROR 2023-10-04T13:34:07.198 Logging.. - "/api/loans/symph/billspay-refund?kptn=MCRYTGGDBJA" - "https://napu.mlhuillier.com/v1/api/1.0/billspay/refund/MCRYTGGDBJA" Request failed with status code 404
+ERROR 2023-10-04T13:36:09.893 Logging.. - "/api/loans/symph/billspay-refund?kptn=MCRYTGGDBJA" - "https://napu.mlhuillier.com/v1/api/1.0/billspay/refund/MCRYTGGDBJA" Request failed with status code 404
+ERROR 2023-10-04T13:36:25.146 Logging.. - "/api/loans/symph/billspay-refund?kptn=MCRYTGGDBJA" - "https://napu.mlhuillier.com/v1/api/1.0/billspay/refund/MCRYTGGDBJA" Request failed with status code 404
+ERROR 2023-10-04T13:37:56.818 Logging.. - "/api/loans/symph/billspay-refund?kptn=MCRYTGGDBJA" - "https://napu.mlhuillier.com/v1/api/1.0/billspay/refund/MCRYTGGDBJA" Request failed with status code 404
+ERROR 2023-10-04T13:38:14.785 Logging.. - "/api/loans/symph/billspay-refund?kptn=MCRYTGGDBJA" - "https://napu.mlhuillier.com/v1/api/1.0/billspay/refund/MCRYTGGDBJA" Request failed with status code 404
+ERROR 2023-10-04T13:41:26.817 Logging.. - "/api/loans/symph/billspay-refund?kptn=MCRYTGGDBJA" - "https://napu.mlhuillier.com/v1/api/1.0/billspay/refund/MCRYTGGDBJA" Request failed with status code 404
+ERROR 2023-10-04T14:02:41.364 Logging.. - "/api/loans/symph/billspay-refund?kptn=MCRYTGGDBJA" - undefined [object Object]
+ERROR 2023-10-04T14:03:34.262 Logging.. - "/api/loans/symph/billspay-refund?kptn=MCRYTGGDBJA" - undefined [object Object]
+ERROR 2023-10-04T14:04:04.255 Logging.. - "/api/loans/symph/billspay-refund?kptn=MCRYTGGDBJA" - undefined [object Object]
+ERROR 2023-10-04T14:04:56.282 Logging.. - "/api/loans/symph/billspay-refund?kptn=MCRYTGGDBJA" - undefined [object Object]
+ERROR 2023-10-04T14:06:59.310 Logging.. - "/api/loans/symph/billspay-refund?kptn=MCRYTGGDBJA" - undefined [object Object]
+ERROR 2023-10-04T14:07:38.076 Logging.. - "/api/loans/symph/billspay-refund?kptn=MCRYTGGDBJA" - undefined 401
+ERROR 2023-10-04T14:08:47.208 Logging.. - "/api/loans/symph/billspay-refund?kptn=MCRYTGGDBJA" - undefined 401
+ERROR 2023-10-04T14:10:15.973 Logging.. - "/api/loans/symph/billspay-refund?kptn=MCRYTGGDBJA" - undefined [object Object]
+ERROR 2023-10-04T14:11:01.623 Logging.. - "/api/loans/symph/billspay-refund?kptn=MCRYTGGDBJA" - undefined [object Object]
+ERROR 2023-10-04T14:11:50.769 Logging.. - "/api/loans/symph/billspay-refund?kptn=MCRYTGGDBJA" - undefined {"status":401,"message":"AUTHENTICATION_ERROR","statusCode":"Unauthorized"}
+ERROR 2023-10-04T14:19:51.693 Logging.. - "/api/loans/symph/billspay-refund?kptn=MCRYTGGDBJA" - "https://napu.mlhuillier.com/v1/api/1.0/billspay/refund/MCRYTGGDBJA" Request failed with status code 404
+ERROR 2023-10-04T14:44:31.177 Logging.. - "/api/loans/symph/billspay-refund?kptn=MCRYTGGDBJA" - "https://napu.mlhuillier.com/v1/api/1.0/billspay/refund/MCRYTGGDBJA" Request failed with status code 404
+ERROR 2023-10-04T14:44:43.764 Logging.. - "/api/loans/symph/billspay-refund?kptn=MCRYTGGDBJA" - "https://napu.mlhuillier.com/v1/api/1.0/billspay/refund/MCRYTGGDBJA" Request failed with status code 404
+ERROR 2023-10-04T14:47:28.284 Logging.. - "/api/loans/symph/billspay-refund?kptn=MCRYTGGDBJA" - "https://napu.mlhuillier.com/v1/api/1.0/billspay/refund/MCRYTGGDBJA" Request failed with status code 404
+ERROR 2023-10-04T14:47:47.486 Logging.. - "/api/loans/symph/billspay-refund?kptn=MCRYTGGDBJA" - "https://napu.mlhuillier.com/v1/api/1.0/billspay/refund/MCRYTGGDBJA" Request failed with status code 404
+ERROR 2023-10-04T15:29:16.886 Logging.. - "/api/loans/symph/billspay-refund?kptn=MCRYTGGDBJA" - "https://napu.mlhuillier.com/v1/api/1.0/billspay/refund/MCRYTGGDBJA" Request failed with status code 404
+ERROR 2023-10-04T18:51:44.781 Logging.. - "/api/loans/symph/billspay-refund" - 404 No kptn provided
+ERROR 2023-10-04T18:52:08.901 Logging.. - "/api/loans/symph/billspay-refund" - 404 No kptn provided
+ERROR 2023-10-04T18:52:44.120 Logging.. - "/api/loans/symph/billspay-refund?kptn=MCRYTGGDBJA" - undefined Request failed with status code 404
+ERROR 2023-10-04T18:53:01.563 Logging.. - "/api/loans/symph/billspay-refund?kptn=MCRYTGGDBJA" - undefined Request failed with status code 404
+ERROR 2023-10-04T18:54:36.776 Logging.. - "/api/loans/symph/billspay-refund?kptn=MCRYTGGDBJA" - undefined Request failed with status code 404
+ERROR 2023-10-04T18:54:57.780 Logging.. - "/api/loans/symph/billspay-refund?kptn=MCRYTGGDBJA" - undefined Request failed with status code 404
+ERROR 2023-10-04T18:55:06.409 Logging.. - "/api/loans/symph/billspay-refund" - 404 No kptn provided
+ERROR 2023-10-04T18:56:14.186 Logging.. - "/api/loans/symph/billspay-refund" - 404 No kptn provided
+ERROR 2023-10-04T18:57:55.642 Logging.. - "/api/loans/symph/billspay-refund" - 404 No kptn provided
+ERROR 2023-10-04T18:57:59.729 Logging.. - "/api/loans/symph/billspay-refund?kptn=MCRYTGGDBJA" - undefined Request failed with status code 404
+ERROR 2023-10-04T18:59:09.226 Logging.. - "/api/loans/symph/billspay-refund?kptn=MCRYTGGDBJA" - undefined Request failed with status code 404
+ERROR 2023-10-04T18:59:39.145 Logging.. - "/api/loans/symph/billspay-refund?kptn=MCRYTGGDBJA" - undefined Request failed with status code 404
+ERROR 2023-10-04T19:01:01.604 Logging.. - "/api/loans/symph/billspay-refund?kptn=MCRYTGGDBJA" - undefined Request failed with status code 404
+ERROR 2023-10-04T19:01:32.823 Logging.. - "/api/loans/symph/billspay-refund?kptn=MCRYTGGDBJA" - undefined Request failed with status code 404
+ERROR 2023-10-04T19:02:34.598 Logging.. - "/api/loans/symph/billspay-refund?kptn=MCRYTGGDBJA" - undefined Request failed with status code 404
+ERROR 2023-10-04T19:04:08.341 Logging.. - "/api/loans/symph/billspay-refund?kptn=MCRYTGGDBJA" - undefined Request failed with status code 404
+ERROR 2023-10-04T19:05:05.737 Logging.. - "/api/loans/symph/billspay-refund?kptn=MCRYTGGDBJA" - undefined Request failed with status code 404
+ERROR 2023-10-04T19:05:42.870 Logging.. - "/api/loans/symph/billspay-refund?kptn=MCRYTGGDBJA" - undefined Request failed with status code 404

@@ -10,8 +10,9 @@ const CookieGetter = (cookies, cookiename) =>{
             return cookieValue;
         }
     }
-    // return getCookies
+    return null
 }
+
 
 module.exports = {
     CookieGetter
