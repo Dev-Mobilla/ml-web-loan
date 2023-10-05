@@ -4,7 +4,7 @@ const GetThresholdAmount = require("../controller/ml_loans.controller");
 
 const ML_LOAN_ROUTER = express.Router();
 
-ML_LOAN_ROUTER.get("/api/get-cookie", getCookies);
-ML_LOAN_ROUTER.get("/api/get-threshold-amount", GetThresholdAmount);
+ML_LOAN_ROUTER.get("/get-cookie", getCookies);
+ML_LOAN_ROUTER.get("/get-threshold-amount", GetThresholdAmount);
 
 module.exports = ML_LOAN_ROUTER;
