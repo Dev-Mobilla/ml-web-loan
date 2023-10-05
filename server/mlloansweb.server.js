@@ -7,8 +7,6 @@ const Logger = require("./config/logger.config");
 const { SYMPH_API_ROUTER, ML_LOAN_ROUTER } = require("./router/index.routes"); 
 const {ErrorHandler, ErrorLogger, ErrorResponder} = require("./middleware/symph.middleware");
 const { Auth } = require("./middleware/auth.middleware");
-const {CookieGetter} = require("./utils/DataUtils.utils");
-const {getCookies} = require("./controller/getCookies.controller");
 
 const app = express();
 
@@ -31,7 +29,7 @@ app.get('/', (req, res) => {
 
 //ROUTES
 app.use('/api/loans/symph', Auth ,SYMPH_API_ROUTER);
-app.use('/', ML_LOAN_ROUTER);
+app.use('/', Auth ,ML_LOAN_ROUTER);
 
 // MIDDLEWARES
 // app.use(Auth);
