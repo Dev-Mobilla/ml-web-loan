@@ -1,6 +1,8 @@
 import { SymphAxiosInstance } from '../helper/axios';
 import { getCookieData } from "../utils/CookieChecker";
 import {GetSessionCookie} from './api';
+import axios from "axios";
+
 const Login = () => {}
 const LoanBillsPay = () => {}
 
@@ -15,11 +17,11 @@ const SessionCookie = async () => {
   
     return response;
 }
-
+///api/get-threshold-amount
 const Threshold = async () => {
     try {
-        const urlToFetch = `/v1/api/1.0/ml-loans/threshold-amount`;
-        const response = await SymphAxiosInstance.get(urlToFetch, {
+        const urlToFetch = `${process.env.REACT_APP_BASE_URL}/api/ml-loans/get-threshold-amount`;
+        const response = await axios.get(urlToFetch, {
             method: 'GET',
             withCredentials: true,
             headers: {
@@ -29,11 +31,12 @@ const Threshold = async () => {
                 'Access-Control-Allow-Credentials': 'true',
             },
         });
-        if (response.status == 200) {
-            return response;
-        } else {
-            console.error('Error:', response.JSON);
-        }
+        console.log(response);
+        // if (response.status == 200) {
+        //     return response;
+        // } else {
+        //     console.error('Error:', response.JSON);
+        // }
     } catch (error) {
         console.error('Error fetching threshold:', error);
         return error;
