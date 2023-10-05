@@ -127,7 +127,7 @@ const ManageLoanComponent = () => {
   const LoanStatusChecker = (status) => {
     if (status?.toLowerCase() === "approved") {
       return {
-        btnName: "Pending",
+        btnName: "Processing",
         isDisabled: true,
         btnStyle: "custom-button approved-btn",
       };
