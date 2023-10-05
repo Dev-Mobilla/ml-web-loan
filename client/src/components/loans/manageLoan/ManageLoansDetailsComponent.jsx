@@ -80,16 +80,16 @@ const ManageLoansDetailsComponent = () => {
 
   const handlePayNowButton = async () => {
     let account = GetCookieByName("account_details");
+    await Threshold();
+    // const res = await Paynow(
+    //   loanDetails.dueAmount,
+    //   loanDetails.feesAndCharges,
+    //   account?.mobileNumber,
+    //   account?.firstName,
+    //   account?.lastName
+    // );
 
-    const res = await Paynow(
-      loanDetails.dueAmount,
-      loanDetails.feesAndCharges,
-      account?.mobileNumber,
-      account?.firstName,
-      account?.lastName
-    );
-
-    console.log("res", res);
+    // console.log("res", res);
     // switch (res.status) {
     //   case 200:
 
