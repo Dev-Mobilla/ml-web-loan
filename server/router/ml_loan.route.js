@@ -5,7 +5,7 @@ const {
   getThresholdAmount,
   validateAccountNumber,
   payNow,
-} = require("../controller/ml_loans.controller");
+} = require("../controller/symph.controller");
 
 const ML_LOAN_ROUTER = express.Router();
 
