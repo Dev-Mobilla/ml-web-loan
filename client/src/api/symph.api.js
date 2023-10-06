@@ -2,11 +2,11 @@ import axios from "axios";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
-const getServiceFee = async (amountFee) => {
+const getServiceFee = async (amount) => {
   try {
-    const response = await axios.get(`${BASE_URL}/api/get-service-fee`, {
+    const response = await axios.get(`${BASE_URL}/api/ml-loans/get-service-fee`, {
       params: {
-        amountFee,
+        amount,
       },
       withCredentials: true,
     });
@@ -19,7 +19,7 @@ const getServiceFee = async (amountFee) => {
 
 const getThresholdAmount = async () => {
   try {
-    const response = await axios.get(`${BASE_URL}/api/get-threshold-amount`, {
+    const response = await axios.get(`${BASE_URL}/api/ml-loans/get-threshold-amount`, {
       withCredentials: true,
     });
     return response.data;
@@ -30,15 +30,15 @@ const getThresholdAmount = async () => {
 };
 
 const validateAccountNumber = async (
-  accountNumber,
+  reference,
   accountFName,
   accountLName
 ) => {
   try {
     const response = await axios.post(
-      `${BASE_URL}/api/validate-account-number`,
+      `${BASE_URL}/api/ml-loans/validate-account-number`,
       {
-        accountNo: accountNumber,
+        reference: reference,
         accountFName,
         accountLName,
       },
@@ -62,7 +62,7 @@ const payNow = async (
 ) => {
   try {
     const response = await axios.post(
-      `${BASE_URL}/api/pay-now`,
+      `${BASE_URL}/api/ml-loans/pay-now`,
       {
         accountFirstName,
         accountLastName,

@@ -9,10 +9,10 @@ const {
 
 const ML_LOAN_ROUTER = express.Router();
 
-ML_LOAN_ROUTER.get("/api/get-cookie", getCookies);
-ML_LOAN_ROUTER.get("/api/get-service-fee", getServiceFee);
-ML_LOAN_ROUTER.get("/api/get-threshold-amount", getThresholdAmount);
-ML_LOAN_ROUTER.post("/api/validate-account-number", validateAccountNumber);
-ML_LOAN_ROUTER.post("/api/pay-now", payNow);
+ML_LOAN_ROUTER.get("/get-cookie", getCookies);
+ML_LOAN_ROUTER.get("/get-service-fee", getServiceFee);
+ML_LOAN_ROUTER.get("/get-threshold-amount", getThresholdAmount);
+ML_LOAN_ROUTER.post("/validate-account-number", validateAccountNumber);
+ML_LOAN_ROUTER.post("/pay-now", payNow);
 
 module.exports = ML_LOAN_ROUTER;
