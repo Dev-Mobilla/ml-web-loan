@@ -1,11 +1,18 @@
-import React, {useEffect} from "react";
+import React from "react";
 import { useModal } from "../../../utils/modalContext";
-import {SliceIMageName} from "../../../utils/SliceImageName";
-import {MakeRed} from "../../../utils/DataFunctions";
-import  file  from "../../../assets/images/file.png";
+import { SliceIMageName } from "../../../utils/SliceImageName";
+import { MakeRed } from "../../../utils/DataFunctions";
+import file from "../../../assets/images/file.png";
 
-const VehicleRequirementComponent = ({ 
-  orDoc, stencils, carInsurance, front, back, right, left, session
+const VehicleRequirementComponent = ({
+  orDoc,
+  stencils,
+  carInsurance,
+  front,
+  back,
+  right,
+  left,
+  session,
 }) => {
   const { openModal } = useModal();
 
@@ -13,12 +20,7 @@ const VehicleRequirementComponent = ({
     <div className="requirement-group">
       <div
         className="requirement"
-        onClick={() =>
-          openModal(
-            "Orginal OR/CR",
-            file
-          )
-        }
+        onClick={() => openModal("Orginal OR/CR", file)}
       >
         <img
           className="requirement-icon"
@@ -30,23 +32,20 @@ const VehicleRequirementComponent = ({
           <div className="re-file">
             <div className="re-close">[x]</div>
             <div className={`requirement-file ${MakeRed(orDoc)}`}>
-              {
-                orDoc == null ? "none":
-                orDoc.imageName === "" ? <span style={{ color: 'red' }}>none</span>
-                : SliceIMageName(orDoc.imageName)
-              }
+              {orDoc == null ? (
+                "none"
+              ) : orDoc.imageName === "" ? (
+                <span style={{ color: "red" }}>none</span>
+              ) : (
+                SliceIMageName(orDoc.imageName)
+              )}
             </div>
           </div>
         </div>
       </div>
       <div
         className="requirement"
-        onClick={() =>
-          openModal(
-            "Set stencils",
-            file
-          )
-        }
+        onClick={() => openModal("Set stencils", file)}
       >
         <img
           className="requirement-icon"
@@ -58,23 +57,20 @@ const VehicleRequirementComponent = ({
           <div className="re-file">
             <div className="re-close">[x]</div>
             <div className={`requirement-file ${MakeRed(stencils)}`}>
-              {
-                stencils == null ? "none" :
-                stencils.imageName === "" ? <span style={{ color: 'red' }}>none</span>
-                : SliceIMageName(stencils.imageName)
-              }
+              {stencils == null ? (
+                "none"
+              ) : stencils.imageName === "" ? (
+                <span style={{ color: "red" }}>none</span>
+              ) : (
+                SliceIMageName(stencils.imageName)
+              )}
             </div>
           </div>
         </div>
       </div>
       <div
         className="requirement"
-        onClick={() =>
-          openModal(
-            "Vehicle Insurance",
-            file
-          )
-        }
+        onClick={() => openModal("Vehicle Insurance", file)}
       >
         <img
           className="requirement-icon"
@@ -86,22 +82,20 @@ const VehicleRequirementComponent = ({
           <div className="re-file">
             <div className="re-close">[x]</div>
             <div className={`requirement-file ${MakeRed(carInsurance)}`}>
-              {
-                carInsurance == null ? "none" :
-              carInsurance.imageName === "" ? <span style={{ color: 'red' }}>none</span>
-              : SliceIMageName(carInsurance.imageName)}
+              {carInsurance == null ? (
+                "none"
+              ) : carInsurance.imageName === "" ? (
+                <span style={{ color: "red" }}>none</span>
+              ) : (
+                SliceIMageName(carInsurance.imageName)
+              )}
             </div>
           </div>
         </div>
       </div>
       <div
         className="requirement"
-        onClick={() =>
-          openModal(
-            "Front Side",
-            file
-          )
-        }
+        onClick={() => openModal("Front Side", file)}
       >
         <img
           className="requirement-icon"
@@ -113,24 +107,18 @@ const VehicleRequirementComponent = ({
           <div className="re-file">
             <div className="re-close">[x]</div>
             <div className={`requirement-file ${MakeRed(front)}`}>
-              {
-                front == null ? "none":
-                front.imageName === "" ? <span style={{ color: 'red' }}>none</span>
-                : SliceIMageName(front.imageName)
-                }
-              </div>
+              {front == null ? (
+                "none"
+              ) : front.imageName === "" ? (
+                <span style={{ color: "red" }}>none</span>
+              ) : (
+                SliceIMageName(front.imageName)
+              )}
+            </div>
           </div>
         </div>
       </div>
-      <div
-        className="requirement"
-        onClick={() =>
-          openModal(
-            "Back Side",
-            file
-          )
-        }
-      >
+      <div className="requirement" onClick={() => openModal("Back Side", file)}>
         <img
           className="requirement-icon"
           alt="Back Side"
@@ -141,23 +129,20 @@ const VehicleRequirementComponent = ({
           <div className="re-file">
             <div className="re-close">[x]</div>
             <div className={`requirement-file ${MakeRed(back)}`}>
-              {
-                back == null ? "none":
-                back.imageName === "" ? <span style={{ color: 'red' }}>none</span>
-                : SliceIMageName(back.imageName)
-                }
-              </div>
+              {back == null ? (
+                "none"
+              ) : back.imageName === "" ? (
+                <span style={{ color: "red" }}>none</span>
+              ) : (
+                SliceIMageName(back.imageName)
+              )}
+            </div>
           </div>
         </div>
       </div>
       <div
         className="requirement"
-        onClick={() =>
-          openModal(
-            "Right Side",
-            file
-          )
-        }
+        onClick={() => openModal("Right Side", file)}
       >
         <img
           className="requirement-icon"
@@ -169,24 +154,18 @@ const VehicleRequirementComponent = ({
           <div className="re-file">
             <div className="re-close">[x]</div>
             <div className={`requirement-file ${MakeRed(right)}`}>
-              {
-                right == null ? "none":
-                right.imageName === "" ? <span style={{ color: 'red' }}>none</span>
-                : SliceIMageName(right.imageName)
-              }
+              {right == null ? (
+                "none"
+              ) : right.imageName === "" ? (
+                <span style={{ color: "red" }}>none</span>
+              ) : (
+                SliceIMageName(right.imageName)
+              )}
             </div>
           </div>
         </div>
       </div>
-      <div
-        className="requirement"
-        onClick={() =>
-          openModal(
-            "Left Side",
-            file
-          )
-        }
-      >
+      <div className="requirement" onClick={() => openModal("Left Side", file)}>
         <img
           className="requirement-icon"
           alt="Left Side"
@@ -197,11 +176,13 @@ const VehicleRequirementComponent = ({
           <div className="re-file">
             <div className="re-close">[x]</div>
             <div className={`requirement-file ${MakeRed(left)}`}>
-              {
-                left == null ? "none":
-                left.imageName === "" ? <span style={{ color: 'red' }}>none</span> 
-                : SliceIMageName(left.imageName)
-              }
+              {left == null ? (
+                "none"
+              ) : left.imageName === "" ? (
+                <span style={{ color: "red" }}>none</span>
+              ) : (
+                SliceIMageName(left.imageName)
+              )}
             </div>
           </div>
         </div>

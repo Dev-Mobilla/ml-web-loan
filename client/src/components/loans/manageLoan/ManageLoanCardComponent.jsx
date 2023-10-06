@@ -13,20 +13,20 @@ const ManageLoanCardComponent = ({
   referenceTxt,
   OnBtnClick,
   btnType,
-  disabled
+  disabled,
 }) => {
   return (
     <div className={loanCardName}>
       <div className={cardContainer}>
         <div className="icon-content">
           <div className="loan-type-wrapper">
-          <div className="hlmng-icon">
-            <div className="overlap-4">{icon}</div>
-          </div>
-          <div className="details-overlap-3">
-            <div className={loantypeTxt}>{loanType}</div>
-            <div className={referenceTxt}>Ref. no. {referenceNo}</div>
-          </div>
+            <div className="hlmng-icon">
+              <div className="overlap-4">{icon}</div>
+            </div>
+            <div className="details-overlap-3">
+              <div className={loantypeTxt}>{loanType}</div>
+              <div className={referenceTxt}>Ref. no. {referenceNo}</div>
+            </div>
           </div>
           <CustomButton
             name={btnName}
