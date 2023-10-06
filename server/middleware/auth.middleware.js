@@ -8,14 +8,12 @@ const Auth = (req, res, next) => {
     if (getCookie) {
         const isCookiePresent = CookieGetter(getCookie, cookieName);
         if (!isCookiePresent) {
-            
-            Unauthorized(res);
-        }
-        next();
+            return Unauthorized(res);
+          }
+          next();
         
     }else{
-
-        Unauthorized(res);
+        return Unauthorized(res);
     }
 
 }

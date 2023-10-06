@@ -11,6 +11,7 @@ const ErrorHandler = (error, request, response , next) => {
     let statusCode = [404, 403, 401, 500];
 
     let errorCode = error.response.status
+    console.log(error)
 
     
     if (statusCode.includes(errorCode)) {

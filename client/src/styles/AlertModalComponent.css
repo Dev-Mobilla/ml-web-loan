@@ -1,93 +1,93 @@
 .alertbackground {
-    height: 105%;
-    background: var(--white);
-    position: fixed;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    top: 1px;
+  height: 105%;
+  background: var(--white);
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  top: 1px;
 }
 
 .alertcontainer {
-    width: 350px;
-    height: 200px;
-    border-radius: 12px;
-    background-color: var(--white);
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    display: flex;
-    flex-direction: column;
-    padding: 25px;
+  width: 350px;
+  height: 250px;
+  border-radius: 12px;
+  background-color: var(--white);
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  display: flex;
+  flex-direction: column;
+  padding: 25px;
 }
 
 .alertcontainer .body {
-    flex: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.7rem;
-    text-align: center;
-    line-height: 25px ;
-}
-.alertcontainer .body span{
-    font-size: 20px;
-    margin-top: -50px;
-}
-.alertcontainer .AlertFooter {
-    height: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.alertcontainer .AlertFooter #Ok-btn{
-    width: 170px;
-    height: 30px;
-    font-weight: bolder;
-    border-radius: 50px;
-    border-color: var(--red);
-    color: var(--red);
-    background-color: var(--white);
-    cursor: pointer;
+  flex: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  line-height: 25px;
 }
 
-.alertcontainer .AlertFooter #Ok-btn:hover{
-    color: var(--white);
-    background-color: var(--red);
-    transition: all ease 0.5s;
+.alertcontainer .body span {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.alertcontainer .AlertFooter {
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.alertcontainer .AlertFooter #Ok-btn {
+  width: 170px;
+  height: 30px;
+  font-weight: bolder;
+  border-radius: 50px;
+  border-color: var(--red);
+  color: var(--red);
+  background-color: var(--white);
+  cursor: pointer;
+}
+
+.alertcontainer .AlertFooter #Ok-btn:hover {
+  color: var(--white);
+  background-color: var(--red);
+  transition: all ease 0.5s;
 }
 
 @media only screen and (max-width: 480px) {
-    .alertcontainer{
-        margin-top: 30px;
-    }
-    .alertbackground{
-        margin-top: -10px;
-    }
+  .alertcontainer {
+    margin-top: 30px;
+  }
+  .alertbackground {
+    margin-top: -10px;
+  }
 }
 
 @media only screen and (min-width: 481px) and (max-width: 768px) {
-    .alertcontainer{
-        margin-top: 30px;
-    }
-    .alertbackground{
-        margin-top: -10px;
-    }
-    
+  .alertcontainer {
+    margin-top: 30px;
+  }
+  .alertbackground {
+    margin-top: -10px;
+  }
 }
 
 @media only screen and (min-width: 769px) and (max-width: 1024px) {
-    .alertcontainer{
-        margin-top: 20px;
-    }
-    .alertbackground{
-        margin-top: -10px;
-    }
+  .alertcontainer {
+    margin-top: 20px;
+  }
+  .alertbackground {
+    margin-top: -10px;
+  }
 }
-@media only screen and (min-width: 769px){
-    .alertcontainer{
-        margin-top: 20px;
-    }
-    .alertbackground{
-        margin-top: -10px;
-    }
+@media only screen and (min-width: 769px) {
+  .alertcontainer {
+    margin-top: 20px;
+  }
+  .alertbackground {
+    margin-top: -10px;
+  }
 }
