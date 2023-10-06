@@ -3,63 +3,59 @@ const axios = require("axios");
 
 const RefundBillsPayment = async (req, res, next) => {
 
-    try {
-        const kptn = req.query.kptn;
+    const kptn = req.query.kptn;
 
-        GenerateToken()
-        .then(( response ) => {
-            if (response.status === 201 && response.data.data.token) {
-                return response.data.data.token;
-            }else{
-                throw response
+    GenerateToken()
+    .then(( response ) => {
+        if (response.status === 201 && response.data.data.token) {
+            return response.data.data.token;
+        }else{
+            throw response
+        }
+    })
+    .then(async ( token ) => {
+        if (kptn) {
+            
+            let URL = `${process.env.API_SYMPH_BASE_URL}/v1/api/1.0/billspay/refund/${kptn}`;
+
+            let _xHashParam = {
+                "kptn": kptn
             }
-        })
-        .then(async ( token ) => {
-            if (kptn) {
-                
-                let URL = `${process.env.API_SYMPH_BASE_URL}/v1/api/1.0/billspay/refund/${kptn}`;
+            
+            let makeStringtify = JSON.stringify(_xHashParam);
 
-                let _xHashParam = {
-                    "kptn": kptn
-                }
-                
-                let makeStringtify = JSON.stringify(_xHashParam);
+            let passPhrase = makeStringtify + "|" + process.env.SYMPH_SECRET_KEY;
 
-                let passPhrase = makeStringtify + "|" + process.env.SYMPH_SECRET_KEY;
-
-                let x_hash = SignatureGenerator(passPhrase);
-        
-                let headers = {
-                    Authorization: `Bearer ${token}`,
-                    "x-hash": x_hash,
-                }
-
-                const config = {
-                    headers
-                }
-        
-                const refundApiResponse = await axios.post(URL, null, config);
-                
-                return refundApiResponse.data;
-            }else{
-                let err =  new Error(`No kptn provided`);
-                err.status = 404;
-                err.name = "RESOURCE_NOT_FOUND"
-
-                throw err
+            let x_hash = SignatureGenerator(passPhrase);
+    
+            let headers = {
+                Authorization: `Bearer ${token}`,
+                "x-hash": x_hash,
             }
-        })
-        .then(resp => {
-            console.log("dsfdg");
-            res.send(resp)
-        })
-        .catch(error => {
-            console.log("next catch");
-            next(error)
-        })
-    } catch (error) {
+
+            const config = {
+                headers
+            }
+    
+            const refundApiResponse = await axios.post(URL, null, config);
+            
+            return refundApiResponse.data;
+        }else{
+            let err =  new Error(`No kptn provided`);
+            err.status = 404;
+            err.name = "RESOURCE_NOT_FOUND"
+
+            throw err
+        }
+    })
+    .then(resp => {
+        console.log("dsfdg");
+        res.send(resp)
+    })
+    .catch(error => {
+        console.log("next catch");
         next(error)
-    }
+    })
 }
 
 const GenerateToken = async () => {
