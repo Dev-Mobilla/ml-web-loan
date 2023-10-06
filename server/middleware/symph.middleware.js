@@ -8,12 +8,12 @@ const ErrorLogger = (error, request, response , next) => {
 }
 const ErrorHandler = (error, request, response , next) => {
 
-    let statusCode = [404, 403, 401];
+    let statusCode = [404, 403, 401, 500];
     // console.log("error handler", error);
     // console.log("error handler", error.status);
     let errorCode = error.response.status || error.status
 
-    // console.log("errorCode", error);
+    console.log("errorCode", error);
     
     if (statusCode.includes(errorCode)) {
         console.log("Error Handling");
