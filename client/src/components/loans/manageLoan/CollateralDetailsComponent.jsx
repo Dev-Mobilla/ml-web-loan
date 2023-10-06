@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-import pdfMake from "pdfmake/build/pdfmake";
-import pdfFonts from "pdfmake/build/vfs_fonts";
 import { GetCollateralDetails } from "../../../api/hatchit.api";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import {
@@ -105,7 +103,6 @@ const CollateralDetailsComponent = () => {
   const handleDownload = (fileName, fieldTitle) => {
     const fileExtension = fileName.split('.').pop().toLowerCase();
     const allowedExtensions = ['png', 'pdf', 'jpg'];
-    console.log(fieldTitle);
 
     if (allowedExtensions.includes(fileExtension)) {
         fetch(fileName)
@@ -145,7 +142,6 @@ const CollateralDetailsComponent = () => {
   );
 
   const displayFileName = (fileName, fieldTitle) => {
-    console.log("fieldTitle", fieldTitle);
     const maxLength = 0;
     const display = fileName
       ? fileName.length > maxLength

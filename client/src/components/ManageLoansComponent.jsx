@@ -205,11 +205,10 @@ const ManageLoanComponent = () => {
   };
 
   const ContinueBtnHandler = () => {
-    console.log("continue", referenceInput);
     if (referenceInput === "") {
       IsInputError("Please input reference number", "border-red");
     } else {
-      console.log("dfsfdg");
+      // console.log("dfsfdg");
     }
   };
 

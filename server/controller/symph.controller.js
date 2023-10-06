@@ -1,12 +1,12 @@
+const {ErrorThrower} = require("../utils/ErrorGenerator");
 const SignatureGenerator = require("../utils/signatureGenerator");
 const axios = require("axios");
 
-const RefundBillsPayment = async (req, res, next) => {
+const RefundBillsPayment = async (kptn, next) => {
 
-    try {
-        const kptn = req.query.kptn;
+    // const kptn = kptn;
 
-        GenerateToken()
+    GenerateToken()
         .then(( response ) => {
             if (response.status === 201 && response.data.data.token) {
                 return response.data.data.token;
@@ -20,15 +20,13 @@ const RefundBillsPayment = async (req, res, next) => {
                 
                 let URL = `${process.env.API_SYMPH_BASE_URL}/v1/api/1.0/billspay/refund/${kptn}`;
                 
-                let _xHashParam = {
-                    "kptn": kptn
-                }
-                
                 let makeStringtify = {};
                 
                 let passPhrase = makeStringtify + "|" + process.env.SYMPH_SECRET_KEY;
                 
                 let x_hash = SignatureGenerator(passPhrase);
+
+                console.log(x_hash);
                 
                 let headers = {
                     Authorization: `Bearer ${token}`,
@@ -41,21 +39,20 @@ const RefundBillsPayment = async (req, res, next) => {
                     headers
                 }
                 
-                // const refundApiResponse = await axios.post(URL, null, config);
                 const response = await RefundBillsPayApi(URL, config);
 
                 console.log("praise the lord");
 
                 console.log("refundApiResponse", response);
                 return response
-                // return refundApiResponse.data;
-            }else{
-                let err =  new Error(`No kptn provided`);
-                err.status = 404;
-                err.name = "RESOURCE_NOT_FOUND"
 
-                throw err
+            }else{
+
+                let error =  ErrorThrower(404, "RESOURCE_NOT_FOUND", "No kptn provided");
+
+                throw error
             }
+
         })
         .then(resp => {
             console.log("dsfdg");
@@ -65,10 +62,70 @@ const RefundBillsPayment = async (req, res, next) => {
             console.log("next catch");
             next(error)
         })
-    } catch (error) {
-        next(error)
-    }
 }
+
+// const RefundBillsPayment = async (req, res, next) => {
+
+//     const kptn = req.query.kptn;
+
+//     GenerateToken()
+//         .then(( response ) => {
+//             if (response.status === 201 && response.data.data.token) {
+//                 return response.data.data.token;
+//             }else{
+//                 throw response
+//             }
+//         })
+//         .then(async ( token ) => {
+//             console.log(token);
+//             if (kptn) {
+                
+//                 let URL = `${process.env.API_SYMPH_BASE_URL}/v1/api/1.0/billspay/refund/${kptn}`;
+                
+//                 let makeStringtify = {};
+                
+//                 let passPhrase = makeStringtify + "|" + process.env.SYMPH_SECRET_KEY;
+                
+//                 let x_hash = SignatureGenerator(passPhrase);
+
+//                 console.log(x_hash);
+                
+//                 let headers = {
+//                     Authorization: `Bearer ${token}`,
+//                     "x-hash": x_hash,
+//                     // "Accept": "application/json",
+//                     // "Content-Type": "application/json",
+//                 }
+                
+//                 const config = {
+//                     headers
+//                 }
+                
+//                 const response = await RefundBillsPayApi(URL, config);
+
+//                 console.log("praise the lord");
+
+//                 console.log("refundApiResponse", response);
+//                 return response
+
+//             }else{
+
+//                 let error =  ErrorThrower(404, "RESOURCE_NOT_FOUND", "No kptn provided");
+
+//                 throw error
+//             }
+
+//         })
+//         .then(resp => {
+//             console.log("dsfdg");
+//             res.send(resp)
+//         })
+//         .catch(error => {
+//             console.log("next catch");
+//             next(error)
+//         })
+// }
+
 const RefundBillsPayApi = async (URL, config) => {
     try {
         const response = await axios.post(URL, {}, config);

@@ -12,18 +12,20 @@ import {
 import houseIcon from "../../../assets/icons/house.png";
 import mlicon from "../../../assets/icons/Paynow_icn.png";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { GetLoanDetails, GetPaymentHistory } from "../../../api/hatchit.api";
+import {
+  GetLoanDetails,
+  GetPaymentHistory,
+  GetLoanPaymentSchedule,
+} from "../../../api/hatchit.api";
 import {
   getServiceFee,
   validateAccountNumber,
-  Threshold,
-  Paynow,
+  getThresholdAmount,
+  payNow,
 } from "../../../api/symph.api";
+import { getCookieData } from "../../../utils/CookieChecker";
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
-import getCookieValue from "../../../utils/GetCookieValue";
-import { GetLoanPaymentSchedule } from "../../../api/hatchit.api";
-import { GetCookieByName } from "../../../utils/DataFunctions";
 
 const ConfirmationModal = ({ isOpen, onClose, onConfirm }) => {
   if (!isOpen) return null;
@@ -74,44 +76,14 @@ const ManageLoansDetailsComponent = () => {
     feesAndCharges: "",
     paymentDueDate: "",
     loanType: "",
-    referenceNo: "",
+    reference: "",
     status: "",
   });
 
-  const handlePayNowButton = async () => {
-    let account = GetCookieByName("account_details");
-
-    const res = await Paynow(
-      loanDetails.dueAmount,
-      loanDetails.feesAndCharges,
-      account?.mobileNumber,
-      account?.firstName,
-      account?.lastName
-    );
-
-    console.log("res", res);
-    // switch (res.status) {
-    //   case 200:
-
-    //   console.log(res);
-
-    //   //   break;
-    //   // case 404:
-    //   //   displayError("Loan does not exist");
-    //   //   break;
-    //   // case 500:
-    //   //   displayError("An error occurred while fetching loan details.")
-    //   //   break;
-    //   default:
-    //     // displayError("An error occurred while fetching loan details.")
-    //     break;
-    // }
-  };
-
-  const displayError = (message) => {
+  const displayError = (error) => {
     setAlertModal(true);
     setAlertProps({
-      message: message,
+      message: error.message,
     });
   };
 
@@ -122,7 +94,7 @@ const ManageLoansDetailsComponent = () => {
       dueAmount: "",
       feesAndCharges: "",
       paymentDueDate: "",
-      referenceNo: "",
+      reference: "",
       loanType: "",
     });
 
@@ -139,7 +111,7 @@ const ManageLoansDetailsComponent = () => {
               dueAmount: loanPayment.due_amount,
               feesAndCharges: loanPayment.penalty_amount,
               paymentDueDate: loanPayment.due_date,
-              referenceNo: loan.reference,
+              reference: loan.reference,
               loanType: LoanType,
               status: loan.status,
             });
@@ -373,7 +345,7 @@ const ManageLoansDetailsComponent = () => {
 
   const PaymentHistoryHandler = async () => {
     // const response = await GetPaymentHistory({reference: LoanReference});
-    const response = await GetPaymentHistory({reference: "QPNWIJPKDLD"});
+    const response = await GetPaymentHistory({ reference: "QPNWIJPKDLD" });
 
     const displayError = (message) => {
       setMessage(message);
@@ -386,7 +358,6 @@ const ManageLoansDetailsComponent = () => {
 
         let paymentHistory = payment.data.loan_schedules;
 
-        console.log(paymentHistory);
         setPaymentHistory(paymentHistory);
 
         break;
@@ -411,66 +382,146 @@ const ManageLoansDetailsComponent = () => {
     );
   };
 
+  const handlePayNow = async () => {
+    try {
+      const amount = loanDetails.dueAmount;
+      if (amount <= 0) {
+        throw createError(403, "Invalid due amount", "Invalid due amount");
+      }
+      const serviceFeeResponse = await getServiceFee(amount);
+      const thresholdResponse = await getThresholdAmount();
+      const accountDetails = getCookieData();
+
+      if (!serviceFeeResponse || !thresholdResponse || !accountDetails) {
+        throw createError(
+          401,
+          "Authentication failed",
+          "Authentication failed"
+        );
+      }
+
+      const { firstName, lastName, middleName } = accountDetails;
+
+      const validationResponse = await validateAccountNumber(
+        loanDetails.reference,
+        firstName,
+        lastName
+      );
+
+      if (!validationResponse || validationResponse.code === 401) {
+        throw createError(
+          401,
+          "Authentication failed",
+          "Authentication failed"
+        );
+      }
+
+      if (validationResponse.responseCode === 3) {
+        throw createError(401, "Invalid account", "Invalid account");
+      }
+
+      if (validationResponse.responseCode !== 1) {
+        throw createError(
+          401,
+          "Authentication failed",
+          "Authentication failed"
+        );
+      }
+
+      const confirmation = await showConfirmationModal({
+        amount: loanDetails.dueAmount,
+        accountFirstname: firstName,
+        accountLastname: lastName,
+        accountNo: loanDetails.reference,
+      });
+
+      if (!confirmation) {
+        displayError("Payment canceled");
+        return;
+      }
+
+      const accountMiddleName = middleName;
+      const amountPaid = loanDetails.dueAmount;
+      const paymentResponse = await payNow(
+        firstName,
+        lastName,
+        accountMiddleName,
+        loanDetails.reference,
+        amountPaid
+      );
+
+      if (paymentResponse?.error) {
+        const { error } = paymentResponse;
+        if (error.code === "CASH_TRANSFER_NOT_ENOUGH_BALANCE_ERROR_CODE") {
+          throw createError(
+            400,
+            "There is insufficient balance to proceed with this transaction. Please try again.",
+            "Insufficient balance"
+          );
+        }
+        if (error.code === "TRANSACTION_NOT_ALLOWED_SENDER") {
+          throw createError(
+            403,
+            error.message,
+            "Principal amount is not allowed.r"
+          );
+        }
+      } else {
+        throw createError(
+          401,
+          "Authentication failed",
+          "Authentication failed"
+        );
+      }
+    } catch (error) {
+      setAlertModal(true);
+      setAlertProps({
+        message: error.displayMessage || "An error occurred",
+        onClose: handleModalClose,
+      });
+    }
+  };
+
+  const createError = (code, message, displayMessage) => ({
+    code,
+    message,
+    status: code,
+    success: false,
+    displayMessage,
+  });
+
+  const showConfirmationModal = async (paymentData) => {
+    try {
+      if (paymentData.amount <= 0) {
+        throw createError(
+          403,
+          "Principal amount is not allowed.",
+          "Principal amount is not allowed."
+        );
+      }
+
+      const confirmModal = window.confirm(
+        `Confirm payment of ${paymentData.amount} to ${paymentData.accountFirstname} ${paymentData.accountLastname} (${paymentData.accountNo})?`
+      );
+
+      return confirmModal;
+    } catch (error) {
+      setAlertModal(true);
+      setAlertProps({
+        message: error.displayMessage || "An error occurred",
+        onClose: handleModalClose,
+      });
+      return false;
+    }
+  };
+
   useEffect(() => {
-    const fetchData = async () => {
-      const thresholding = await Threshold();
-    };
     LoanDetailsHandler();
     PaymentHistoryHandler();
   }, []);
 
-  useEffect(() => {
-    const fetchServiceFee = async () => {
-      let amountfee = 100000;
-      const loanServiceFee = await getServiceFee(amountfee);
-    };
-    // fetchServiceFee();
-  }, []);
-
-  useEffect(() => {
-    const validateAccNumber = async () => {
-      const decodedAccountDetails = decodeURIComponent(
-        getCookieValue("account_details")
-      );
-      const cookieValue = decodedAccountDetails.substring(
-        decodedAccountDetails.indexOf("=") + 1
-      );
-      try {
-        let parsedValue;
-
-        if (typeof cookieValue === "string") {
-          try {
-            parsedValue = JSON.parse(cookieValue);
-          } catch (error) {
-            console.error("Error parsing cookie value:", error);
-            parsedValue = null;
-          }
-        }
-        // console.log(parsedValue)
-        let acc_num, acc_fname, acc_lname;
-        if (parsedValue) {
-          acc_num = parsedValue.mobileNumber;
-          acc_fname = parsedValue.firstName;
-          acc_lname = parsedValue.lastName;
-        }
-
-        const validAccountNumber = await validateAccountNumber(
-          acc_num,
-          acc_fname,
-          acc_lname
-        );
-
-        console.log("Valid account number", validAccountNumber);
-      } catch (error) {
-        console.log("Error:", error);
-      }
-    };
-    validateAccNumber();
-  }, []);
-
   const OnModalCloseHandler = () => {
     setAlertModal(false);
-    navigate("/manage-loans");
   };
 
   const DownloadIcon = (
@@ -501,14 +552,14 @@ const ManageLoansDetailsComponent = () => {
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
+        fillRule="evenodd"
+        clipRule="evenodd"
         d="M16 12C16 14.2091 14.2091 16 12 16C9.79086 16 8 14.2091 8 12C8 9.79086 9.79086 8 12 8C14.2091 8 16 9.79086 16 12ZM14 12C14 13.1046 13.1046 14 12 14C10.8954 14 10 13.1046 10 12C10 10.8954 10.8954 10 12 10C13.1046 10 14 10.8954 14 12Z"
         fill="currentColor"
       />
       <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
+        fillRule="evenodd"
+        clipRule="evenodd"
         d="M12 3C17.5915 3 22.2898 6.82432 23.6219 12C22.2898 17.1757 17.5915 21 12 21C6.40848 21 1.71018 17.1757 0.378052 12C1.71018 6.82432 6.40848 3 12 3ZM12 19C7.52443 19 3.73132 16.0581 2.45723 12C3.73132 7.94186 7.52443 5 12 5C16.4756 5 20.2687 7.94186 21.5428 12C20.2687 16.0581 16.4756 19 12 19Z"
         fill="currentColor"
       />
@@ -541,7 +592,7 @@ const ManageLoansDetailsComponent = () => {
                 <div className="h-card-text">
                   <div className="h-ltxt">{loanDetails.loanType}</div>
                   <div className="h-lrefno">
-                    Ref. no. {loanDetails.referenceNo}
+                    Ref. no. {loanDetails.reference}
                   </div>
                 </div>
               </div>
@@ -619,7 +670,7 @@ const ManageLoansDetailsComponent = () => {
                       charges
                     </p>
                   </div>
-                  <div className="pay-btn" onClick={handlePayNowButton}>
+                  <div className="pay-btn" onClick={handlePayNow}>
                     <button className="pay-now-button">
                       <img src={mlicon} alt="ML Icon" />
                       Pay Now
@@ -651,22 +702,18 @@ const ManageLoansDetailsComponent = () => {
                   <h1>Recent Payments</h1>
                 </div>
                 <div className="rc-details">
-                  {
-                    // console.log(paymentsHistory)
-                    paymentsHistory ? (
-                      paymentsHistory.map((payment, index) => (
-                        <div className="hl-transactions" key={index}>
-                          <div className="date">{payment.paid_date}</div>
-                          {/* <div className="time"> {payment.time}</div> */}
-                          <div className="ammount">{payment.paid_amount}</div>
-                        </div>
-                      ))
-                    ) : (
-                      <div style={{ marginTop: "10px" }}>
-                        <p>{message}</p>
+                  {paymentsHistory ? (
+                    paymentsHistory.map((payment, index) => (
+                      <div className="hl-transactions" key={index}>
+                        <div className="date">{payment.paid_date}</div>
+                        <div className="ammount">{payment.paid_amount}</div>
                       </div>
-                    )
-                  }
+                    ))
+                  ) : (
+                    <div style={{ marginTop: "10px" }}>
+                      <p>{message}</p>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

@@ -9,6 +9,7 @@ const isCookiePresent = (cookieName) => {
   }
   return false;
 };
+
 const getCookieData = () => {
   const cookieString = document.cookie;
   const cookieList = cookieString.split(';');
