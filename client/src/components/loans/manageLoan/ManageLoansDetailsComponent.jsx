@@ -383,13 +383,16 @@ const ManageLoansDetailsComponent = () => {
   };
 
   const handlePayNow = async () => {
+    let isSuccess = false;
     try {
       const amount = loanDetails.dueAmount;
       if (amount <= 0) {
-        throw createError(403, "Invalid due amount", "Invalid due amount");
+        throw createError(403, "TRANSACTION_NOT_ALLOWED_SENDER", "Principal amount is not allowed.");
       }
       const serviceFeeResponse = await getServiceFee(amount);
+      console.log("serviceFeeResponse:", serviceFeeResponse);
       const thresholdResponse = await getThresholdAmount();
+      console.log("thresholdResponse:", thresholdResponse);
       const accountDetails = getCookieData();
 
       if (!serviceFeeResponse || !thresholdResponse || !accountDetails) {
@@ -416,11 +419,15 @@ const ManageLoansDetailsComponent = () => {
         );
       }
 
-      if (validationResponse.responseCode === 3) {
-        throw createError(401, "Invalid account", "Invalid account");
+      if (validationResponse.data.responseCode === 3) {
+        throw createError(
+          401,
+          "Invalid account",
+          "We are unable to process your request at this time. Please visit your nearest M. Lhuillier branch or contact us at customercare@mlhuillier.com"
+        );
       }
 
-      if (validationResponse.responseCode !== 1) {
+      if (validationResponse.data.responseCode !== 1) {
         throw createError(
           401,
           "Authentication failed",
@@ -455,15 +462,15 @@ const ManageLoansDetailsComponent = () => {
         if (error.code === "CASH_TRANSFER_NOT_ENOUGH_BALANCE_ERROR_CODE") {
           throw createError(
             400,
-            "There is insufficient balance to proceed with this transaction. Please try again.",
-            "Insufficient balance"
+            "Insufficient Balance",
+            "There is insufficient balance to proceed with this transaction. Please try again."
           );
         }
         if (error.code === "TRANSACTION_NOT_ALLOWED_SENDER") {
           throw createError(
             403,
             error.message,
-            "Principal amount is not allowed.r"
+            "Principal amount is not allowed."
           );
         }
       } else {
@@ -473,12 +480,19 @@ const ManageLoansDetailsComponent = () => {
           "Authentication failed"
         );
       }
+
+      isSuccess = true;
     } catch (error) {
       setAlertModal(true);
       setAlertProps({
         message: error.displayMessage || "An error occurred",
         onClose: handleModalClose,
       });
+      console.log("Payment failed");
+    }
+
+    if (isSuccess) {
+      console.log("Payment success");
     }
   };
 

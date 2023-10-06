@@ -7,7 +7,7 @@ const ErrorLogger = (error, request, response , next) => {
     next(error)
 }
 const ErrorHandler = (error, request, response , next) => {
-
+    console.log(error)
     let statusCode = [404, 403, 401];
     // console.log("error handler", error);
     // console.log("error handler", error.status);
