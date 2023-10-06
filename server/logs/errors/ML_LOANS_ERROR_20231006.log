@@ -3,3 +3,54 @@ ERROR 2023-10-06T10:15:59.188 Logging.. - "/api/ml-loans/pay-now" - undefined Un
 ERROR 2023-10-06T10:20:11.756 Logging.. - "/api/ml-loans/pay-now" - undefined Unknown payment error
 ERROR 2023-10-06T08:39:07.066 Logging.. - "/api/loans/symph/billspay-refund?kptn=APBLMNEDOYE" - undefined Request failed with status code 500
 ERROR 2023-10-06T08:39:32.509 Logging.. - "/api/loans/symph/billspay-refund" - 404 No kptn provided
+ERROR 2023-10-06T08:46:19.291 Logging.. - "/api/loans/symph/billspay-refund" - 404 No kptn provided
+ERROR 2023-10-06T08:47:42.764 Logging.. - "/api/loans/symph/billspay-refund" - 404 No kptn provided
+ERROR 2023-10-06T08:48:37.900 Logging.. - "/api/loans/symph/billspay-refund" - 404 No kptn provided
+ERROR 2023-10-06T08:48:52.199 Logging.. - "/api/loans/symph/billspay-refund" - 404 No kptn provided
+ERROR 2023-10-06T08:49:32.183 Logging.. - "/api/loans/symph/billspay-refund" - 404 No kptn provided
+ERROR 2023-10-06T08:50:44.818 Logging.. - "/api/loans/symph/billspay-refund?kptn=APBLMNEDOYE" - undefined Request failed with status code 500
+ERROR 2023-10-06T08:51:01.585 Logging.. - "/api/loans/symph/billspay-refund" - undefined Cannot set properties of undefined (setting 'status')
+ERROR 2023-10-06T08:51:12.847 Logging.. - "/api/loans/symph/billspay-refund" - undefined Cannot set properties of undefined (setting 'status')
+ERROR 2023-10-06T08:53:11.263 Logging.. - "/api/loans/symph/billspay-refund?kptn=APBLMNEDOYE" - undefined Request failed with status code 500
+ERROR 2023-10-06T08:53:29.239 Logging.. - "/api/loans/symph/billspay-refund" - 404 No kptn provided
+ERROR 2023-10-06T08:54:45.913 Logging.. - "/api/loans/symph/billspay-refund?kptn=APBLMNEDOYE" - undefined Request failed with status code 500
+ERROR 2023-10-06T08:55:37.185 Logging.. - "/api/loans/symph/billspay-refund" - undefined undefined
+ERROR 2023-10-06T08:56:20.008 Logging.. - "/api/loans/symph/billspay-refund" - undefined undefined
+ERROR 2023-10-06T08:56:46.130 Logging.. - "/api/loans/symph/billspay-refund?kptn=APBLMNEDOYE" - undefined Request failed with status code 500
+ERROR 2023-10-06T08:58:44.810 Logging.. - "/api/loans/symph/billspay-refund?kptn=APBLMNEDOYE" - undefined Request failed with status code 500
+ERROR 2023-10-06T08:58:49.027 Logging.. - "/api/loans/symph/billspay-refund" - undefined undefined
+ERROR 2023-10-06T09:01:24.381 Logging.. - "/api/loans/symph/billspay-refund" - undefined undefined
+ERROR 2023-10-06T09:01:32.653 Logging.. - "/api/loans/symph/billspay-refund?kptn=APBLMNEDOYE" - undefined Request failed with status code 500
+ERROR 2023-10-06T09:02:01.042 Logging.. - "/api/loans/symph/billspay-refund" - undefined undefined
+ERROR 2023-10-06T09:02:10.944 Logging.. - "/api/loans/symph/billspay-refund?kptn=APBLMNEDOYE" - undefined Request failed with status code 500
+ERROR 2023-10-06T09:04:08.869 Logging.. - "/api/loans/symph/billspay-refund?kptn=APBLMNEDOYE" - undefined Request failed with status code 500
+ERROR 2023-10-06T09:07:59.422 Logging.. - "/api/loans/symph/billspay-refund?kptn=APBLMNEDOYE" - undefined Request failed with status code 500
+ERROR 2023-10-06T09:08:13.376 Logging.. - "/api/loans/symph/billspay-refund" - undefined undefined
+ERROR 2023-10-06T09:30:10.334 Logging.. - "/api/loans/symph/billspay-refund" - undefined undefined
+ERROR 2023-10-06T09:30:13.477 Logging.. - "/api/loans/symph/billspay-refund?kptn=APBLMNEDOYE" - undefined Request failed with status code 500
+ERROR 2023-10-06T09:30:36.092 Logging.. - "Request failed with status code 500" - undefined Request failed with status code 500
+ERROR 2023-10-06T09:31:21.190 Logging.. - "Request failed with status code 500" - "ERR_BAD_RESPONSE" Request failed with status code 500
+ERROR 2023-10-06T09:32:02.232 Logging.. - "Request failed with status code 500" - "ERR_BAD_RESPONSE" AxiosError: Request failed with status code 500
+    at settle (C:\Users\MOBI20227690\Desktop\2023\PROJECTS - 2023\ml-web-loan\server\node_modules\axios\dist\node\axios.cjs:1913:12)
+    at IncomingMessage.handleStreamEnd (C:\Users\MOBI20227690\Desktop\2023\PROJECTS - 2023\ml-web-loan\server\node_modules\axios\dist\node\axios.cjs:2995:11)
+    at IncomingMessage.emit (node:events:525:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+ERROR 2023-10-06T09:41:35.536 Logging.. - "Request failed with status code 500" - "ERR_BAD_RESPONSE" AxiosError: Request failed with status code 500
+    at settle (C:\Users\MOBI20227690\Desktop\2023\PROJECTS - 2023\ml-web-loan\server\node_modules\axios\dist\node\axios.cjs:1913:12)
+    at IncomingMessage.handleStreamEnd (C:\Users\MOBI20227690\Desktop\2023\PROJECTS - 2023\ml-web-loan\server\node_modules\axios\dist\node\axios.cjs:2995:11)
+    at IncomingMessage.emit (node:events:525:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+ERROR 2023-10-06T09:44:08.574 Logging.. - "Request failed with status code 500" - "ERR_BAD_RESPONSE" AxiosError: Request failed with status code 500
+    at settle (C:\Users\MOBI20227690\Desktop\2023\PROJECTS - 2023\ml-web-loan\server\node_modules\axios\dist\node\axios.cjs:1913:12)
+    at IncomingMessage.handleStreamEnd (C:\Users\MOBI20227690\Desktop\2023\PROJECTS - 2023\ml-web-loan\server\node_modules\axios\dist\node\axios.cjs:2995:11)
+    at IncomingMessage.emit (node:events:525:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+ERROR 2023-10-06T10:13:10.182 Logging.. - "Request failed with status code 500" - "ERR_BAD_RESPONSE" AxiosError: Request failed with status code 500
+    at settle (C:\Users\MOBI20227690\Desktop\2023\PROJECTS - 2023\ml-web-loan\server\node_modules\axios\dist\node\axios.cjs:1913:12)
+    at IncomingMessage.handleStreamEnd (C:\Users\MOBI20227690\Desktop\2023\PROJECTS - 2023\ml-web-loan\server\node_modules\axios\dist\node\axios.cjs:2995:11)
+    at IncomingMessage.emit (node:events:525:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
