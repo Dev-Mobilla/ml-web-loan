@@ -15,11 +15,10 @@ const getCookies = async (req, res) => {
 
             sessionCookie = cookie;
         }
-
         res.send({cookie: sessionCookie});
 
     } catch (error) {
-        res.send(error)
+        next(error)
     }
 }
 

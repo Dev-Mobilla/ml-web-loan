@@ -3,13 +3,23 @@ const ErrorThrower = (status, code, message) => {
 
     let error = {
         response: {
-            status: err.status = status,
+            status: status,
             data: {
                 error: {
-                    status: err.status = status,
-                    code: err.name = code,
-                    message: err.message = message
+                    status:  status,
+                    code:  code,
+                    message: {
+                        title: message.title,
+                        body: message.body
+                    },
+                    stack: err.stack
                 }
+            },
+            stack: err.stack,
+            code: code,
+            message: {
+                title: message.title,
+                body: message.body
             }
         }
     }

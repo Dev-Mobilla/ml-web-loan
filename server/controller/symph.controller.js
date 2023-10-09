@@ -8,7 +8,7 @@ const handleApiError = (message) => {
 
 const API_BASE_URL = process.env.API_SYMPH_BASE_URL;
 
-const getServiceFee = async (req, res, next) => {
+const GetServiceFee = async (req, res, next) => {
   try {
     const url = `${API_BASE_URL}/v1/api/1.0/ml-loans/service-fee`;
     const config = {
@@ -21,13 +21,16 @@ const getServiceFee = async (req, res, next) => {
     };
 
     const response = await axios.get(url, config);
+    console.log("response", response);
     res.status(200).send(response.data);
+
   } catch (error) {
+    console.log("service fee");
     next(error);
   }
 };
 
-const getThresholdAmount = async (req, res, next) => {
+const GetThresholdAmount = async (req, res, next) => {
   try {
     const url = `${API_BASE_URL}/v1/api/1.0/ml-loans/threshold-amount`;
     const config = {
@@ -43,7 +46,7 @@ const getThresholdAmount = async (req, res, next) => {
   }
 };
 
-const validateAccountNumber = async (req, res, next) => {
+const ValidateAccountNumber = async (req, res, next) => {
   try {
     const url = `${API_BASE_URL}/v1/api/1.0/ml-loans/validate-account-number`;
     const config = {
@@ -65,10 +68,9 @@ const validateAccountNumber = async (req, res, next) => {
   }
 };
 
-const payNow = async (req, res, next) => {
+const PayNow = async (req, res, next) => {
   try {
     const url = `${API_BASE_URL}/v1/api/1.0/ml-loans/pay`;
-
     const config = {
       headers: {
         Cookie: req.headers.cookie,
@@ -85,142 +87,167 @@ const payNow = async (req, res, next) => {
 
     const response = await axios.post(url, data, config);
     const { billspayStatus, paymentStatus, kptn } = response.data.data;
+
     if (paymentStatus === "PAID") {
       if (billspayStatus === "POSTED") {
         res.status(200).json(response.data.data);
+
       } else if (billspayStatus === "FAILED") {
-        RefundBillsPayment(kptn);
-      } else {
-        handleApiError("Unknown payment error");
+
+        const refundBillsPay = await RefundBillsPayment(kptn);
+        // const refundBillsPay = await RefundBillsPayment("APBSNRKIWGF");
+        
+        if (refundBillsPay.status === 201) {
+            console.log("SUCCESS REFUND");
+
+            let transactionDate = refundBillsPay.data.refundDate;
+
+            let reqBody = {
+              billspayStatus: "POSTED",
+              transactionDate
+            }
+
+            const updateBillsPay = await UpdateBillsPayment(reqBody, kptn);
+
+            if (updateBillsPay.status === 200) {
+                console.log("SUCCESS UPDATE");
+
+                res.send(updateBillsPay.data)
+            }
+            else{
+                console.log("ERROR UPDATE");
+                throw updateBillsPay
+            }
+        }else{
+            console.log("ERROR REFUND");
+            throw refundBillsPay
+        }
       }
+
+    //   } else {
+    //     handleApiError("Unknown payment error");
+    //   }
     }
   } catch (error) {
+    console.log("catch error", error);
     next(error);
   }
 };
 
 const RefundBillsPayment = async (kptn) => {
-  // const kptn = kptn;
 
-  GenerateToken()
-    .then((response) => {
-      if (response.status === 201 && response.data.data.token) {
-        return response.data.data.token;
-      } else {
-        throw response;
-      }
-    })
-    .then(async (token) => {
-      console.log(token);
-      if (kptn) {
-        let URL = `${process.env.API_SYMPH_BASE_URL}/v1/api/1.0/billspay/refund/${kptn}`;
+    try {
 
-        let makeStringtify = {};
+        const getToken = await GenerateToken();
 
-        let passPhrase = makeStringtify + "|" + process.env.SYMPH_SECRET_KEY;
+        if (kptn) {
+            if (getToken.status === 201 && getToken.data.data.token) {
 
-        let x_hash = SignatureGenerator(passPhrase);
+                let token = getToken.data.data.token;
 
-        console.log(x_hash);
+                let URL = `${process.env.API_SYMPH_BASE_URL}/v1/api/1.0/billspay/refund/${kptn}`;
 
-        let headers = {
-          Authorization: `Bearer ${token}`,
-          "x-hash": x_hash,
-          // "Accept": "application/json",
-          // "Content-Type": "application/json",
-        };
+                let makeStringtify = {};
 
-        const config = {
-          headers,
-        };
+                let passPhrase = makeStringtify + "|" + process.env.SYMPH_SECRET_KEY;
 
-        const response = await RefundBillsPayApi(URL, config);
+                let x_hash = SignatureGenerator(passPhrase);
 
-        console.log("praise the lord");
+                let headers = {
+                    Authorization: `Bearer ${token}`,
+                    "x-hash": x_hash,
+                    "Accept": "application/json",
+                    "Content-Type": "application/json",
+                };
 
-        console.log("refundApiResponse", response);
-        return response;
-      } else {
-        let error = ErrorThrower(404, "RESOURCE_NOT_FOUND", "No kptn provided");
+                const config = {
+                    headers,
+                };
 
-        throw error;
-      }
-    })
-    .then((resp) => {
-      console.log("dsfdg");
-      return resp;
-    })
-    .catch((error) => {
-      console.log("next catch");
-      return error;
-    });
+                const response = await RefundBillsPayApi(URL, config);
+
+                console.log("praise the lord");
+
+                return response;
+        
+            }else{
+                throw getToken;
+            }
+        }else{
+
+            let error = ErrorThrower(404, "RESOURCE_NOT_FOUND", "No kptn provided");
+
+            throw error;
+        }
+    
+    } catch (error) {
+        return error
+    }
 };
 
-// const RefundBillsPayment = async (req, res, next) => {
+const UpdateBillsPayment = async (reqBody, kptn) => {
 
-//     const kptn = req.query.kptn;
+  try {
 
-//     GenerateToken()
-//         .then(( response ) => {
-//             if (response.status === 201 && response.data.data.token) {
-//                 return response.data.data.token;
-//             }else{
-//                 throw response
-//             }
-//         })
-//         .then(async ( token ) => {
-//             console.log(token);
-//             if (kptn) {
+    const getToken = await GenerateToken();
 
-//                 let URL = `${process.env.API_SYMPH_BASE_URL}/v1/api/1.0/billspay/refund/${kptn}`;
+    if (kptn) {
+        if (getToken.status === 201 && getToken.data.data.token) {
 
-//                 let makeStringtify = {};
+            let token = getToken.data.data.token;
 
-//                 let passPhrase = makeStringtify + "|" + process.env.SYMPH_SECRET_KEY;
+            let URL = `${process.env.API_SYMPH_BASE_URL}/v1/api/1.0/billspay/${kptn}`;
 
-//                 let x_hash = SignatureGenerator(passPhrase);
+            let passPhrase = reqBody + "|" + process.env.SYMPH_SECRET_KEY;
 
-//                 console.log(x_hash);
+            let x_hash = SignatureGenerator(passPhrase);
 
-//                 let headers = {
-//                     Authorization: `Bearer ${token}`,
-//                     "x-hash": x_hash,
-//                     // "Accept": "application/json",
-//                     // "Content-Type": "application/json",
-//                 }
+            let headers = {
+                Authorization: `Bearer ${token}`,
+                "x-hash": x_hash,
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+            };
 
-//                 const config = {
-//                     headers
-//                 }
+            const config = {
+                headers
+            };
 
-//                 const response = await RefundBillsPayApi(URL, config);
+            const response = await UpdateBillsPayApi(URL, reqBody, config);
 
-//                 console.log("praise the lord");
+            console.log("praise the lord");
 
-//                 console.log("refundApiResponse", response);
-//                 return response
+            return response;
+    
+        }else{
+            throw getToken;
+        }
+    }else{
 
-//             }else{
+        let error = ErrorThrower(404, "RESOURCE_NOT_FOUND", "No kptn/request body provided");
 
-//                 let error =  ErrorThrower(404, "RESOURCE_NOT_FOUND", "No kptn provided");
+        throw error;
+    }
 
-//                 throw error
-//             }
+  } catch (error) {
+      return error
+  }
 
-//         })
-//         .then(resp => {
-//             console.log("dsfdg");
-//             res.send(resp)
-//         })
-//         .catch(error => {
-//             console.log("next catch");
-//             next(error)
-//         })
-// }
+}
 
 const RefundBillsPayApi = async (URL, config) => {
   try {
     const response = await axios.post(URL, {}, config);
+
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
+const UpdateBillsPayApi = async (URL, reqBody, config) => {
+  try {
+    const response = await axios.patch(URL, reqBody, config);
 
     return response;
   } catch (error) {
@@ -243,7 +270,6 @@ const GenerateToken = async () => {
     const signature = `${apikey}|${secret}|${date}`;
 
     const digest = SignatureGenerator(signature);
-    // console.log("digest", digest);
 
     const URL = process.env.AUTH_SERVICE_SYMPH_URL;
     const reqBody = {
@@ -259,45 +285,12 @@ const GenerateToken = async () => {
   }
 };
 
-const GenerateTokenApi = async (req, res) => {
-  const dateInstance = new Date();
-
-  const year = dateInstance.getFullYear().toString();
-  const month = ("0" + (dateInstance.getMonth() + 1)).slice(-2).toString();
-  const day = ("0" + dateInstance.getDate()).slice(-2).toString();
-
-  try {
-    const date = year + "-" + month + "-" + day;
-    const apikey = process.env.SYMPH_API_KEY;
-    const secret = process.env.SYMPH_SECRET_KEY;
-
-    const signature = `${apikey}|${secret}|${date}`;
-
-    const digest = SignatureGenerator(signature);
-    console.log("digest", digest);
-
-    const URL = process.env.AUTH_SERVICE_SYMPH_URL;
-    const reqBody = {
-      apiKey: process.env.SYMPH_API_KEY,
-      signature: digest,
-    };
-
-    const response = await axios.post(URL, reqBody);
-
-    console.log("response", response);
-
-    res.send(response.data);
-  } catch (error) {
-    res.send(error);
-  }
-};
 
 module.exports = {
-  getServiceFee,
-  getThresholdAmount,
-  validateAccountNumber,
-  payNow,
+  GetServiceFee,
+  GetThresholdAmount,
+  ValidateAccountNumber,
+  PayNow,
   handleApiError,
   RefundBillsPayment,
-  GenerateTokenApi,
 };
