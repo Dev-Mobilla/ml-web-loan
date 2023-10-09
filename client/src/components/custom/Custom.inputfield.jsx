@@ -6,6 +6,7 @@ const CustomInputField = ({
   inputOnchange,
   inputVal,
   inputPlaceholder,
+  inputName
 }) => {
   return (
     <input
@@ -14,6 +15,7 @@ const CustomInputField = ({
       onChange={inputOnchange}
       value={inputVal}
       placeholder={inputPlaceholder}
+      name={inputName}
     />
   );
 };
