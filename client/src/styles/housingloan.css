@@ -81,7 +81,7 @@
 .text-label {
   font-size: 18px;
   font-weight: 400;
-  margin-right: 10px;
+  margin-right: 5px;
   line-height: 21px;
   letter-spacing: -0.3px;
   color: var(--text-gray);

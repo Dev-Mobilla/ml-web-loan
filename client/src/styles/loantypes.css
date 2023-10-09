@@ -83,7 +83,7 @@
 }
 
 .form-row input,
-.new-loan .form-row input {
+.new-loan .form-row input, .loan-vehicle-amounts .form-control {
   padding: 5px;
   border: 1px solid #848484;
   border-radius: var(--radius);
@@ -92,7 +92,8 @@
 }
 
 .form-row input:focus,
-.new-loan .form-row:focus {
+.new-loan .form-row:focus,
+.loan-vehicle-amounts .form-control:focus {
   border-color: var(--border-color);
   outline: none;
 }
@@ -222,6 +223,28 @@ input[type="radio"] {
   height: 16px;
 }
 
+.loan-vehicle-amounts{
+  width: 65%;
+  display: flex;
+  margin: auto;
+}
+.loan-vehicle-amounts .loan-vehicle-form-group{
+  width: 100%
+}
+.loan-vehicle-amounts .form-control{
+  margin: 0px 20px 20px 0px;
+}
+.loan-vehicle-amounts .form-control.principal{
+  width: 60%;
+}
+.loan-vehicle-amounts .form-control.interest{
+  width: 50%;
+}
+
+.loan-vehicle-amounts .form-control.terms{
+  width: 30%;
+}
+
 @media screen and (min-width: 360px) and (max-width: 480px) {
   .second-hand-content,
   .new-loan-content {
@@ -253,8 +276,9 @@ input[type="radio"] {
   #make,
   #model,
   #engineNo,
-  #chassisNo {
-    max-width: 280px;
+  #chassisNo,
+  #variant {
+    /* max-width: 280px; */
     width: 100%;
     margin-bottom: 20px;
   }
@@ -282,6 +306,23 @@ input[type="radio"] {
   .loan-type-selection--radios .value {
     font-size: 16px;
   }
+  .loan-vehicle-amounts{
+    width: 90%;
+    margin: auto 20px;
+  }
+  .loan-vehicle-amounts .form-control.principal,
+  .loan-vehicle-amounts .form-control.terms,
+  .loan-vehicle-amounts .form-control.form-control.interest{
+    width: 100%;
+  }
+  .form-row, .new-loan .form-row{
+    margin-right: 0px;
+  }
+
+  .second-hand-content .loan-content{
+    margin: auto 20px;
+    /* width: 95%; */
+  }
 }
 
 @media screen and (min-width: 480px) and (max-width: 768px) {
@@ -292,15 +333,44 @@ input[type="radio"] {
   #model,
   #engineNo,
   #chassisNo {
-    max-width: 385px;
+    /* max-width: 385px; */
     width: 100%;
     margin-bottom: 20px;
   }
-
+  
   .loan-type--main .loan-type--body .selection-card {
     width: 90%;
   }
   .loan-type--main .prev-btn {
     margin: 20px 30px;
+  }
+  .loan-vehicle-amounts{
+    width: 90%;
+    margin: auto 20px;
+  }
+  .loan-vehicle-amounts .form-control.principal{
+    width: 48%;
+  }
+  .loan-vehicle-amounts .form-control.terms{
+    width: 40%;
+  }
+  .loan-vehicle-amounts .form-control.form-control.interest{
+    width: 60%;
+  }
+  .form-row, .new-loan .form-row{
+    margin: 0px 10px;
+    width: 90% ;
+  }
+  .second-hand-content .loan-content,   .new-loan .loan-content{
+      margin: auto 20px;
+      max-width: 95%;
+  }
+  .new-loan .percentage-selection .main-content {
+    gap: 80px;
+    flex-wrap: nowrap;
+  }
+  .new-loan .loan-term-selection .main-content {
+    gap: 45px;
+    flex-wrap: nowrap;
   }
 }

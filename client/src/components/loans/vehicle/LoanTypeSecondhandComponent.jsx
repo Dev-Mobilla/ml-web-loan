@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
 import "../../../styles/loantypes.css";
@@ -9,6 +9,7 @@ import {
   LoanSelection,
   VehicleSecondHandDetailsComponent,
   LoanDataComponent,
+  CustomInputField,
 } from "../..";
 
 const LoanTypeSecondHandComponent = () => {
@@ -51,7 +52,16 @@ const LoanTypeSecondHandComponent = () => {
     chassisNo: "",
   });
 
+  const [vehicleDetailsAmounts, setVehicleDetailsAmounts] = useState({
+    principalAmount: "",
+    terms: "",
+    interest: ""
+  });
+
   const handleValidationChange = (isValid) => {
+    setIsSubmitDisabled(!isValid);
+  };
+  const handleValidationChangeAmounts = (isValid) => {
     setIsSubmitDisabled(!isValid);
   };
 
@@ -62,6 +72,7 @@ const LoanTypeSecondHandComponent = () => {
       type: type,
       selectedVehicle: selectedVehicle,
       ...vehicleDetails,
+      ...vehicleDetailsAmounts
     };
 
     // localStorage.setItem("firstStep", JSON.stringify(firstStepDetails));
@@ -77,6 +88,11 @@ const LoanTypeSecondHandComponent = () => {
     setVehicleDetails(newVehicleDetails);
   };
 
+  const handleVehicleDetailsAmount = (e) => {
+    const { name, value } = e.target;
+    setVehicleDetailsAmounts({ ...vehicleDetailsAmounts, [name]: value });
+  }
+
   const OnKeydownPriceHandler = (event) => {
     const isNumberOrBackspace =
       /^[0-9]*\.?[0-9]*$/.test(event.key) || event.key === "Backspace";
@@ -90,6 +106,14 @@ const LoanTypeSecondHandComponent = () => {
 
   const buttonClassName = isSubmitDisabled ? "btn-disabled" : "btn-enabled";
 
+  useEffect(() => {
+    const isValid =
+      vehicleDetailsAmounts.principalAmount.trim() !== "" &&
+      vehicleDetailsAmounts.terms.trim() !== "" &&
+      vehicleDetailsAmounts.interest.trim() !== "";
+    handleValidationChangeAmounts(isValid);
+    
+  },[vehicleDetailsAmounts, handleValidationChangeAmounts])
   return (
     <div className="loan-type">
       <div className="second-hand-container">
@@ -164,6 +188,38 @@ const LoanTypeSecondHandComponent = () => {
               title="Vehicle Details"
               styles="custom-card-title"
             />
+            <div className="loan-vehicle-amounts">
+              <div className="loan-vehicle-form-group">
+               {/* <div className="input-group"> */}
+                  <CustomInputField
+                      inputPlaceholder={"Principal Amount"}
+                      inputStyle="form-control principal"
+                      inputVal={vehicleDetailsAmounts.principalAmount}
+                    inputType="text"
+                    inputName="principalAmount"
+                    inputOnchange={handleVehicleDetailsAmount}
+                  />
+                  <CustomInputField
+                    inputPlaceholder={"Terms (months)"}
+                    inputStyle="form-control terms"
+                    inputVal={vehicleDetailsAmounts.terms}
+                    inputType="text"
+                    inputName="terms"
+                    inputOnchange={handleVehicleDetailsAmount}
+                  />
+               {/* </div> */}
+                {/* <div className="input-group"> */}
+                  <CustomInputField
+                  inputPlaceholder={"Interest"}
+                  inputStyle="form-control interest"
+                  inputVal={vehicleDetailsAmounts.interest}
+                  inputType="text"
+                  inputName="interest"
+                  inputOnchange={handleVehicleDetailsAmount}
+                />
+                {/* </div> */}
+              </div>
+            </div>
             <div className="loan-content">
               <LoanSelection
                 loanType={type}

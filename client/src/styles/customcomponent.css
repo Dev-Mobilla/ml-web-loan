@@ -286,7 +286,46 @@
   }
 
   .loan-input-wrapper input {
-    width: 130px;
+    width: 180px;
+  }
+
+  .custom-card-subtitle {
+    font-size: 14px;
+  }
+}
+@media screen and (min-width: 481px) and (max-width: 768px) {
+  .custom-current,
+  .custom-pastdue {
+    height: 16px;
+    width: 94px;
+    margin: 15px 10px 0 10px;
+    padding: 10px 16px;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 19px;
+    letter-spacing: -0.3px;
+  }
+
+  .payment-schedule-btn,
+  .collateral-details-btn {
+    width: 140px;
+    height: 31px;
+    font-size: 12px;
+    padding: 4px;
+  }
+
+  .collateral-details-btn {
+    margin-left: 20px;
+  }
+
+  .loan-input-label,
+  .loan-input-sublabel {
+    font-size: 16px;
+    margin: 0;
+  }
+
+  .loan-input-wrapper input {
+    width: 180px;
   }
 
   .custom-card-subtitle {

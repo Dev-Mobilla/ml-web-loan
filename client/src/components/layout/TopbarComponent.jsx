@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import {isCookiePresent} from "../../utils/CookieChecker";
 import "../../styles/topbar.css";
 
@@ -6,6 +7,8 @@ const TopbarComponent = () => {
   const [areCookiesPresent, setAreCookiesPresent] = useState(false);
   const sessionCookieName = process.env.REACT_APP_SESSION_COOKIE_NAME;
   const accountCookieName = process.env.REACT_APP_ACCOUNT_COOKIE_NAME;
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const checkCookies = () => {
@@ -29,8 +32,7 @@ const TopbarComponent = () => {
 
   return (
     <div className="topbar-group">
-        <div className="top-bar">
-      
+        <div className="top-bar" onClick={() => navigate("/dashboard")}>
         </div>
         {areCookiesPresent && (
           <button id="logout-button" onClick={handleLogout}>
