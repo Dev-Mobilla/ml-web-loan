@@ -22,3 +22,57 @@ ERROR 2023-10-09T08:07:13.475 Logging.. -
     at next (C:\Users\MOBI20227690\Desktop\2023\PROJECTS - 2023\ml-web-loan\server\node_modules\express\lib\router\index.js:280:10)
     at SendStream.error (C:\Users\MOBI20227690\Desktop\2023\PROJECTS - 2023\ml-web-loan\server\node_modules\serve-static\index.js:121:7)
     at SendStream.emit (node:events:513:28)
+ERROR 2023-10-09T10:23:41.876 Logging.. - 
+        Request URL: /api/loans/symph/billspay-refund?kptn=APBSPMIBFHS - undefined - 403 undefined
+ERROR 2023-10-09T10:30:34.707 Logging.. - 
+        Request URL: /api/loans/symph/billspay-refund?kptn=APBSPMIBFHS - undefined - 403 undefined
+ERROR 2023-10-09T10:31:03.721 Logging.. - 
+        Request URL: /api/loans/symph/billspay-refund?kptn=APBSPMIBFHS - undefined - 403 undefined
+ERROR 2023-10-09T10:31:26.476 Logging.. - 
+        Request URL: /api/loans/symph/billspay-refund?kptn=APBSPMIBFHS - undefined - 403 undefined
+ERROR 2023-10-09T10:31:45.326 Logging.. - 
+        Request URL: /api/loans/symph/billspay-refund?kptn=APBSPMIBFHS - undefined - 403 undefined
+ERROR 2023-10-09T10:32:29.347 Logging.. - 
+        Request URL: /api/loans/symph/billspay-refund?kptn=APBSPMIBFHS - undefined - 403 undefined
+ERROR 2023-10-09T10:32:42.769 Logging.. - 
+        Request URL: /api/loans/symph/billspay-refund?kptn=APBSPMIBFHS - undefined - 403 undefined
+ERROR 2023-10-09T10:33:19.341 Logging.. - 
+        Request URL: /api/loans/symph/billspay-refund?kptn=APBSPMIBFHS - undefined - 403 undefined
+ERROR 2023-10-09T10:34:35.784 Logging.. - 
+        Request URL: /api/loans/symph/billspay-refund?kptn=APBSPMIBFHS - undefined - 403 undefined
+ERROR 2023-10-09T10:36:24.213 Logging.. - 
+        Request URL: /api/loans/symph/billspay-refund?kptn=APBSNRKIWGF - undefined - 500 undefined
+ERROR 2023-10-09T10:49:26.222 Logging.. - 
+        Request URL: /api/loans/symph/billspay-refund?kptn=APBZJLJIWKU - undefined - 403 undefined
+ERROR 2023-10-09T10:50:15.396 Logging.. - 
+        Request URL: /api/loans/symph/billspay-refund?kptn=APBZJLJIWKU - undefined - 403 undefined
+ERROR 2023-10-09T10:51:10.983 Logging.. - 
+        Request URL: /api/loans/symph/billspay-refund?kptn=APBZJLJIWKU - 0 - 403 undefined
+ERROR 2023-10-09T10:52:12.969 Logging.. - 
+        Request URL: /api/loans/symph/billspay-refund?kptn=APBZJLJIWKU - 0 - 403 undefined
+ERROR 2023-10-09T10:52:45.366 Logging.. - 
+        Request URL: /api/loans/symph/billspay-refund?kptn=APBZJLJIWKU - undefined | {"code":"BILLS_PAYMENT_NOT_REFUNDABLE_ERROR","error":{"statusCode":403,"name":"BillsPaymentNotRefundableError","errorCode":"BILLS_PAYMENT_NOT_REFUNDABLE_ERROR","origin":"ml-web-app"},"message":"Bills payment is not refundable.","stack":"BillsPaymentNotRefundableError: Bills payment is not refundable.\n    at BillsPayServiceApi.<anonymous> (/workspace/server-api/build/services/BillsPay/BillsPayServiceApi.js:767:23)\n    at Generator.next (<anonymous>)\n    at fulfilled (/workspace/server-api/build/services/BillsPay/BillsPayServiceApi.js:5:58)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)","status":403,"success":false} - 403 undefined
+ERROR 2023-10-09T10:53:50.290 Logging.. - 
+        Request URL: /api/loans/symph/billspay-refund?kptn=APBZJLJIWKU - undefined | {"code":"BILLS_PAYMENT_NOT_REFUNDABLE_ERROR","error":{"statusCode":403,"name":"BillsPaymentNotRefundableError","errorCode":"BILLS_PAYMENT_NOT_REFUNDABLE_ERROR","origin":"ml-web-app"},"message":"Bills payment is not refundable.","stack":"BillsPaymentNotRefundableError: Bills payment is not refundable.\n    at BillsPayServiceApi.<anonymous> (/workspace/server-api/build/services/BillsPay/BillsPayServiceApi.js:767:23)\n    at Generator.next (<anonymous>)\n    at fulfilled (/workspace/server-api/build/services/BillsPay/BillsPayServiceApi.js:5:58)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)","status":403,"success":false} - 403 BillsPaymentNotRefundableError: Bills payment is not refundable.
+    at BillsPayServiceApi.<anonymous> (/workspace/server-api/build/services/BillsPay/BillsPayServiceApi.js:767:23)
+    at Generator.next (<anonymous>)
+    at fulfilled (/workspace/server-api/build/services/BillsPay/BillsPayServiceApi.js:5:58)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+ERROR 2023-10-09T10:54:05.676 Logging.. - 
+        Request URL: /api/loans/symph/billspay-refund?kptn=APBZJLJIWKU - undefined | "BILLS_PAYMENT_NOT_REFUNDABLE_ERROR" - 403 BillsPaymentNotRefundableError: Bills payment is not refundable.
+    at BillsPayServiceApi.<anonymous> (/workspace/server-api/build/services/BillsPay/BillsPayServiceApi.js:767:23)
+    at Generator.next (<anonymous>)
+    at fulfilled (/workspace/server-api/build/services/BillsPay/BillsPayServiceApi.js:5:58)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+ERROR 2023-10-09T14:57:18.091 Logging.. - 
+        Request URL: /api/loans/symph/billspay-refund?kptn=APBWUKSCEAH - undefined | "ERROR" - 500 BaseError: AXIOS BAD_GATEWAY
+    at /workspace/server-api/build/utils/AxiosUtils.js:64:31
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+ERROR 2023-10-09T15:26:27.057 Logging.. - 
+        Request URL: /api/loans/symph/billspay-refund?kptn=APBOFMPPHYU - undefined | "ERROR" - 500 BaseError: AXIOS BAD_GATEWAY
+    at /workspace/server-api/build/utils/AxiosUtils.js:64:31
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+ERROR 2023-10-09T15:28:29.850 Logging.. - 
+        Request URL: /api/loans/symph/billspay-refund?kptn=APBOFMPPHYU - undefined | "ERROR" - 500 BaseError: AXIOS BAD_GATEWAY
+    at /workspace/server-api/build/utils/AxiosUtils.js:64:31
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
