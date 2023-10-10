@@ -30,6 +30,7 @@ const getThresholdAmount = async () => {
   }
 };
 
+<<<<<<< Updated upstream
 const validateAccountNumber = async (
   reference,
   accountFName,
@@ -87,6 +88,35 @@ const GetCountries = async () => {
       params: {
         name: "countries"
       }
+=======
+const SessionCookie = async () => {
+    const response = await GetSessionCookie();
+  
+    return response;
+}
+///api/get-threshold-amount
+const Threshold = async () => {
+    try {
+        const urlToFetch = `${process.env.REACT_APP_BASE_URL}/api/ml-loans/get-threshold-amount`;
+        const response = await axios.get(urlToFetch, {
+            method: 'GET',
+            withCredentials: true,
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+                'Access-Control-Allow-Origin': 'http://ml-loans-dev.mlhuillier.com:3000/',
+                'Access-Control-Allow-Credentials': 'true',
+            },
+        });
+        console.log(response);
+        if (response.status == 200) {
+            return response;
+        } else {
+            return ({message: 'Unable to Fetch Threshold'});
+        }
+    } catch (error) {
+        return ({message: 'Unable to Fetch Threshold'});
+>>>>>>> Stashed changes
     }
     );
     return response.data;

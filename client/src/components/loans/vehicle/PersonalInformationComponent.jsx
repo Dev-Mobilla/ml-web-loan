@@ -4,6 +4,18 @@ const PersonalInformationComponent = ({
   onValidationChange,
   onInformationDetailsChange,
 }) => {
+
+
+
+
+
+
+
+
+
+
+
+  
   const [informationDetails, setInformationDetails] = useState({
     firstname: "",
     lastname: "",
@@ -18,6 +30,9 @@ const PersonalInformationComponent = ({
     office_landline: "",
     sourceOfIncome: "",
     monthly_income: "",
+    countries: "",
+    provinces: "",
+    cities: ""
   });
   const [errors, setErrors] = useState({});
   useEffect(() => {
@@ -33,7 +48,10 @@ const PersonalInformationComponent = ({
       informationDetails.office_address.trim() !== "" &&
       informationDetails.office_landline.trim() !== "" &&
       informationDetails.sourceOfIncome.trim() !== "" &&
-      informationDetails.monthly_income.trim() !== "";
+      informationDetails.monthly_income.trim() !== "" &&
+      informationDetails.countries.trim() !== "" &&
+      informationDetails.provinces.trim() !== "" &&
+      informationDetails.cities.trim() !== "";
     onValidationChange(isValid);
 
     onInformationDetailsChange(informationDetails);
@@ -54,7 +72,20 @@ const PersonalInformationComponent = ({
         ...prevErrors,
         [name]: `Please select the Nature of your Business`,
       }));
-    } else if (name === 'nationality' && value === 'disabled') {
+    } else if (name === 'countries' && value === 'defaultCountry') {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        [name]: `Please select the country you lived in`,
+      }));
+    } else if (name === 'countries' && value === 'defaultCountry') {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        [name]: `Please select the country you lived in`,
+      }));
+    }
+
+
+    else if (name === 'nationality' && value === 'disabled') {
       setErrors((prevErrors) => ({
         ...prevErrors,
         [name]: `Please select your Nationality`,
@@ -359,7 +390,60 @@ const PersonalInformationComponent = ({
 
         />
         <div style={{ color: 'red', fontSize: '12px', margin: '10px 20px 20px 0' }}>{errors.monthly_income}</div>
-
+      </div>
+      <div className="c-details-input">
+        <select
+          className="d-select"
+          name="countries"
+          value={informationDetails.countries}
+          onChange={handleInputChange}
+          onFocus={() => handleFocus('countries')}
+          onBlur={() => handleBlur('countries')}
+          style={{ border: fieldBorders.countries }}
+        >
+          <option value="defaultCountry">Country</option>
+          <option value="phillipines">Phillipines</option>
+          <option value="business">Food and Beverage</option>
+          <option value="investment">Retail</option>
+          <option value="retirement">Manufacturing</option>
+        </select>
+        <div style={{ color: 'red', fontSize: '12px', margin: '10px 20px 20px 0' }}>{errors.countries}</div>
+      </div>
+      <div className="c-details-input">
+        <select
+          className="d-select"
+          name="provinces"
+          value={informationDetails.provinces}
+          onChange={handleInputChange}
+          onFocus={() => handleFocus('provinces')}
+          onBlur={() => handleBlur('provinces')}
+          style={{ border: fieldBorders.provinces }}
+        >
+          <option value="defaultProvince">Province</option>
+          <option value="eastern samar">Eastern Samar</option>
+          <option value="business">Food and Beverage</option>
+          <option value="investment">Retail</option>
+          <option value="retirement">Manufacturing</option>
+        </select>
+        <div style={{ color: 'red', fontSize: '12px', margin: '10px 20px 20px 0' }}>{errors.provinces}</div>
+      </div>
+      <div className="c-details-input">
+        <select
+          className="d-select"
+          name="cities"
+          value={informationDetails.cities}
+          onChange={handleInputChange}
+          onFocus={() => handleFocus('cities')}
+          onBlur={() => handleBlur('cities')}
+          style={{ border: fieldBorders.cities }}
+        >
+          <option value="defaultCity">City</option>
+          <option value="borongan">Borongan</option>
+          <option value="business">Food and Beverage</option>
+          <option value="investment">Retail</option>
+          <option value="retirement">Manufacturing</option>
+        </select>
+        <div style={{ color: 'red', fontSize: '12px', margin: '10px 20px 20px 0' }}>{errors.cities}</div>
       </div>
     </div>
   );

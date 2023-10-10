@@ -41,6 +41,9 @@ const CustomerDetailsComponent = () => {
       navigate('/vehicle-loan/loan-type/new');
     }
   });
+  const [selectedCountry, setSelectedCountry] = useState('');
+  const [selectedProvince, setSelectedProvince] = useState('');
+  const [selectedCity, setSelectedCity] = useState('');
   const [address, setAddress] = useState("");
   const [customAlert, setCustomAlert] = useState(false);
   const [alertProps, setAlertProps] = useState(null);
@@ -50,7 +53,31 @@ const CustomerDetailsComponent = () => {
   const [selectedOption, setSelectedOption] = useState("");
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
   const { firstStepDetails } = location.state || {};
+ 
+  const handleCountryChange = () => {
+    const selectedValue = informationDetails.countries;
+    setSelectedCountry(selectedValue);
+    updateCompleteAddress(selectedValue, selectedProvince, selectedCity);
+  };
 
+  // Handle the change event for the province dropdown
+  const handleProvinceChange = () => {
+    const selectedValue = informationDetails.provinces;
+    setSelectedProvince(selectedValue);
+    updateCompleteAddress(selectedCountry, selectedValue, selectedCity);
+  };
+
+  // Handle the change event for the city dropdown
+  const handleCityChange = () => {
+    const selectedValue = informationDetails.cities;
+    setSelectedCity(selectedValue);
+    updateCompleteAddress(selectedCountry, selectedProvince, selectedValue);
+  };
+  const updateCompleteAddress = (country, province, city) => {
+    const addressParts = [country, province, city].filter(Boolean);
+    const concatenatedAddress = addressParts.join(', ');
+    setAddress(concatenatedAddress);
+  };
   const [contactDetails, setContactDetails] = useState({
     mobile_number: "",
     email: "",
@@ -70,6 +97,9 @@ const CustomerDetailsComponent = () => {
     office_landline: "",
     sourceOfIncome: "",
     monthly_income: "",
+    countries: "",
+    provinces: "",
+    cities: ""
   });
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -96,7 +126,10 @@ const CustomerDetailsComponent = () => {
       informationDetails.office_address.trim() !== "" &&
       informationDetails.office_landline.trim() !== "" &&
       informationDetails.sourceOfIncome.trim() !== "" &&
-      informationDetails.monthly_income.trim() !== "";
+      informationDetails.monthly_income.trim() !== "" &&
+      informationDetails.countries.trim() !== "" &&
+      informationDetails.provinces.trim() !== "" &&
+      informationDetails.cities.trim() !== "";
     const isAddressValid = address?.trim() !== "";
     const isOptionSelected = selectedOption !== "";
 
@@ -108,6 +141,9 @@ const CustomerDetailsComponent = () => {
         isOptionSelected
       )
     );
+    handleCountryChange();
+    handleProvinceChange();
+    handleCityChange();
   };
 
   const handleFormSubmit = (e) => {
