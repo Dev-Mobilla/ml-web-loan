@@ -1,19 +1,18 @@
 import React, { useEffect } from "react";
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import {
+  CollateralDetails,
   Dashboard,
-//   HousingLoan,
   MainOutlet,
   ManageLoans,
   ManageLoansDetails,
-//   QuickCashLoan,
   Receipt,
   Error,
 } from "../pages";
 import LoanType from "../pages/LoanType.page";
 import CustomerDetails from "../pages/CustomerDetails.page";
 import CustomerRequirements from "../pages/CustomerRequirements.page";
-import {isCookiePresent} from "../utils/CookieChecker";
+import { isCookiePresent } from "../utils/CookieChecker";
 
 const ProtectedRoute = ({ component: Component, ...rest }) => {
   const sessionCookieName = process.env.REACT_APP_SESSION_COOKIE_NAME;
@@ -51,14 +50,10 @@ const routes = [
         path: "/manage-loans/loan-details",
         element: <ProtectedRoute component={ManageLoansDetails} />,
       },
-    //   {
-    //     path: "/manage-loans/housing-loan",
-    //     element: <ProtectedRoute component={HousingLoan} />,
-    //   },
-    //   {
-    //     path: "/manage-loans/quick-cash-loan/:ref",
-    //     element: <ProtectedRoute component={QuickCashLoan} />,
-    //   },
+      {
+        path: "/manage-loans/loan-details/collateral-details",
+        element: <ProtectedRoute component={CollateralDetails} />,
+      },
       { path: "/vehicle-loan/loan-type/:type", element: <LoanType /> },
       { path: "/vehicle-loan/personal-details", element: <CustomerDetails /> },
       { path: "/vehicle-loan/requirements", element: <CustomerRequirements /> },

@@ -1,195 +1,132 @@
-import { SymphAxiosInstance } from '../helper/axios';
-import { getCookieData } from "../utils/CookieChecker";
-import {GetSessionCookie} from './api';
-const Login = () => {}
-const LoanBillsPay = () => {}
+import axios from "axios";
+import {ML_LoansAxiosInstance} from "../helper/axios";
 
-const baseURL = process.env.REACT_APP_SYMPH_BASE_URL;
-const apiKey = process.env.REACT_APP_API_KEY;
-const sessionCookieName = process.env.REACT_APP_SESSION_COOKIE_NAME;
+const BASE_URL = process.env.REACT_APP_BASE_URL;
 
-SymphAxiosInstance.defaults.withCredentials = true;
+const getServiceFee = async (amount) => {
+  try {
+    const response = await axios.get(`${BASE_URL}/api/ml-loans/get-service-fee`, {
+      params: {
+        amount,
+      },
+      withCredentials: true,
+    });
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
 
-const SessionCookie = async () => {
-    const response = await GetSessionCookie();
-  
-    return response;
-}
+const getThresholdAmount = async () => {
+  try {
+    const response = await axios.get(`${BASE_URL}/api/ml-loans/get-threshold-amount`, {
+      withCredentials: true,
+    });
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
 
-const Threshold = async () => {
-    try {
-        const urlToFetch = `/v1/api/1.0/ml-loans/threshold-amount`;
-        const response = await SymphAxiosInstance.get(urlToFetch, {
-            method: 'GET',
-            withCredentials: true,
-            headers: {
-                "Content-Type": "application/json",
-                Accept: "application/json",
-                'Access-Control-Allow-Origin': 'http://ml-loans-dev.mlhuillier.com:3000/',
-                'Access-Control-Allow-Credentials': 'true',
-            },
-        });
-        if (response.status == 200) {
-            return response;
-        } else {
-            console.error('Error:', response.JSON);
-        }
-    } catch (error) {
-        console.error('Error fetching threshold:', error);
-        return error;
+const validateAccountNumber = async (
+  reference,
+  accountFName,
+  accountLName
+) => {
+  try {
+    const response = await axios.post(
+      `${BASE_URL}/api/ml-loans/validate-account-number`,
+      {
+        reference: reference,
+        accountFName,
+        accountLName,
+      },
+      {
+        withCredentials: true,
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+const payNow = async (
+  accountFirstName,
+  accountLastName,
+  accountMiddleName,
+  accountNumber,
+  amountPaid
+) => {
+  try {
+    const response = await axios.post(
+      `${BASE_URL}/api/ml-loans/pay-now`,
+      {
+        accountFirstName,
+        accountLastName,
+        accountMiddleName,
+        accountNumber,
+        amountPaid,
+      },
+      { withCredentials: true }
+    );
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+const GetCountries = async () => {
+  try {
+    const response = await ML_LoansAxiosInstance.get(`/api/ml-loans/get-countries`,
+    {
+      params: {
+        name: "countries"
+      }
     }
-}
-
-const Paynow = async (amountDue, charges, accountNo, accountFName, accountLName) => {
-
-        SessionCookie()
-        .then(getSession => {
-            if (getSession.status === 200 && getSession.data) {
-                return getSession.data.cookie
-            }
-            throw getSession;
-
-        })
-        // .then(async getServiceFee => {
-        //     console.log(decodeURIComponent(getCookie));
-        //     return await ThresholdAmount(decodeURIComponent(getCookie));
-            
-        // })
-        // .then(async getThreshold => {
-        //     console.log(decodeURIComponent(getCookie));
-        //     return await ThresholdAmount(decodeURIComponent(getCookie));
-            
-        // })
-        .then(async validateAccount => {
-            
-            const accountValidated = await ValidateAccount(accountNo, accountFName, accountLName);
-
-            if (accountValidated.status === 200) {
-                
-                return accountValidated;
-            }
-            throw accountValidated
-        })
-        
-        // .then(async (getThreSoldAmount, sessionCookie) => {
-        //     const urlToPost = '/v1/api/1.0/ml-loans/validate-account-number';
-
-        //     const requestBody = {
-        //         "accountFirstName": getCookie.firstName,
-        //         "accountLastName": getCookie.lastName,
-        //         "accountMiddleName": getCookie.middleName,
-        //         "accountNumber": getCookie.mobileNumber,
-        //         "amountPaid": totalAmountPaid,
-        //     }
-        //     const response = await SymphAxiosInstance.get(urlToPost, {
-        //         method: 'POST',
-        //         body: JSON.stringify(RequestBody)
-        //     });
-        // })
-        .catch(error => {
-            console.log("error", error);
-            return error
-        })
-
-        
-        // if (getCookie != null) {
-        //     const urlToPost = '/v1/api/1.0/ml-loans/validate-account-number';
-        //     const RequestBody = {
-        //         "accountFirstName": getCookie.firstName,
-        //         "accountLastName": getCookie.lastName,
-        //         "accountMiddleName": getCookie.middleName,
-        //         "accountNumber": getCookie.mobileNumber,
-        //         "amountPaid": totalAmountPaid,
-        //     }
-        //     const response = await SymphAxiosInstance.get(urlToPost, {
-        //         method: 'POST',
-        //         body: JSON.stringify(RequestBody)
-        //     });
-
-        //     if (response == 200) {
-        //         console.log('Data:', response);
-        //     } else {
-        //         console.error('Error:', response.JSON);
-        //     }
-        // }
-}
-const ValidateAccount = async (accountNo, accountFName, accountLName) => {
-    try {
-        const reqBody = {
-            accountNo,
-            accountFName,
-            accountLName
-        }
-
-        const stringify = JSON.stringify(reqBody);
-
-        const response = await SymphAxiosInstance.post("/v1/api/1.0/ml-loans/validate-account-number",
-            { stringify },
-            {
-                withCredentials: true,
-                method: "POST"
-            }
-                                                                                                                    
-        )
-        return response;
-
-    } catch (error) {
-        return error
-    }
-}
-
-const ThresholdAmount = async () => {
-    try {
-        const response = await SymphAxiosInstance.get("/v1/api/1.0/ml-loans/threshold-amount", {
-           withCredentials: true,
-
-        });
-        return response;
-
-    } catch (error) {
-        return error
-    }
-}
-
-const getServiceFee = async (amountfee) => {
-    try{
-
-      const response = await SymphAxiosInstance.get("/v1/api/1.0/ml-loans/service-fee", {
-         params:{
-            amount: amountfee
-        },
-        withCredentials: true
-         
-      });
-      return response;
-  
-    }catch(error){
-      console.error("Error" , error)
-    }
-  
+    );
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
   }
 
-const validateAccountNumber =  async(acc_num, acc_fname, acc_lname) =>{
-    try{
-        const response = await SymphAxiosInstance.post("/v1/api/1.0/ml-loans/validate-account-number",{
-            params:{
-                accountNo:acc_num,
-                accountFname:acc_fname,
-                accountLname:acc_lname
-            }
-        });
-        return response;
-    }catch(error){
-        console.error("Error", error)
-    }
 }
 
-export {
-    Login,
-    LoanBillsPay,
-    getServiceFee,
-    ThresholdAmount, 
-    Threshold,
-    validateAccountNumber,
-    Paynow
+const GetProvinces = async () => {
+  try {
+    const response = await ML_LoansAxiosInstance.get(`/api/ml-loans/get-provinces`,
+    {
+      params: {
+        name: "provinces"
+      }
+    });
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+
 }
+
+const GetCities = async () => {
+  try {
+    const response = await ML_LoansAxiosInstance.get(`/api/ml-loans/get-cities`,
+    {
+      params: {
+        name: "cities"
+      }
+    });
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+
+}
+
+export { getServiceFee, getThresholdAmount, validateAccountNumber, payNow, GetCountries, GetProvinces, GetCities };

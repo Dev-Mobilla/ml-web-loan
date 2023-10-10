@@ -127,7 +127,7 @@ const ManageLoanComponent = () => {
   const LoanStatusChecker = (status) => {
     if (status?.toLowerCase() === "approved") {
       return {
-        btnName: "Pending",
+        btnName: "Processing",
         isDisabled: true,
         btnStyle: "custom-button approved-btn",
       };
@@ -205,11 +205,10 @@ const ManageLoanComponent = () => {
   };
 
   const ContinueBtnHandler = () => {
-    console.log("continue", referenceInput);
     if (referenceInput === "") {
       IsInputError("Please input reference number", "border-red");
     } else {
-      console.log("dfsfdg");
+      // console.log("dfsfdg");
     }
   };
 
