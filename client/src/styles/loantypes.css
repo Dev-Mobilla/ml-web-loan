@@ -225,24 +225,38 @@ input[type="radio"] {
 
 .loan-vehicle-amounts{
   width: 65%;
-  display: flex;
-  margin: auto;
+  /* display: flex; */
+  margin: 10px auto;
 }
 .loan-vehicle-amounts .loan-vehicle-form-group{
-  width: 100%
+  width: 100%;
+  margin: 0 10px;
 }
 .loan-vehicle-amounts .form-control{
-  margin: 0px 20px 20px 0px;
+  margin: 0px 10px 0px 0px;
+  width: 100%;
+  text-align: right;
 }
 .loan-vehicle-amounts .form-control.principal{
   width: 60%;
 }
 .loan-vehicle-amounts .form-control.interest{
-  width: 50%;
+  width: 60%;
 }
-
 .loan-vehicle-amounts .form-control.terms{
-  width: 30%;
+  width: 60%;
+}
+.loan-vehicle-amounts .form-group{
+  display: flex;
+  align-items: center;
+}
+.loan-vehicle-amounts .form-group .amount-label{
+  margin: 0 0 0 10px;
+  font-size: 20px;
+  font-weight: 400;
+  letter-spacing: 0em;
+  text-align: left;
+  color: var(--border-color-gray);
 }
 
 @media screen and (min-width: 360px) and (max-width: 480px) {
@@ -308,12 +322,29 @@ input[type="radio"] {
   }
   .loan-vehicle-amounts{
     width: 90%;
-    margin: auto 20px;
+    margin: 10px 20px 20px 20px;
   }
-  .loan-vehicle-amounts .form-control.principal,
-  .loan-vehicle-amounts .form-control.terms,
-  .loan-vehicle-amounts .form-control.form-control.interest{
-    width: 100%;
+  .loan-vehicle-amounts .form-group{
+    display: flex;
+    margin: 10px 0px;
+  }
+  .loan-vehicle-amounts .form-control{
+    margin: 0px;
+  }
+  .loan-vehicle-amounts .form-control.principal{
+    width: 51%;
+  }
+  .loan-vehicle-amounts .form-control.interest{
+    width: 51%;
+  }
+  .loan-vehicle-amounts .form-control.terms{
+    width: 51%;
+  }
+  .loan-vehicle-amounts .loan-vehicle-form-group{
+    margin: 0px;
+  }
+  .loan-vehicle-amounts .form-group .amount-label{
+    font-size: 16px;
   }
   .form-row, .new-loan .form-row{
     margin-right: 0px;
@@ -346,16 +377,24 @@ input[type="radio"] {
   }
   .loan-vehicle-amounts{
     width: 90%;
-    margin: auto 20px;
+    margin: 10px 20px;
   }
-  .loan-vehicle-amounts .form-control.principal{
-    width: 48%;
+  .loan-vehicle-amounts{
+    width: 90%;
+    margin: 10px 20px 20px 20px;
   }
-  .loan-vehicle-amounts .form-control.terms{
-    width: 40%;
+  .loan-vehicle-amounts .form-group{
+    display: flex;
+    margin: 10px 0px;
   }
-  .loan-vehicle-amounts .form-control.form-control.interest{
-    width: 60%;
+  .loan-vehicle-amounts .form-control{
+    margin: 0px;
+  }
+  .loan-vehicle-amounts .loan-vehicle-form-group{
+    margin: 0px;
+  }
+  .loan-vehicle-amounts .form-group .amount-label{
+    font-size: 16px;
   }
   .form-row, .new-loan .form-row{
     margin: 0px 10px;
@@ -372,5 +411,8 @@ input[type="radio"] {
   .new-loan .loan-term-selection .main-content {
     gap: 45px;
     flex-wrap: nowrap;
+  }
+  .loan-vehicle-amounts .loan-vehicle-form-group{
+
   }
 }

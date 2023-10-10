@@ -107,10 +107,15 @@ const LoanTypeNewComponent = () => {
     const isValid =
       vehicleDetailsAmounts.principalAmount.trim() !== "" &&
       vehicleDetailsAmounts.terms.trim() !== "" &&
-      vehicleDetailsAmounts.interest.trim() !== "";
+      vehicleDetailsAmounts.interest.trim() !== "" &&
+      vehicleDetails.make.trim() !== "" &&
+      vehicleDetails.model.trim() !== "" &&
+      vehicleDetails.year.trim() !== "" &&
+      vehicleDetails.color.trim() !== "" &&
+      vehicleDetails.variant.trim() !== "";
     handleValidationChangeAmounts(isValid);
     
-  },[vehicleDetailsAmounts, handleValidationChangeAmounts])
+  },[vehicleDetailsAmounts, handleValidationChangeAmounts, vehicleDetails])
 
   return (
     <div className="loan-type new-loan">
@@ -189,33 +194,39 @@ const LoanTypeNewComponent = () => {
             <div className="loan-vehicle-amounts">
               <div className="loan-vehicle-form-group">
                {/* <div className="input-group"> */}
-                  <CustomInputField
-                      inputPlaceholder={"Principal Amount"}
-                      inputStyle="form-control principal"
-                      inputVal={vehicleDetailsAmounts.principalAmount}
-                    inputType="text"
-                    inputName="principalAmount"
-                    inputOnchange={handleVehicleDetailsAmount}
-                  />
-                  <CustomInputField
-                    inputPlaceholder={"Terms (months)"}
+                  <div className="form-group">
+                    <CustomInputField
+                        inputPlaceholder={"0.00"}
+                        inputStyle="form-control principal"
+                        inputVal={vehicleDetailsAmounts.principalAmount}
+                        inputType="text"
+                        inputName="principalAmount"
+                        inputOnchange={handleVehicleDetailsAmount}
+                    />
+                    <p className="amount-label">Principal Amount</p>
+                  </div>
+                 <div className="form-group">
+                 <CustomInputField
+                    inputPlaceholder={"0"}
                     inputStyle="form-control terms"
                     inputVal={vehicleDetailsAmounts.terms}
                     inputType="text"
                     inputName="terms"
                     inputOnchange={handleVehicleDetailsAmount}
                   />
-               {/* </div> */}
-                {/* <div className="input-group"> */}
+                    <p className="amount-label">Terms (months)</p>
+                 </div>
+                <div className="form-group">
                   <CustomInputField
-                  inputPlaceholder={"Interest"}
+                  inputPlaceholder={"0%"}
                   inputStyle="form-control interest"
                   inputVal={vehicleDetailsAmounts.interest}
                   inputType="text"
                   inputName="interest"
                   inputOnchange={handleVehicleDetailsAmount}
-                />
-                {/* </div> */}
+                  />
+                  <p className="amount-label">Interest</p>
+                </div>
               </div>
             </div>
             <div className="loan-content">
