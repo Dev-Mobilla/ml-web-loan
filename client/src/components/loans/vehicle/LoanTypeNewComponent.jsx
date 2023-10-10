@@ -54,7 +54,7 @@ const LoanTypeNewComponent = () => {
   const [vehicleDetailsAmounts, setVehicleDetailsAmounts] = useState({
     principalAmount: "",
     terms: "",
-    interest: ""
+    interest: 1.5
   });
   const handleValidationChange = (isValid) => {
     setIsSubmitDisabled(!isValid);
@@ -107,7 +107,6 @@ const LoanTypeNewComponent = () => {
     const isValid =
       vehicleDetailsAmounts.principalAmount.trim() !== "" &&
       vehicleDetailsAmounts.terms.trim() !== "" &&
-      vehicleDetailsAmounts.interest.trim() !== "" &&
       vehicleDetails.make.trim() !== "" &&
       vehicleDetails.model.trim() !== "" &&
       vehicleDetails.year.trim() !== "" &&
@@ -202,6 +201,7 @@ const LoanTypeNewComponent = () => {
                         inputType="text"
                         inputName="principalAmount"
                         inputOnchange={handleVehicleDetailsAmount}
+                        onKeyDownHandler={OnKeydownPriceHandler}
                     />
                     <p className="amount-label">Principal Amount</p>
                   </div>
@@ -223,7 +223,7 @@ const LoanTypeNewComponent = () => {
                   inputVal={vehicleDetailsAmounts.interest}
                   inputType="text"
                   inputName="interest"
-                  inputOnchange={handleVehicleDetailsAmount}
+                  readOnly={true}
                   />
                   <p className="amount-label">Interest</p>
                 </div>

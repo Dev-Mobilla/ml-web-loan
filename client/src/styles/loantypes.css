@@ -236,16 +236,22 @@ input[type="radio"] {
   margin: 0px 10px 0px 0px;
   width: 100%;
   text-align: right;
+  /* padding: 8px; */
 }
-.loan-vehicle-amounts .form-control.principal{
-  width: 60%;
+.loan-vehicle-amounts .form-control.principal,
+.loan-vehicle-amounts .form-control.interest,
+.loan-vehicle-amounts .form-control.terms{
+  width: 46%;
 }
 .loan-vehicle-amounts .form-control.interest{
-  width: 60%;
+  border-radius: var(--radius);
+  border: 1px solid;
+  border-color: var(--border-color-gray);
+  color: var(--text-gray);
+  padding: 8px;
+  background-color: #ebebeb;
 }
-.loan-vehicle-amounts .form-control.terms{
-  width: 60%;
-}
+
 .loan-vehicle-amounts .form-group{
   display: flex;
   align-items: center;
@@ -336,6 +342,7 @@ input[type="radio"] {
   }
   .loan-vehicle-amounts .form-control.interest{
     width: 51%;
+    
   }
   .loan-vehicle-amounts .form-control.terms{
     width: 51%;
