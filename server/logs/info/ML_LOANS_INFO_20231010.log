@@ -111,3 +111,4 @@ INFO 2023-10-10T15:31:37.504 Logging.. URL: undefined - STATUS: 200; MESSAGE: VA
 INFO 2023-10-10T15:32:13.231 Logging.. URL: undefined - STATUS: 200; MESSAGE: GET SERVICE FEE: {"data":{"totalServiceFee":200},"code":"SUCCESS","status":200}
 INFO 2023-10-10T15:32:14.502 Logging.. URL: undefined - STATUS: 200; MESSAGE: GET THRESHOLD AMOUNT: {"data":{"bracketTierCode":"0.00","responseCode":1,"responseMessage":"Success","threshold":"500000000.00"},"code":"SUCCESS","status":200}
 INFO 2023-10-10T15:32:16.129 Logging.. URL: undefined - STATUS: 200; MESSAGE: VALIDATE ACCOUNT: {"data":{"isValidAccountNumber":true,"responseCode":1,"responseMessage":"Success","responseSearch":{"amount":"2139.05","accounFirstName":"DEVTESTQD","accountLastName":"QDTEST"}},"code":"SUCCESS","status":200}
+INFO 2023-10-10T16:55:49.289 ML LOANS Server listening on port: 5000
