@@ -305,4 +305,5 @@ module.exports = {
   PayNow,
   handleApiError,
   RefundBillsPayment,
+  GenerateToken
 };
