@@ -1,6 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 const path = require("path");
+const router = require("./route/add_loan_route");
 const cors = require("cors");
 const Logger = require("./config/logger.config");
 
@@ -9,6 +10,7 @@ const {ErrorHandler, ErrorLogger, ErrorResponder} = require("./middleware/symph.
 const { Auth } = require("./middleware/auth.middleware");
 
 const app = express();
+const cors = require('cors');
 
 const PORT = process.env.PORT || 5000;
 app.use(express.json());
@@ -20,11 +22,11 @@ app.use(cors(
     origin: process.env.ML_LOANS_ORIGIN
   }
 ))
-
+app.use(express.json());
 app.use(express.static(path.join(__dirname, '../client/build')));
 
 app.get('/', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '..' ,'client', 'build', 'index.html'));
+  res.sendFile(path.resolve(__dirname, '..', 'client', 'build', 'index.html'));
 });
 
 //ROUTES
