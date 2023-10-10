@@ -12,7 +12,8 @@ import {
   PaymentDetailsModalComponent,
 } from "../../index";
 import houseIcon from "../../../assets/icons/house.png";
-import mlicon from "../../../assets/icons/Paynow_icn.png";
+import mlicon from "../../../assets/icons/diamond.png";
+// import mlicon from "../../../assets/icons/Paynow_icn.png";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import {
   GetLoanDetails,
@@ -83,6 +84,12 @@ const ManageLoansDetailsComponent = () => {
     reference: "",
     status: "",
   });
+
+  const [payNowBtn, setPayNowBtn] = useState({
+    isDisable: false,
+    classname: "",
+    text: "Pay Now"
+  })
 
   const displayError = (error) => {
     setAlertModal(true);
@@ -396,6 +403,11 @@ const ManageLoansDetailsComponent = () => {
           "Principal amount is not allowed."
         );
       }
+      setPayNowBtn({
+        isDisable: true,
+        classname: "disabled",
+        text: "Loading..."
+      })
       const serviceFeeResponse = await getServiceFee(amount);
       const serviceFee = serviceFeeResponse.data.totalServiceFee;
       const thresholdResponse = await getThresholdAmount();
@@ -472,6 +484,12 @@ const ManageLoansDetailsComponent = () => {
         setShowModal(true);
       }
 
+      setPayNowBtn({
+        isDisable: false,
+        classname: "",
+        text: "Pay Now"
+      })
+
       isSuccess = true;
     } catch (error) {
       setAlertModal(true);
@@ -479,6 +497,11 @@ const ManageLoansDetailsComponent = () => {
         message: error.displayMessage || "An error occurred",
         onClose: handleModalClose,
       });
+      setPayNowBtn({
+        isDisable: false,
+        classname: "",
+        text: "Pay Now"
+      })
     }
   };
 
@@ -713,9 +736,12 @@ const ManageLoansDetailsComponent = () => {
                     </p>
                   </div>
                   <div className="pay-btn" onClick={handlePayNow}>
-                    <button className="pay-now-button">
+                    <button className={`pay-now-button ${payNowBtn.classname}`} disabled={payNowBtn.isDisable}>
                       <img src={mlicon} alt="ML Icon" />
-                      Pay Now
+                      {
+                        payNowBtn.text
+                      }
+                      {/* Pay Now */}
                     </button>
                   </div>
 
