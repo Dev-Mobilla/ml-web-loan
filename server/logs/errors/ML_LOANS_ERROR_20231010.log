@@ -1,0 +1,12 @@
+ERROR 2023-10-10T12:55:12.838 Logging.. - 
+        Request URL: /api/ml-loans/get-countries?Cookie=ML_W_W_S=s:7aEujVQGW-9BW9SRPdDDcWipM6SG8JCh.rVMk+Fz/fi85mnTvCP/Gv39A8aWfbIBXA6ca4CWksDA - {"title":"Authentication Error","body":"Session expired please login again."} | "AUTHENTICATION_ERROR" - 401 Error
+    at ErrorThrower (C:\Users\MOBI20227690\Desktop\2023\PROJECTS - 2023\ml-web-loan\server\utils\ErrorGenerator.js:2:16)
+    at Unauthorized (C:\Users\MOBI20227690\Desktop\2023\PROJECTS - 2023\ml-web-loan\server\middleware\auth.middleware.js:35:19)
+    at Auth (C:\Users\MOBI20227690\Desktop\2023\PROJECTS - 2023\ml-web-loan\server\middleware\auth.middleware.js:22:26)
+    at Layer.handle [as handle_request] (C:\Users\MOBI20227690\Desktop\2023\PROJECTS - 2023\ml-web-loan\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\Users\MOBI20227690\Desktop\2023\PROJECTS - 2023\ml-web-loan\server\node_modules\express\lib\router\index.js:328:13)
+    at C:\Users\MOBI20227690\Desktop\2023\PROJECTS - 2023\ml-web-loan\server\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\Users\MOBI20227690\Desktop\2023\PROJECTS - 2023\ml-web-loan\server\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\MOBI20227690\Desktop\2023\PROJECTS - 2023\ml-web-loan\server\node_modules\express\lib\router\index.js:280:10)
+    at SendStream.error (C:\Users\MOBI20227690\Desktop\2023\PROJECTS - 2023\ml-web-loan\server\node_modules\serve-static\index.js:121:7)
+    at SendStream.emit (node:events:513:28)

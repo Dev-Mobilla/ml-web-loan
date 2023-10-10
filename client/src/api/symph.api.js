@@ -1,4 +1,5 @@
 import axios from "axios";
+import {ML_LoansAxiosInstance} from "../helper/axios";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
@@ -79,4 +80,53 @@ const payNow = async (
   }
 };
 
-export { getServiceFee, getThresholdAmount, validateAccountNumber, payNow };
+const GetCountries = async () => {
+  try {
+    const response = await ML_LoansAxiosInstance.get(`/api/ml-loans/get-countries`,
+    {
+      params: {
+        name: "countries"
+      }
+    }
+    );
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+
+}
+
+const GetProvinces = async () => {
+  try {
+    const response = await ML_LoansAxiosInstance.get(`/api/ml-loans/get-provinces`,
+    {
+      params: {
+        name: "provinces"
+      }
+    });
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+
+}
+
+const GetCities = async () => {
+  try {
+    const response = await ML_LoansAxiosInstance.get(`/api/ml-loans/get-cities`,
+    {
+      params: {
+        name: "cities"
+      }
+    });
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+
+}
+
+export { getServiceFee, getThresholdAmount, validateAccountNumber, payNow, GetCountries, GetProvinces, GetCities };
