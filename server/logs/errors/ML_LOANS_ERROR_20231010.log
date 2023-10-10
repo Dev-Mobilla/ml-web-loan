@@ -10,3 +10,27 @@ ERROR 2023-10-10T12:55:12.838 Logging.. -
     at next (C:\Users\MOBI20227690\Desktop\2023\PROJECTS - 2023\ml-web-loan\server\node_modules\express\lib\router\index.js:280:10)
     at SendStream.error (C:\Users\MOBI20227690\Desktop\2023\PROJECTS - 2023\ml-web-loan\server\node_modules\serve-static\index.js:121:7)
     at SendStream.emit (node:events:513:28)
+ERROR 2023-10-10T15:22:07.272 Logging.. - 
+        Request URL: /api/ml-loans/get-service-fee - undefined | "BAD_REQUEST" - 400 BadRequestError: amount is required.
+    at /workspace/server-api/build/controllers/MLLoansController.js:44:19
+    at Generator.next (<anonymous>)
+    at /workspace/server-api/build/controllers/MLLoansController.js:8:71
+    at new Promise (<anonymous>)
+    at __awaiter (/workspace/server-api/build/controllers/MLLoansController.js:4:12)
+    at getServiceFee (/workspace/server-api/build/controllers/MLLoansController.js:40:12)
+    at /workspace/server-api/build/middlewares/CustomRequestHandler.js:18:32
+    at Generator.next (<anonymous>)
+    at /workspace/server-api/build/middlewares/CustomRequestHandler.js:8:71
+    at new Promise (<anonymous>)
+ERROR 2023-10-10T15:22:30.288 Logging.. - 
+        Request URL: /api/ml-loans/get-service-fee - undefined | "BAD_REQUEST" - 400 BadRequestError: amount is required.
+    at /workspace/server-api/build/controllers/MLLoansController.js:44:19
+    at Generator.next (<anonymous>)
+    at /workspace/server-api/build/controllers/MLLoansController.js:8:71
+    at new Promise (<anonymous>)
+    at __awaiter (/workspace/server-api/build/controllers/MLLoansController.js:4:12)
+    at getServiceFee (/workspace/server-api/build/controllers/MLLoansController.js:40:12)
+    at /workspace/server-api/build/middlewares/CustomRequestHandler.js:18:32
+    at Generator.next (<anonymous>)
+    at /workspace/server-api/build/middlewares/CustomRequestHandler.js:8:71
+    at new Promise (<anonymous>)
