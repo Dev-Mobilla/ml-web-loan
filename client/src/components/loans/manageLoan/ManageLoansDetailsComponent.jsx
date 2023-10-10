@@ -422,7 +422,9 @@ const ManageLoansDetailsComponent = () => {
         );
       }
 
-      const { firstName, lastName } = accountDetails;
+      const { firstName, lastName, middleName } = accountDetails;
+
+      console.log("account details:", accountDetails);
 
       const validationResponse = await validateAccountNumber(
         loanDetails.reference,
@@ -468,6 +470,7 @@ const ManageLoansDetailsComponent = () => {
         amount: parseFloat(toPay),
         accountFirstName:
           validationResponse.data.responseSearch.accounFirstName,
+        accountMiddleName: middleName,
         accountLastName: validationResponse.data.responseSearch.accountLastName,
         accountNo: loanDetails.reference,
         method: "ML Wallet",
@@ -484,6 +487,8 @@ const ManageLoansDetailsComponent = () => {
         setPaymentData(confirmation);
         setShowModal(true);
       }
+
+      console.log("Confirmation:", confirmation);
 
       setPayNowBtn({
         isDisable: false,
@@ -548,16 +553,20 @@ const ManageLoansDetailsComponent = () => {
   };
 
   const handleProceedPayment = async (paymentData) => {
-    const { firstName, lastName, middleName, accountNo, total } = paymentData;
+    const {
+      accountFirstName,
+      accountLastName,
+      accountMiddleName,
+      accountNo,
+      total,
+    } = paymentData;
     try {
-      const accountMiddleName = middleName;
-      const amountPaid = total;
       const paymentResponse = await payNow(
-        firstName,
-        lastName,
+        accountFirstName,
+        accountLastName,
         accountMiddleName,
         accountNo,
-        amountPaid
+        total
       );
 
       if (paymentResponse?.error) {
