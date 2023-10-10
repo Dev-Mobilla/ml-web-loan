@@ -1,4 +1,5 @@
 const { ErrorThrower } = require("../utils/ErrorGenerator");
+const SuccessLogger = require("../utils/SuccessLogger");
 const SignatureGenerator = require("../utils/signatureGenerator");
 const axios = require("axios");
 
@@ -23,6 +24,7 @@ const GetServiceFee = async (req, res, next) => {
     const response = await axios.get(url, config);
     console.log("response", response);
     res.status(200).send(response.data);
+    SuccessLogger(response.url, response.status, `GET SERVICE FEE: ${JSON.stringify(response.data)}`);
 
   } catch (error) {
     console.log("service fee");
@@ -41,6 +43,7 @@ const GetThresholdAmount = async (req, res, next) => {
 
     const response = await axios.get(url, config);
     res.status(200).json(response.data);
+    SuccessLogger(response.url, response.status, `GET THRESHOLD AMOUNT: ${JSON.stringify(response.data)}`);
   } catch (error) {
     next(error);
   }
@@ -63,6 +66,7 @@ const ValidateAccountNumber = async (req, res, next) => {
 
     const response = await axios.post(url, data, config);
     res.status(200).json(response.data);
+    SuccessLogger(response.url, response.status, `VALIDATE ACCOUNT: ${JSON.stringify(response.data)}`);
   } catch (error) {
     next(error);
   }
@@ -71,6 +75,7 @@ const ValidateAccountNumber = async (req, res, next) => {
 const PayNow = async (req, res, next) => {
   try {
     const url = `${API_BASE_URL}/v1/api/1.0/ml-loans/pay`;
+
     const config = {
       headers: {
         Cookie: req.headers.cookie,
@@ -86,50 +91,55 @@ const PayNow = async (req, res, next) => {
     };
 
     const response = await axios.post(url, data, config);
-    const { billspayStatus, paymentStatus, kptn } = response.data.data;
+    const { billspayStatus, paymentStatus, kptn, createdDate } = response.data.data;
 
-    if (paymentStatus === "PAID") {
-      if (billspayStatus === "POSTED") {
-        res.status(200).json(response.data.data);
+    if (paymentStatus === "PAID" && billspayStatus === "POSTED") {
+        res.status(200).json(response.data);
+      SuccessLogger(response.url, response.status, `PAY BILLS: ${JSON.stringify(response.data.data)}`);
 
-      } else if (billspayStatus === "FAILED") {
+    }
+    else if (paymentStatus === "PAID" && billspayStatus === "FAILED") {
+      SuccessLogger(response.url, response.status, `PAY BILLS: ${JSON.stringify(response.data.data)}`);
 
-        const refundBillsPay = await RefundBillsPayment(kptn);
-        // const refundBillsPay = await RefundBillsPayment("APBSNRKIWGF");
-        
-        if (refundBillsPay.status === 201) {
-            console.log("SUCCESS REFUND");
-
-            let transactionDate = refundBillsPay.data.refundDate;
-
-            let reqBody = {
-              billspayStatus: "POSTED",
-              transactionDate
-            }
-
-            const updateBillsPay = await UpdateBillsPayment(reqBody, kptn);
-
-            if (updateBillsPay.status === 200) {
-                console.log("SUCCESS UPDATE");
-
-                res.send(updateBillsPay.data)
-            }
-            else{
-                console.log("ERROR UPDATE");
-                throw updateBillsPay
-            }
-        }else{
-            console.log("ERROR REFUND");
-            throw refundBillsPay
-        }
+      let reqBody = {
+        billspayStatus: "POSTED",
+        createdDate
       }
 
-    //   } else {
-    //     handleApiError("Unknown payment error");
-    //   }
+      const updateBillsPay = await UpdateBillsPayment(reqBody, kptn);
+      const updateResponse = updateBillsPay.data.data;
+
+      if (updateResponse.billspayStatus === "POSTED" && updateResponse.paymentStatus === "PAID") {
+          SuccessLogger(updateBillsPay.url, updateBillsPay.status, `SUCCESS UPDATE: Kptn - ${kptn}`);
+          res.status(updateBillsPay.status).send(updateBillsPay.data);
+      }
+      else if (updateResponse.billspayStatus === "FAILED" && updateResponse.paymentStatus === "PAID") {
+        console.log("ERROR UPDATE");
+
+        const refundBillsPay = await RefundBillsPayment(kptn);
+
+        if (refundBillsPay.status === 201) {
+
+          let data = {
+            billsPay: response.data.data,
+            refund: refundBillsPay.data.data
+          }
+          SuccessLogger(updateResponse.url, 200, `Payment pushed through but able to pay for a refund. Kptn : ${kptn}; Refund Date: ${refundBillsPay.data.data.refundDate}`);
+
+          res.status(200).send(data);
+
+        }else{
+
+          throw refundBillsPay
+        }
+        
+      }else{
+        throw updateBillsPay
+      }
+    }else{
+      throw response
     }
   } catch (error) {
-    console.log("catch error", error);
     next(error);
   }
 };
@@ -145,7 +155,7 @@ const RefundBillsPayment = async (kptn) => {
 
                 let token = getToken.data.data.token;
 
-                let URL = `${process.env.API_SYMPH_BASE_URL}/v1/api/1.0/billspay/refund/${kptn}`;
+                let URL = `${API_BASE_URL}/v1/api/1.0/billspay/refund/${kptn}`;
 
                 let makeStringtify = {};
 
@@ -166,7 +176,7 @@ const RefundBillsPayment = async (kptn) => {
 
                 const response = await RefundBillsPayApi(URL, config);
 
-                console.log("praise the lord");
+                SuccessLogger(URL, response.status, `REFUND BILLSPAY: ${JSON.stringify(response.data)}`)
 
                 return response;
         
@@ -196,7 +206,7 @@ const UpdateBillsPayment = async (reqBody, kptn) => {
 
             let token = getToken.data.data.token;
 
-            let URL = `${process.env.API_SYMPH_BASE_URL}/v1/api/1.0/billspay/${kptn}`;
+            let URL = `${API_BASE_URL}/v1/api/1.0/billspay/${kptn}`;
 
             let passPhrase = reqBody + "|" + process.env.SYMPH_SECRET_KEY;
 
@@ -215,7 +225,7 @@ const UpdateBillsPayment = async (reqBody, kptn) => {
 
             const response = await UpdateBillsPayApi(URL, reqBody, config);
 
-            console.log("praise the lord");
+            SuccessLogger(URL, response.status, `UPDATE BILLSPAY: ${JSON.stringify(response.data)}`)
 
             return response;
     
@@ -238,7 +248,6 @@ const UpdateBillsPayment = async (reqBody, kptn) => {
 const RefundBillsPayApi = async (URL, config) => {
   try {
     const response = await axios.post(URL, {}, config);
-
     return response;
   } catch (error) {
     throw error;
@@ -248,7 +257,6 @@ const RefundBillsPayApi = async (URL, config) => {
 const UpdateBillsPayApi = async (URL, reqBody, config) => {
   try {
     const response = await axios.patch(URL, reqBody, config);
-
     return response;
   } catch (error) {
     throw error;
@@ -272,6 +280,7 @@ const GenerateToken = async () => {
     const digest = SignatureGenerator(signature);
 
     const URL = process.env.AUTH_SERVICE_SYMPH_URL;
+
     const reqBody = {
       apiKey: process.env.SYMPH_API_KEY,
       signature: digest,
@@ -279,7 +288,10 @@ const GenerateToken = async () => {
 
     const response = await axios.post(URL, reqBody);
 
+    SuccessLogger(URL, response.status, `GET TOKEN: ${JSON.stringify(response.data)}`);
+
     return response;
+
   } catch (error) {
     return error;
   }

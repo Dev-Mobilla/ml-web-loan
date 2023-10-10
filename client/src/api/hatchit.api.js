@@ -2,7 +2,6 @@ import { sha512 } from "js-sha512";
 import { HatchITAxiosInstance } from "../helper/axios";
 
 const MakeDigest = (payloads) => {
-  console.log(payloads);
   const payloadString = payloads.join("|");
   const digest = sha512(payloadString);
   return digest;

@@ -1,3 +1,6 @@
+const {ErrorThrower} = require("../utils/ErrorGenerator");
+const SignatureGenerator = require("../utils/signatureGenerator");
+const axios = require('axios');
 
 const RefundBillsPaymentApi = async (req, res, next) => {
 
@@ -53,7 +56,7 @@ const RefundBillsPaymentApi = async (req, res, next) => {
     })
     .then(resp => {
         console.log("dsfdg");
-        res.send(resp)
+        res.send(resp.data)
     })
     .catch(error => {
         console.log("next catch");
@@ -148,6 +151,57 @@ const UpdateBillsPaymentApi = async (req, res, next) => {
       res.send(response.data);
     } catch (error) {
       res.send(error);
+    }
+  };
+
+  
+const RefundBillsPayApi = async (URL, config) => {
+    try {
+      const response = await axios.post(URL, {}, config);
+  
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  };
+  
+  const UpdateBillsPayApi = async (URL, reqBody, config) => {
+    try {
+      const response = await axios.patch(URL, reqBody, config);
+  
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  };
+  
+  const GenerateToken = async () => {
+    const dateInstance = new Date();
+  
+    const year = dateInstance.getFullYear().toString();
+    const month = ("0" + (dateInstance.getMonth() + 1)).slice(-2).toString();
+    const day = ("0" + dateInstance.getDate()).slice(-2).toString();
+  
+    try {
+      const date = year + "-" + month + "-" + day;
+      const apikey = process.env.SYMPH_API_KEY;
+      const secret = process.env.SYMPH_SECRET_KEY;
+  
+      const signature = `${apikey}|${secret}|${date}`;
+  
+      const digest = SignatureGenerator(signature);
+  
+      const URL = process.env.AUTH_SERVICE_SYMPH_URL;
+      const reqBody = {
+        apiKey: process.env.SYMPH_API_KEY,
+        signature: digest,
+      };
+  
+      const response = await axios.post(URL, reqBody);
+  
+      return response;
+    } catch (error) {
+      return error;
     }
   };
 

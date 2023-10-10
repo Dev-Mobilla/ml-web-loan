@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
 import "../../../styles/loantypes.css";
@@ -9,6 +9,7 @@ import {
   LoanSelection,
   VehicleNewDetailsComponent,
   LoanDataComponent,
+  CustomInputField,
 } from "../../index";
 
 const LoanTypeNewComponent = () => {
@@ -49,8 +50,16 @@ const LoanTypeNewComponent = () => {
     color: "",
     variant: "",
   });
-
+  
+  const [vehicleDetailsAmounts, setVehicleDetailsAmounts] = useState({
+    principalAmount: "",
+    terms: "",
+    interest: 1.5
+  });
   const handleValidationChange = (isValid) => {
+    setIsSubmitDisabled(!isValid);
+  };
+  const handleValidationChangeAmounts = (isValid) => {
     setIsSubmitDisabled(!isValid);
   };
 
@@ -61,6 +70,7 @@ const LoanTypeNewComponent = () => {
       type: type,
       selectedVehicle: selectedVehicle,
       ...vehicleDetails,
+      ...vehicleDetailsAmounts
     };
 
     // localStorage.setItem("firstStep", JSON.stringify(firstStepDetails));
@@ -75,6 +85,10 @@ const LoanTypeNewComponent = () => {
   const handleVehicleDetailsChange = (newVehicleDetails) => {
     setVehicleDetails(newVehicleDetails);
   };
+  const handleVehicleDetailsAmount = (e) => {
+    const { name, value } = e.target;
+    setVehicleDetailsAmounts({ ...vehicleDetailsAmounts, [name]: value });
+  }
 
   const OnKeydownPriceHandler = (event) => {
     const isNumberOrBackspace =
@@ -88,6 +102,19 @@ const LoanTypeNewComponent = () => {
   };
 
   const buttonClassName = isSubmitDisabled ? "btn-disabled" : "btn-enabled";
+
+  useEffect(() => {
+    const isValid =
+      vehicleDetailsAmounts.principalAmount.trim() !== "" &&
+      vehicleDetailsAmounts.terms.trim() !== "" &&
+      vehicleDetails.make.trim() !== "" &&
+      vehicleDetails.model.trim() !== "" &&
+      vehicleDetails.year.trim() !== "" &&
+      vehicleDetails.color.trim() !== "" &&
+      vehicleDetails.variant.trim() !== "";
+    handleValidationChangeAmounts(isValid);
+    
+  },[vehicleDetailsAmounts, handleValidationChangeAmounts, vehicleDetails])
 
   return (
     <div className="loan-type new-loan">
@@ -163,6 +190,45 @@ const LoanTypeNewComponent = () => {
               title="Vehicle Details"
               styles="custom-card-title"
             />
+            <div className="loan-vehicle-amounts">
+              <div className="loan-vehicle-form-group">
+               {/* <div className="input-group"> */}
+                  <div className="form-group">
+                    <CustomInputField
+                        inputPlaceholder={"0.00"}
+                        inputStyle="form-control principal"
+                        inputVal={vehicleDetailsAmounts.principalAmount}
+                        inputType="text"
+                        inputName="principalAmount"
+                        inputOnchange={handleVehicleDetailsAmount}
+                        onKeyDownHandler={OnKeydownPriceHandler}
+                    />
+                    <p className="amount-label">Principal Amount</p>
+                  </div>
+                 <div className="form-group">
+                 <CustomInputField
+                    inputPlaceholder={"0"}
+                    inputStyle="form-control terms"
+                    inputVal={vehicleDetailsAmounts.terms}
+                    inputType="text"
+                    inputName="terms"
+                    inputOnchange={handleVehicleDetailsAmount}
+                  />
+                    <p className="amount-label">Terms (months)</p>
+                 </div>
+                <div className="form-group">
+                  <CustomInputField
+                  inputPlaceholder={"0%"}
+                  inputStyle="form-control interest"
+                  inputVal={vehicleDetailsAmounts.interest}
+                  inputType="text"
+                  inputName="interest"
+                  readOnly={true}
+                  />
+                  <p className="amount-label">Interest</p>
+                </div>
+              </div>
+            </div>
             <div className="loan-content">
               <LoanSelection
                 loanType={type}

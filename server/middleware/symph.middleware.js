@@ -1,10 +1,9 @@
 const Logger = require("../config/logger.config");
 
 const ErrorLogger = (error, request, response , next) => {
-    console.log("Error Logging", request.url);
     Logger.loggerError.addContext("context", `Logging.. - 
-        Request URL: ${request.url} - ${JSON.stringify(error.response.message)} - ${JSON.stringify(error.response.status)}`);
-    Logger.loggerError.error(error.response.stack);
+        Request URL: ${request.url} - ${JSON.stringify(error.response.message)} | ${JSON.stringify(error.response.data.error.code)} - ${JSON.stringify(error.response.status)}`);
+    Logger.loggerError.error(error.response.data.error.stack);
     next(error)
 }
 const ErrorHandler = (error, request, response , next) => {
@@ -25,8 +24,8 @@ const ErrorHandler = (error, request, response , next) => {
 }
 
 const ErrorResponder = (error, request, response , next) => {
-    console.log("Error Reponding", error);
-    response.status(error.status).send(error)
+    console.log("Error Reponding");
+    response.status(error.status).send(error.data);
 }
 
 module.exports = {

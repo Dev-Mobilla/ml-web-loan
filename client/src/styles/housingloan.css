@@ -81,7 +81,7 @@
 .text-label {
   font-size: 18px;
   font-weight: 400;
-  margin-right: 10px;
+  margin-right: 5px;
   line-height: 21px;
   letter-spacing: -0.3px;
   color: var(--text-gray);
@@ -147,6 +147,12 @@
   width: 136px;
   height: 35px;
   font-size: 15px;
+}
+
+.pay-now-button.disabled {
+  background-color:#ff5d5d;
+  color: white;
+  cursor: no-drop;
 }
 
 .pay-now-button img {

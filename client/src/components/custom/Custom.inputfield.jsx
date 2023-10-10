@@ -6,6 +6,9 @@ const CustomInputField = ({
   inputOnchange,
   inputVal,
   inputPlaceholder,
+  inputName,
+  onKeyDownHandler,
+  readOnly
 }) => {
   return (
     <input
@@ -14,6 +17,9 @@ const CustomInputField = ({
       onChange={inputOnchange}
       value={inputVal}
       placeholder={inputPlaceholder}
+      name={inputName}
+      onKeyDown={onKeyDownHandler}
+      readOnly={readOnly}
     />
   );
 };

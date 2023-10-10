@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../../../styles/housingloan.css";
+import "../../../styles/paymentDetails.css";
 import {
   AlertModalComponent,
   CustomButton,
@@ -8,9 +9,11 @@ import {
   CustomStatus,
   TopbarComponent,
   LoadingComponent,
+  PaymentDetailsModalComponent,
 } from "../../index";
 import houseIcon from "../../../assets/icons/house.png";
-import mlicon from "../../../assets/icons/Paynow_icn.png";
+import mlicon from "../../../assets/icons/diamond.png";
+// import mlicon from "../../../assets/icons/Paynow_icn.png";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import {
   GetLoanDetails,
@@ -64,12 +67,14 @@ const ManageLoansDetailsComponent = () => {
 
   const [paymentsHistory, setPaymentHistory] = useState([]);
   const [alertModal, setAlertModal] = useState(false);
-  const [alertProps, setAlertProps] = useState(false);
+  const [alertProps, setAlertProps] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [pdfContent, setPdfContent] = useState(null);
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [message, setMessage] = useState("");
+  const [showModal, setShowModal] = useState(false);
+  const [paymentData, setPaymentData] = useState(null);
 
   const [loanDetails, setLoanDetails] = useState({
     dueAmount: "",
@@ -79,6 +84,12 @@ const ManageLoansDetailsComponent = () => {
     reference: "",
     status: "",
   });
+
+  const [payNowBtn, setPayNowBtn] = useState({
+    isDisable: false,
+    classname: "",
+    text: "Pay Now"
+  })
 
   const displayError = (error) => {
     setAlertModal(true);
@@ -344,8 +355,7 @@ const ManageLoansDetailsComponent = () => {
   };
 
   const PaymentHistoryHandler = async () => {
-    // const response = await GetPaymentHistory({reference: LoanReference});
-    const response = await GetPaymentHistory({ reference: "QPNWIJPKDLD" });
+    const response = await GetPaymentHistory({ reference: LoanReference });
 
     const displayError = (message) => {
       setMessage(message);
@@ -387,12 +397,20 @@ const ManageLoansDetailsComponent = () => {
     try {
       const amount = loanDetails.dueAmount;
       if (amount <= 0) {
-        throw createError(403, "TRANSACTION_NOT_ALLOWED_SENDER", "Principal amount is not allowed.");
+        throw createError(
+          403,
+          "TRANSACTION_NOT_ALLOWED_SENDER",
+          "Principal amount is not allowed."
+        );
       }
+      setPayNowBtn({
+        isDisable: true,
+        classname: "disabled",
+        text: "Loading..."
+      })
       const serviceFeeResponse = await getServiceFee(amount);
-      console.log("serviceFeeResponse:", serviceFeeResponse);
+      const serviceFee = serviceFeeResponse.data.totalServiceFee;
       const thresholdResponse = await getThresholdAmount();
-      console.log("thresholdResponse:", thresholdResponse);
       const accountDetails = getCookieData();
 
       if (!serviceFeeResponse || !thresholdResponse || !accountDetails) {
@@ -403,7 +421,7 @@ const ManageLoansDetailsComponent = () => {
         );
       }
 
-      const { firstName, lastName, middleName } = accountDetails;
+      const { firstName, lastName } = accountDetails;
 
       const validationResponse = await validateAccountNumber(
         loanDetails.reference,
@@ -435,25 +453,109 @@ const ManageLoansDetailsComponent = () => {
         );
       }
 
+      const toPay = validationResponse.data.responseSearch.amount;
+      if (parseFloat(amount) !== parseFloat(toPay)) {
+        throw createError(
+          401,
+          "Amount mismatch",
+          `The amount required by biller is ₱${toPay} pesos`
+        );
+      }
+
       const confirmation = await showConfirmationModal({
-        amount: loanDetails.dueAmount,
-        accountFirstname: firstName,
-        accountLastname: lastName,
+        loanType: "ML VEHICLE LOANS FINANCING",
+        amount: parseFloat(toPay),
+        accountFirstName:
+          validationResponse.data.responseSearch.accounFirstName,
+        accountLastName: validationResponse.data.responseSearch.accountLastName,
         accountNo: loanDetails.reference,
+        method: "ML Wallet",
+        serviceFee: serviceFee,
+        total: parseFloat(toPay),
       });
 
       if (!confirmation) {
-        displayError("Payment canceled");
+        displayError("Confirmation Error");
         return;
       }
 
+      if (confirmation) {
+        setPaymentData(confirmation);
+        setShowModal(true);
+      }
+
+      setPayNowBtn({
+        isDisable: false,
+        classname: "",
+        text: "Pay Now"
+      })
+
+      isSuccess = true;
+    } catch (error) {
+      setAlertModal(true);
+      setAlertProps({
+        message: error.displayMessage || "An error occurred",
+        title: "Error",
+        color: "#ff6562",
+        onClose: handleModalClose,
+      });
+      setPayNowBtn({
+        isDisable: false,
+        classname: "",
+        text: "Pay Now"
+      })
+    }
+  };
+
+  const createError = (code, message, displayMessage) => ({
+    code,
+    message,
+    status: code,
+    success: false,
+    displayMessage,
+  });
+
+  const showConfirmationModal = async (paymentData) => {
+    try {
+      return paymentData;
+    } catch (error) {
+      setAlertModal(true);
+      setAlertProps({
+        message: error.displayMessage || "An error occurred",
+        onClose: handleModalClose,
+      });
+      return false;
+    }
+  };
+
+  const handleCancelPayment = () => {
+    const errorObject = createError(
+      400,
+      "The payment has been canceled.",
+      "The payment has been canceled."
+    );
+
+    setPaymentData({});
+    setShowModal(false);
+    setAlertProps({
+      title: "Information",
+      message: errorObject.message,
+      color: "#0077ff",
+      onClose: handleModalClose,
+    });
+    setAlertModal(true);
+  };
+
+  const handleProceedPayment = async (paymentData) => {
+    const { firstName, lastName, middleName, accountNo, total } = paymentData;
+    try {
       const accountMiddleName = middleName;
-      const amountPaid = loanDetails.dueAmount;
+      const amountPaid = total;
       const paymentResponse = await payNow(
         firstName,
         lastName,
         accountMiddleName,
-        loanDetails.reference,
+        accountNo,
         amountPaid
       );
 
@@ -473,59 +575,23 @@ const ManageLoansDetailsComponent = () => {
             "Principal amount is not allowed."
           );
         }
-      } else {
-        throw createError(
-          401,
-          "Authentication failed",
-          "Authentication failed"
-        );
       }
-
-      isSuccess = true;
+      setShowModal(false);
+      setAlertModal(true);
+      setAlertProps({
+        message: "Payment Successful",
+        title: "Success",
+        color: "#006400",
+        onClose: handleModalClose,
+      });
     } catch (error) {
       setAlertModal(true);
       setAlertProps({
         message: error.displayMessage || "An error occurred",
+        title: "Error",
+        color: "#ff6562",
         onClose: handleModalClose,
       });
-      console.log("Payment failed");
-    }
-
-    if (isSuccess) {
-      console.log("Payment success");
-    }
-  };
-
-  const createError = (code, message, displayMessage) => ({
-    code,
-    message,
-    status: code,
-    success: false,
-    displayMessage,
-  });
-
-  const showConfirmationModal = async (paymentData) => {
-    try {
-      if (paymentData.amount <= 0) {
-        throw createError(
-          403,
-          "Principal amount is not allowed.",
-          "Principal amount is not allowed."
-        );
-      }
-
-      const confirmModal = window.confirm(
-        `Confirm payment of ${paymentData.amount} to ${paymentData.accountFirstname} ${paymentData.accountLastname} (${paymentData.accountNo})?`
-      );
-
-      return confirmModal;
-    } catch (error) {
-      setAlertModal(true);
-      setAlertProps({
-        message: error.displayMessage || "An error occurred",
-        onClose: handleModalClose,
-      });
-      return false;
     }
   };
 
@@ -591,7 +657,9 @@ const ManageLoansDetailsComponent = () => {
             <CustomHeader title="Manage Existing Loan" />
             {alertModal ? (
               <AlertModalComponent
+                title={alertProps.title}
                 message={alertProps.message}
+                color={alertProps.color}
                 onClose={OnModalCloseHandler}
               />
             ) : null}
@@ -685,11 +753,22 @@ const ManageLoansDetailsComponent = () => {
                     </p>
                   </div>
                   <div className="pay-btn" onClick={handlePayNow}>
-                    <button className="pay-now-button">
+                    <button className={`pay-now-button ${payNowBtn.classname}`} disabled={payNowBtn.isDisable}>
                       <img src={mlicon} alt="ML Icon" />
-                      Pay Now
+                      {
+                        payNowBtn.text
+                      }
+                      {/* Pay Now */}
                     </button>
                   </div>
+
+                  {showModal && (
+                    <PaymentDetailsModalComponent
+                      paymentData={paymentData}
+                      closeModal={handleCancelPayment}
+                      proceedPayment={handleProceedPayment}
+                    />
+                  )}
                 </div>
               ) : (
                 <></>
