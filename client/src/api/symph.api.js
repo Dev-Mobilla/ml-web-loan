@@ -82,7 +82,7 @@ const payNow = async (
 
 const GetCountries = async () => {
   try {
-    const response = await ML_LoansAxiosInstance.get(`/api/ml-loans/get-countries`,
+    const response = await ML_LoansAxiosInstance.get(`/api/ml-loans/symph/get-countries`,
     {
       params: {
         name: "countries"
@@ -99,7 +99,7 @@ const GetCountries = async () => {
 
 const GetProvinces = async () => {
   try {
-    const response = await ML_LoansAxiosInstance.get(`/api/ml-loans/get-provinces`,
+    const response = await ML_LoansAxiosInstance.get(`/api/ml-loans/symph/get-provinces`,
     {
       params: {
         name: "provinces"
@@ -115,7 +115,7 @@ const GetProvinces = async () => {
 
 const GetCities = async () => {
   try {
-    const response = await ML_LoansAxiosInstance.get(`/api/ml-loans/get-cities`,
+    const response = await ML_LoansAxiosInstance.get(`/api/ml-loans/symph/get-cities`,
     {
       params: {
         name: "cities"
