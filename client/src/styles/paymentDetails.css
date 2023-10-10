@@ -7,12 +7,14 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: var(--white);
+  background-color: var(--bg-shadow);
 }
 
 .payment-modal-content {
   overflow: hidden;
   width: 800px;
+  padding: 50px;
+  background-color: var(--white);
 }
 
 .payment-title {
@@ -81,6 +83,10 @@
     padding: 20px;
   }
 
+  .payment-modal-content {
+    padding: 10px;
+  }
+
   .payment-btns {
     display: block;
     justify-content: center;
@@ -91,5 +97,6 @@
   .payment-pay-btn {
     width: 100%;
     margin-top: 10px;
+    cursor: pointer;
   }
 }

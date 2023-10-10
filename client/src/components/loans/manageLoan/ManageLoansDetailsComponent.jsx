@@ -13,7 +13,6 @@ import {
 } from "../../index";
 import houseIcon from "../../../assets/icons/house.png";
 import mlicon from "../../../assets/icons/diamond.png";
-// import mlicon from "../../../assets/icons/Paynow_icn.png";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import {
   GetLoanDetails,
@@ -83,13 +82,14 @@ const ManageLoansDetailsComponent = () => {
     loanType: "",
     reference: "",
     status: "",
+    total: "",
   });
 
   const [payNowBtn, setPayNowBtn] = useState({
     isDisable: false,
     classname: "",
-    text: "Pay Now"
-  })
+    text: "Pay Now",
+  });
 
   const displayError = (error) => {
     setAlertModal(true);
@@ -100,13 +100,13 @@ const ManageLoansDetailsComponent = () => {
 
   const LoanDetailsHandler = async () => {
     const response = await GetLoanDetails({ reference: LoanReference });
-
     setLoanDetails({
       dueAmount: "",
       feesAndCharges: "",
       paymentDueDate: "",
       reference: "",
       loanType: "",
+      total: "",
     });
 
     switch (response.status) {
@@ -125,6 +125,7 @@ const ManageLoansDetailsComponent = () => {
               reference: loan.reference,
               loanType: LoanType,
               status: loan.status,
+              total: loanPayment.total_payable,
             });
           } catch (error) {
             displayError("An error occurred while fetching the loan details.");
@@ -395,7 +396,7 @@ const ManageLoansDetailsComponent = () => {
   const handlePayNow = async () => {
     let isSuccess = false;
     try {
-      const amount = loanDetails.dueAmount;
+      const amount = loanDetails.total;
       if (amount <= 0) {
         throw createError(
           403,
@@ -406,8 +407,8 @@ const ManageLoansDetailsComponent = () => {
       setPayNowBtn({
         isDisable: true,
         classname: "disabled",
-        text: "Loading..."
-      })
+        text: "Loading...",
+      });
       const serviceFeeResponse = await getServiceFee(amount);
       const serviceFee = serviceFeeResponse.data.totalServiceFee;
       const thresholdResponse = await getThresholdAmount();
@@ -487,8 +488,8 @@ const ManageLoansDetailsComponent = () => {
       setPayNowBtn({
         isDisable: false,
         classname: "",
-        text: "Pay Now"
-      })
+        text: "Pay Now",
+      });
 
       isSuccess = true;
     } catch (error) {
@@ -502,8 +503,8 @@ const ManageLoansDetailsComponent = () => {
       setPayNowBtn({
         isDisable: false,
         classname: "",
-        text: "Pay Now"
-      })
+        text: "Pay Now",
+      });
     }
   };
 
@@ -753,11 +754,12 @@ const ManageLoansDetailsComponent = () => {
                     </p>
                   </div>
                   <div className="pay-btn" onClick={handlePayNow}>
-                    <button className={`pay-now-button ${payNowBtn.classname}`} disabled={payNowBtn.isDisable}>
+                    <button
+                      className={`pay-now-button ${payNowBtn.classname}`}
+                      disabled={payNowBtn.isDisable}
+                    >
                       <img src={mlicon} alt="ML Icon" />
-                      {
-                        payNowBtn.text
-                      }
+                      {payNowBtn.text}
                       {/* Pay Now */}
                     </button>
                   </div>
