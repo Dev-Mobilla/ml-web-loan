@@ -355,7 +355,7 @@ const ManageLoansDetailsComponent = () => {
   };
 
   const PaymentHistoryHandler = async () => {
-    const response = await GetPaymentHistory({reference: LoanReference});
+    const response = await GetPaymentHistory({ reference: LoanReference });
 
     const displayError = (message) => {
       setMessage(message);
@@ -495,6 +495,8 @@ const ManageLoansDetailsComponent = () => {
       setAlertModal(true);
       setAlertProps({
         message: error.displayMessage || "An error occurred",
+        title: "Error",
+        color: "#ff6562",
         onClose: handleModalClose,
       });
       setPayNowBtn({
@@ -535,7 +537,12 @@ const ManageLoansDetailsComponent = () => {
 
     setPaymentData({});
     setShowModal(false);
-    setAlertProps(errorObject);
+    setAlertProps({
+      title: "Information",
+      message: errorObject.message,
+      color: "#0077ff",
+      onClose: handleModalClose,
+    });
     setAlertModal(true);
   };
 
@@ -570,11 +577,19 @@ const ManageLoansDetailsComponent = () => {
         }
       }
       setShowModal(false);
-
+      setAlertModal(true);
+      setAlertProps({
+        message: "Payment Successful",
+        title: "Success",
+        color: "#006400",
+        onClose: handleModalClose,
+      });
     } catch (error) {
       setAlertModal(true);
       setAlertProps({
         message: error.displayMessage || "An error occurred",
+        title: "Error",
+        color: "#ff6562",
         onClose: handleModalClose,
       });
     }
@@ -642,7 +657,9 @@ const ManageLoansDetailsComponent = () => {
             <CustomHeader title="Manage Existing Loan" />
             {alertModal ? (
               <AlertModalComponent
+                title={alertProps.title}
                 message={alertProps.message}
+                color={alertProps.color}
                 onClose={OnModalCloseHandler}
               />
             ) : null}
