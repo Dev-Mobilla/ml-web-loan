@@ -9,7 +9,7 @@ const ErrorLogger = (error, request, response , next) => {
 }
 const ErrorHandler = (error, request, response , next) => {
     
-    let statusCode = [404, 403, 401, 500];
+    let statusCode = [404, 403, 401, 500, 400];
 
     let errorCode = error.response.status
     

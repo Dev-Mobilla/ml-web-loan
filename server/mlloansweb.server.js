@@ -29,7 +29,6 @@ app.get('/', (req, res) => {
 
 //ROUTES
 app.use('/api/ml-loans/symph', PUBLIC_ROUTER);
-
 app.use('/api/loans/symph', Auth , SYMPH_API_ROUTER);
 app.use('/api/ml-loans', Auth , ML_LOAN_ROUTER);
 
