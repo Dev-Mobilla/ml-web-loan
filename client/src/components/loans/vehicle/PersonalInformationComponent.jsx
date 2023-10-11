@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
-
+import { GetCountries, GetProvinces, GetCities } from "../../../api/symph.api";
+import {
+  LoadingComponent,
+} from "../../index";
 const PersonalInformationComponent = ({
   onValidationChange,
   onInformationDetailsChange,
@@ -18,7 +21,15 @@ const PersonalInformationComponent = ({
     office_landline: "",
     sourceOfIncome: "",
     monthly_income: "",
+    countries: "",
+    provinces: "",
+    cities: ""
   });
+  const [ListOfCountries, setListOfCountries] = useState([]);
+  const [ListOfProvinces, setListOfProvinces] = useState([]);
+  const [ListOfCities, setListOfCities] = useState([]);
+  const [loading, setLoading] = useState(true);
+
   const [errors, setErrors] = useState({});
   useEffect(() => {
     const isValid =
@@ -33,18 +44,76 @@ const PersonalInformationComponent = ({
       informationDetails.office_address.trim() !== "" &&
       informationDetails.office_landline.trim() !== "" &&
       informationDetails.sourceOfIncome.trim() !== "" &&
-      informationDetails.monthly_income.trim() !== "";
+      informationDetails.monthly_income.trim() !== "" &&
+      informationDetails.countries.trim() !== "" &&
+      informationDetails.provinces.trim() !== "" &&
+      informationDetails.cities.trim() !== "";
     onValidationChange(isValid);
-
     onInformationDetailsChange(informationDetails);
+    fetchData();
   }, [informationDetails, onValidationChange, onInformationDetailsChange]);
+
+  const fetchData = async () => {
+    try {
+      const getCountries = await GetCountries();
+      const getProvinces = await GetProvinces();
+      const getCities = await GetCities();
+      setListOfCountries(await getCountries.data);
+      setListOfProvinces(await getProvinces.data);
+      setListOfCities(await getCities.data);
+    } catch (error) {
+      console.error('Error:', error);
+    }
+    setLoading(false);
+  };
+  const handleCountryChange = async (event) => {
+    const selectedCountryId = event.target.value;
+    setInformationDetails((prevState) => ({
+      ...prevState,
+      countries: selectedCountryId,
+    }));
+
+    setLoading(true); // Set loading state to true
+
+    try {
+      // Fetch provinces and cities specific to the selected country
+      const getProvinces = await GetProvinces(selectedCountryId);
+      const getCities = await GetCities(selectedCountryId);
+
+      setListOfProvinces(await getProvinces.data);
+      setListOfCities(await getCities.data);
+    } catch (error) {
+      console.error('Error:', error);
+    }
+
+    setLoading(false); // Set loading state to false after data is fetched
+  };
+  const handleProvinceChange = async (event) => {
+    const selectedProvinceId = event.target.value;
+    setInformationDetails((prevState) => ({
+      ...prevState,
+      provinces: selectedProvinceId,
+    }));
+    setLoading(true); // Set loading state to true
+    try {
+      // Fetch provinces and cities specific to the selected country
+      const getCities = await GetCities(selectedProvinceId);
+      setListOfCities(await getCities.data);
+    } catch (error) {
+      console.error('Error:', error);
+    }
+
+    setLoading(false); // Set loading state to false after data is fetched
+  };
+
+
+
   const [fieldBorders, setFieldBorders] = useState({
     mobile_number: '1px solid #ccc',
     email: '1px solid #ccc',
-
   });
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
     setInformationDetails((prevDetails) => ({
       ...prevDetails,
       [name]: value,
@@ -59,6 +128,7 @@ const PersonalInformationComponent = ({
         ...prevErrors,
         [name]: `Please select your Nationality`,
       }));
+
     } else {
       setErrors((prevErrors) => ({ ...prevErrors, [name]: '' }));
     }
@@ -66,6 +136,7 @@ const PersonalInformationComponent = ({
   const handleFocus = (fieldName) => {
     // Clear the error message for the corresponding input field
     setErrors((prevErrors) => ({ ...prevErrors, [fieldName]: '' }));
+
   };
   const handleBlur = (fieldName) => {
     // Perform validation when the input field is unfocused (blurred)
@@ -360,6 +431,74 @@ const PersonalInformationComponent = ({
         />
         <div style={{ color: 'red', fontSize: '12px', margin: '10px 20px 20px 0' }}>{errors.monthly_income}</div>
 
+      </div>
+      <div className="c-details-input">
+        {loading && (
+          <div className="overlay">
+            <LoadingComponent containerStyle="container-loading" />
+          </div>
+        )}
+        <select
+          className="d-select"
+          name="countries"
+          value={informationDetails.countries}
+          onChange={(event) => {
+            handleInputChange(event);
+            handleCountryChange(event);
+          }}
+          onFocus={() => handleFocus('countries')}
+          onBlur={() => handleBlur('countries')}
+          style={{ border: fieldBorders.countries }}
+        >
+          <option value="">Country</option>
+          {ListOfCountries.map((country) => (
+            <option key={country.addressL0Id} value={country.id}>
+              {country.name}
+            </option>
+          ))}
+        </select>
+        <div style={{ color: 'red', fontSize: '12px', margin: '10px 20px 20px 0' }}>{errors.countries}</div>
+      </div>
+      <div className="c-details-input">
+        <select
+          className="d-select"
+          name="provinces"
+          value={informationDetails.provinces}
+          onChange={(event) => {
+            handleInputChange(event);
+            handleProvinceChange(event);
+          }}
+          onFocus={() => handleFocus('provinces')}
+          onBlur={() => handleBlur('provinces')}
+          style={{ border: fieldBorders.provinces }}
+        >
+          <option value="">Province</option>
+          {ListOfProvinces.map((province) => (
+            <option key={province.addressL1Id} value={province.id}>
+              {province.name}
+            </option>
+          ))}
+        </select>
+        <div style={{ color: 'red', fontSize: '12px', margin: '10px 20px 20px 0' }}>{errors.provinces}</div>
+      </div>
+      <div className="c-details-input">
+        <select
+          className="d-select"
+          name="cities"
+          value={informationDetails.cities}
+          onChange={handleInputChange}
+          onFocus={() => handleFocus('cities')}
+          onBlur={() => handleBlur('cities')}
+          style={{ border: fieldBorders.cities }}
+        >
+          <option value="">City</option>
+          {ListOfCities.map((city) => (
+            <option key={city.addressL2Id} value={city.id}>
+              {city.name}
+            </option>
+          ))}
+        </select>
+        <div style={{ color: 'red', fontSize: '12px', margin: '10px 20px 20px 0' }}>{errors.cities}</div>
       </div>
     </div>
   );
