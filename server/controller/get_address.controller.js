@@ -37,7 +37,7 @@ const GetAddressApi = async (req, res, next) => {
             const response = await axios.get(url, config);
             // console.log("response", response);
             res.status(200).send(response.data);
-            SuccessLogger(response.url, response.status, `GET ${apiName.toUpperCase()}: ${JSON.stringify(response.data)}`);
+            SuccessLogger(response.url, response.status, `GET ${apiName.toUpperCase()}: ${JSON.stringify(response.data.data.length)}`);
 
         }
         else{
