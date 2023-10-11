@@ -9,7 +9,7 @@ const FooterComponent = () => {
           Copyright &copy; 2023 Financial Services, Inc. All Rights Reserved
         </div>
         <div className="right-side">
-          <a href="/">About Us</a> &nbsp;&nbsp; <a href="/">Privacy Policy</a>
+          <a href="https://mlhuillier.com/about-m-lhuillier-financial-services">About Us</a> &nbsp;&nbsp; <a href="https://mlhuillier.com/privacy-notice/">Privacy Policy</a>
         </div>
       </div>
     </footer>
