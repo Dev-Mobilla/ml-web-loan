@@ -11,7 +11,7 @@ const API_BASE_URL = process.env.CKYC_API_URL;
 const GetAddressApi = async (req, res, next) => {
     try {
 
-        console.log("REQUEST", req);
+        // console.log("REQUEST", req);
 
         const apiName = req.query.name;
         console.log(apiName);

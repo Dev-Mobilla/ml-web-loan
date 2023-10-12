@@ -9,11 +9,11 @@ const API_BASE_URL = process.env.CKYC_API_URL;
 const SearchKyc = async(req, res, next) => {
 
     try {
-        const { firstName, lastName, birthdate, ckycId, cellphoneNumber, email } = req.query;
+        const { cellphoneNumber } = req.query;
 
         const getToken = await GenerateToken();
 
-        if (getToken.status === 201 && getToken.data.data.token) {
+        if (getToken.status === 201 && getToken.data.data.token && cellphoneNumber) {
 
             let token = getToken.data.data.token;
             console.log("token", token);
@@ -26,11 +26,8 @@ const SearchKyc = async(req, res, next) => {
                     "Accept": "application/json",
                     "Content-Type": "application/json",
                 },
-                // params:{
-                //     firstName, lastName, birthdate, ckycId, cellphoneNumber, email
-                // }
                 params:{
-                    firstName: "", lastName: "", birthdate: "", ckycId: "", cellphoneNumber:"09856346185", email: ""
+                    cellphoneNumber
                 }
 
             };

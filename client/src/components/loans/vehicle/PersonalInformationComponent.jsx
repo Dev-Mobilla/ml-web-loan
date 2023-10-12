@@ -23,7 +23,8 @@ const PersonalInformationComponent = ({
     monthly_income: "",
     countries: "",
     provinces: "",
-    cities: ""
+    cities: "",
+    barangay: "",
   });
   const [ListOfCountries, setListOfCountries] = useState([]);
   const [ListOfProvinces, setListOfProvinces] = useState([]);
@@ -47,10 +48,12 @@ const PersonalInformationComponent = ({
       informationDetails.monthly_income.trim() !== "" &&
       informationDetails.countries.trim() !== "" &&
       informationDetails.provinces.trim() !== "" &&
-      informationDetails.cities.trim() !== "";
+      informationDetails.cities.trim() !== ""&&
+      informationDetails.barangay.trim() !== "";
     onValidationChange(isValid);
     onInformationDetailsChange(informationDetails);
     fetchData();
+    console.log("information", informationDetails);
   }, [informationDetails, onValidationChange, onInformationDetailsChange]);
 
   const fetchData = async () => {
@@ -68,45 +71,45 @@ const PersonalInformationComponent = ({
   };
   const handleCountryChange = async (event) => {
     const selectedCountryId = event.target.value;
+
     setInformationDetails((prevState) => ({
       ...prevState,
       countries: selectedCountryId,
     }));
 
-    setLoading(true); // Set loading state to true
+    // setLoading(true); // Set loading state to true
 
-    try {
-      // Fetch provinces and cities specific to the selected country
-      const getProvinces = await GetProvinces(selectedCountryId);
-      const getCities = await GetCities(selectedCountryId);
+    // try {
+    //   // Fetch provinces and cities specific to the selected country
+    //   const getProvinces = await GetProvinces(selectedCountryId);
+    //   const getCities = await GetCities(selectedCountryId);
 
-      setListOfProvinces(await getProvinces.data);
-      setListOfCities(await getCities.data);
-    } catch (error) {
-      console.error('Error:', error);
-    }
+    //   setListOfProvinces(await getProvinces.data);
+    //   setListOfCities(await getCities.data);
+    // } catch (error) {
+    //   console.error('Error:', error);
+    // }
 
-    setLoading(false); // Set loading state to false after data is fetched
+    // setLoading(false); // Set loading state to false after data is fetched
   };
   const handleProvinceChange = async (event) => {
     const selectedProvinceId = event.target.value;
+
     setInformationDetails((prevState) => ({
       ...prevState,
-      provinces: selectedProvinceId,
+      provinces: selectedProvinceId
     }));
-    setLoading(true); // Set loading state to true
-    try {
-      // Fetch provinces and cities specific to the selected country
-      const getCities = await GetCities(selectedProvinceId);
-      setListOfCities(await getCities.data);
-    } catch (error) {
-      console.error('Error:', error);
-    }
+    // setLoading(true); // Set loading state to true
+    // try {
+    //   // Fetch provinces and cities specific to the selected country
+    //   const getCities = await GetCities(selectedProvinceId);
+    //   setListOfCities(await getCities.data);
+    // } catch (error) {
+    //   console.error('Error:', error);
+    // }
 
-    setLoading(false); // Set loading state to false after data is fetched
+    // setLoading(false); // Set loading state to false after data is fetched
   };
-
-
 
   const [fieldBorders, setFieldBorders] = useState({
     mobile_number: '1px solid #ccc',
@@ -281,7 +284,19 @@ const PersonalInformationComponent = ({
         <div style={{ color: 'red', fontSize: '12px', margin: '10px 20px 20px 0' }}>{errors.birthdate}</div>
       </div>
       <div className="c-details-input">
-        <select
+      <input
+          required
+          className="d-input"
+          type="text"
+          name="nationality"
+          placeholder="Nationality"
+          value={informationDetails.nationality}
+          onChange={handleInputChange}
+          onFocus={() => handleFocus('nationality')}
+          onBlur={() => handleBlur('nationality')}
+          style={{ border: fieldBorders.nationality }}
+        />
+        {/* <select
           className="d-select"
           name="nationality"
           value={informationDetails.nationality}
@@ -296,7 +311,7 @@ const PersonalInformationComponent = ({
           <option value="uk">United Kingdom</option>
           <option value="ca">Canada</option>
           <option value="au">Australia</option>
-        </select>
+        </select> */}
         <div style={{ color: 'red', fontSize: '12px', margin: '10px 20px 20px 0' }}>{errors.nationality}</div>
       </div>
       <div className="c-details-input">
@@ -452,7 +467,7 @@ const PersonalInformationComponent = ({
         >
           <option value="">Country</option>
           {ListOfCountries.map((country) => (
-            <option key={country.addressL0Id} value={country.id}>
+            <option key={country.addressL0Id} value={`${country.name}|${country.addressL0Id}`}>
               {country.name}
             </option>
           ))}
@@ -474,7 +489,7 @@ const PersonalInformationComponent = ({
         >
           <option value="">Province</option>
           {ListOfProvinces.map((province) => (
-            <option key={province.addressL1Id} value={province.id}>
+            <option key={province.addressL1Id} value={`${province.name}|${province.addressL1Id}`}>
               {province.name}
             </option>
           ))}
@@ -486,19 +501,37 @@ const PersonalInformationComponent = ({
           className="d-select"
           name="cities"
           value={informationDetails.cities}
-          onChange={handleInputChange}
+          onChange={(event) => {
+            handleInputChange(event);
+          }}
           onFocus={() => handleFocus('cities')}
           onBlur={() => handleBlur('cities')}
           style={{ border: fieldBorders.cities }}
         >
           <option value="">City</option>
           {ListOfCities.map((city) => (
-            <option key={city.addressL2Id} value={city.id}>
+            <option key={city.addressL2Id} value={`${city.name}|${city.addressL2Id}`}>
               {city.name}
             </option>
           ))}
         </select>
         <div style={{ color: 'red', fontSize: '12px', margin: '10px 20px 20px 0' }}>{errors.cities}</div>
+      </div>
+      <div className="c-details-input">
+        <input
+          className="d-input"
+          type="text"
+          name="barangay"
+          placeholder="Barangay"
+          value={informationDetails.barangay}
+          onChange={handleInputChange}
+          onFocus={() => handleFocus('barangay')}
+          onBlur={() => handleBlur('barangay')}
+          style={{ border: fieldBorders.barangay }}
+
+        />
+        <div style={{ color: 'red', fontSize: '12px', margin: '10px 20px 20px 0' }}>{errors.barangay}</div>
+
       </div>
     </div>
   );

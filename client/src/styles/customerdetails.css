@@ -32,7 +32,10 @@ input[type="date"]:focus::before,
 input[type="date"]:valid::before {
   content: "" !important;
 }
-
+.customer-details-group .c-details-input input:read-only{
+  cursor: no-drop;
+  background-color:rgba(232, 232, 232, 0.405) ;
+}
 
 
 

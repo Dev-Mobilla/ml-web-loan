@@ -70,7 +70,33 @@ const CustomerDetailsComponent = () => {
     office_landline: "",
     sourceOfIncome: "",
     monthly_income: "",
+    countries: "",
+    provinces: "",
+    cities: "",
+    barangay:""
   });
+
+  useEffect(() => {
+
+    const getAddressName = (name) => {
+      
+      let isEmpty = name === "";
+
+      if (!isEmpty) {
+        let nameVal = name.split("|");
+
+        return nameVal[0].toUpperCase();
+    
+      }
+      return name;
+   
+    }
+    let barangay = getAddressName(informationDetails.barangay);
+    let city = getAddressName(informationDetails.cities);
+    let province = getAddressName(informationDetails.provinces);
+    let country = getAddressName(informationDetails.countries);
+    setAddress(`${barangay} ${city} ${province} ${country}`)
+  })
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const phoneRegex = /^\+?[\d\s()-]{7,15}$/;
@@ -96,7 +122,11 @@ const CustomerDetailsComponent = () => {
       informationDetails.office_address.trim() !== "" &&
       informationDetails.office_landline.trim() !== "" &&
       informationDetails.sourceOfIncome.trim() !== "" &&
-      informationDetails.monthly_income.trim() !== "";
+      informationDetails.monthly_income.trim() !== "" &&
+      informationDetails.countries.name.trim() !== "" &&
+      informationDetails.provinces.name.trim() !== "" &&
+      informationDetails.cities.name.trim() !== "" &&
+      informationDetails.barangay.trim() !== "";
     const isAddressValid = address?.trim() !== "";
     const isOptionSelected = selectedOption !== "";
 
@@ -332,6 +362,7 @@ const CustomerDetailsComponent = () => {
                 onFocus={() => handleFocus('current_address')}
                 onBlur={() => handleBlur('current_address')}
                 style={{ border: fieldBorders.current_address }}
+                readOnly
               />
               <input type="submit" id="search-btn" value="Search" />
             </form>

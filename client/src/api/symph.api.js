@@ -129,4 +129,20 @@ const GetCities = async () => {
 
 }
 
-export { getServiceFee, getThresholdAmount, validateAccountNumber, payNow, GetCountries, GetProvinces, GetCities };
+const SearchKyc = async (mobileNumber) => {
+
+  try {
+    const response = await ML_LoansAxiosInstance.get(`/api/ml-loans/symph/get-customers`,
+    {
+      params: {
+        cellphoneNumber: mobileNumber
+      }
+    });
+
+    return response
+  } catch (error) {
+    throw error
+  }
+}
+
+export { getServiceFee, getThresholdAmount, validateAccountNumber, payNow, GetCountries, GetProvinces, GetCities, SearchKyc };
