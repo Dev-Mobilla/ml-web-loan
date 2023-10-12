@@ -11,6 +11,7 @@ const PersonalInformationComponent = ({
     firstname: "",
     lastname: "",
     middlename: "",
+    suffix:"",
     birthdate: "",
     nationality: "",
     civil_status: "",
@@ -258,13 +259,23 @@ const PersonalInformationComponent = ({
         />
         <div style={{ color: 'red', fontSize: '12px', margin: '10px 20px 20px 0' }}>{errors.lastname}</div>
       </div>
-      <div className="c-details-input">
+      <div className="c-details-input" style={{ margin:"10px 0px" }}>
         <input
           className="d-input"
           type="text"
           name="middlename"
           placeholder="Middle Name (Optional)"
           value={informationDetails.middlename}
+          onChange={handleInputChange}
+        />
+      </div>
+      <div className="c-details-input" style={{ margin:"10px 0px" }}>
+        <input
+          className="d-input"
+          type="text"
+          name="suffix"
+          placeholder="Suffix (Optional)"
+          value={informationDetails.suffix}
           onChange={handleInputChange}
         />
       </div>
