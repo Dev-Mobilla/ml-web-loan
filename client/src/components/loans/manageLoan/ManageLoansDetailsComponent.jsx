@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import "../../../styles/housingloan.css";
-import "../../../styles/paymentDetails.css";
 import {
   AlertModalComponent,
   CustomButton,
@@ -20,10 +19,10 @@ import {
   GetLoanPaymentSchedule,
 } from "../../../api/hatchit.api";
 import {
-  getServiceFee,
-  validateAccountNumber,
-  getThresholdAmount,
-  payNow,
+  GetServiceFee,
+  GetThresholdAmount,
+  PayNow,
+  ValidateAccountNumber,
 } from "../../../api/symph.api";
 import { getCookieData } from "../../../utils/CookieChecker";
 import pdfMake from "pdfmake/build/pdfmake";
@@ -401,7 +400,7 @@ const ManageLoansDetailsComponent = () => {
         throw createError(
           403,
           "TRANSACTION_NOT_ALLOWED_SENDER",
-          "Principal amount is not allowed."
+          "You don't have payment for this month."
         );
       }
       setPayNowBtn({
@@ -409,9 +408,9 @@ const ManageLoansDetailsComponent = () => {
         classname: "disabled",
         text: "Loading...",
       });
-      const serviceFeeResponse = await getServiceFee(amount);
+      const serviceFeeResponse = await GetServiceFee(amount);
       const serviceFee = serviceFeeResponse.data.totalServiceFee;
-      const thresholdResponse = await getThresholdAmount();
+      const thresholdResponse = await GetThresholdAmount();
       const accountDetails = getCookieData();
 
       if (!serviceFeeResponse || !thresholdResponse || !accountDetails) {
@@ -424,9 +423,7 @@ const ManageLoansDetailsComponent = () => {
 
       const { firstName, lastName, middleName } = accountDetails;
 
-      console.log("account details:", accountDetails);
-
-      const validationResponse = await validateAccountNumber(
+      const validationResponse = await ValidateAccountNumber(
         loanDetails.reference,
         firstName,
         lastName
@@ -561,7 +558,7 @@ const ManageLoansDetailsComponent = () => {
       total,
     } = paymentData;
     try {
-      const paymentResponse = await payNow(
+      const paymentResponse = await PayNow(
         accountFirstName,
         accountLastName,
         accountMiddleName,
