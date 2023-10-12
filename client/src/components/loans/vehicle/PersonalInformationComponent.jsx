@@ -3,30 +3,14 @@ import { GetCountries, GetProvinces, GetCities } from "../../../api/symph.api";
 import {
   LoadingComponent,
 } from "../../index";
+
 const PersonalInformationComponent = ({
   onValidationChange,
   onInformationDetailsChange,
+  informationDetails,
+  setInformationDetails,
+  isEditable
 }) => {
-  const [informationDetails, setInformationDetails] = useState({
-    firstname: "",
-    lastname: "",
-    middlename: "",
-    suffix:"",
-    birthdate: "",
-    nationality: "",
-    civil_status: "",
-    employeer_business: "",
-    nature_business: "",
-    tenure: "",
-    office_address: "",
-    office_landline: "",
-    sourceOfIncome: "",
-    monthly_income: "",
-    countries: "",
-    provinces: "",
-    cities: "",
-    barangay: "",
-  });
   const [ListOfCountries, setListOfCountries] = useState([]);
   const [ListOfProvinces, setListOfProvinces] = useState([]);
   const [ListOfCities, setListOfCities] = useState([]);
@@ -35,27 +19,27 @@ const PersonalInformationComponent = ({
   const [errors, setErrors] = useState({});
   useEffect(() => {
     const isValid =
-      informationDetails.firstname.trim() !== "" &&
-      informationDetails.lastname.trim() !== "" &&
-      informationDetails.birthdate.trim() !== "" &&
-      informationDetails.nationality.trim() !== "" &&
-      informationDetails.civil_status.trim() !== "" &&
-      informationDetails.employeer_business.trim() !== "" &&
-      informationDetails.nature_business.trim() !== "" &&
-      informationDetails.tenure.trim() !== "" &&
-      informationDetails.office_address.trim() !== "" &&
-      informationDetails.office_landline.trim() !== "" &&
-      informationDetails.sourceOfIncome.trim() !== "" &&
-      informationDetails.monthly_income.trim() !== "" &&
-      informationDetails.countries.trim() !== "" &&
-      informationDetails.provinces.trim() !== "" &&
-      informationDetails.cities.trim() !== ""&&
-      informationDetails.barangay.trim() !== "";
+      informationDetails.firstname !== "" &&
+      informationDetails.lastname !== "" &&
+      informationDetails.birthdate !== "" &&
+      informationDetails.nationality !== "" &&
+      informationDetails.civil_status !== "" &&
+      informationDetails.employeer_business !== "" &&
+      informationDetails.nature_business !== "" &&
+      informationDetails.tenure !== "" &&
+      informationDetails.office_address !== "" &&
+      informationDetails.office_landline !== "" &&
+      informationDetails.sourceOfIncome !== "" &&
+      informationDetails.monthly_income !== "" &&
+      informationDetails.countries !== "" &&
+      informationDetails.provinces !== "" &&
+      informationDetails.cities !== "" &&
+      informationDetails.barangay !== "";
     onValidationChange(isValid);
     onInformationDetailsChange(informationDetails);
     fetchData();
-    console.log("information", informationDetails);
-  }, [informationDetails, onValidationChange, onInformationDetailsChange]);
+    // console.log("information", informationDetails);
+  }, [informationDetails, onValidationChange]);
 
   const fetchData = async () => {
     try {
@@ -144,7 +128,7 @@ const PersonalInformationComponent = ({
   };
   const handleBlur = (fieldName) => {
     // Perform validation when the input field is unfocused (blurred)
-    if (informationDetails[fieldName].trim() === '') {
+    if (informationDetails[fieldName] === '') {
       if (fieldName === 'civil_status') {
         setErrors((prevErrors) => ({
           ...prevErrors,
@@ -228,6 +212,7 @@ const PersonalInformationComponent = ({
       }));
     }
   }
+
   return (
     <div>
       <div className="c-details-input">
@@ -242,9 +227,11 @@ const PersonalInformationComponent = ({
           onFocus={() => handleFocus('firstname')}
           onBlur={() => handleBlur('firstname')}
           style={{ border: fieldBorders.firstname }}
+          readOnly={isEditable}
         />
         <div style={{ color: 'red', fontSize: '12px', margin: '10px 20px 20px 0' }}>{errors.firstname}</div>
       </div>
+
       <div className="c-details-input">
         <input
           className="d-input"
@@ -256,10 +243,11 @@ const PersonalInformationComponent = ({
           onFocus={() => handleFocus('lastname')}
           onBlur={() => handleBlur('lastname')}
           style={{ border: fieldBorders.lastname }}
+          readOnly={isEditable}
         />
         <div style={{ color: 'red', fontSize: '12px', margin: '10px 20px 20px 0' }}>{errors.lastname}</div>
       </div>
-      <div className="c-details-input" style={{ margin:"10px 0px" }}>
+      <div className="c-details-input" style={{ margin: "10px 0px" }}>
         <input
           className="d-input"
           type="text"
@@ -269,7 +257,7 @@ const PersonalInformationComponent = ({
           onChange={handleInputChange}
         />
       </div>
-      <div className="c-details-input" style={{ margin:"10px 0px" }}>
+      <div className="c-details-input" style={{ margin: "10px 0px" }}>
         <input
           className="d-input"
           type="text"
@@ -286,16 +274,17 @@ const PersonalInformationComponent = ({
           type="date"
           name="birthdate"
           placeholder="Birthdate"
-          value={informationDetails.birthdate}
+          value={informationDetails.birthdate || ''}
           onChange={handleInputChange}
           onFocus={() => handleFocus('birthdate')}
           onBlur={() => handleBlur('birthdate')}
           style={{ border: fieldBorders.birthdate }}
+          readOnly={isEditable}
         />
         <div style={{ color: 'red', fontSize: '12px', margin: '10px 20px 20px 0' }}>{errors.birthdate}</div>
       </div>
       <div className="c-details-input">
-      <input
+        <input
           required
           className="d-input"
           type="text"
@@ -306,6 +295,7 @@ const PersonalInformationComponent = ({
           onFocus={() => handleFocus('nationality')}
           onBlur={() => handleBlur('nationality')}
           style={{ border: fieldBorders.nationality }}
+          readOnly={isEditable}
         />
         {/* <select
           className="d-select"
@@ -336,6 +326,7 @@ const PersonalInformationComponent = ({
           onFocus={() => handleFocus('civil_status')}
           onBlur={() => handleBlur('civil_status')}
           style={{ border: fieldBorders.civil_status }}
+          readOnly={isEditable}
         />
         <div style={{ color: 'red', fontSize: '12px', margin: '10px 20px 20px 0' }}>{errors.civil_status}</div>
 
@@ -351,7 +342,6 @@ const PersonalInformationComponent = ({
           onFocus={() => handleFocus('employeer_business')}
           onBlur={() => handleBlur('employeer_business')}
           style={{ border: fieldBorders.employeer_business }}
-
         />
         <div style={{ color: 'red', fontSize: '12px', margin: '10px 20px 20px 0' }}>{errors.employeer_business}</div>
       </div>
@@ -406,7 +396,7 @@ const PersonalInformationComponent = ({
           type="text"
           name="office_address"
           placeholder="Office Address"
-          value={informationDetails.office_address}
+          value={informationDetails.office_address || ''}
           onChange={handleInputChange}
           onFocus={() => handleFocus('office_address')}
           onBlur={() => handleBlur('office_address')}
@@ -453,7 +443,6 @@ const PersonalInformationComponent = ({
           onFocus={() => handleFocus('monthly_income')}
           onBlur={() => handleBlur('monthly_income')}
           style={{ border: fieldBorders.monthly_income }}
-
         />
         <div style={{ color: 'red', fontSize: '12px', margin: '10px 20px 20px 0' }}>{errors.monthly_income}</div>
 
@@ -464,68 +453,81 @@ const PersonalInformationComponent = ({
             <LoadingComponent containerStyle="container-loading" />
           </div>
         )}
-        <select
-          className="d-select"
-          name="countries"
-          value={informationDetails.countries}
-          onChange={(event) => {
-            handleInputChange(event);
-            handleCountryChange(event);
-          }}
-          onFocus={() => handleFocus('countries')}
-          onBlur={() => handleBlur('countries')}
-          style={{ border: fieldBorders.countries }}
-        >
-          <option value="">Country</option>
-          {ListOfCountries.map((country) => (
-            <option key={country.addressL0Id} value={`${country.name}|${country.addressL0Id}`}>
-              {country.name}
-            </option>
-          ))}
-        </select>
+        {isEditable ?
+          <input className="d-select" type="text" value={informationDetails.countries} readOnly={isEditable} />
+          :
+          <select
+            className="d-select"
+            name="countries"
+            value={informationDetails.countries}
+            onChange={(event) => {
+              handleInputChange(event);
+              handleCountryChange(event);
+            }}
+            onFocus={() => handleFocus('countries')}
+            onBlur={() => handleBlur('countries')}
+            style={{ border: fieldBorders.countries }}
+          >
+            <option value="">Country</option>
+            {ListOfCountries.map((country) => (
+              <option key={country.addressL0Id} value={`${country.name}|${country.addressL0Id}`}>
+                {country.name}
+              </option>
+            ))}
+          </select>
+        }
+
         <div style={{ color: 'red', fontSize: '12px', margin: '10px 20px 20px 0' }}>{errors.countries}</div>
       </div>
       <div className="c-details-input">
-        <select
-          className="d-select"
-          name="provinces"
-          value={informationDetails.provinces}
-          onChange={(event) => {
-            handleInputChange(event);
-            handleProvinceChange(event);
-          }}
-          onFocus={() => handleFocus('provinces')}
-          onBlur={() => handleBlur('provinces')}
-          style={{ border: fieldBorders.provinces }}
-        >
-          <option value="">Province</option>
-          {ListOfProvinces.map((province) => (
-            <option key={province.addressL1Id} value={`${province.name}|${province.addressL1Id}`}>
-              {province.name}
-            </option>
-          ))}
-        </select>
+        {isEditable ?
+          <input className="d-select" type="text" value={informationDetails.provinces} readOnly={isEditable} />
+          :
+          <select
+            className="d-select"
+            name="provinces"
+            value={informationDetails.provinces}
+            onChange={(event) => {
+              handleInputChange(event);
+              handleProvinceChange(event);
+            }}
+            onFocus={() => handleFocus('provinces')}
+            onBlur={() => handleBlur('provinces')}
+            style={{ border: fieldBorders.provinces }}
+          >
+            <option value="">Province</option>
+            {ListOfProvinces.map((province) => (
+              <option key={province.addressL1Id} value={`${province.name}|${province.addressL1Id}`}>
+                {province.name}
+              </option>
+            ))}
+          </select>
+        }
         <div style={{ color: 'red', fontSize: '12px', margin: '10px 20px 20px 0' }}>{errors.provinces}</div>
       </div>
       <div className="c-details-input">
-        <select
-          className="d-select"
-          name="cities"
-          value={informationDetails.cities}
-          onChange={(event) => {
-            handleInputChange(event);
-          }}
-          onFocus={() => handleFocus('cities')}
-          onBlur={() => handleBlur('cities')}
-          style={{ border: fieldBorders.cities }}
-        >
-          <option value="">City</option>
-          {ListOfCities.map((city) => (
-            <option key={city.addressL2Id} value={`${city.name}|${city.addressL2Id}`}>
-              {city.name}
-            </option>
-          ))}
-        </select>
+        {isEditable ?
+          <input className="d-select" type="text" value={informationDetails.cities} readOnly={isEditable} />
+          :
+          <select
+            className="d-select"
+            name="cities"
+            value={informationDetails.cities}
+            onChange={(event) => {
+              handleInputChange(event);
+            }}
+            onFocus={() => handleFocus('cities')}
+            onBlur={() => handleBlur('cities')}
+            style={{ border: fieldBorders.cities }}
+          >
+            <option value="">City</option>
+            {ListOfCities.map((city) => (
+              <option key={city.addressL2Id} value={`${city.name}|${city.addressL2Id}`}>
+                {city.name}
+              </option>
+            ))}
+          </select>
+        }
         <div style={{ color: 'red', fontSize: '12px', margin: '10px 20px 20px 0' }}>{errors.cities}</div>
       </div>
       <div className="c-details-input">
@@ -539,7 +541,6 @@ const PersonalInformationComponent = ({
           onFocus={() => handleFocus('barangay')}
           onBlur={() => handleBlur('barangay')}
           style={{ border: fieldBorders.barangay }}
-
         />
         <div style={{ color: 'red', fontSize: '12px', margin: '10px 20px 20px 0' }}>{errors.barangay}</div>
 

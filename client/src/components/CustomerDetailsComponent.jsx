@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useNavigate, useLocation  } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import "../styles/customerdetails.css";
 import {
   TopbarComponent,
@@ -13,6 +13,7 @@ import {
   CustomAlert,
 } from "./index";
 import { fetchBranch } from "../api/api";
+import { SearchKyc } from "../api/symph.api";
 
 const calculateDistance = (lat1, lon1, lat2, lon2) => {
   const earthRadius = 6371;
@@ -28,18 +29,13 @@ const calculateDistance = (lat1, lon1, lat2, lon2) => {
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   return earthRadius * c;
 };
-
 const CustomerDetailsComponent = () => {
-
   const navigate = useNavigate();
   const location = useLocation();
   useEffect(() => {
     console.log(
       'details', location.state
     );
-    if (location.state == null) {
-      navigate('/vehicle-loan/loan-type/new');
-    }
   });
   const [address, setAddress] = useState("");
   const [customAlert, setCustomAlert] = useState(false);
@@ -49,6 +45,8 @@ const CustomerDetailsComponent = () => {
   const [nearestBranches, setNearestBranches] = useState([]);
   const [selectedOption, setSelectedOption] = useState("");
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
+  const [isEditable, setIsEditable] = useState(false);
+
   const { firstStepDetails } = location.state || {};
 
   const [contactDetails, setContactDetails] = useState({
@@ -61,6 +59,7 @@ const CustomerDetailsComponent = () => {
     lastname: "",
     middlename: "",
     birthdate: "",
+    suffix: "",
     nationality: "",
     civil_status: "",
     employeer_business: "",
@@ -73,23 +72,21 @@ const CustomerDetailsComponent = () => {
     countries: "",
     provinces: "",
     cities: "",
-    barangay:""
+    barangay: ""
   });
 
   useEffect(() => {
-
     const getAddressName = (name) => {
-      
       let isEmpty = name === "";
 
       if (!isEmpty) {
         let nameVal = name.split("|");
 
         return nameVal[0].toUpperCase();
-    
+
       }
       return name;
-   
+
     }
     let barangay = getAddressName(informationDetails.barangay);
     let city = getAddressName(informationDetails.cities);
@@ -97,6 +94,9 @@ const CustomerDetailsComponent = () => {
     let country = getAddressName(informationDetails.countries);
     setAddress(`${barangay} ${city} ${province} ${country}`)
   })
+  if (location.state == null) {
+    navigate('/vehicle-loan/loan-type/new');
+  }
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const phoneRegex = /^\+?[\d\s()-]{7,15}$/;
@@ -106,30 +106,28 @@ const CustomerDetailsComponent = () => {
 
   const handleValidationChange = () => {
     const isContactDetailsValid =
-      isPhoneValid(contactDetails.mobile_number?.trim() || "") &&
-      isEmailValid(contactDetails.email?.trim() || "") &&
-      contactDetails.mobile_number?.trim() !== "";
-
+      isPhoneValid(contactDetails.mobile_number || "") &&
+      isEmailValid(contactDetails.email || "") &&
+      contactDetails.mobile_number !== "";
     const isPersonalDetailsValid =
-      informationDetails.firstname.trim() !== "" &&
-      informationDetails.lastname.trim() !== "" &&
-      informationDetails.birthdate.trim() !== "" &&
-      informationDetails.nationality.trim() !== "" &&
-      informationDetails.civil_status.trim() !== "" &&
-      informationDetails.employeer_business.trim() !== "" &&
-      informationDetails.nature_business.trim() !== "" &&
-      informationDetails.tenure.trim() !== "" &&
-      informationDetails.office_address.trim() !== "" &&
-      informationDetails.office_landline.trim() !== "" &&
-      informationDetails.sourceOfIncome.trim() !== "" &&
-      informationDetails.monthly_income.trim() !== "" &&
-      informationDetails.countries.name.trim() !== "" &&
-      informationDetails.provinces.name.trim() !== "" &&
-      informationDetails.cities.name.trim() !== "" &&
-      informationDetails.barangay.trim() !== "";
-    const isAddressValid = address?.trim() !== "";
+      informationDetails.firstname !== "" &&
+      informationDetails.lastname !== "" &&
+      informationDetails.birthdate !== "" &&
+      informationDetails.nationality !== "" &&
+      informationDetails.civil_status !== "" &&
+      informationDetails.employeer_business !== "" &&
+      informationDetails.nature_business !== "" &&
+      informationDetails.tenure !== "" &&
+      informationDetails.office_address !== "" &&
+      informationDetails.office_landline !== "" &&
+      informationDetails.sourceOfIncome !== "" &&
+      informationDetails.monthly_income !== "" &&
+      informationDetails.countries.name !== "" &&
+      informationDetails.provinces.name !== "" &&
+      informationDetails.cities.name !== "" &&
+      informationDetails.barangay !== "";
+    const isAddressValid = address !== "";
     const isOptionSelected = selectedOption !== "";
-
     setIsSubmitDisabled(
       !(
         isContactDetailsValid &&
@@ -161,6 +159,8 @@ const CustomerDetailsComponent = () => {
       setAddress(value);
     } else if (field === "selectedOption") {
       setSelectedOption(value);
+    }
+    if (field == "mobile_number") {
     }
     handleValidationChange();
   };
@@ -310,7 +310,62 @@ const CustomerDetailsComponent = () => {
         [fieldName]: '1px solid #ccc',
       }));
     }
+
   }
+
+  const performSearch = async (mobileNumber) => {
+    try {
+      const response = await SearchKyc(mobileNumber);
+      const data = response.data;
+      if (data) {
+        console.log("Log: ", data);
+        setContactDetails({
+          email: data.email,
+          mobile_number: data.cellphoneNumber
+        });
+        setInformationDetails({
+          firstname: data.name.firstName,
+          lastname: data.name.lastName,
+          middlename: data.name.middleName,
+          suffix: data.name.suffix,
+          birthdate: data.birthDate,
+          nationality: data.nationality,
+          civil_status: data.civilStatus,
+          office_address: data.occupation.workAddress,
+          sourceOfIncome: data.occupation.sourceOfIncome,
+          countries: data.addresses.current.addressL0Name,
+          provinces: data.addresses.current.addressL1Name,
+          cities: data.addresses.current.addressL2Name,
+          barangay: data.addresses.current.otherAddress
+        });
+        setIsEditable(!isEditable);
+      }
+      else {
+        setContactDetails({
+          email: "",
+          mobile_number: mobileNumber
+        });
+        setInformationDetails({
+          firstname: "",
+          lastname: "",
+          middlename: "",
+          birthdate: "",
+          suffix: "",
+          nationality: "",
+          civil_status: "",
+          office_address: "",
+          sourceOfIncome: "",
+          countries: "",
+          provinces: "",
+          cities: "",
+          barangay: ""
+        });
+      }
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
+  };
   return (
     <div className="customer-details">
       <div className="customer-details-container">
@@ -327,6 +382,10 @@ const CustomerDetailsComponent = () => {
               <PersonalContactComponent
                 onContactDetailsChange={setContactDetails}
                 onValidationChange={handleValidationChange}
+                performSearch={performSearch}
+                contactDetails={contactDetails}
+                setContactDetails={setContactDetails}
+                isEditable={isEditable}
               />
             </div>
           </div>
@@ -339,6 +398,9 @@ const CustomerDetailsComponent = () => {
               <PersonalInformationComponent
                 onInformationDetailsChange={setInformationDetails}
                 onValidationChange={handleValidationChange}
+                informationDetails={informationDetails}
+                setInformationDetails={setInformationDetails}
+                isEditable={isEditable}
               />
             </div>
           </div>

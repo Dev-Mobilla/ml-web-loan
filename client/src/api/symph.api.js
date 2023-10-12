@@ -139,7 +139,7 @@ const SearchKyc = async (mobileNumber) => {
       }
     });
 
-    return response
+    return response.data
   } catch (error) {
     throw error
   }
