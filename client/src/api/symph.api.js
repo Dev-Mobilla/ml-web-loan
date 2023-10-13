@@ -1,16 +1,19 @@
 import axios from "axios";
-import {ML_LoansAxiosInstance} from "../helper/axios";
+import { ML_LoansAxiosInstance } from "../helper/axios";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
-const getServiceFee = async (amount) => {
+const GetServiceFee = async (amount) => {
   try {
-    const response = await axios.get(`${BASE_URL}/api/ml-loans/get-service-fee`, {
-      params: {
-        amount,
-      },
-      withCredentials: true,
-    });
+    const response = await axios.get(
+      `${BASE_URL}/api/ml-loans/get-service-fee`,
+      {
+        params: {
+          amount,
+        },
+        withCredentials: true,
+      }
+    );
     return response.data;
   } catch (error) {
     console.error(error);
@@ -18,11 +21,14 @@ const getServiceFee = async (amount) => {
   }
 };
 
-const getThresholdAmount = async () => {
+const GetThresholdAmount = async () => {
   try {
-    const response = await axios.get(`${BASE_URL}/api/ml-loans/get-threshold-amount`, {
-      withCredentials: true,
-    });
+    const response = await axios.get(
+      `${BASE_URL}/api/ml-loans/get-threshold-amount`,
+      {
+        withCredentials: true,
+      }
+    );
     return response.data;
   } catch (error) {
     console.error(error);
@@ -30,11 +36,7 @@ const getThresholdAmount = async () => {
   }
 };
 
-const validateAccountNumber = async (
-  reference,
-  accountFName,
-  accountLName
-) => {
+const ValidateAccountNumber = async (reference, accountFName, accountLName) => {
   try {
     const response = await axios.post(
       `${BASE_URL}/api/ml-loans/validate-account-number`,
@@ -54,7 +56,7 @@ const validateAccountNumber = async (
   }
 };
 
-const payNow = async (
+const PayNow = async (
   accountFirstName,
   accountLastName,
   accountMiddleName,
@@ -82,67 +84,92 @@ const payNow = async (
 
 const GetCountries = async () => {
   try {
-    const response = await ML_LoansAxiosInstance.get(`/api/ml-loans/symph/get-countries`,
-    {
-      params: {
-        name: "countries"
+    const response = await ML_LoansAxiosInstance.get(
+      `/api/ml-loans/symph/get-countries`,
+      {
+        params: {
+          name: "countries",
+        },
       }
-    }
     );
     return response.data;
   } catch (error) {
     console.error(error);
     throw error;
   }
-
-}
+};
 
 const GetProvinces = async () => {
   try {
-    const response = await ML_LoansAxiosInstance.get(`/api/ml-loans/symph/get-provinces`,
-    {
-      params: {
-        name: "provinces"
+    const response = await ML_LoansAxiosInstance.get(
+      `/api/ml-loans/symph/get-provinces`,
+      {
+        params: {
+          name: "provinces",
+        },
       }
-    });
+    );
     return response.data;
   } catch (error) {
     console.error(error);
     throw error;
   }
-
-}
+};
 
 const GetCities = async () => {
   try {
-    const response = await ML_LoansAxiosInstance.get(`/api/ml-loans/symph/get-cities`,
-    {
-      params: {
-        name: "cities"
+    const response = await ML_LoansAxiosInstance.get(
+      `/api/ml-loans/symph/get-cities`,
+      {
+        params: {
+          name: "cities",
+        },
       }
-    });
+    );
     return response.data;
   } catch (error) {
     console.error(error);
     throw error;
   }
+};
 
-}
+const CreateCustomerDetailsToSymph = async (customerDataToSymph) => {
+  try {
+    const response = await axios.post(
+      `${BASE_URL}/api/ml-loans/symph/basic-kyc`,
+      customerDataToSymph
+    );
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
 
 const SearchKyc = async (mobileNumber) => {
-
   try {
-    const response = await ML_LoansAxiosInstance.get(`/api/ml-loans/symph/get-customers`,
-    {
-      params: {
-        cellphoneNumber: mobileNumber
+    const response = await ML_LoansAxiosInstance.get(
+      `/api/ml-loans/symph/get-customers`,
+      {
+        params: {
+          cellphoneNumber: mobileNumber,
+        },
       }
-    });
+    );
 
-    return response
+    return response;
   } catch (error) {
-    throw error
+    throw error;
   }
-}
-
-export { getServiceFee, getThresholdAmount, validateAccountNumber, payNow, GetCountries, GetProvinces, GetCities, SearchKyc };
+};
+export {
+  CreateCustomerDetailsToSymph,
+  GetCities,
+  GetCountries,
+  GetProvinces,
+  GetServiceFee,
+  GetThresholdAmount,
+  PayNow,
+  ValidateAccountNumber,
+  SearchKyc,
+};
