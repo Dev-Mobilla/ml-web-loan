@@ -13,13 +13,13 @@ const VehicleSecondHandDetailsComponent = ({ onValidationChange, onVehicleDetail
 
   useEffect(() => {
     const isValid =
-      vehicleDetails.make.trim() !== "" &&
-      vehicleDetails.model.trim() !== "" &&
-      vehicleDetails.year.trim() !== "" &&
-      vehicleDetails.color.trim() !== "" &&
-      vehicleDetails.plateNo.trim() !== "" &&
-      vehicleDetails.engineNo.trim() !== "" &&
-      vehicleDetails.chassisNo.trim() !== "";
+    vehicleDetails.make.trim() !== "" &&
+    vehicleDetails.model.trim() !== "" &&
+    vehicleDetails.year.trim() !== "" &&
+    vehicleDetails.color.trim() !== "" &&
+    vehicleDetails.plateNo.trim() !== "" &&
+    vehicleDetails.engineNo.trim() !== "" &&
+    vehicleDetails.chassisNo.trim() !== "";
     onValidationChange(isValid);
     
     onVehicleDetailsChange(vehicleDetails);

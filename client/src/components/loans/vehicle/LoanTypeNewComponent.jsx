@@ -105,8 +105,8 @@ const LoanTypeNewComponent = () => {
 
   useEffect(() => {
     const isValid =
-      vehicleDetailsAmounts.principalAmount.trim() !== "" &&
-      vehicleDetailsAmounts.terms.trim() !== "" &&
+      vehicleDetailsAmounts.principalAmount !== "" &&
+      vehicleDetailsAmounts.terms !== "" &&
       vehicleDetails.make.trim() !== "" &&
       vehicleDetails.model.trim() !== "" &&
       vehicleDetails.year.trim() !== "" &&
@@ -213,6 +213,7 @@ const LoanTypeNewComponent = () => {
                     inputType="text"
                     inputName="terms"
                     inputOnchange={handleVehicleDetailsAmount}
+                    onKeyDownHandler={OnKeydownPriceHandler}
                   />
                     <p className="amount-label">Terms (months)</p>
                  </div>
