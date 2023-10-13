@@ -313,27 +313,27 @@ const CustomerDetailsComponent = () => {
   const performSearch = async (mobileNumber) => {
     try {
       const response = await SearchKyc(mobileNumber);
-      const data = response.data.data;
-      if (data) {
-        console.log("Log: ", data.data);
+      const data = response.data;
+      if (data.data) {
+        console.log("Log: ", data);
         setContactDetails({
-          email: data.email,
-          mobile_number: data.cellphoneNumber
+          email: data.data.email,
+          mobile_number: data.data.cellphoneNumber
         });
         setInformationDetails({
-          firstname: data.name.firstName,
-          lastname: data.name.lastName,
-          middlename: data.name.middleName,
-          suffix: data.name.suffix,
-          birthdate: data.birthDate,
-          nationality: data.nationality,
-          civil_status: data.civilStatus,
-          office_address: data.occupation.workAddress,
-          sourceOfIncome: data.occupation.sourceOfIncome,
-          countries: data.addresses.current.addressL0Name,
-          provinces: data.addresses.current.addressL1Name,
-          cities: data.addresses.current.addressL2Name,
-          barangay: data.addresses.current.otherAddress
+          firstname: data.data.name.firstName,
+          lastname: data.data.name.lastName,
+          middlename: data.data.name.middleName,
+          suffix: data.data.name.suffix,
+          birthdate: data.data.birthDate,
+          nationality: data.data.nationality,
+          civil_status: data.data.civilStatus,
+          office_address: data.data.occupation.workAddress,
+          sourceOfIncome: data.data.occupation.sourceOfIncome,
+          countries: data.data.addresses.current.addressL0Name,
+          provinces: data.data.addresses.current.addressL1Name,
+          cities: data.data.addresses.current.addressL2Name,
+          barangay: data.data.addresses.current.otherAddress
         });
         setIsEditable(!isEditable);
       }
