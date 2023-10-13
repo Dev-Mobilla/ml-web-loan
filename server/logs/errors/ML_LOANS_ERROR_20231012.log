@@ -1,59 +1,6 @@
-ERROR 2023-10-12T11:09:46.783 Logging.. - 
-        Request URL: /api/ml-loans/register/basic-kyc - {"title":"Authentication Error","body":"Session expired please login again."} | "AUTHENTICATION_ERROR" - 401 Error
-    at ErrorThrower (C:\Users\BALANGYAO\Desktop\ml-web-loan\server\utils\ErrorGenerator.js:2:16)
-    at Unauthorized (C:\Users\BALANGYAO\Desktop\ml-web-loan\server\middleware\auth.middleware.js:35:19)
-    at Auth (C:\Users\BALANGYAO\Desktop\ml-web-loan\server\middleware\auth.middleware.js:22:26)
-    at Layer.handle [as handle_request] (C:\Users\BALANGYAO\Desktop\ml-web-loan\server\node_modules\express\lib\router\layer.js:95:5)
-    at trim_prefix (C:\Users\BALANGYAO\Desktop\ml-web-loan\server\node_modules\express\lib\router\index.js:328:13)
-    at C:\Users\BALANGYAO\Desktop\ml-web-loan\server\node_modules\express\lib\router\index.js:286:9
-    at Function.process_params (C:\Users\BALANGYAO\Desktop\ml-web-loan\server\node_modules\express\lib\router\index.js:346:12)
-    at next (C:\Users\BALANGYAO\Desktop\ml-web-loan\server\node_modules\express\lib\router\index.js:280:10)
-    at serveStatic (C:\Users\BALANGYAO\Desktop\ml-web-loan\server\node_modules\serve-static\index.js:75:16)
-    at Layer.handle [as handle_request] (C:\Users\BALANGYAO\Desktop\ml-web-loan\server\node_modules\express\lib\router\layer.js:95:5)ERROR 2023-10-12T11:54:15.346 Logging.. - 
-        Request URL: /api/ml-loans/basic-kyc - {"title":"Authentication Error","body":"Session expired please login again."} | "AUTHENTICATION_ERROR" - 401 Error
-    at ErrorThrower (C:\Users\BALANGYAO\Desktop\ml-web-loan\server\utils\ErrorGenerator.js:2:16)
-    at Unauthorized (C:\Users\BALANGYAO\Desktop\ml-web-loan\server\middleware\auth.middleware.js:35:19)
-    at Auth (C:\Users\BALANGYAO\Desktop\ml-web-loan\server\middleware\auth.middleware.js:22:26)
-    at Layer.handle [as handle_request] (C:\Users\BALANGYAO\Desktop\ml-web-loan\server\node_modules\express\lib\router\layer.js:95:5)
-    at trim_prefix (C:\Users\BALANGYAO\Desktop\ml-web-loan\server\node_modules\express\lib\router\index.js:328:13)
-    at C:\Users\BALANGYAO\Desktop\ml-web-loan\server\node_modules\express\lib\router\index.js:286:9
-    at Function.process_params (C:\Users\BALANGYAO\Desktop\ml-web-loan\server\node_modules\express\lib\router\index.js:346:12)
-    at next (C:\Users\BALANGYAO\Desktop\ml-web-loan\server\node_modules\express\lib\router\index.js:280:10)
-    at serveStatic (C:\Users\BALANGYAO\Desktop\ml-web-loan\server\node_modules\serve-static\index.js:75:16)
-    at Layer.handle [as handle_request] (C:\Users\BALANGYAO\Desktop\ml-web-loan\server\node_modules\express\lib\router\layer.js:95:5)
-ERROR 2023-10-12T13:11:23.692 Logging.. - 
-        Request URL: /api/ml-loans/basic-kyc - {"title":"Authentication Error","body":"Session expired please login again."} | "AUTHENTICATION_ERROR" - 401 Error
-    at ErrorThrower (C:\Users\BALANGYAO\Desktop\ml-web-loan\server\utils\ErrorGenerator.js:2:16)
-    at Unauthorized (C:\Users\BALANGYAO\Desktop\ml-web-loan\server\middleware\auth.middleware.js:35:19)
-    at Auth (C:\Users\BALANGYAO\Desktop\ml-web-loan\server\middleware\auth.middleware.js:22:26)
-    at Layer.handle [as handle_request] (C:\Users\BALANGYAO\Desktop\ml-web-loan\server\node_modules\express\lib\router\layer.js:95:5)
-    at trim_prefix (C:\Users\BALANGYAO\Desktop\ml-web-loan\server\node_modules\express\lib\router\index.js:328:13)
-    at C:\Users\BALANGYAO\Desktop\ml-web-loan\server\node_modules\express\lib\router\index.js:286:9
-    at Function.process_params (C:\Users\BALANGYAO\Desktop\ml-web-loan\server\node_modules\express\lib\router\index.js:346:12)
-    at next (C:\Users\BALANGYAO\Desktop\ml-web-loan\server\node_modules\express\lib\router\index.js:280:10)
-    at serveStatic (C:\Users\BALANGYAO\Desktop\ml-web-loan\server\node_modules\serve-static\index.js:75:16)
-    at Layer.handle [as handle_request] (C:\Users\BALANGYAO\Desktop\ml-web-loan\server\node_modules\express\lib\router\layer.js:95:5)
-ERROR 2023-10-12T13:14:09.549 Logging.. - 
-        Request URL: /api/ml-loans/basic-kyc - {"title":"Authentication Error","body":"Session expired please login again."} | "AUTHENTICATION_ERROR" - 401 Error
-    at ErrorThrower (C:\Users\BALANGYAO\Desktop\ml-web-loan\server\utils\ErrorGenerator.js:2:16)
-    at Unauthorized (C:\Users\BALANGYAO\Desktop\ml-web-loan\server\middleware\auth.middleware.js:35:19)
-    at Auth (C:\Users\BALANGYAO\Desktop\ml-web-loan\server\middleware\auth.middleware.js:22:26)
-    at Layer.handle [as handle_request] (C:\Users\BALANGYAO\Desktop\ml-web-loan\server\node_modules\express\lib\router\layer.js:95:5)
-    at trim_prefix (C:\Users\BALANGYAO\Desktop\ml-web-loan\server\node_modules\express\lib\router\index.js:328:13)
-    at C:\Users\BALANGYAO\Desktop\ml-web-loan\server\node_modules\express\lib\router\index.js:286:9
-    at Function.process_params (C:\Users\BALANGYAO\Desktop\ml-web-loan\server\node_modules\express\lib\router\index.js:346:12)
-    at next (C:\Users\BALANGYAO\Desktop\ml-web-loan\server\node_modules\express\lib\router\index.js:280:10)
-    at serveStatic (C:\Users\BALANGYAO\Desktop\ml-web-loan\server\node_modules\serve-static\index.js:75:16)
-    at Layer.handle [as handle_request] (C:\Users\BALANGYAO\Desktop\ml-web-loan\server\node_modules\express\lib\router\layer.js:95:5)
-ERROR 2023-10-12T13:17:22.820 Logging.. - 
-        Request URL: /api/ml-loans/basic-kyc - {"title":"Authentication Error","body":"Session expired please login again."} | "AUTHENTICATION_ERROR" - 401 Error
-    at ErrorThrower (C:\Users\BALANGYAO\Desktop\ml-web-loan\server\utils\ErrorGenerator.js:2:16)
-    at Unauthorized (C:\Users\BALANGYAO\Desktop\ml-web-loan\server\middleware\auth.middleware.js:35:19)
-    at Auth (C:\Users\BALANGYAO\Desktop\ml-web-loan\server\middleware\auth.middleware.js:22:26)
-    at Layer.handle [as handle_request] (C:\Users\BALANGYAO\Desktop\ml-web-loan\server\node_modules\express\lib\router\layer.js:95:5)
-    at trim_prefix (C:\Users\BALANGYAO\Desktop\ml-web-loan\server\node_modules\express\lib\router\index.js:328:13)
-    at C:\Users\BALANGYAO\Desktop\ml-web-loan\server\node_modules\express\lib\router\index.js:286:9
-    at Function.process_params (C:\Users\BALANGYAO\Desktop\ml-web-loan\server\node_modules\express\lib\router\index.js:346:12)
-    at next (C:\Users\BALANGYAO\Desktop\ml-web-loan\server\node_modules\express\lib\router\index.js:280:10)
-    at serveStatic (C:\Users\BALANGYAO\Desktop\ml-web-loan\server\node_modules\serve-static\index.js:75:16)
-    at Layer.handle [as handle_request] (C:\Users\BALANGYAO\Desktop\ml-web-loan\server\node_modules\express\lib\router\layer.js:95:5)
+ERROR 2023-10-12T10:13:08.721 Logging.. - 
+        Request URL: /api/ml-loans/symph/get-customers?cellphoneNumber=++++++performSearch(contactDetails.mobile_number) - undefined | undefined - 400 undefined
+ERROR 2023-10-12T10:13:08.974 Logging.. - 
+        Request URL: /api/ml-loans/symph/get-customers?cellphoneNumber=++++++performSearch(contactDetails.mobile_number) - undefined | undefined - 400 undefined
+ERROR 2023-10-12T10:13:09.261 Logging.. - 
+        Request URL: /api/ml-loans/symph/get-customers?cellphoneNumber=++++++performSearch(contactDetails.mobile_number) - undefined | undefined - 400 undefined

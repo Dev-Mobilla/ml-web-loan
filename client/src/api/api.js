@@ -17,7 +17,7 @@ const GetLoansDetails = async (loanId) => {
 
 const fetchBranch = async () => {
   try {
-    const response = await fetch("http://nana.mlhuillier.net:8000/getSheets");
+    const response = await fetch("http://10.4.8.168:8000/getSheets");
     const jsonData = await response.json();
     return jsonData;
   } catch (error) {
