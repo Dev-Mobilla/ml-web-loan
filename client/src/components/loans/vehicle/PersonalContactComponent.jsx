@@ -3,22 +3,45 @@ import React, { useState, useEffect } from "react";
 const PersonalContactComponent = ({
   onValidationChange,
   onContactDetailsChange,
+  performSearch,
+  contactDetails,
+  setContactDetails,
+  isEditable,
 }) => {
-  const [contactDetails, setContactDetails] = useState({
-    mobile_number: "",
-    email: "",
-  });
 
   useEffect(() => {
-    const isValid =
-      contactDetails.mobile_number.trim() !== "" &&
-      contactDetails.email.trim() !== "";
+    // const isValid =
+    //   contactDetails.mobile_number.trim() !== "" &&
+    //   contactDetails.email.trim() !== "";
+    // onValidationChange(isValid);
+    // onContactDetailsChange(contactDetails);
+     const isValid =
+      contactDetails.mobile_number !== "" &&
+      contactDetails.email !== "";
     onValidationChange(isValid);
-
     onContactDetailsChange(contactDetails);
 
   }, [contactDetails, onValidationChange]);
 
+  // const performSearch = async (mobileNumber) => {
+  //   try {
+  //     const response = await SearchKyc(mobileNumber);
+  //     const data = response.data;
+  //     setContactDetails({
+  //       email: data.email,
+  //       mobile_number:data.cellphoneNumber
+  //     })
+  //     console.log(mobileNumber);
+  //     console.log(data);
+  //     // setContactDetails(data);
+  //   } catch (error) {
+  //     console.log(error);
+  //     return false;
+  //   }
+  // };
+  const handleSearch = () => {
+    performSearch(contactDetails.mobile_number);
+  }
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setContactDetails({ ...contactDetails, [name]: value });
@@ -35,7 +58,7 @@ const PersonalContactComponent = ({
   };
   const handleBlur = (fieldName) => {
     // Perform validation when the input field is unfocused (blurred)
-    if (contactDetails[fieldName].trim() === '') {
+    if (contactDetails[fieldName] === '') {
       if (fieldName === 'mobile_number') {
         setErrors((prevErrors) => ({
           ...prevErrors,
@@ -73,7 +96,10 @@ const PersonalContactComponent = ({
           value={contactDetails.mobile_number}
           onChange={handleInputChange}
           onFocus={() => handleFocus('mobile_number')}
-          onBlur={() => handleBlur('mobile_number')}
+          onBlur={() => {
+            handleBlur('mobile_number');
+            handleSearch(contactDetails.mobile_number);
+          }}
           style={{ border: fieldBorders.mobile_number }}
         />
         <div style={{ color: 'red', fontSize: '12px', margin: '10px 20px 20px 0' }}>{errors.mobile_number}</div>
@@ -90,6 +116,7 @@ const PersonalContactComponent = ({
           onFocus={() => handleFocus('email')}
           onBlur={() => handleBlur('email')}
           style={{ border: fieldBorders.email }}
+          readOnly={isEditable}
         />
         <div style={{ color: 'red', fontSize: '12px', margin: '10px 20px 20px 0' }}>{errors.email}</div>
       </div>

@@ -12,7 +12,6 @@ const app = express();
 
 const PORT = process.env.PORT;
 app.use(express.json());
-// app.use(express)
 
 app.use(cors(
   {
@@ -24,8 +23,9 @@ app.use(cors(
 app.use(express.static(path.join(__dirname, '../client/build')));
 
 app.get('/', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '..' ,'client', 'build', 'index.html'));
+  res.sendFile(path.resolve(__dirname, '..', 'client', 'build', 'index.html'));
 });
+
 
 //ROUTES
 app.use('/api/ml-loans/symph', PUBLIC_ROUTER);

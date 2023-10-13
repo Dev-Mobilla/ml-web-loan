@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useNavigate, useLocation  } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import "../styles/customerdetails.css";
 import {
   TopbarComponent,
@@ -13,6 +13,7 @@ import {
   CustomAlert,
 } from "./index";
 import { fetchBranch } from "../api/api";
+import { SearchKyc } from "../api/symph.api";
 
 const calculateDistance = (lat1, lon1, lat2, lon2) => {
   const earthRadius = 6371;
@@ -22,25 +23,16 @@ const calculateDistance = (lat1, lon1, lat2, lon2) => {
   const a =
     Math.sin(dLat / 2) * Math.sin(dLat / 2) +
     Math.cos(toRadians(lat1)) *
-    Math.cos(toRadians(lat2)) *
-    Math.sin(dLon / 2) *
-    Math.sin(dLon / 2);
+      Math.cos(toRadians(lat2)) *
+      Math.sin(dLon / 2) *
+      Math.sin(dLon / 2);
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   return earthRadius * c;
 };
-
 const CustomerDetailsComponent = () => {
-
   const navigate = useNavigate();
   const location = useLocation();
-  useEffect(() => {
-    console.log(
-      'details', location.state
-    );
-    if (location.state == null) {
-      navigate('/vehicle-loan/loan-type/new');
-    }
-  });
+ 
   const [address, setAddress] = useState("");
   const [customAlert, setCustomAlert] = useState(false);
   const [alertProps, setAlertProps] = useState(null);
@@ -49,18 +41,20 @@ const CustomerDetailsComponent = () => {
   const [nearestBranches, setNearestBranches] = useState([]);
   const [selectedOption, setSelectedOption] = useState("");
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
-  const { firstStepDetails } = location.state || {};
+  const [isEditable, setIsEditable] = useState(false);
 
+  const { firstStepDetails } = location.state || {};
   const [contactDetails, setContactDetails] = useState({
     mobile_number: "",
     email: "",
   });
-
   const [informationDetails, setInformationDetails] = useState({
     firstname: "",
     lastname: "",
     middlename: "",
+    suffix: "",
     birthdate: "",
+    suffix: "",
     nationality: "",
     civil_status: "",
     employeer_business: "",
@@ -73,23 +67,21 @@ const CustomerDetailsComponent = () => {
     countries: "",
     provinces: "",
     cities: "",
-    barangay:""
+    barangay: ""
   });
 
   useEffect(() => {
-
     const getAddressName = (name) => {
-      
       let isEmpty = name === "";
 
       if (!isEmpty) {
         let nameVal = name.split("|");
 
         return nameVal[0].toUpperCase();
-    
+
       }
       return name;
-   
+
     }
     let barangay = getAddressName(informationDetails.barangay);
     let city = getAddressName(informationDetails.cities);
@@ -97,6 +89,9 @@ const CustomerDetailsComponent = () => {
     let country = getAddressName(informationDetails.countries);
     setAddress(`${barangay} ${city} ${province} ${country}`)
   })
+  if (location.state == null) {
+    navigate('/vehicle-loan/loan-type/new');
+  }
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const phoneRegex = /^\+?[\d\s()-]{7,15}$/;
@@ -106,30 +101,28 @@ const CustomerDetailsComponent = () => {
 
   const handleValidationChange = () => {
     const isContactDetailsValid =
-      isPhoneValid(contactDetails.mobile_number?.trim() || "") &&
-      isEmailValid(contactDetails.email?.trim() || "") &&
-      contactDetails.mobile_number?.trim() !== "";
-
+      isPhoneValid(contactDetails.mobile_number || "") &&
+      isEmailValid(contactDetails.email || "") &&
+      contactDetails.mobile_number !== "";
     const isPersonalDetailsValid =
-      informationDetails.firstname.trim() !== "" &&
-      informationDetails.lastname.trim() !== "" &&
-      informationDetails.birthdate.trim() !== "" &&
-      informationDetails.nationality.trim() !== "" &&
-      informationDetails.civil_status.trim() !== "" &&
-      informationDetails.employeer_business.trim() !== "" &&
-      informationDetails.nature_business.trim() !== "" &&
-      informationDetails.tenure.trim() !== "" &&
-      informationDetails.office_address.trim() !== "" &&
-      informationDetails.office_landline.trim() !== "" &&
-      informationDetails.sourceOfIncome.trim() !== "" &&
-      informationDetails.monthly_income.trim() !== "" &&
-      informationDetails.countries.name.trim() !== "" &&
-      informationDetails.provinces.name.trim() !== "" &&
-      informationDetails.cities.name.trim() !== "" &&
-      informationDetails.barangay.trim() !== "";
-    const isAddressValid = address?.trim() !== "";
+      informationDetails.firstname !== "" &&
+      informationDetails.lastname !== "" &&
+      informationDetails.birthdate !== "" &&
+      informationDetails.nationality !== "" &&
+      informationDetails.civil_status !== "" &&
+      informationDetails.employeer_business !== "" &&
+      informationDetails.nature_business !== "" &&
+      informationDetails.tenure !== "" &&
+      informationDetails.office_address !== "" &&
+      informationDetails.office_landline !== "" &&
+      informationDetails.sourceOfIncome !== "" &&
+      informationDetails.monthly_income !== "" &&
+      informationDetails.countries.name !== "" &&
+      informationDetails.provinces.name !== "" &&
+      informationDetails.cities.name !== "" &&
+      informationDetails.barangay !== "";
+    const isAddressValid = address !== "";
     const isOptionSelected = selectedOption !== "";
-
     setIsSubmitDisabled(
       !(
         isContactDetailsValid &&
@@ -142,17 +135,22 @@ const CustomerDetailsComponent = () => {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
+
     const secondStepDetails = {
       vehicleDetails: firstStepDetails,
-      personalDetails: [contactDetails, informationDetails],
-      current_address: address,
-      preffered_branch: selectedOption,
+      personalDetails: [
+        contactDetails,
+        informationDetails,
+        selectedOption
+      ],
     };
+
+    console.log("second step details:", secondStepDetails);
 
     navigate("/vehicle-loan/requirements", {
       state: {
         secondStepDetails: secondStepDetails,
-      }
+      },
     });
   };
 
@@ -161,6 +159,8 @@ const CustomerDetailsComponent = () => {
       setAddress(value);
     } else if (field === "selectedOption") {
       setSelectedOption(value);
+    }
+    if (field == "mobile_number") {
     }
     handleValidationChange();
   };
@@ -232,6 +232,7 @@ const CustomerDetailsComponent = () => {
         handleButtonClick(true);
       }
     } catch (error) {
+      console.log("Error:", error.message);
       const props = {
         title: "Current Address not found!",
         text: "Please input valid current address",
@@ -278,22 +279,19 @@ const CustomerDetailsComponent = () => {
   const buttonClassName = isSubmitDisabled ? "btn-disabled" : "btn-enabled";
   const [errors, setErrors] = useState({});
   const [fieldBorders, setFieldBorders] = useState({
-    mobile_number: '1px solid #ccc',
+    mobile_number: "1px solid #ccc",
   });
   const handleFocus = (fieldName) => {
-    // Clear the error message for the corresponding input field
-    setErrors((prevErrors) => ({ ...prevErrors, [fieldName]: '' }));
+    setErrors((prevErrors) => ({ ...prevErrors, [fieldName]: "" }));
   };
   const handleBlur = (fieldName) => {
-    // Perform validation when the input field is unfocused (blurred)
-    if (address === '') {
-      if (fieldName === 'current_address') {
+    if (address === "") {
+      if (fieldName === "current_address") {
         setErrors((prevErrors) => ({
           ...prevErrors,
           [fieldName]: `Please enter your Current Address`,
         }));
-      }
-      else {
+      } else {
         setErrors((prevErrors) => ({
           ...prevErrors,
           [fieldName]: `Please enter your ${fieldName}`,
@@ -301,16 +299,70 @@ const CustomerDetailsComponent = () => {
       }
       setFieldBorders((prevBorders) => ({
         ...prevBorders,
-        [fieldName]: '1px solid red',
+        [fieldName]: "1px solid red",
       }));
-    }
-    else {
+    } else {
       setFieldBorders((prevBorders) => ({
         ...prevBorders,
-        [fieldName]: '1px solid #ccc',
+        [fieldName]: "1px solid #ccc",
       }));
     }
+
   }
+
+  const performSearch = async (mobileNumber) => {
+    try {
+      const response = await SearchKyc(mobileNumber);
+      const data = response.data;
+      if (data.data) {
+        console.log("Log: ", data);
+        setContactDetails({
+          email: data.data.email,
+          mobile_number: data.data.cellphoneNumber
+        });
+        setInformationDetails({
+          firstname: data.data.name.firstName,
+          lastname: data.data.name.lastName,
+          middlename: data.data.name.middleName,
+          suffix: data.data.name.suffix,
+          birthdate: data.data.birthDate,
+          nationality: data.data.nationality,
+          civil_status: data.data.civilStatus,
+          office_address: data.data.occupation.workAddress,
+          sourceOfIncome: data.data.occupation.sourceOfIncome,
+          countries: data.data.addresses.current.addressL0Name,
+          provinces: data.data.addresses.current.addressL1Name,
+          cities: data.data.addresses.current.addressL2Name,
+          barangay: data.data.addresses.current.otherAddress
+        });
+        setIsEditable(!isEditable);
+      }
+      else {
+        setContactDetails({
+          email: "",
+          mobile_number: mobileNumber
+        });
+        setInformationDetails({
+          firstname: "",
+          lastname: "",
+          middlename: "",
+          birthdate: "",
+          suffix: "",
+          nationality: "",
+          civil_status: "",
+          office_address: "",
+          sourceOfIncome: "",
+          countries: "",
+          provinces: "",
+          cities: "",
+          barangay: ""
+        });
+      }
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
+  };
   return (
     <div className="customer-details">
       <div className="customer-details-container">
@@ -327,6 +379,10 @@ const CustomerDetailsComponent = () => {
               <PersonalContactComponent
                 onContactDetailsChange={setContactDetails}
                 onValidationChange={handleValidationChange}
+                performSearch={performSearch}
+                contactDetails={contactDetails}
+                setContactDetails={setContactDetails}
+                isEditable={isEditable}
               />
             </div>
           </div>
@@ -339,6 +395,9 @@ const CustomerDetailsComponent = () => {
               <PersonalInformationComponent
                 onInformationDetailsChange={setInformationDetails}
                 onValidationChange={handleValidationChange}
+                informationDetails={informationDetails}
+                setInformationDetails={setInformationDetails}
+                isEditable={isEditable}
               />
             </div>
           </div>
@@ -359,14 +418,22 @@ const CustomerDetailsComponent = () => {
                 placeholder="Current Address"
                 value={address}
                 onChange={(e) => handleInputChange("address", e.target.value)}
-                onFocus={() => handleFocus('current_address')}
-                onBlur={() => handleBlur('current_address')}
+                onFocus={() => handleFocus("current_address")}
+                onBlur={() => handleBlur("current_address")}
                 style={{ border: fieldBorders.current_address }}
                 readOnly
               />
               <input type="submit" id="search-btn" value="Search" />
             </form>
-            <div style={{ color: 'red', fontSize: '12px', margin: '10px 20px 20px 23%' }}>{errors.current_address}</div>
+            <div
+              style={{
+                color: "red",
+                fontSize: "12px",
+                margin: "10px 20px 20px 23%",
+              }}
+            >
+              {errors.current_address}
+            </div>
             {customAlert && alertProps && showAlert && (
               <CustomAlert
                 title={alertProps.title}
