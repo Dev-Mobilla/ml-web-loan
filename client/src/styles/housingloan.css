@@ -2,6 +2,7 @@
 .collateral-content {
   padding: 30px;
   font-family: var(--font-family);
+  margin-bottom: 50px;
 }
 
 .loan-details .card {
@@ -189,6 +190,7 @@
 .rc-details {
   display: flex;
   flex-direction: column;
+  margin-top: 10px;
 }
 
 .hl-transactions {
@@ -218,6 +220,7 @@
   justify-content: center;
   flex-direction: column;
   width: 400px;
+  margin: 10px 0px;
 }
 
 @media screen and (min-width: 360px) and (max-width: 480px) {

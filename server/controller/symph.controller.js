@@ -2,6 +2,7 @@ const { ErrorThrower } = require("../utils/ErrorGenerator");
 const SuccessLogger = require("../utils/SuccessLogger");
 const SignatureGenerator = require("../utils/signatureGenerator");
 const axios = require("axios");
+const Buffer = require("node:buffer");
 
 const handleApiError = (message) => {
   throw new Error(message);
@@ -93,11 +94,39 @@ const PayNow = async (req, res, next) => {
     const response = await axios.post(url, data, config);
     const { billspayStatus, paymentStatus, kptn, createdDate } = response.data.data;
 
+    const kp7BillsPay = await CheckKP7Transaction(kptn);
+
+    // TO DO: IMPLEMENT KP7 BILLSPAY STATUS CHECKING HERE ...
+
+      
+     
+    // IF PAYMENT STATUS === PAID AND BILLSPAY STAT == POSTED 
+      // CHECK IF BILLSPAY TRANSACTION IN KP7 IS POSTED|FAILED
+        // IF FAILED UPDATE SYMPH BILLSPAY TO FAILED THEN REFUND
+        // IF POSTED RETURN SUCCESS
     if (paymentStatus === "PAID" && billspayStatus === "POSTED") {
+
+      if (kp7BillsPay.respcode === "1" && kp7BillsPay.respmsg === "SUCCESS") {
         res.status(200).json(response.data);
-      SuccessLogger(response.url, response.status, `PAY BILLS: ${JSON.stringify(response.data.data)}`);
+        SuccessLogger(response.url, response.status, `PAY BILLS: ${JSON.stringify(response.data.data)}`);
+      }else if (kp7BillsPay.respcode === "0" && kp7BillsPay.respmsg === "Transaction not found.") {
+
+        let reqBody = {
+          billspayStatus: "FAILED",
+          createdDate
+        }
+
+        const updateBillsPay = await UpdateBillsPayment(reqBody, kptn);
+
+
+
+      }
 
     }
+     // IF PAYMENT STATUS === PAID AND BILLSPAY STAT === FAILED
+        // CHECK IF BILLSPAY TRANSACTION IN KP7 IS IS POSTED|FAILED
+          // IF POSTED UPDATE SYMPH BILLSPAY TO POSTED THEN RETURN SUCCESS
+          // IF FAILED REFUND
     else if (paymentStatus === "PAID" && billspayStatus === "FAILED") {
       SuccessLogger(response.url, response.status, `PAY BILLS: ${JSON.stringify(response.data.data)}`);
 
@@ -262,6 +291,51 @@ const UpdateBillsPayApi = async (URL, reqBody, config) => {
     throw error;
   }
 };
+
+const CheckKP7Transaction = async (transactionId) => {
+  try {
+
+    const username =  process.env.KP7_USERNAME;
+    const password = process.env.KP7_PASSWORD;
+
+    let billersId = process.env.KP7_BILLERS_ID;
+
+    let URL = `${process.env.KP7_URL}/MLWebAPI/ApiBillsPay/Service.svc/InquireTransactionV3`;
+
+    let reqBody = {
+      transactionId: transactionId,
+      BillersId: billersId,
+      Digest: process.env.KP7_DIGEST
+    }
+
+    let buffer = new Buffer(`${username}:${password}`);
+
+    let auth = buffer.toString("base64");
+
+   let config = {
+      headers: {
+        Authorization: `Basic ${auth}`,
+      }
+   }
+
+    const response = await CheckKP7TransactionApi(URL, reqBody, config);
+
+    return response;
+
+  } catch (error) {
+    return error
+  }
+}
+
+const CheckKP7TransactionApi = async (URL, body, config) => {
+  try {
+    const response = await axios.post(URL, body, config);
+
+    return response;
+  } catch (error) {
+    throw error
+  }
+}
 
 const GenerateToken = async () => {
   const dateInstance = new Date();

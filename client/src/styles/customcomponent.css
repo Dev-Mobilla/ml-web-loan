@@ -150,10 +150,11 @@
 
 .custom-card-title {
   color: var(--text-red);
-  max-width: 600px;
+  max-width: 700px;
   margin: 0 auto;
   padding-bottom: 15px;
-  font-size: 20px;
+  padding-top: 20px;
+  font-size: 24px;
   font-weight: 700;
   line-height: 24px;
   letter-spacing: -0.011em;

@@ -83,6 +83,7 @@ const ManageLoansDetailsComponent = () => {
     reference: "",
     status: "",
     total: "",
+    paymentStatus: ""
   });
 
   const [payNowBtn, setPayNowBtn] = useState({
@@ -107,6 +108,7 @@ const ManageLoansDetailsComponent = () => {
       reference: "",
       loanType: "",
       total: "",
+      paymentStatus: ""
     });
 
     switch (response.status) {
@@ -115,6 +117,8 @@ const ManageLoansDetailsComponent = () => {
 
         let loanPayment = loan.data;
         setIsLoading(true);
+
+        console.log("details",response);
 
         setTimeout(async () => {
           try {
@@ -126,6 +130,7 @@ const ManageLoansDetailsComponent = () => {
               loanType: LoanType,
               status: loan.status,
               total: loanPayment.total_payable,
+              paymentStatus: loanPayment.status
             });
           } catch (error) {
             displayError("An error occurred while fetching the loan details.");
@@ -177,7 +182,7 @@ const ManageLoansDetailsComponent = () => {
         switch (status) {
           case "CANCELLED":
           case "DENIED":
-            errorMessage = "Loan is cancelled/denied";
+            errorMessage = "Loan has been cancelled/denied";
             break;
           case "PENDING":
           case "APPROVED":
@@ -754,7 +759,7 @@ const ManageLoansDetailsComponent = () => {
                 <></>
               )}
 
-              {loanDetails.status?.toLowerCase() === "disbursed" ? (
+              {loanDetails.status?.toLowerCase() === "disbursed" && loanDetails.paymentStatus === "UNPAID" ? (
                 <div className="note">
                   <div className="paynote">
                     <p>
