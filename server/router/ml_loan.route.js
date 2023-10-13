@@ -6,7 +6,7 @@ const {
   ValidateAccountNumber,
   PayNow,
 } = require("../controller/symph.controller");
-const {GetAddressApi} = require("../controller/get_address.controller");
+const { GetAddressApi } = require("../controller/get_address.controller");
 
 const ML_LOAN_ROUTER = express.Router();
 
@@ -19,5 +19,6 @@ ML_LOAN_ROUTER.post("/pay-now", PayNow);
 ML_LOAN_ROUTER.get("/get-countries", GetAddressApi);
 ML_LOAN_ROUTER.get("/get-provinces", GetAddressApi);
 ML_LOAN_ROUTER.get("/get-cities", GetAddressApi);
+
 
 module.exports = ML_LOAN_ROUTER;

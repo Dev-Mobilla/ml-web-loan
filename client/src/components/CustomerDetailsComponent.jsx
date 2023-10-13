@@ -23,20 +23,16 @@ const calculateDistance = (lat1, lon1, lat2, lon2) => {
   const a =
     Math.sin(dLat / 2) * Math.sin(dLat / 2) +
     Math.cos(toRadians(lat1)) *
-    Math.cos(toRadians(lat2)) *
-    Math.sin(dLon / 2) *
-    Math.sin(dLon / 2);
+      Math.cos(toRadians(lat2)) *
+      Math.sin(dLon / 2) *
+      Math.sin(dLon / 2);
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   return earthRadius * c;
 };
 const CustomerDetailsComponent = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  useEffect(() => {
-    console.log(
-      'details', location.state
-    );
-  });
+ 
   const [address, setAddress] = useState("");
   const [customAlert, setCustomAlert] = useState(false);
   const [alertProps, setAlertProps] = useState(null);
@@ -48,16 +44,15 @@ const CustomerDetailsComponent = () => {
   const [isEditable, setIsEditable] = useState(false);
 
   const { firstStepDetails } = location.state || {};
-
   const [contactDetails, setContactDetails] = useState({
     mobile_number: "",
     email: "",
   });
-
   const [informationDetails, setInformationDetails] = useState({
     firstname: "",
     lastname: "",
     middlename: "",
+    suffix: "",
     birthdate: "",
     suffix: "",
     nationality: "",
@@ -140,17 +135,22 @@ const CustomerDetailsComponent = () => {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
+
     const secondStepDetails = {
       vehicleDetails: firstStepDetails,
-      personalDetails: [contactDetails, informationDetails],
-      current_address: address,
-      preffered_branch: selectedOption,
+      personalDetails: [
+        contactDetails,
+        informationDetails,
+        selectedOption
+      ],
     };
+
+    console.log("second step details:", secondStepDetails);
 
     navigate("/vehicle-loan/requirements", {
       state: {
         secondStepDetails: secondStepDetails,
-      }
+      },
     });
   };
 
@@ -232,6 +232,7 @@ const CustomerDetailsComponent = () => {
         handleButtonClick(true);
       }
     } catch (error) {
+      console.log("Error:", error.message);
       const props = {
         title: "Current Address not found!",
         text: "Please input valid current address",
@@ -278,22 +279,19 @@ const CustomerDetailsComponent = () => {
   const buttonClassName = isSubmitDisabled ? "btn-disabled" : "btn-enabled";
   const [errors, setErrors] = useState({});
   const [fieldBorders, setFieldBorders] = useState({
-    mobile_number: '1px solid #ccc',
+    mobile_number: "1px solid #ccc",
   });
   const handleFocus = (fieldName) => {
-    // Clear the error message for the corresponding input field
-    setErrors((prevErrors) => ({ ...prevErrors, [fieldName]: '' }));
+    setErrors((prevErrors) => ({ ...prevErrors, [fieldName]: "" }));
   };
   const handleBlur = (fieldName) => {
-    // Perform validation when the input field is unfocused (blurred)
-    if (address === '') {
-      if (fieldName === 'current_address') {
+    if (address === "") {
+      if (fieldName === "current_address") {
         setErrors((prevErrors) => ({
           ...prevErrors,
           [fieldName]: `Please enter your Current Address`,
         }));
-      }
-      else {
+      } else {
         setErrors((prevErrors) => ({
           ...prevErrors,
           [fieldName]: `Please enter your ${fieldName}`,
@@ -301,13 +299,12 @@ const CustomerDetailsComponent = () => {
       }
       setFieldBorders((prevBorders) => ({
         ...prevBorders,
-        [fieldName]: '1px solid red',
+        [fieldName]: "1px solid red",
       }));
-    }
-    else {
+    } else {
       setFieldBorders((prevBorders) => ({
         ...prevBorders,
-        [fieldName]: '1px solid #ccc',
+        [fieldName]: "1px solid #ccc",
       }));
     }
 
@@ -316,9 +313,9 @@ const CustomerDetailsComponent = () => {
   const performSearch = async (mobileNumber) => {
     try {
       const response = await SearchKyc(mobileNumber);
-      const data = response.data;
+      const data = response.data.data;
       if (data) {
-        console.log("Log: ", data);
+        console.log("Log: ", data.data);
         setContactDetails({
           email: data.email,
           mobile_number: data.cellphoneNumber
@@ -421,14 +418,22 @@ const CustomerDetailsComponent = () => {
                 placeholder="Current Address"
                 value={address}
                 onChange={(e) => handleInputChange("address", e.target.value)}
-                onFocus={() => handleFocus('current_address')}
-                onBlur={() => handleBlur('current_address')}
+                onFocus={() => handleFocus("current_address")}
+                onBlur={() => handleBlur("current_address")}
                 style={{ border: fieldBorders.current_address }}
                 readOnly
               />
               <input type="submit" id="search-btn" value="Search" />
             </form>
-            <div style={{ color: 'red', fontSize: '12px', margin: '10px 20px 20px 23%' }}>{errors.current_address}</div>
+            <div
+              style={{
+                color: "red",
+                fontSize: "12px",
+                margin: "10px 20px 20px 23%",
+              }}
+            >
+              {errors.current_address}
+            </div>
             {customAlert && alertProps && showAlert && (
               <CustomAlert
                 title={alertProps.title}
