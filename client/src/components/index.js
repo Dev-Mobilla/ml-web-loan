@@ -41,6 +41,7 @@ import PersonalContactComponent from "./loans/vehicle/PersonalContactComponent";
 import PersonalInformationComponent from "./loans/vehicle/PersonalInformationComponent";
 import CollateralDetailsComponent from "./loans/manageLoan/CollateralDetailsComponent";
 import PaymentDetailsModalComponent from "./loans/manageLoan/PaymentDetailsModalComponent";
+import PaymentReceiptCompoenent from './PaymentReceiptCompoenent';
 
 // CUSTOM COMPONENTS
 import OTPModalComponent from "./OTPModalComponent";
@@ -53,6 +54,7 @@ import CustomInput from "./custom/Custom.input";
 import SuccessModal from "./loans/vehicle/SuccessModalComponent";
 import CustomIcon from "./custom/Custom.icon";
 import CustomAlert from "./custom/Custom.Alert";
+import CustomLoadingModal from "./custom/Custom.LoadingModal";
 
 export {
   
@@ -107,4 +109,6 @@ export {
   LoadingComponent,
   CollateralDetailsComponent,
   PaymentDetailsModalComponent,
+  CustomLoadingModal,
+  PaymentReceiptCompoenent
 };

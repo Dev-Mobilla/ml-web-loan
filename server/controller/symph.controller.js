@@ -2,7 +2,6 @@ const { ErrorThrower } = require("../utils/ErrorGenerator");
 const SuccessLogger = require("../utils/SuccessLogger");
 const SignatureGenerator = require("../utils/signatureGenerator");
 const axios = require("axios");
-const Buffer = require("node:buffer");
 
 const handleApiError = (message) => {
   throw new Error(message);
@@ -94,21 +93,23 @@ const PayNow = async (req, res, next) => {
     const response = await axios.post(url, data, config);
     const { billspayStatus, paymentStatus, kptn, createdDate } = response.data.data;
 
-    const kp7BillsPay = await CheckKP7Transaction(kptn);
+    const kp7BillsPayResp = await CheckKP7Transaction(kptn);
 
+    const kp7BillsPay = kp7BillsPayResp.data;
+    
     // TO DO: IMPLEMENT KP7 BILLSPAY STATUS CHECKING HERE ...
-
-      
-     
+    
     // IF PAYMENT STATUS === PAID AND BILLSPAY STAT == POSTED 
-      // CHECK IF BILLSPAY TRANSACTION IN KP7 IS POSTED|FAILED
-        // IF FAILED UPDATE SYMPH BILLSPAY TO FAILED THEN REFUND
-        // IF POSTED RETURN SUCCESS
+    // CHECK IF BILLSPAY TRANSACTION IN KP7 IS POSTED|FAILED
+    // IF FAILED UPDATE SYMPH BILLSPAY TO FAILED THEN REFUND
+    // IF POSTED RETURN SUCCESS
     if (paymentStatus === "PAID" && billspayStatus === "POSTED") {
-
+      
       if (kp7BillsPay.respcode === "1" && kp7BillsPay.respmsg === "SUCCESS") {
+
         res.status(200).json(response.data);
-        SuccessLogger(response.url, response.status, `PAY BILLS: ${JSON.stringify(response.data.data)}`);
+        SuccessLogger(response.url, response.status, `KPTN: ${kptn}, PAY BILLS: ${JSON.stringify(response.data.data)}, KP7: ${kp7BillsPay.respmsg}`);
+
       }else if (kp7BillsPay.respcode === "0" && kp7BillsPay.respmsg === "Transaction not found.") {
 
         let reqBody = {
@@ -117,9 +118,20 @@ const PayNow = async (req, res, next) => {
         }
 
         const updateBillsPay = await UpdateBillsPayment(reqBody, kptn);
+        SuccessLogger(updateBillsPay.url, updateBillsPay.status, `SUCCESS UPDATE: Kptn - ${kptn}`);
 
+        const refundBillsPay = await RefundBillsPayment(kptn);
+        SuccessLogger(refundBillsPay.url, 200, `Payment pushed through but able to pay for a refund. Kptn : ${kptn}; Refund Date: ${refundBillsPay.data.data.refundDate}`);
+        
+        const respData = {
+          code: "PAYMENT_REFUNDED",
+          message: "Your payment has not been processed due to technical issue. Please try again."
+        }
 
+        res.status(200).send(respData);
 
+      }else{
+        throw kp7BillsPay
       }
 
     }
@@ -128,43 +140,36 @@ const PayNow = async (req, res, next) => {
           // IF POSTED UPDATE SYMPH BILLSPAY TO POSTED THEN RETURN SUCCESS
           // IF FAILED REFUND
     else if (paymentStatus === "PAID" && billspayStatus === "FAILED") {
-      SuccessLogger(response.url, response.status, `PAY BILLS: ${JSON.stringify(response.data.data)}`);
 
-      let reqBody = {
-        billspayStatus: "POSTED",
-        createdDate
-      }
+      if (kp7BillsPay.respcode === "1" && kp7BillsPay.respmsg === "SUCCESS") {
+        
+        let reqBody = {
+          billspayStatus: "POSTED",
+          createdDate
+        }
 
-      const updateBillsPay = await UpdateBillsPayment(reqBody, kptn);
-      const updateResponse = updateBillsPay.data.data;
+        const updateBillsPay = await UpdateBillsPayment(reqBody, kptn);
 
-      if (updateResponse.billspayStatus === "POSTED" && updateResponse.paymentStatus === "PAID") {
-          SuccessLogger(updateBillsPay.url, updateBillsPay.status, `SUCCESS UPDATE: Kptn - ${kptn}`);
-          res.status(updateBillsPay.status).send(updateBillsPay.data);
-      }
-      else if (updateResponse.billspayStatus === "FAILED" && updateResponse.paymentStatus === "PAID") {
-        console.log("ERROR UPDATE");
+        SuccessLogger(updateBillsPay.url, updateBillsPay.status, `SUCCESS UPDATE: Kptn - ${kptn}`);
+        res.status(200).json(response.data);
+
+      }else if (kp7BillsPay.respcode === "0" && kp7BillsPay.respmsg === "Transaction not found.") {
 
         const refundBillsPay = await RefundBillsPayment(kptn);
-
-        if (refundBillsPay.status === 201) {
-
-          let data = {
-            billsPay: response.data.data,
-            refund: refundBillsPay.data.data
-          }
-          SuccessLogger(updateResponse.url, 200, `Payment pushed through but able to pay for a refund. Kptn : ${kptn}; Refund Date: ${refundBillsPay.data.data.refundDate}`);
-
-          res.status(200).send(data);
-
-        }else{
-
-          throw refundBillsPay
-        }
+        SuccessLogger(refundBillsPay.url, 200, `Payment pushed through but able to pay for a refund. Kptn : ${kptn}; Refund Date: ${refundBillsPay.data.data.refundDate}`);
         
+        const respData = {
+          code: "PAYMENT_REFUNDED",
+          message: "Your payment has not been processed due to technical issue. Please try again."
+        }
+
+        res.status(200).send(respData);
+
       }else{
-        throw updateBillsPay
+
+        throw kp7BillsPay
       }
+      
     }else{
       throw response
     }
@@ -308,7 +313,7 @@ const CheckKP7Transaction = async (transactionId) => {
       Digest: process.env.KP7_DIGEST
     }
 
-    let buffer = new Buffer(`${username}:${password}`);
+    let buffer = Buffer.from(`${username}:${password}`);
 
     let auth = buffer.toString("base64");
 

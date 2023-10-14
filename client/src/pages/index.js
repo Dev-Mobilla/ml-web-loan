@@ -7,7 +7,8 @@ import QuickCashLoan from "./QuickCashLoan.page";
 import Receipt from "./Receipt.page";
 import ManageLoansDetails from "./ManageLoansDetails.page";
 import MainOutlet from "./Outlet.page";
-import CollateralDetails from "./CollateralDetails.page"
+import CollateralDetails from "./CollateralDetails.page";
+import PaymentReceipt from "./PaymentReceipt.page";
 
 export {
     MainOutlet,
@@ -20,4 +21,5 @@ export {
     Receipt,
     ManageLoansDetails,
     CollateralDetails,
+    PaymentReceipt
 }

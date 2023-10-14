@@ -335,7 +335,7 @@ const CustomerDetailsComponent = () => {
           cities: data.data.addresses.current.addressL2Name,
           barangay: data.data.addresses.current.otherAddress
         });
-        setIsEditable(!isEditable);
+        setIsEditable(true);
       }
       else {
         setContactDetails({
@@ -357,6 +357,7 @@ const CustomerDetailsComponent = () => {
           cities: "",
           barangay: ""
         });
+        setIsEditable(false);
       }
     } catch (error) {
       console.log(error);
@@ -476,7 +477,7 @@ const CustomerDetailsComponent = () => {
             <div className="apply-btn">
               <CustomButton
                 type="submit"
-                name="Submit"
+                name="Proceed"
                 styles={buttonClassName}
                 disabled={isSubmitDisabled}
               ></CustomButton>

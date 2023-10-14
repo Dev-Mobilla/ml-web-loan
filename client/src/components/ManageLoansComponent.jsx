@@ -224,7 +224,12 @@ const ManageLoanComponent = () => {
       navigate(`/manage-loans/${loanType}/${referenceNo}`);
     } else {
       navigate(
-        `/manage-loans/loan-details?reference=${referenceNo}&loan-type=${type}`
+        `/manage-loans/loan-details?reference=${referenceNo}&loan-type=${type}`, {
+          state: {
+            referenceNo,
+            type
+          }
+        }
       );
     }
   };

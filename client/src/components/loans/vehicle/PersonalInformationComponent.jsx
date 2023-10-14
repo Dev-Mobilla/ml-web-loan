@@ -19,8 +19,8 @@ const PersonalInformationComponent = ({
   const [errors, setErrors] = useState({});
   useEffect(() => {
     const isValid =
-      informationDetails.firstname !== "" &&
-      informationDetails.lastname !== "" &&
+      informationDetails.firstname !== "" || informationDetails.firstname == null &&
+      informationDetails.lastname !== "" || informationDetails.lastname == null &&
       informationDetails.birthdate !== "" &&
       informationDetails.nationality !== "" &&
       informationDetails.civil_status !== "" &&
@@ -29,7 +29,7 @@ const PersonalInformationComponent = ({
       informationDetails.tenure !== "" &&
       informationDetails.office_address !== "" &&
       informationDetails.office_landline !== "" &&
-      informationDetails.sourceOfIncome !== "" &&
+      informationDetails.sourceOfIncome !== "" || informationDetails.sourceOfIncome == null &&
       informationDetails.monthly_income !== "" &&
       informationDetails.countries !== "" &&
       informationDetails.provinces !== "" &&
@@ -38,7 +38,7 @@ const PersonalInformationComponent = ({
     onValidationChange(isValid);
     onInformationDetailsChange(informationDetails);
     fetchData();
-    // console.log("information", informationDetails);
+    console.log("information", informationDetails);
   }, [informationDetails, onValidationChange]);
 
   const fetchData = async () => {
@@ -241,7 +241,9 @@ const PersonalInformationComponent = ({
           className="d-input"
           type="date"
           name="birthdate"
-          placeholder="Birthdate"
+          placeholder={`${informationDetails.birthdate === "" || 
+            informationDetails.birthdate == null ? "Birthdate" 
+            : informationDetails.birthdate}`}
           value={informationDetails.birthdate || ''}
           onChange={handleInputChange}
           onFocus={() => handleFocus("birthdate")}

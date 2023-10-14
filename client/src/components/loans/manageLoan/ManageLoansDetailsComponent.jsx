@@ -9,10 +9,11 @@ import {
   TopbarComponent,
   LoadingComponent,
   PaymentDetailsModalComponent,
+  CustomLoadingModal,
 } from "../../index";
 import houseIcon from "../../../assets/icons/house.png";
 import mlicon from "../../../assets/icons/diamond.png";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import {
   GetLoanDetails,
   GetPaymentHistory,
@@ -35,8 +36,11 @@ const ConfirmationModal = ({ isOpen, onClose, onConfirm }) => {
     <div className="modal">
       <div className="modal-content">
         <div className="modal-body">
+          <p className="modal-title">
+            Download
+          </p>
           <p className="modal-description">
-            Do you want to download the payment schedule?
+            Do you want to download payment schedule?
           </p>
           <div className="modal-actions">
             <CustomButton
@@ -73,6 +77,10 @@ const ManageLoansDetailsComponent = () => {
   const [message, setMessage] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [paymentData, setPaymentData] = useState(null);
+  const [showLoading, setShowLoading] = useState({
+    loading: false,
+    text: "Please wait"
+  });
 
   const [loanDetails, setLoanDetails] = useState({
     dueAmount: "",
@@ -91,14 +99,18 @@ const ManageLoansDetailsComponent = () => {
     text: "Pay Now",
   });
 
-  const displayError = (error) => {
+  const displayError = ({ message, title }) => {
     setAlertModal(true);
     setAlertProps({
-      message: error.message,
+      title: title,
+      message: message,
     });
   };
 
   const LoanDetailsHandler = async () => {
+    console.log("LoanReference", LoanReference);
+    console.log("LoanType", LoanType);
+    
     const response = await GetLoanDetails({ reference: LoanReference });
     setLoanDetails({
       dueAmount: "",
@@ -132,20 +144,32 @@ const ManageLoansDetailsComponent = () => {
               paymentStatus: loanPayment.status
             });
           } catch (error) {
-            displayError("An error occurred while fetching the loan details.");
+            displayError({
+              message: "An error occurred while fetching the loan details.",
+              title: "Error"
+            });
           }
 
           setIsLoading(false);
         }, 3000);
         break;
       case 404:
-        displayError("No data found");
+        displayError({
+          title: "",
+          message: "No data found",
+        });
         break;
       case 500:
-        displayError("An error occurred while fetching loan details.");
+        displayError({
+          title: "Network Error",
+          message: "An error occurred while fetching loan details."
+        });
         break;
       default:
-        displayError("An error occurred while fetching loan details.");
+        displayError({
+          title: "Network Error",
+          message: "An error occurred while fetching loan details."
+        });
         break;
     }
   };
@@ -236,7 +260,10 @@ const ManageLoansDetailsComponent = () => {
     }
   };
 
+  const Location = useLocation()
+
   useEffect(() => {
+
     pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
     const { data, firstName, lastName, reference, term, status } =
@@ -408,11 +435,22 @@ const ManageLoansDetailsComponent = () => {
           "You don't have payment for this month."
         );
       }
-      setPayNowBtn({
-        isDisable: true,
-        classname: "disabled",
-        text: "Loading...",
-      });
+      // setPayNowBtn({
+      //   isDisable: true,
+      //   classname: "disabled",
+      //   text: "Loading...",
+      // });
+      setShowLoading({
+        loading: true,
+        text: "Just a moment"
+      })
+
+       setTimeout(() => {
+        setShowLoading({
+          loading: true,
+          text: "We're almost there!"
+        })
+      }, 3500);
       const serviceFeeResponse = await GetServiceFee(amount);
       const serviceFee = serviceFeeResponse.data.totalServiceFee;
       const thresholdResponse = await GetThresholdAmount();
@@ -492,11 +530,9 @@ const ManageLoansDetailsComponent = () => {
 
       console.log("Confirmation:", confirmation);
 
-      setPayNowBtn({
-        isDisable: false,
-        classname: "",
-        text: "Pay Now",
-      });
+      setShowLoading({
+        loading: false
+      })
 
       isSuccess = true;
     } catch (error) {
@@ -539,19 +575,20 @@ const ManageLoansDetailsComponent = () => {
   const handleCancelPayment = () => {
     const errorObject = createError(
       400,
-      "The payment has been canceled.",
-      "The payment has been canceled."
+      "Payment has been cancelled.",
+      "Payment has been cancelled."
     );
 
     setPaymentData({});
     setShowModal(false);
     setAlertProps({
-      title: "Information",
+      title: "Cancelled",
       message: errorObject.message,
       color: "#0077ff",
       onClose: handleModalClose,
     });
     setAlertModal(true);
+    
   };
 
   const handleProceedPayment = async (paymentData) => {
@@ -563,39 +600,50 @@ const ManageLoansDetailsComponent = () => {
       total,
     } = paymentData;
     try {
-      const paymentResponse = await PayNow(
-        accountFirstName,
-        accountLastName,
-        accountMiddleName,
-        accountNo,
-        total
-      );
 
-      if (paymentResponse?.error) {
-        const { error } = paymentResponse;
-        if (error.code === "CASH_TRANSFER_NOT_ENOUGH_BALANCE_ERROR_CODE") {
-          throw createError(
-            400,
-            "Insufficient Balance",
-            "There is insufficient balance to proceed with this transaction. Please try again."
-          );
-        }
-        if (error.code === "TRANSACTION_NOT_ALLOWED_SENDER") {
-          throw createError(
-            403,
-            error.message,
-            "Principal amount is not allowed."
-          );
-        }
-      }
-      setShowModal(false);
-      setAlertModal(true);
-      setAlertProps({
-        message: "Payment Successful",
-        title: "Success",
-        color: "#006400",
-        onClose: handleModalClose,
-      });
+      setShowLoading({
+        loading: true,
+        text: `Thank you for your patience while we process your payment. 
+        It should only take 1-2 minutes.`
+      })
+
+      // const paymentResponse = await PayNow(
+      //   accountFirstName,
+      //   accountLastName,
+      //   accountMiddleName,
+      //   accountNo,
+      //   total
+      // );
+
+      // if (paymentResponse?.error) {
+      //   const { error } = paymentResponse;
+      //   if (error.code === "CASH_TRANSFER_NOT_ENOUGH_BALANCE_ERROR_CODE") {
+      //     throw createError(
+      //       400,
+      //       "Insufficient Balance",
+      //       "There is insufficient balance to proceed with this transaction. Please try again."
+      //     );
+      //   }
+      //   if (error.code === "TRANSACTION_NOT_ALLOWED_SENDER") {
+      //     throw createError(
+      //       403,
+      //       error.message,
+      //       "Principal amount is not allowed."
+      //     );
+      //   }
+      // }
+      // setShowLoading(false)
+      // setTimeout(() => {
+      //   setShowModal(false);
+      //   setAlertModal(true);
+      //   setAlertProps({
+      //     message: "Payment Successful",
+      //     title: "Success",
+      //     color: "#006400",
+      //     onClose: handleModalClose,
+      //   });
+      // }, 1000);
+      // console.log("paymentResponse", paymentResponse);
     } catch (error) {
       setAlertModal(true);
       setAlertProps({
@@ -608,8 +656,12 @@ const ManageLoansDetailsComponent = () => {
   };
 
   useEffect(() => {
-    LoanDetailsHandler();
-    PaymentHistoryHandler();
+    if (Location.state && LoanReference && LoanType) {
+      LoanDetailsHandler();
+      PaymentHistoryHandler();
+    }else{
+      navigate(`/manage-loans`);
+    }
   }, []);
 
   const OnModalCloseHandler = () => {
@@ -657,6 +709,29 @@ const ManageLoansDetailsComponent = () => {
       />
     </svg>
   );
+
+  const LoadingIcon = (
+     <div className="spinner-icon">
+    <svg viewBox="0 0 50 50">
+      <circle
+        cx="25"
+        cy="25"
+        r="20"
+        fill="none"
+        strokeWidth="4"
+        stroke="var(--red)"
+        strokeLinecap="round"
+      >
+        <animate
+          attributeName="stroke-dasharray"
+          values="0 100;100 100;100 0"
+          dur="3s"
+          repeatCount="indefinite"
+        />
+      </circle>
+    </svg>
+  </div>
+  )
 
   return (
     <div className="loan-details">
@@ -831,6 +906,11 @@ const ManageLoansDetailsComponent = () => {
         onClose={handleModalClose}
         onConfirm={handleModalConfirm}
       />
+      {
+        showLoading.loading ? <CustomLoadingModal  
+        loadingText={showLoading.text} 
+        loadingIcon={LoadingIcon}/> : <></>
+      }
     </div>
   );
 };

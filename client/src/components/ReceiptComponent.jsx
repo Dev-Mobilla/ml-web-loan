@@ -12,9 +12,9 @@ const ReceiptComponent = () => {
   const navigate = useNavigate();
   const location = useLocation();
   useEffect(() => {
-    if (location.state == null) {
-      navigate('/vehicle-loan/loan-type/new');
-    }
+    // if (location.state == null) {
+    //   navigate('/vehicle-loan/loan-type/new');
+    // }
   });
   const BackToDashBoardHandler = () => {
     navigate('/');
