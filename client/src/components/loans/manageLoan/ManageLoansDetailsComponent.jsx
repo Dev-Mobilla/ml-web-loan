@@ -36,9 +36,7 @@ const ConfirmationModal = ({ isOpen, onClose, onConfirm }) => {
     <div className="modal">
       <div className="modal-content">
         <div className="modal-body">
-          <p className="modal-title">
-            Download
-          </p>
+          <p className="modal-title">Download</p>
           <p className="modal-description">
             Do you want to download payment schedule?
           </p>
@@ -79,7 +77,7 @@ const ManageLoansDetailsComponent = () => {
   const [paymentData, setPaymentData] = useState(null);
   const [showLoading, setShowLoading] = useState({
     loading: false,
-    text: "Please wait"
+    text: "Please wait",
   });
 
   const [loanDetails, setLoanDetails] = useState({
@@ -90,7 +88,7 @@ const ManageLoansDetailsComponent = () => {
     reference: "",
     status: "",
     total: "",
-    paymentStatus: ""
+    paymentStatus: "",
   });
 
   const [payNowBtn, setPayNowBtn] = useState({
@@ -108,9 +106,6 @@ const ManageLoansDetailsComponent = () => {
   };
 
   const LoanDetailsHandler = async () => {
-    console.log("LoanReference", LoanReference);
-    console.log("LoanType", LoanType);
-    
     const response = await GetLoanDetails({ reference: LoanReference });
     setLoanDetails({
       dueAmount: "",
@@ -119,7 +114,7 @@ const ManageLoansDetailsComponent = () => {
       reference: "",
       loanType: "",
       total: "",
-      paymentStatus: ""
+      paymentStatus: "",
     });
 
     switch (response.status) {
@@ -128,8 +123,6 @@ const ManageLoansDetailsComponent = () => {
 
         let loanPayment = loan.data;
         setIsLoading(true);
-
-        console.log("details",response);
 
         setTimeout(async () => {
           try {
@@ -141,12 +134,12 @@ const ManageLoansDetailsComponent = () => {
               loanType: LoanType,
               status: loan.status,
               total: loanPayment.total_payable,
-              paymentStatus: loanPayment.status
+              paymentStatus: loanPayment.status,
             });
           } catch (error) {
             displayError({
               message: "An error occurred while fetching the loan details.",
-              title: "Error"
+              title: "Error",
             });
           }
 
@@ -162,13 +155,13 @@ const ManageLoansDetailsComponent = () => {
       case 500:
         displayError({
           title: "Network Error",
-          message: "An error occurred while fetching loan details."
+          message: "An error occurred while fetching loan details.",
         });
         break;
       default:
         displayError({
           title: "Network Error",
-          message: "An error occurred while fetching loan details."
+          message: "An error occurred while fetching loan details.",
         });
         break;
     }
@@ -260,10 +253,9 @@ const ManageLoansDetailsComponent = () => {
     }
   };
 
-  const Location = useLocation()
+  const Location = useLocation();
 
   useEffect(() => {
-
     pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
     const { data, firstName, lastName, reference, term, status } =
@@ -424,6 +416,8 @@ const ManageLoansDetailsComponent = () => {
     );
   };
 
+  const accountDetails = getCookieData();
+
   const handlePayNow = async () => {
     let isSuccess = false;
     try {
@@ -435,26 +429,20 @@ const ManageLoansDetailsComponent = () => {
           "You don't have payment for this month."
         );
       }
-      // setPayNowBtn({
-      //   isDisable: true,
-      //   classname: "disabled",
-      //   text: "Loading...",
-      // });
       setShowLoading({
         loading: true,
-        text: "Just a moment"
-      })
+        text: "Just a moment",
+      });
 
-       setTimeout(() => {
+      setTimeout(() => {
         setShowLoading({
           loading: true,
-          text: "We're almost there!"
-        })
-      }, 3500);
+          text: "We're almost there!",
+        });
+      }, 1000);
       const serviceFeeResponse = await GetServiceFee(amount);
       const serviceFee = serviceFeeResponse.data.totalServiceFee;
       const thresholdResponse = await GetThresholdAmount();
-      const accountDetails = getCookieData();
 
       if (!serviceFeeResponse || !thresholdResponse || !accountDetails) {
         throw createError(
@@ -528,11 +516,9 @@ const ManageLoansDetailsComponent = () => {
         setShowModal(true);
       }
 
-      console.log("Confirmation:", confirmation);
-
       setShowLoading({
-        loading: false
-      })
+        loading: false,
+      });
 
       isSuccess = true;
     } catch (error) {
@@ -588,7 +574,6 @@ const ManageLoansDetailsComponent = () => {
       onClose: handleModalClose,
     });
     setAlertModal(true);
-    
   };
 
   const handleProceedPayment = async (paymentData) => {
@@ -600,55 +585,75 @@ const ManageLoansDetailsComponent = () => {
       total,
     } = paymentData;
     try {
-
       setShowLoading({
         loading: true,
-        text: `Thank you for your patience while we process your payment. 
-        It should only take 1-2 minutes.`
-      })
+        text: `Thank you for your patience while we process your payment. It should only take 1-2 minutes.`,
+      });
+      const paymentResponse = await PayNow(
+        accountFirstName,
+        accountLastName,
+        accountMiddleName,
+        accountNo,
+        total
+      );
 
-      // const paymentResponse = await PayNow(
-      //   accountFirstName,
-      //   accountLastName,
-      //   accountMiddleName,
-      //   accountNo,
-      //   total
-      // );
+      if (paymentResponse?.error) {
+        const { error } = paymentResponse;
+        const errorCode = error.code;
+        const statusCode = error.status;
 
-      // if (paymentResponse?.error) {
-      //   const { error } = paymentResponse;
-      //   if (error.code === "CASH_TRANSFER_NOT_ENOUGH_BALANCE_ERROR_CODE") {
-      //     throw createError(
-      //       400,
-      //       "Insufficient Balance",
-      //       "There is insufficient balance to proceed with this transaction. Please try again."
-      //     );
-      //   }
-      //   if (error.code === "TRANSACTION_NOT_ALLOWED_SENDER") {
-      //     throw createError(
-      //       403,
-      //       error.message,
-      //       "Principal amount is not allowed."
-      //     );
-      //   }
-      // }
-      // setShowLoading(false)
-      // setTimeout(() => {
-      //   setShowModal(false);
-      //   setAlertModal(true);
-      //   setAlertProps({
-      //     message: "Payment Successful",
-      //     title: "Success",
-      //     color: "#006400",
-      //     onClose: handleModalClose,
-      //   });
-      // }, 1000);
-      // console.log("paymentResponse", paymentResponse);
+        if (
+          errorCode === "CASH_TRANSFER_NOT_ENOUGH_BALANCE_ERROR_CODE" ||
+          statusCode === 400
+        ) {
+          throw createError(
+            400,
+            "Insufficient Balance",
+            "There is insufficient balance to proceed with this transaction. Please try again."
+          );
+        }
+
+        if (
+          errorCode === "TRANSACTION_NOT_ALLOWED_SENDER" ||
+          statusCode === 403
+        ) {
+          throw createError(
+            403,
+            error.message,
+            "Principal amount is not allowed."
+          );
+        }
+
+        if (errorCode === "AUTHENTICATION_ERROR" || statusCode === 401) {
+          throw createError(
+            400,
+            "Authentication Error",
+            "Authentication failed"
+          );
+        }
+      }
+
+      if (paymentResponse.data.billspayStatus === "FAILED") {
+        throw createError(
+          200,
+          "Bills Failed Transaction - Refund",
+          "Your payment has not been processed due to a technical issue. Please try again."
+        );
+      } else if (paymentResponse.data.billspayStatus === "POSTED") {
+        navigate("/vehicle-loan/payment-receipt", {
+          state: {
+            paymentData: paymentData,
+            createdDate: paymentResponse.data.createdDate,
+            kptn: paymentResponse.data.kptn,
+            mobileNumber: accountDetails.mobileNumber,
+          },
+        });
+      }
     } catch (error) {
       setAlertModal(true);
       setAlertProps({
-        message: error.displayMessage || "An error occurred",
-        title: "Error",
+        title: error.title || "Error",
+        message: error.message || "An error occurred",
         color: "#ff6562",
         onClose: handleModalClose,
       });
@@ -659,7 +664,7 @@ const ManageLoansDetailsComponent = () => {
     if (Location.state && LoanReference && LoanType) {
       LoanDetailsHandler();
       PaymentHistoryHandler();
-    }else{
+    } else {
       navigate(`/manage-loans`);
     }
   }, []);
@@ -711,27 +716,27 @@ const ManageLoansDetailsComponent = () => {
   );
 
   const LoadingIcon = (
-     <div className="spinner-icon">
-    <svg viewBox="0 0 50 50">
-      <circle
-        cx="25"
-        cy="25"
-        r="20"
-        fill="none"
-        strokeWidth="4"
-        stroke="var(--red)"
-        strokeLinecap="round"
-      >
-        <animate
-          attributeName="stroke-dasharray"
-          values="0 100;100 100;100 0"
-          dur="3s"
-          repeatCount="indefinite"
-        />
-      </circle>
-    </svg>
-  </div>
-  )
+    <div className="spinner-icon">
+      <svg viewBox="0 0 50 50">
+        <circle
+          cx="25"
+          cy="25"
+          r="20"
+          fill="none"
+          strokeWidth="4"
+          stroke="var(--red)"
+          strokeLinecap="round"
+        >
+          <animate
+            attributeName="stroke-dasharray"
+            values="0 100;100 100;100 0"
+            dur="3s"
+            repeatCount="indefinite"
+          />
+        </circle>
+      </svg>
+    </div>
+  );
 
   return (
     <div className="loan-details">
@@ -831,7 +836,8 @@ const ManageLoansDetailsComponent = () => {
                 <></>
               )}
 
-              {loanDetails.status?.toLowerCase() === "disbursed" && loanDetails.paymentStatus === "UNPAID" ? (
+              {loanDetails.status?.toLowerCase() === "disbursed" &&
+              loanDetails.paymentStatus === "UNPAID" ? (
                 <div className="note">
                   <div className="paynote">
                     <p>
@@ -906,11 +912,14 @@ const ManageLoansDetailsComponent = () => {
         onClose={handleModalClose}
         onConfirm={handleModalConfirm}
       />
-      {
-        showLoading.loading ? <CustomLoadingModal  
-        loadingText={showLoading.text} 
-        loadingIcon={LoadingIcon}/> : <></>
-      }
+      {showLoading.loading ? (
+        <CustomLoadingModal
+          loadingText={showLoading.text}
+          loadingIcon={LoadingIcon}
+        />
+      ) : (
+        <></>
+      )}
     </div>
   );
 };
