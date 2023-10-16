@@ -8,6 +8,7 @@ import {
   ManageLoansDetails,
   Receipt,
   Error,
+  PaymentReceipt,
 } from "../pages";
 import LoanType from "../pages/LoanType.page";
 import CustomerDetails from "../pages/CustomerDetails.page";
@@ -58,6 +59,7 @@ const routes = [
       { path: "/vehicle-loan/personal-details", element: <CustomerDetails /> },
       { path: "/vehicle-loan/requirements", element: <CustomerRequirements /> },
       { path: "/vehicle-loan/receipt", element: <Receipt /> },
+      { path: "/vehicle-loan/payment-receipt", element: <PaymentReceipt /> },
     ],
   },
   {

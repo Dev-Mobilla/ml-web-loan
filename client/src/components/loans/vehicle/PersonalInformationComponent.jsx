@@ -241,7 +241,9 @@ const PersonalInformationComponent = ({
           className="d-input"
           type="date"
           name="birthdate"
-          placeholder="Birthdate"
+          placeholder={`${informationDetails.birthdate === "" || 
+            informationDetails.birthdate == null ? "Birthdate" 
+            : informationDetails.birthdate}`}
           value={informationDetails.birthdate || ''}
           onChange={handleInputChange}
           onFocus={() => handleFocus("birthdate")}

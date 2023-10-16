@@ -390,6 +390,11 @@
   margin: auto 30px;
 }
 
+.spinner-icon{
+  width: 40px;
+  height: 40px;
+}
+
 /* MOBILE RESPONSIVE */
 
 @media screen and (min-width: 360px) and (max-width: 480px) {
@@ -456,6 +461,12 @@
   }
   .manage-loans .footer {
     display: none;
+  }
+  .manage-loans .submit-modal .modal-container {
+    width: 350px
+  }
+  .manage-loans .submit-modal .modal-inputbtn-wrapper{
+    width: 280px;
   }
 }
 
@@ -527,6 +538,12 @@
   }
   .manage-loans .footer {
     display: none;
+  }
+  .manage-loans .submit-modal .modal-container {
+    width: 350px
+  }
+  .manage-loans .submit-modal .modal-inputbtn-wrapper{
+    width: 280px;
   }
 }
 
@@ -612,6 +629,12 @@
   }
   .manage-loans .footer {
     display: none;
+  }
+  .manage-loans .submit-modal .modal-container {
+    width: 350px
+  }
+  .manage-loans .submit-modal .modal-inputbtn-wrapper{
+    width: 280px;
   }
 }
 

@@ -1,17 +1,15 @@
 import React from "react";
 import "../../styles/customcomponent.css";
 
-const CustomButton = (props) => {
-  const {
-    name,
-    styles,
-    EventHandler,
-    disabled,
-    inline,
-    icon,
-    iconStyle,
-    btnType,
-  } = props;
+const CustomButton = ({ 
+  name,
+  styles,
+  EventHandler,
+  disabled,
+  inline,
+  icon,
+  iconStyle,
+  btnType }) => {
 
   const handleClick = () => {
     if (!disabled && EventHandler) {

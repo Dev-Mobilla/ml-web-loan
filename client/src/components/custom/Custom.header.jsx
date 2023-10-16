@@ -1,8 +1,7 @@
 import React from "react";
 import "../../styles/customcomponent.css";
 
-const CustomHeader = (props) => {
-  const { title } = props;
+const CustomHeader = ({ title }) => {
 
   return (
     <header className="custom-header">

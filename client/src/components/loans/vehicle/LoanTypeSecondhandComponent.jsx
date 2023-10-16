@@ -55,7 +55,7 @@ const LoanTypeSecondHandComponent = () => {
   const [vehicleDetailsAmounts, setVehicleDetailsAmounts] = useState({
     principalAmount: "",
     terms: "",
-    interest: ""
+    interest: 1.5
   });
 
   const handleValidationChange = (isValid) => {
@@ -108,9 +108,15 @@ const LoanTypeSecondHandComponent = () => {
 
   useEffect(() => {
     const isValid =
-      vehicleDetailsAmounts.principalAmount.trim() !== "" &&
-      vehicleDetailsAmounts.terms.trim() !== "" &&
-      vehicleDetailsAmounts.interest.trim() !== "";
+      vehicleDetailsAmounts.principalAmount !== "" &&
+      vehicleDetailsAmounts.terms !== "" &&
+      vehicleDetails.make.trim() !== "" &&
+      vehicleDetails.model.trim() !== "" &&
+      vehicleDetails.year.trim() !== "" &&
+      vehicleDetails.color.trim() !== "" &&
+      vehicleDetails.plateNo.trim() !== "" &&
+      vehicleDetails.engineNo.trim() !== "" &&
+      vehicleDetails.chassisNo.trim() !== "";
     handleValidationChangeAmounts(isValid);
     
   },[vehicleDetailsAmounts, handleValidationChangeAmounts])
@@ -199,6 +205,7 @@ const LoanTypeSecondHandComponent = () => {
                         inputType="text"
                         inputName="principalAmount"
                         inputOnchange={handleVehicleDetailsAmount}
+                        onKeyDownHandler={OnKeydownPriceHandler}
                     />
                     <p className="amount-label">Principal Amount</p>
                   </div>
@@ -210,6 +217,7 @@ const LoanTypeSecondHandComponent = () => {
                     inputType="text"
                     inputName="terms"
                     inputOnchange={handleVehicleDetailsAmount}
+                    onKeyDownHandler={OnKeydownPriceHandler}
                   />
                     <p className="amount-label">Terms (months)</p>
                  </div>

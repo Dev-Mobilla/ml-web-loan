@@ -204,12 +204,67 @@ const RefundBillsPayApi = async (URL, config) => {
       return error;
     }
   };
+  const CheckKP7Transaction = async (req, res) => {
+    try {
+      let transactionId = req.body.transactionId;
 
+      
+      const username =  process.env.KP7_USERNAME;
+      const password = process.env.KP7_PASSWORD;
+
+      let user = {
+        username,
+        password
+      }
+      
+      let billersId = process.env.KP7_BILLERS_ID;
+      
+      let URL = `${process.env.KP7_URL}/MLWebAPI/ApiBillsPay/Service.svc/InquireTransactionV3`;
+      
+      let passPhrase = billersId + "|" + user;
+      let digest = SignatureGenerator(passPhrase);
+      console.log(transactionId);
+      
+      let reqBody = {
+        transactionId: transactionId,
+        BillersId: billersId,
+        Digest: digest
+      }
+  
+      let buffer = new Buffer(`${username}:${password}`);
+  
+      let auth = buffer.toString("base64");
+  
+     let config = {
+        headers: {
+          Authorization: `Basic ${auth}`,
+        }
+     }
+  
+      const response = await CheckKP7TransactionApi(URL, reqBody, config);
+     console.log("RESPONSE:", response);
+      res.send(response)
+  
+    } catch (error) {
+      console.log(error);
+      res.send(error)
+    }
+  }
+  
+  const CheckKP7TransactionApi = async (URL, body, config) => {
+    try {
+      const response = await axios.post(URL, body, config);
+  
+      return response;
+    } catch (error) {
+      throw error
+    }
+  }
   
 module.exports = {
     GenerateTokenApi,
     UpdateBillsPaymentApi,
-  
+    CheckKP7Transaction,
     RefundBillsPaymentApi
   };
   

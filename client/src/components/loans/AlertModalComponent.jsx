@@ -19,8 +19,8 @@ const AlertModalComponent = ({ onClose, title, message, color }) => {
         <div className="alertcontainer" ref={modalRef}>
           <h1
             style={{
-              fontSize: "20px",
-              color: color,
+              fontSize: "23px",
+              // color: color,
               fontWeight: '700',
             }}
           >

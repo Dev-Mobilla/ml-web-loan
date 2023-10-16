@@ -59,7 +59,7 @@ const PaymentDetailsModalComponent = ({
               </div>
             </div>
             <div className="payment-group">
-              <div className="payment-label">Total</div>
+              <div className="payment-label total">Total</div>
               <div className="payment-value">
                 P
                 {paymentData.total.toLocaleString(undefined, {
@@ -79,7 +79,7 @@ const PaymentDetailsModalComponent = ({
                 EventHandler={closeModal}
               />
               <CustomButton
-                name={`Pay P${paymentData.total}`}
+                name={`Pay ₱${paymentData.total}`}
                 styles="payment-pay-btn"
                 EventHandler={handlePayment}
               />
