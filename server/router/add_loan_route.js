@@ -1,19 +1,17 @@
 const express = require("express");
-const router = express.Router();
+const ML_PUBLIC_ROUTER = express.Router();
 const LoanApplicationsController = require("../controller/loan_application_controller");
 const CustomerController = require("../controller/customer_details.controller");
 const EmploymentController = require("../controller/employment_docs_controller");
 const VehicleController = require("../controller/vehicle_docs_controller");
 const sequelize = require("../config/mlloan.server");
 
-const app = express();
 
-app.use(express.json());
-app.use(router);
-
-router.post("/ml-loans/create", async (req, res) => {
-  const reqBody = req.body.body;
+ML_PUBLIC_ROUTER.post("/create-loan", async (req, res) => {
+  const reqBody = req.body.data;
   const parsedReqBody = JSON.parse(reqBody);
+
+  console.log("reqbody: ", parsedReqBody);
   try {
     let customerValue;
     const { last_name, first_name, middle_name, mobile_number } =
@@ -36,7 +34,8 @@ router.post("/ml-loans/create", async (req, res) => {
           transaction,
         });
       if (!createdCustomerDetails) {
-        return res.status(400).json({ error: "Failed to Add Loan" });
+        // return res.status(400).json({ error: "Failed to Add Loan" });
+        throw createdCustomerDetails;
       }
       const customerId = createdCustomerDetails.customer_details_id;
       const createdEmploymentDetails =
@@ -45,7 +44,8 @@ router.post("/ml-loans/create", async (req, res) => {
           { transaction }
         );
       if (!createdEmploymentDetails) {
-        return res.status(400).json({ error: "Failed to Add Loan" });
+        throw createdEmploymentDetails;
+        // return res.status(400).json({ error: "Failed to Add Loan" });
       }
       const employmentId = createdEmploymentDetails.employment_docu_id;
       const createdVehicleDetails = await VehicleController.createVehicleDocs(
@@ -53,7 +53,8 @@ router.post("/ml-loans/create", async (req, res) => {
         { transaction }
       );
       if (!createdVehicleDetails) {
-        return res.status(400).json({ error: "Failed to Add Loan" });
+        throw createdVehicleDetails;
+        // return res.status(400).json({ error: "Failed to Add Loan" });
       }
       const vehicleId = createdVehicleDetails.vehicle_docu_id;
       const createdLoanApplicants =
@@ -65,15 +66,17 @@ router.post("/ml-loans/create", async (req, res) => {
           { transaction }
         );
       if (!createdLoanApplicants) {
-        return res.status(400).json({ error: "Failed to Add Loan" });
+        throw createdLoanApplicants;
+        // return res.status(400).json({ error: "Failed to Add Loan" });
       }
       return res.status(200).json({ success: "Added Loan!" });
     });
   } catch (error) {
-    return res.status(500).json({ error: "Internal server error" });
+    throw error
+    // return res.status(500).json({ error: "Internal server error" });
   }
 });
 
-router.get("/ml-loans/tables", LoanApplicationsController.getAllLoanApplicants);
+ML_PUBLIC_ROUTER.get("/ml-loans/tables", LoanApplicationsController.getAllLoanApplicants);
 
-module.exports = router;
+module.exports = ML_PUBLIC_ROUTER;

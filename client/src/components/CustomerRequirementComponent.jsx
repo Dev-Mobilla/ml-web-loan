@@ -16,7 +16,8 @@ import {
 } from "./index";
 import { GetSessionDocument } from "../utils/DataFunctions";
 import AddCarLoan from "../api/mlloan.api";
-import { CreateCustomerDetailsToSymph } from "../api/symph.api";
+import { CreateCustomerDetailsToSymph, SearchKyc } from "../api/symph.api";
+import AddLoan from "../api/mlloan.api";
 
 const CustomerRequirementComponent = () => {
   const navigate = useNavigate();
@@ -60,17 +61,21 @@ const CustomerRequirementComponent = () => {
     const baseData = location.state.secondStepDetails;
     const firstArray = baseData.personalDetails[0];
     const secondArray = baseData.personalDetails[1];
+    const address = baseData.personalDetails[3];
     const request = {
       vehicle_type: baseData.vehicleDetails.selectedVehicle,
       loan_type: baseData.vehicleDetails.type,
+      principal_amount: baseData.vehicleDetails.principalAmount,
+      terms: baseData.vehicleDetails.terms,
+      interest: baseData.vehicleDetails.interest,
       year: baseData.vehicleDetails.year,
       make: baseData.vehicleDetails.make,
       model: baseData.vehicleDetails.model,
-      variant: baseData.vehicleDetails.variant,
-      plate_number: baseData.vehicleDetails.plateNo,
-      engine_number: baseData.vehicleDetails.engineNo,
-      chassis_number: baseData.vehicleDetails.chassisNo,
-      preferred_branch: baseData.preffered_branch,
+      variant: baseData.vehicleDetails.variant ?  baseData.vehicleDetails.variant : null,
+      plate_number: baseData.vehicleDetails.plateNo ? baseData.vehicleDetails.plateNo : null,
+      engine_number: baseData.vehicleDetails.engineNo ? baseData.vehicleDetails.engineNo : null,
+      chassis_number: baseData.vehicleDetails.chassisNo ? baseData.vehicleDetails.chassisNo : null,
+      preferred_branch: baseData.personalDetails[2],
       last_name: secondArray.lastname,
       first_name: secondArray.firstname,
       middle_name: secondArray.middlename,
@@ -87,6 +92,7 @@ const CustomerRequirementComponent = () => {
       current_address: baseData.current_address,
       mobile_number: firstArray.mobile_number,
       email: firstArray.email,
+      current_address: address,
       valid_id: JSON.parse(sessionStorage.getItem("Valid ID"))?.url || "",
       employee_cert:
         JSON.parse(sessionStorage.getItem("Employee Certificate"))?.url || "",
@@ -99,13 +105,15 @@ const CustomerRequirementComponent = () => {
         JSON.parse(sessionStorage.getItem("Orginal OR/CR"))?.url || "",
       stencils: JSON.parse(sessionStorage.getItem("Set stencils"))?.url || "",
       car_insurance:
-        JSON.parse(sessionStorage.getItem("Car Insurance"))?.url || "",
+        JSON.parse(sessionStorage.getItem("Vehicle Insurance"))?.url || "",
       front_side: JSON.parse(sessionStorage.getItem("Front Side"))?.url || "",
       back_side: JSON.parse(sessionStorage.getItem("Back Side"))?.url || "",
       right_side: JSON.parse(sessionStorage.getItem("Right Side"))?.url || "",
       left_side: JSON.parse(sessionStorage.getItem("Left Side"))?.url || "",
     };
-    AddCarLoan(request);
+
+    console.log(location.state);
+    return request;
   };
 
   const CheckRequiredDocuments = () => {
@@ -147,7 +155,6 @@ const CustomerRequirementComponent = () => {
 
   const OnImageSubmitHandler = (imageName, documentName, url) => {
     console.log(location.state);
-    console.log(location.state.employeeCert);
     let imageItem = { imageName, url, documentName };
     sessionStorage.setItem([modalTitle], JSON.stringify(imageItem));
 
@@ -160,13 +167,8 @@ const CustomerRequirementComponent = () => {
     setIsSubmitButtonDisabled(!isEmpty);
   };
 
-  const OnSubmitRequirementsHandler = async () => {
-    if (sessionStorage.length !== 0 && location.state) {
-
-      // TODO: Check KYC
-
-      // Details: If existing ignore Symph DB
-      // Symph DB
+  const AddKyc = async () => {
+    // Symph DB
       try {
         const personalDetails =
           location.state.secondStepDetails.personalDetails;
@@ -202,7 +204,7 @@ const CustomerRequirementComponent = () => {
           },
         };
 
-        await CreateCustomerDetailsToSymph(customerDataToSymph);
+      return await CreateCustomerDetailsToSymph(customerDataToSymph);
 
       } catch (error) {
         if (error.response && error.response.status === 401) {
@@ -231,29 +233,58 @@ const CustomerRequirementComponent = () => {
           return;
         }
       }
+  }
 
-      //Details: If not, proceed ML DB
+  const OnSubmitRequirementsHandler = async () => {
+    if (sessionStorage.length !== 0 && location.state) {
 
-      // ML DB
-      RequestBody();
+      const mobileNumber = location.state.secondStepDetails.personalDetails[0].mobile_number;
+      // TODO: Check KYC
 
-      for (const key in sessionStorage) {
-        if (Object.hasOwnProperty.call(sessionStorage, key)) {
-          const element = sessionStorage[key];
-          setshowModal(true);
-          setModalProps({
-            title: "We have received your application",
-            message: `Our ML Loans Team will be reviewing the information submitted. You will receive a message from us in 3-5 business days.`,
-          });
+      try {
+        const isKycExist = await SearchKyc(mobileNumber);
+
+        // Details: If not existing Symph DB
+        if (isKycExist.data.code !== "SUCCESS") {
+
+              console.log("kyc does not exist: ", isKycExist);
+
+              // await AddKyc();
         }
+              
+        //Details: If not, proceed ML DB
+
+        // ML DB
+        const loanReqBody = RequestBody();
+
+        const AddMLLoan = await AddLoan(loanReqBody);
+
+        console.log("ADD LOAN: ", AddMLLoan);
+      
+
+      //   for (const key in sessionStorage) {
+      //     if (Object.hasOwnProperty.call(sessionStorage, key)) {
+      //       const element = sessionStorage[key];
+      //       setshowModal(true);
+      //       setModalProps({
+      //         title: "We have received your application",
+      //         message: `Our ML Loans Team will be reviewing the information submitted. You will receive a message from us in 3-5 business days.`,
+      //       });
+      //     }
+      //   }
+      // } else {
+      //   setShowAlert(true);
+      //   setAlertProps({
+      //     title: "Upload Required",
+      //     text: "Make sure to upload all required documents.",
+      //     isError: true,
+      //   });
+
+
+
+      } catch (error) {
+        
       }
-    } else {
-      setShowAlert(true);
-      setAlertProps({
-        title: "Upload Required",
-        text: "Make sure to upload all required documents.",
-        isError: true,
-      });
     }
   };
 

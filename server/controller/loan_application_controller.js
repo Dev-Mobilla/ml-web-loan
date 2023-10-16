@@ -6,7 +6,7 @@ async function createLoanApplication(LoanApplicationJsonData, customerId, vehicl
         return createdLoan;
     } catch (error) {
         console.error('Error creating user:', error);
-        return null;
+        return error;
     }
 }
 
@@ -68,7 +68,9 @@ async function getAllLoanApplicants(req, res) {
         res.send(loanApplicationsWithAssociatedData);
     } catch (error) {
         console.error('Error:', error);
-        res.status(500).send('An error occurred');
+        // next(error)
+        return error
+        // res.status(500).send('An error occurred');
     }
 }
 

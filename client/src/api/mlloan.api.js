@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { ML_LoansAxiosInstance } from "../helper/axios";
 
-const AddCarLoan = async (request) => {
+const AddLoan = async (request) => {
   try {
     // const UrlToAddLoan = `/api/ml-loans/tables`;
+
+    console.log("REQUEST: ", request);
     const loanType = request.loan_type;
     let plateNumber = request.plate_number;
     let engineNumber = request.engine_number;
@@ -58,24 +60,18 @@ const AddCarLoan = async (request) => {
         left_side: request.left_side,
       },
     };
-    const UrlToAddLoan = "api/ml-loans/create";
-    const response = await ML_LoansAxiosInstance.post(UrlToAddLoan, {
-      method: "POST",
+    const UrlToAddLoan = "api/ml-loans/loans/create-loan";
+    const response = await ML_LoansAxiosInstance.post(UrlToAddLoan, { data: JSON.stringify(RequestBody) }, {
       headers: {
         "Content-Type": "application/json",
-        "Access-Control-Allow-Origin":
-          "http://ml-loans-dev.mlhuillier.com:3000",
       },
-      body: JSON.stringify(RequestBody),
+      // body: JSON.stringify(RequestBody),
     });
-    if (response == 200) {
-      console.log(response);
-    } else {
-      console.error(response);
-    }
+    return response;
+
   } catch (error) {
     console.error("Error Posting:", error);
     return error;
   }
 };
-export default AddCarLoan;
+export default AddLoan;

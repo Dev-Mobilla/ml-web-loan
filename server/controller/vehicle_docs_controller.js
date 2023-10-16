@@ -6,7 +6,7 @@ async function createVehicleDocs(VehicleJsonData, options) {
         return createdVehicle;
     } catch (error) {
         console.error('Error creating user:', error);
-        return null;
+        return error;
     }
 }
 
