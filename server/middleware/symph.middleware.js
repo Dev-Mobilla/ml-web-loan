@@ -8,6 +8,7 @@ const ErrorResponse = (error) => {
     let errorCode = error.response.status
 
     if (statusCode.includes(errorCode)) {
+        console.log("ERROR", error);
         return error
     }else{
         const message = {
@@ -51,7 +52,7 @@ const ErrorHandler = (error, request, response , next) => {
 
 const ErrorResponder = (error, request, response , next) => {
     console.log("Error Reponding", error);
-    response.status(error.status).send(error.data);
+    response.send(error.data);
 }
 
 module.exports = {

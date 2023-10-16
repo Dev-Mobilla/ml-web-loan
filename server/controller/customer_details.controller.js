@@ -14,7 +14,8 @@ async function CreateCustomerDetails(customerValue, options) {
     );
     return createdCustomer;
   } catch (error) {
-    return null;
+    // return null;
+    return error
   }
 }
 

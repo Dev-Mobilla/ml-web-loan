@@ -4,7 +4,7 @@ const path = require("path");
 const cors = require("cors");
 const Logger = require("./config/logger.config");
 
-const { SYMPH_API_ROUTER, ML_LOAN_ROUTER, PUBLIC_ROUTER } = require("./router/index.routes"); 
+const { SYMPH_API_ROUTER, ML_LOAN_ROUTER, PUBLIC_ROUTER, ML_PUBLIC_ROUTER } = require("./router/index.routes"); 
 const {ErrorHandler, ErrorLogger, ErrorResponder} = require("./middleware/symph.middleware");
 const { Auth } = require("./middleware/auth.middleware");
 
@@ -29,6 +29,7 @@ app.get('/', (req, res) => {
 
 //ROUTES
 app.use('/api/ml-loans/symph', PUBLIC_ROUTER);
+app.use('/api/ml-loans/loans', ML_PUBLIC_ROUTER);
 app.use('/api/loans/symph', SYMPH_API_ROUTER);
 app.use('/api/ml-loans', Auth , ML_LOAN_ROUTER);
 

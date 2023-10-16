@@ -13,4 +13,5 @@ PUBLIC_ROUTER.get("/get-cities", GetAddressApi);
 PUBLIC_ROUTER.get("/get-customers", SearchKyc);
 PUBLIC_ROUTER.post("/basic-kyc", CreateCustomerDetailsToSymph);
 
+
 module.exports = PUBLIC_ROUTER;

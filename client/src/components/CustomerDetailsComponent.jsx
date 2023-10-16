@@ -141,7 +141,8 @@ const CustomerDetailsComponent = () => {
       personalDetails: [
         contactDetails,
         informationDetails,
-        selectedOption
+        selectedOption,
+        address
       ],
     };
 

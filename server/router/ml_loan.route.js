@@ -20,5 +20,4 @@ ML_LOAN_ROUTER.get("/get-countries", GetAddressApi);
 ML_LOAN_ROUTER.get("/get-provinces", GetAddressApi);
 ML_LOAN_ROUTER.get("/get-cities", GetAddressApi);
 
-
 module.exports = ML_LOAN_ROUTER;

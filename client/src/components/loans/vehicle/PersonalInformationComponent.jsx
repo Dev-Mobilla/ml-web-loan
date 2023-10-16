@@ -325,21 +325,21 @@ const PersonalInformationComponent = ({
           style={{ border: fieldBorders.nature_business }}
         >
           <option value="defaultBusiness">Nature of Business</option>
-          <option value="employment">Agriculture and Farming</option>
-          <option value="business">Food and Beverage</option>
-          <option value="investment">Retail</option>
-          <option value="retirement">Manufacturing</option>
-          <option value="CandE">Construction and Engineering</option>
-          <option value="PS">Professional Services</option>
-          <option value="healthcare">Healthcare</option>
-          <option value="HandT">Hospitality and Tourism</option>
-          <option value="IT">Information Technology</option>
-          <option value="EandT">Education and Training</option>
-          <option value="FS">Financial Services</option>
-          <option value="RS">Real Estate</option>
-          <option value="EandU">Energy and Utilities</option>
-          <option value="TandL">Transportation and Logistics</option>
-          <option value="EandM">Entertainment and Media</option>
+          <option value="Agriculture and Farming">Agriculture and Farming</option>
+          <option value="Food and Beverage">Food and Beverage</option>
+          <option value="Retail">Retail</option>
+          <option value="Manufacturing">Manufacturing</option>
+          <option value="Construction and Engineering">Construction and Engineering</option>
+          <option value="Professional Services">Professional Services</option>
+          <option value="Healthcare">Healthcare</option>
+          <option value="Hospitality and Tourism">Hospitality and Tourism</option>
+          <option value="Information Technology">Information Technology</option>
+          <option value="Education and Training">Education and Training</option>
+          <option value="Financial Services">Financial Services</option>
+          <option value="Real Estate">Real Estate</option>
+          <option value="Energy and Utilities">Energy and Utilities</option>
+          <option value="Transportation and Logistics">Transportation and Logistics</option>
+          <option value="Entertainment and Media">Entertainment and Media</option>
         </select>
         <div
           style={{ color: "red", fontSize: "12px", margin: "10px 20px 20px 0" }}
