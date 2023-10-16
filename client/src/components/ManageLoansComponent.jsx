@@ -8,6 +8,7 @@ import {
   ManageLoanCardComponent,
   CustomIcon,
   CustomSubmitModal,
+  CustomAlert,
   LoadingComponent,
   AlertModalComponent,
 } from "./index";
@@ -24,6 +25,9 @@ const ManageLoanComponent = () => {
   const [loans, setLoans] = useState(null);
   const [loading, setLoading] = useState(true);
   const [alertModal, setAlertModal] = useState(false);
+  const [showAlert, setShowAlert] = useState(true);
+  const [customAlert, setCustomAlert] = useState(false);
+
   const [alertProps, setAlertProps] = useState({});
 
   const { Housing, Vehicle, QCL } = CustomIcon;
@@ -34,62 +38,83 @@ const ManageLoanComponent = () => {
   };
 
   const GetAllLoans = async () => {
-      const getCkycId = GetCookieByName(process.env.REACT_APP_ACCOUNT_COOKIE_NAME);
+    const getCkycId = GetCookieByName(process.env.REACT_APP_ACCOUNT_COOKIE_NAME);
 
-      const response = await GetLoans({ckyc_id: getCkycId?.ckycId});
+    const response = await GetLoans({ ckyc_id: getCkycId?.ckycId });
 
-      setLoading(true);
+    setLoading(true);
 
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+    await new Promise((resolve) => setTimeout(resolve, 1000));
 
-      const displayError = (message) => {
-        setAlertModal(true);
-        setAlertProps({
-          message: message
-        })
-      }
+    const displayError = (message) => {
+      setAlertModal(true);
+      setAlertProps({
+        message: message
+      })
+    }
 
-      switch (response.status) {
-        case 200:
+    switch (response.status) {
+      case 200:
 
-          setTimeout(async () => {
-            try {
-              const loanData = response.data.data.map((loan) => ({
-                ...loan,
-                // isLoading: true,
-              }));
-              setLoans(loanData);
-              setLoading(false);
-              // await new Promise((resolve) => setTimeout(resolve, 1000));
-
-          // const updatedLoanData = loanData.map((loan) => ({
-          //   ...loan,
-          //   isLoading: false,
-          // }));
-          // setLoans(updatedLoanData);
-              
-            } catch (error) {
-              displayError("An error occurred while fetching the loan details.");
-            }
+        setTimeout(async () => {
+          try {
+            const loanData = response.data.data.map((loan) => ({
+              ...loan,
+              // isLoading: true,
+            }));
+            setLoans(loanData);
             setLoading(false);
-          }, 3000);
+            // await new Promise((resolve) => setTimeout(resolve, 1000));
 
-          break;
-        case 404:
-          displayError("Loan does not exist");
-          break;
-        case 401:
-          displayError("Session Expired. Please Login again")
-          break;
-        case 500:
-          displayError("An error occurred while fetching loan details.")
-          break;
-        default:
-          displayError("An error occurred while fetching loan details.")
-          break;
-      }
+            // const updatedLoanData = loanData.map((loan) => ({
+            //   ...loan,
+            //   isLoading: false,
+            // }));
+            // setLoans(updatedLoanData);
+
+          } catch (error) {
+            displayError("An error occurred while fetching the loan details.");
+          }
+          setLoading(false);
+        }, 3000);
+
+        break;
+      case 404:
+        displayError("Loan does not exist");
+        break;
+      case 401:
+        displayError("Session Expired. Please Login again")
+        break;
+      case 500:
+        displayError("An error occurred while fetching loan details.")
+        break;
+      default:
+        displayError("An error occurred while fetching loan details.")
+        break;
+    }
   };
-
+  const LoadingIcon = (
+    <div className="spinner-icon">
+      <svg viewBox="0 0 50 50">
+        <circle
+          cx="25"
+          cy="25"
+          r="20"
+          fill="none"
+          strokeWidth="4"
+          stroke="var(--red)"
+          strokeLinecap="round"
+        >
+          <animate
+            attributeName="stroke-dasharray"
+            values="0 100;100 100;100 0"
+            dur="3s"
+            repeatCount="indefinite"
+          />
+        </circle>
+      </svg>
+    </div>
+  )
   useEffect(() => {
     GetAllLoans();
 
@@ -172,14 +197,12 @@ const ManageLoanComponent = () => {
           btnStyle={statusChecker.btnStyle}
           disabled={statusChecker.isDisabled}
           loanCardName="loan-card"
-          cardContainer={`loan-card-container ${
-            status === "DISBURSED" || status === "APPROVED"
-              ? "current-loan"
-              : "past-loan"
-          }`}
-          loantypeTxt={`loan-type ${
-            status === "DISBURSED" || status === "APPROVED" ? "current" : "past"
-          }`}
+          cardContainer={`loan-card-container ${status === "DISBURSED" || status === "APPROVED"
+            ? "current-loan"
+            : "past-loan"
+            }`}
+          loantypeTxt={`loan-type ${status === "DISBURSED" || status === "APPROVED" ? "current" : "past"
+            }`}
           referenceTxt="reference-txt"
           OnBtnClick={() =>
             CardBtnClick(loan.ref_num, loan.loan_type.loan_type_name)
@@ -223,17 +246,35 @@ const ManageLoanComponent = () => {
     if ("quick-cash-loan" === loanType) {
       navigate(`/manage-loans/${loanType}/${referenceNo}`);
     } else {
-      navigate(
-        `/manage-loans/loan-details?reference=${referenceNo}&loan-type=${type}`, {
+
+
+      //The Condition should be here for the story
+      if (!customAlert) {
+        const props = {
+          title: "Payment processed",
+          text: "We're excited to see that you've made your loan payment on"+
+                "time! Your payment is now being processed and will be posted within 1-3 business days.",
+          isError: true,
+        };
+        setAlertProps(props);
+        setCustomAlert(true);
+        setShowAlert(true);
+      } else {
+        navigate(
+          `/manage-loans/loan-details?reference=${referenceNo}&loan-type=${type}`, {
           state: {
             referenceNo,
             type
           }
         }
-      );
+        );
+      }
     }
   };
-
+  const handleCloseAlert = () => {
+    setShowAlert(false);
+    setCustomAlert(false); // Reset customAlert to false
+  }
   const setToggleModalOutside = (event) => {
     if (modal) {
       const classNameBtn = event.target.className === "submit-modal";
@@ -241,7 +282,6 @@ const ManageLoanComponent = () => {
       setModal(!classNameBtn);
     }
   };
-
   return (
     <div className="manage-loans">
       {alertModal ? (
@@ -307,6 +347,14 @@ const ManageLoanComponent = () => {
                 <LoadingComponent containerStyle="container-loading" />
               ) : (
                 <PastLoansCards />
+              )}
+              {customAlert && showAlert && (
+                <CustomAlert
+                  title={alertProps.title}
+                  text={alertProps.text}
+                  isError={alertProps.isError}
+                  onClose={handleCloseAlert}
+                />
               )}
             </div>
           </div>

@@ -1,0 +1,12 @@
+ERROR 2023-10-16T09:52:51.077 Logging.. - 
+        Request URL: /api/ml-loans/validate-account-number - {"title":"Network Error","body":"The server encountered an unexpected error"} | "INTERNAL_SERVER_ERROR" - 500 Error
+    at ErrorThrower (C:\Users\CASTILLO\Desktop\Quick Dev\ml-web-loan\server\utils\ErrorGenerator.js:2:16)
+    at ErrorResponse (C:\Users\CASTILLO\Desktop\Quick Dev\ml-web-loan\server\middleware\symph.middleware.js:18:24)
+    at ErrorLogger (C:\Users\CASTILLO\Desktop\Quick Dev\ml-web-loan\server\middleware\symph.middleware.js:25:25)
+    at Layer.handle_error (C:\Users\CASTILLO\Desktop\Quick Dev\ml-web-loan\server\node_modules\express\lib\router\layer.js:71:5)
+    at trim_prefix (C:\Users\CASTILLO\Desktop\Quick Dev\ml-web-loan\server\node_modules\express\lib\router\index.js:326:13)
+    at C:\Users\CASTILLO\Desktop\Quick Dev\ml-web-loan\server\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\Users\CASTILLO\Desktop\Quick Dev\ml-web-loan\server\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\CASTILLO\Desktop\Quick Dev\ml-web-loan\server\node_modules\express\lib\router\index.js:280:10)
+    at C:\Users\CASTILLO\Desktop\Quick Dev\ml-web-loan\server\node_modules\express\lib\router\index.js:646:15
+    at next (C:\Users\CASTILLO\Desktop\Quick Dev\ml-web-loan\server\node_modules\express\lib\router\index.js:265:14)

@@ -1,0 +1,7 @@
+INFO 2023-10-16T09:19:19.931 ML LOANS Server listening on port: 5000
+INFO 2023-10-16T09:34:25.066 Logging.. URL: undefined - STATUS: 200; MESSAGE: GET SERVICE FEE: {"data":{"totalServiceFee":200},"code":"SUCCESS","status":200}
+INFO 2023-10-16T09:34:26.226 Logging.. URL: undefined - STATUS: 200; MESSAGE: GET THRESHOLD AMOUNT: {"data":{"bracketTierCode":"0.00","responseCode":1,"responseMessage":"Success","threshold":"500000000.00"},"code":"SUCCESS","status":200}
+INFO 2023-10-16T09:34:28.966 Logging.. URL: undefined - STATUS: 200; MESSAGE: VALIDATE ACCOUNT: {"data":{"isValidAccountNumber":true,"responseCode":1,"responseMessage":"Success","responseSearch":{"amount":"2567","accounFirstName":"DEVTESTQD","accountLastName":"QDTEST"}},"code":"SUCCESS","status":200}
+INFO 2023-10-16T09:35:15.971 ML LOANS Server listening on port: 5000
+INFO 2023-10-16T09:52:49.446 Logging.. URL: undefined - STATUS: 200; MESSAGE: GET SERVICE FEE: {"data":{"totalServiceFee":200},"code":"SUCCESS","status":200}
+INFO 2023-10-16T09:52:50.442 Logging.. URL: undefined - STATUS: 200; MESSAGE: GET THRESHOLD AMOUNT: {"data":{"bracketTierCode":"0.00","responseCode":1,"responseMessage":"Success","threshold":"500000000.00"},"code":"SUCCESS","status":200}
