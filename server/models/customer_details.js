@@ -73,7 +73,7 @@ const customer_details = sequelize.define('customer_details', {
     allowNull: false
   },
 }, {
-  timestamps: false
+  timestamps: true
 });
 
 customer_details.customCreate = async function (data, options) {

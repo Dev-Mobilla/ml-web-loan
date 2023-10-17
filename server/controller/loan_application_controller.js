@@ -1,4 +1,6 @@
-const { loan_applications, customer_details, employment_docs, vehicle_docs } = require('../models/associations');
+const { loan_applications, CustomerDetails, employment_docs, vehicle_docs, sequelize } = require('../models/associations');
+const {ErrorThrower} = require('../utils/ErrorGenerator');
+const {createEmploymentDocs} = require('./employment_docs_controller');
 
 async function createLoanApplication(LoanApplicationJsonData, customerId, vehicleId, employmentId, options) {
     try {
@@ -68,10 +70,61 @@ async function getAllLoanApplicants(req, res) {
         res.send(loanApplicationsWithAssociatedData);
     } catch (error) {
         console.error('Error:', error);
-        // next(error)
-        return error
+        next(error)
+        // return error
         // res.status(500).send('An error occurred');
     }
 }
 
-module.exports = { createLoanApplication, getAllLoanApplicants };
+const FindOrCreateCustomer = async (details, options) => {
+    try {
+        const [ customer_details, created ] = await CustomerDetails.findOrCreate({
+            where: {
+                ...details
+            },
+            transaction: options
+        })
+
+        return { customer_details, created };
+    } catch (error) {
+        let message = {
+            title: "Server Error",
+            body: "Something went wrong in the server. Please try again later."
+        }
+
+        let err = ErrorThrower(500, "INTERNAL_SERVER_ERROR", message, error.errors);
+
+        throw err;
+    }
+}
+
+
+const AddLoan = async (req, res, next) => {
+    try {
+        let _customerId;
+
+        const data = req.body.data;
+
+        const customerDetails = data.CustomerDetailsJsonData;
+        const employmentDetails = data.EmploymentJsonData;
+
+        await sequelize.transaction(async (transaction) => {
+            console.log("transaction", transaction);
+
+            const Customer = await FindOrCreateCustomer(customerDetails, transaction);
+
+            _customerId = Customer.customer_details.customer_details_id;
+
+            const Employment = await createEmploymentDocs(employmentDetails, transaction);
+
+            res.send({Employment, Customer});
+
+        })
+
+    } catch (error) {
+        console.log("err", error);
+        next(error)
+    }
+}
+
+module.exports = { createLoanApplication, getAllLoanApplicants, FindOrCreateCustomer, AddLoan };

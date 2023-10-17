@@ -34,7 +34,7 @@ async function FindCustomerDetails(
     },
     limit: 1,
   });
-
+  console.log("find", findByName);
   if (findByName) {
     return findByName;
   } else {

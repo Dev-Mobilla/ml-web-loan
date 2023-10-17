@@ -33,12 +33,12 @@ const employment_docs = sequelize.define('employment_docs', {
         allowNull: true
     }
 }, {
-    timestamps: false
+    timestamps: true
 });
 
-employment_docs.customeCreate = async function (data, options) {
-    return this.create(data, options);
-};
+// employment_docs.customeCreate = async function (data, options) {
+//     return this.create(data, options);
+// };
 module.exports = employment_docs;
 
 // class employment_docs extends Model {

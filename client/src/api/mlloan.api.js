@@ -10,10 +10,19 @@ const AddLoan = async (request) => {
     let plateNumber = request.plate_number;
     let engineNumber = request.engine_number;
     let chassisNumber = request.chassis_number;
+    let application_type = "";
+
+    if (request?.vehicle_type === "Car/Pickup/SUV" || request?.vehicle_type === "Truck/Commercial") {
+      application_type = "Car Loan"
+    }else{
+      application_type = "Motorcycle"
+    }
+    
     const RequestBody = {
       LoanApplicationJsonData: {
         application_reference: "application-reference-1",
         application_date: new Date(),
+        loan_application_type: application_type,
         vehicle_type: request.vehicle_type,
         loan_type: request.loan_type,
         year: request.year,

@@ -41,7 +41,7 @@ const vehicle_docs = sequelize.define('vehicle_docs', {
         allowNull: true
     }
 }, {
-    timestamps: false
+    timestamps: true
 });
 
 vehicle_docs.customeCreate = async function (data, options) {
