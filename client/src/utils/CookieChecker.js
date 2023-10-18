@@ -12,6 +12,10 @@ const isCookiePresent = (cookieName) => {
 
 const getCookieData = () => {
   const cookieString = document.cookie;
+  if (cookieString === "") {
+    return null;
+  }
+
   const cookieList = cookieString.split(';');
 
   let accountDetails = null;
@@ -24,6 +28,7 @@ const getCookieData = () => {
       accountDetails = JSON.parse(decodedValue);
     }
   });
+
   return accountDetails;
 };
 
