@@ -3,6 +3,7 @@ const {ErrorThrower} = require('../utils/ErrorGenerator');
 
 async function createEmploymentDocs(EmploymentJsonData, options) {
     try {
+        // console.log(EmploymentJsonData);
         // const createdEmployment = await employment_docs.customeCreate(EmploymentJsonData , options);
         const createdEmployment = await employment_docs.findOrCreate({
             where: {
@@ -15,7 +16,6 @@ async function createEmploymentDocs(EmploymentJsonData, options) {
         return createdEmployment;
         
     } catch (error) {
-        console.log("employment", error);
         
         let message = {
             title: "Server Error",

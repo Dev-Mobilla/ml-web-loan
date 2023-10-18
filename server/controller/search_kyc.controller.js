@@ -2,7 +2,7 @@ const axios = require("axios");
 
 const SuccessLogger = require("../utils/SuccessLogger");
 
-const { GenerateToken } = require("../controller/symph.controller");
+const { GenerateToken } = require("../controller/billspayment.controller");
 
 const API_BASE_URL = process.env.CKYC_API_URL;
 
@@ -16,7 +16,6 @@ const SearchKyc = async(req, res, next) => {
         if (getToken.status === 201 && getToken.data.data.token && cellphoneNumber) {
 
             let token = getToken.data.data.token;
-            console.log("token", token);
 
             const url = `${API_BASE_URL}/api/v1/customers/exact-search`;
 

@@ -5,8 +5,9 @@ const {
   GetThresholdAmount,
   ValidateAccountNumber,
   PayNow,
-} = require("../controller/symph.controller");
+} = require("../controller/billspayment.controller");
 const { GetAddressApi } = require("../controller/get_address.controller");
+const {CheckKP7Transaction} = require("../controller/ml_loans.controller");
 
 const ML_LOAN_ROUTER = express.Router();
 
@@ -15,6 +16,7 @@ ML_LOAN_ROUTER.get("/get-service-fee", GetServiceFee);
 ML_LOAN_ROUTER.get("/get-threshold-amount", GetThresholdAmount);
 ML_LOAN_ROUTER.post("/validate-account-number", ValidateAccountNumber);
 ML_LOAN_ROUTER.post("/pay-now", PayNow);
+ML_LOAN_ROUTER.post("/check-transaction", CheckKP7Transaction);
 
 ML_LOAN_ROUTER.get("/get-countries", GetAddressApi);
 ML_LOAN_ROUTER.get("/get-provinces", GetAddressApi);

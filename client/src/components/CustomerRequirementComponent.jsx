@@ -13,6 +13,8 @@ import {
   RequiredDocumentsComponent,
   SuccessModal,
   CustomAlert,
+  CustomConfirmation,
+  CustomLoadingModal,
 } from "./index";
 import { GetSessionDocument } from "../utils/DataFunctions";
 import AddCarLoan from "../api/mlloan.api";
@@ -30,6 +32,12 @@ const CustomerRequirementComponent = () => {
   const [modalProps, setModalProps] = useState(null);
   const [isSubmitButtonDisabled, setIsSubmitButtonDisabled] = useState(false);
   const [optionValue, setOptionValue] = useState("");
+  const [showConfirm, setShowConfirm] = useState(false);
+  const [confimationProps, setConfimationProps] = useState({});
+  const [showLoading, setShowLoading] = useState({
+    loading: false,
+    text: "",
+  });
 
   let vehicleKeys = [
     "Orginal OR/CR",
@@ -42,6 +50,7 @@ const CustomerRequirementComponent = () => {
   ];
 
   useEffect(() => {
+    console.log(location.state);
     if (location.state == null) {
       navigate(-1);
     }
@@ -57,50 +66,8 @@ const CustomerRequirementComponent = () => {
     // console.log(location.state.secondStepDetails);
   }, [optionValue, isSubmitButtonDisabled, sessionStorage]);
 
-  const RequestBody = () => {
-    const baseData = location.state.secondStepDetails;
-    const firstArray = baseData.personalDetails[0];
-    const secondArray = baseData.personalDetails[1];
-    const address = baseData.personalDetails[3];
-    const request = {
-      vehicle_type: baseData.vehicleDetails.selectedVehicle,
-      loan_type: baseData.vehicleDetails.type,
-      principal_amount: baseData.vehicleDetails.principalAmount,
-      terms: baseData.vehicleDetails.terms,
-      interest: baseData.vehicleDetails.interest,
-      year: baseData.vehicleDetails.year,
-      make: baseData.vehicleDetails.make,
-      model: baseData.vehicleDetails.model,
-      variant: baseData.vehicleDetails.variant ?  baseData.vehicleDetails.variant : null,
-      plate_number: baseData.vehicleDetails.plateNo ? baseData.vehicleDetails.plateNo : null,
-      engine_number: baseData.vehicleDetails.engineNo ? baseData.vehicleDetails.engineNo : null,
-      chassis_number: baseData.vehicleDetails.chassisNo ? baseData.vehicleDetails.chassisNo : null,
-      preferred_branch: baseData.personalDetails[2],
-      last_name: secondArray.lastname,
-      first_name: secondArray.firstname,
-      middle_name: secondArray.middlename,
-      birth_date: secondArray.birthdate,
-      nationality: secondArray.nationality,
-      civil_status: secondArray.civil_status,
-      employer: secondArray.employeer_business,
-      nature_of_business: secondArray.nature_business,
-      tenure_length: secondArray.tenure,
-      office_address: secondArray.office_address,
-      office_landline: secondArray.office_landline,
-      source_of_income: secondArray.sourceOfIncome,
-      gross_monthly_income: secondArray.monthly_income,
-      current_address: baseData.current_address,
-      mobile_number: firstArray.mobile_number,
-      email: firstArray.email,
-      current_address: address,
-      valid_id: JSON.parse(sessionStorage.getItem("Valid ID"))?.url || "",
-      employee_cert:
-        JSON.parse(sessionStorage.getItem("Employee Certificate"))?.url || "",
-      payslip: JSON.parse(sessionStorage.getItem("Payslip/ITR"))?.url || "",
-      mayor_cert:
-        JSON.parse(sessionStorage.getItem("Mayor’s Certificate"))?.url || "",
-      bank_cert:
-        JSON.parse(sessionStorage.getItem("Bank Statement"))?.url || "",
+  const VehicleJsonData = () => {
+    return {
       original_or:
         JSON.parse(sessionStorage.getItem("Orginal OR/CR"))?.url || "",
       stencils: JSON.parse(sessionStorage.getItem("Set stencils"))?.url || "",
@@ -110,9 +77,70 @@ const CustomerRequirementComponent = () => {
       back_side: JSON.parse(sessionStorage.getItem("Back Side"))?.url || "",
       right_side: JSON.parse(sessionStorage.getItem("Right Side"))?.url || "",
       left_side: JSON.parse(sessionStorage.getItem("Left Side"))?.url || "",
+    }
+  }
+  const EmploymentJsonData = () => {
+    return {
+      valid_id: JSON.parse(sessionStorage.getItem("Valid ID"))?.url || "",
+      employee_cert:
+        JSON.parse(sessionStorage.getItem("Employee Certificate"))?.url || "",
+      payslip: JSON.parse(sessionStorage.getItem("Payslip/ITR"))?.url || "",
+      mayor_cert:
+        JSON.parse(sessionStorage.getItem("Mayor’s Certificate"))?.url || "",
+      bank_cert:
+        JSON.parse(sessionStorage.getItem("Bank Statement"))?.url || "",
+    }
+  }
+  const CustomerDetailsJsonData = (details, ckyc) => {
+    return {
+      last_name: ckyc.lastname,
+      first_name: ckyc.firstname,
+      middle_name: ckyc.middlename,
+      suffix: ckyc.suffix,
+      birth_date: ckyc.birthdate,
+      nationality: ckyc.nationality,
+      civil_status: ckyc.civil_status,
+      employer: details.employeer_business,
+      nature_of_business: details.nature_business,
+      tenure_length: details.tenure,
+      office_address: details.office_address,
+      office_landline: details.office_landline,
+      source_of_income: details.sourceOfIncome,
+      gross_monthly_income: details.monthly_income,
+      current_address: details.current_address,
+      mobile_number: ckyc.mobile_number,
+      email: ckyc.email,
+    }
+  }
+  const LoanApplicationJsonData = (vehicleDetails, loan_type, preferredBranch) => {
+    
+    const dateInstance = new Date();
+
+    const year = dateInstance.getFullYear().toString();
+    const month = (("0" + (dateInstance.getMonth() + 1)).slice(-2)).toString();
+    const day = ("0" + dateInstance.getDate()).slice(-2).toString();
+
+    const dateNow = `${year}-${month}-${day}`;
+
+    const request = {
+        vehicle_type:vehicleDetails.selectedVehicle,
+        loan_type:vehicleDetails.type,
+        application_loan_type: loan_type,
+        application_date: dateNow,
+        principal_amount:vehicleDetails.principalAmount,
+        terms:vehicleDetails.terms,
+        interest:vehicleDetails.interest,
+        year:vehicleDetails.year,
+        make:vehicleDetails.make,
+        model:vehicleDetails.model,
+        variant:vehicleDetails.variant ? vehicleDetails.variant : null,
+        plate_number:vehicleDetails.plateNo ?vehicleDetails.plateNo : null,
+        engine_number:vehicleDetails.engineNo ?vehicleDetails.engineNo : null,
+        chassis_number:vehicleDetails.chassisNo ?vehicleDetails.chassisNo : null,
+        preferred_branch: preferredBranch,
+      
     };
 
-    console.log(location.state);
     return request;
   };
 
@@ -234,32 +262,113 @@ const CustomerRequirementComponent = () => {
         }
       }
   }
+  const ConfirmApplication = () => {
+    setShowConfirm(true)
+    setConfimationProps({
+      title: "Submit Application?",
+      message: "Please make sure that all the details provided are correct.",
+      confirmBtn: "Apply"
+    })
+  }
 
   const OnSubmitRequirementsHandler = async () => {
+
+    setShowLoading({
+      loading: true,
+      text: "Just a moment",
+    });
+
+    setTimeout(() => {
+      setShowLoading({
+        loading: true,
+        text: "We're almost there!",
+      });
+    }, 1000);
+
     if (sessionStorage.length !== 0 && location.state) {
 
       const mobileNumber = location.state.secondStepDetails.personalDetails[0].mobile_number;
       // TODO: Check KYC
 
       try {
+        let ckyc = {};
+
         const isKycExist = await SearchKyc(mobileNumber);
 
         // Details: If not existing Symph DB
         if (isKycExist.data.code !== "SUCCESS") {
 
-              console.log("kyc does not exist: ", isKycExist);
+          console.log("kyc does not exist: ", isKycExist);
 
-              // await AddKyc();
+          await AddKyc();
+
+          console.log("kyc", kyc);
+          const responseSearchKyc = await SearchKyc(mobileNumber);
+          const kyc = responseSearchKyc.data.data;
+
+          ckyc = {
+            customer_id: kyc.customerId,
+            ckyc_id: kyc.ckycId,
+            lastname: kyc.name.lastName,
+            firstname: kyc.name.firstName,
+            middlename: kyc.name.middleName,
+            suffix: kyc.name.suffix,
+            nationality: kyc.nationality,
+            civil_status: kyc.civilStatus,
+            birthdate: kyc.birthDate,
+            mobile_number: kyc.cellphoneNumber,
+            email: kyc.email
+          }
+
         }
-              
+        
         //Details: If not, proceed ML DB
+        const baseData = location.state.secondStepDetails;
+        const address = baseData.personalDetails[3];
+        const customer = baseData.personalDetails[1];
+        customer.address = address;
+        
+        const preferredBranch = baseData.personalDetails[2];
+        
+        const vehicleDetails = baseData.vehicleDetails
+        
+        const responseKyc = isKycExist.data.data;
+        let loan_type = null;
 
+        if (vehicleDetails?.selectedVehicle === "Car/Pickup/SUV" || vehicleDetails?.selectedVehicle === "Truck/Commercial") {
+          loan_type = "Car Loan"
+        }else{
+          loan_type = "Motorcycle Loan"
+        }
+
+        ckyc = {
+          customer_id: responseKyc.customerId,
+          ckyc_id: responseKyc.ckycId,
+          lastname: responseKyc.name.lastName,
+          firstname: responseKyc.name.firstName,
+          middlename: responseKyc.name.middleName,
+          suffix: responseKyc.name.suffix,
+          nationality: responseKyc.nationality,
+          civil_status: responseKyc.civilStatus,
+          birthdate: responseKyc.birthDate,
+          mobile_number: responseKyc.cellphoneNumber,
+          email: responseKyc.email
+        }
+
+        const vehicleDocsData = VehicleJsonData();
+        const employmentDocsData = EmploymentJsonData();
+        const customerData = CustomerDetailsJsonData(customer, ckyc);
+        const loanApplicationData = LoanApplicationJsonData(vehicleDetails, loan_type, preferredBranch)
+        
         // ML DB
-        const loanReqBody = RequestBody();
+        await AddLoan(
+          vehicleDocsData,
+          employmentDocsData, 
+          customerData, 
+          loanApplicationData
+        );
 
-        const AddMLLoan = await AddLoan(loanReqBody);
-
-        console.log("ADD LOAN: ", AddMLLoan);
+        // console.log("ADD LOAN: ", AddMLLoan);
       
 
       //   for (const key in sessionStorage) {
@@ -283,10 +392,32 @@ const CustomerRequirementComponent = () => {
 
 
       } catch (error) {
-        
+        console.log(error);
       }
     }
   };
+  const LoadingIcon = (
+    <div className="spinner-icon">
+      <svg viewBox="0 0 50 50">
+        <circle
+          cx="25"
+          cy="25"
+          r="20"
+          fill="none"
+          strokeWidth="4"
+          stroke="var(--red)"
+          strokeLinecap="round"
+        >
+          <animate
+            attributeName="stroke-dasharray"
+            values="0 100;100 100;100 0"
+            dur="3s"
+            repeatCount="indefinite"
+          />
+        </circle>
+      </svg>
+    </div>
+  );
 
   return (
     <div className="customer-requirement">
@@ -327,7 +458,7 @@ const CustomerRequirementComponent = () => {
               name="Submit"
               styles={isSubmitButtonDisabled ? "btn-disabled" : "btn-enabled"}
               disabled={isSubmitButtonDisabled}
-              EventHandler={OnSubmitRequirementsHandler}
+              EventHandler={ConfirmApplication}
             ></CustomButton>
           </div>
         </div>
@@ -347,6 +478,25 @@ const CustomerRequirementComponent = () => {
           isError={alertProps.isError}
           onClose={() => setShowAlert(false)}
         />
+      )}
+      {
+        showConfirm && (
+          <CustomConfirmation
+          title={confimationProps.title}
+          message={confimationProps.message}
+          onClose={() => setShowConfirm(false)}
+          onConfirm={OnSubmitRequirementsHandler}
+          confirmBtn={confimationProps.confirmBtn}
+          />
+        )
+      }
+      {showLoading.loading ? (
+        <CustomLoadingModal
+          loadingText={showLoading.text}
+          loadingIcon={LoadingIcon}
+        />
+      ) : (
+        <></>
       )}
       <AddPhotoModal
         isOpen={modalOpen}

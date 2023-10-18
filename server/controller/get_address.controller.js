@@ -2,7 +2,7 @@ const { ErrorThrower } = require("../utils/ErrorGenerator");
 const SuccessLogger = require("../utils/SuccessLogger");
 const SignatureGenerator = require("../utils/signatureGenerator");
 const axios = require("axios");
-const {GenerateToken} = require("./symph.controller");
+const {GenerateToken} = require("./billspayment.controller");
 
 const API_BASE_URL = process.env.CKYC_API_URL;
 
@@ -14,14 +14,12 @@ const GetAddressApi = async (req, res, next) => {
         // console.log("REQUEST", req);
 
         const apiName = req.query.name;
-        console.log(apiName);
 
         const getToken = await GenerateToken();
 
         if (getToken.status === 201 && getToken.data.data.token) {
 
             let token = getToken.data.data.token;
-            console.log("token", token);
 
             const url = `${API_BASE_URL}/api/v1/addresses/${apiName}`;
 
