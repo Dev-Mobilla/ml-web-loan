@@ -10,6 +10,7 @@ import {
   LoadingComponent,
   PaymentDetailsModalComponent,
   CustomLoadingModal,
+  CustomMessage,
 } from "../../index";
 import houseIcon from "../../../assets/icons/house.png";
 import mlicon from "../../../assets/icons/diamond.png";
@@ -25,6 +26,7 @@ import {
   PayNow,
   ValidateAccountNumber,
 } from "../../../api/symph.api";
+import { CheckKP7Transaction } from "../../../api/mlloan.api";
 import { getCookieData } from "../../../utils/CookieChecker";
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
@@ -79,6 +81,37 @@ const ManageLoansDetailsComponent = () => {
     loading: false,
     text: "Please wait",
   });
+
+  const [showCustomMessage, setShowCustomMessage] = useState(false);
+  const [customMessageProps, setCustomMessageProps] = useState({});
+
+  useEffect(() => {
+    const showCustomAlert = async () => {
+      try {
+        const kptn = sessionStorage.getItem("kptn");
+        const response = await CheckKP7Transaction(kptn);
+        if (
+          response.data.respcode === "1" &&
+          response.data.respmsg === "SUCCESS" &&
+          response.data.accountNo === LoanReference
+        ) {
+          const title = "Payment Process";
+          const text =
+            "We're excited to see that you've made your loan payment on time! Your payment is now being processed and will be posted within 1-3 business days.";
+
+          setCustomMessageProps({ title, text });
+          setShowCustomMessage(true);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    if (LoanReference) {
+      showCustomAlert();
+    }
+
+  }, [LoanReference]);
 
   const [loanDetails, setLoanDetails] = useState({
     dueAmount: "",
@@ -640,6 +673,7 @@ const ManageLoansDetailsComponent = () => {
           "Your payment has not been processed due to a technical issue. Please try again."
         );
       } else if (paymentResponse.data.billspayStatus === "POSTED") {
+        sessionStorage.setItem("kptn", paymentResponse.data.kptn);
         navigate("/vehicle-loan/payment-receipt", {
           state: {
             paymentData: paymentData,
@@ -747,6 +781,12 @@ const ManageLoansDetailsComponent = () => {
         ) : (
           <>
             <CustomHeader title="Manage Existing Loan" />
+            {showCustomMessage && (
+              <CustomMessage
+                title={customMessageProps.title}
+                text={customMessageProps.text}
+              />
+            )}
             {alertModal ? (
               <AlertModalComponent
                 title={alertProps.title}

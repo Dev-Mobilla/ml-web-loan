@@ -1,0 +1,16 @@
+INFO 2023-10-18T08:08:18.251 ML LOANS Server listening on port: 5000
+INFO 2023-10-18T09:37:36.469 ML LOANS Server listening on port: 5000
+INFO 2023-10-18T10:23:22.160 Logging.. URL: undefined - STATUS: 200; MESSAGE: GET SERVICE FEE: {"data":{"totalServiceFee":200},"code":"SUCCESS","status":200}
+INFO 2023-10-18T10:23:23.378 Logging.. URL: undefined - STATUS: 200; MESSAGE: GET THRESHOLD AMOUNT: {"data":{"bracketTierCode":"0.00","responseCode":1,"responseMessage":"Success","threshold":"500000000.00"},"code":"SUCCESS","status":200}
+INFO 2023-10-18T10:23:25.984 Logging.. URL: undefined - STATUS: 200; MESSAGE: VALIDATE ACCOUNT: {"data":{"isValidAccountNumber":true,"responseCode":1,"responseMessage":"Success","responseSearch":{"amount":"2139","accounFirstName":"DEVTESTQD","accountLastName":"QDTEST"}},"code":"SUCCESS","status":200}
+INFO 2023-10-18T10:25:55.478 Logging.. URL: undefined - STATUS: 200; MESSAGE: GET SERVICE FEE: {"data":{"totalServiceFee":200},"code":"SUCCESS","status":200}
+INFO 2023-10-18T10:25:56.921 Logging.. URL: undefined - STATUS: 200; MESSAGE: GET THRESHOLD AMOUNT: {"data":{"bracketTierCode":"0.00","responseCode":1,"responseMessage":"Success","threshold":"500000000.00"},"code":"SUCCESS","status":200}
+INFO 2023-10-18T10:25:58.791 Logging.. URL: undefined - STATUS: 200; MESSAGE: VALIDATE ACCOUNT: {"data":{"isValidAccountNumber":true,"responseCode":1,"responseMessage":"Success","responseSearch":{"amount":"2139","accounFirstName":"DEVTESTQD","accountLastName":"QDTEST"}},"code":"SUCCESS","status":200}
+INFO 2023-10-18T10:29:07.129 Logging.. URL: undefined - STATUS: 200; MESSAGE: GET SERVICE FEE: {"data":{"totalServiceFee":200},"code":"SUCCESS","status":200}
+INFO 2023-10-18T10:29:08.490 Logging.. URL: undefined - STATUS: 200; MESSAGE: GET THRESHOLD AMOUNT: {"data":{"bracketTierCode":"0.00","responseCode":1,"responseMessage":"Success","threshold":"500000000.00"},"code":"SUCCESS","status":200}
+INFO 2023-10-18T10:29:10.492 Logging.. URL: undefined - STATUS: 200; MESSAGE: VALIDATE ACCOUNT: {"data":{"isValidAccountNumber":true,"responseCode":1,"responseMessage":"Success","responseSearch":{"amount":"2139","accounFirstName":"DEVTESTQD","accountLastName":"QDTEST"}},"code":"SUCCESS","status":200}
+INFO 2023-10-18T10:29:24.006 Logging.. URL: undefined - STATUS: 200; MESSAGE: KPTN: APBGRQMMLID, PAY BILLS: {"billspayStatus":"POSTED","kptn":"APBGRQMMLID","paymentStatus":"PAID","amountPaid":2139,"ckycId":"X230900000328K1","createdDate":"2023-10-18 10:30:00.021","runningBalance":26739.75,"total":2339,"totalServiceFee":200}, KP7: SUCCESS
+INFO 2023-10-18T10:37:42.294 ML LOANS Server listening on port: 5000
+INFO 2023-10-18T10:37:59.731 ML LOANS Server listening on port: 5000
+INFO 2023-10-18T10:38:33.269 ML LOANS Server listening on port: 5000
+INFO 2023-10-18T10:40:29.429 ML LOANS Server listening on port: 5000

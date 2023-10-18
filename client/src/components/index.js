@@ -55,6 +55,7 @@ import SuccessModal from "./loans/vehicle/SuccessModalComponent";
 import CustomIcon from "./custom/Custom.icon";
 import CustomAlert from "./custom/Custom.Alert";
 import CustomLoadingModal from "./custom/Custom.LoadingModal";
+import CustomMessage from "./custom/Custom.message";
 import CustomConfirmation from "./custom/Custom.confirm";
 
 export {
@@ -112,5 +113,6 @@ export {
   PaymentDetailsModalComponent,
   CustomLoadingModal,
   PaymentReceiptCompoenent,
+  CustomMessage,
   CustomConfirmation
 };

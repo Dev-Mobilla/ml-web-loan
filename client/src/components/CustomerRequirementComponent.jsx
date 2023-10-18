@@ -17,9 +17,8 @@ import {
   CustomLoadingModal,
 } from "./index";
 import { GetSessionDocument } from "../utils/DataFunctions";
-import AddCarLoan from "../api/mlloan.api";
 import { CreateCustomerDetailsToSymph, SearchKyc } from "../api/symph.api";
-import AddLoan from "../api/mlloan.api";
+import { AddLoan } from "../api/mlloan.api";
 
 const CustomerRequirementComponent = () => {
   const navigate = useNavigate();
