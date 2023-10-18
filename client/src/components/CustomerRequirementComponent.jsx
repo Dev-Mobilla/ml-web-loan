@@ -92,6 +92,8 @@ const CustomerRequirementComponent = () => {
   }
   const CustomerDetailsJsonData = (details, ckyc) => {
     return {
+      customer_id: ckyc.customer_id,
+      ckyc_id: ckyc.ckyc_id,
       last_name: ckyc.lastname,
       first_name: ckyc.firstname,
       middle_name: ckyc.middlename,
@@ -266,23 +268,16 @@ const CustomerRequirementComponent = () => {
     setConfimationProps({
       title: "Submit Application?",
       message: "Please make sure that all the details provided are correct.",
-      confirmBtn: "Apply"
+      confirmBtn: "Submit"
     })
   }
 
   const OnSubmitRequirementsHandler = async () => {
-
+    setShowConfirm(false);
     setShowLoading({
       loading: true,
       text: "Just a moment",
     });
-
-    setTimeout(() => {
-      setShowLoading({
-        loading: true,
-        text: "We're almost there!",
-      });
-    }, 1000);
 
     if (sessionStorage.length !== 0 && location.state) {
 
@@ -320,6 +315,12 @@ const CustomerRequirementComponent = () => {
           }
 
         }
+        setTimeout(() => {
+          setShowLoading({
+            loading: true,
+            text: "We're almost there!",
+          });
+        }, 1500);
         
         //Details: If not, proceed ML DB
         const baseData = location.state.secondStepDetails;
@@ -358,16 +359,25 @@ const CustomerRequirementComponent = () => {
         const employmentDocsData = EmploymentJsonData();
         const customerData = CustomerDetailsJsonData(customer, ckyc);
         const loanApplicationData = LoanApplicationJsonData(vehicleDetails, loan_type, preferredBranch)
-        
-        // ML DB
-        await AddLoan(
-          vehicleDocsData,
-          employmentDocsData, 
-          customerData, 
-          loanApplicationData
-        );
 
-        // console.log("ADD LOAN: ", AddMLLoan);
+        console.log("loading true");
+        // ML DB
+       setTimeout(async () => {
+          const AddMLLoan = await AddLoan(
+            vehicleDocsData,
+            employmentDocsData, 
+            customerData, 
+            loanApplicationData
+          );
+          console.log("ADD LOAN: ", AddMLLoan);
+          setShowLoading({
+            loading: false,
+            text: "Just a moment",
+          });
+          console.log("loading false");
+    
+       }, 2000);
+
       
 
       //   for (const key in sessionStorage) {
@@ -389,9 +399,12 @@ const CustomerRequirementComponent = () => {
       //   });
 
 
-
       } catch (error) {
         console.log(error);
+        setShowLoading({
+          loading: false,
+          text: "Just a moment",
+        });
       }
     }
   };

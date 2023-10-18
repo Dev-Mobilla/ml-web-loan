@@ -10,7 +10,9 @@ async function createLoanApplication(LoanApplicationJsonData, options) {
         
         const createdLoan = await loan_applications.findOrCreate({
             where: {
-                application_reference: LoanApplicationJsonData.application_reference
+                application_reference: LoanApplicationJsonData.application_reference,
+                ckyc_id: LoanApplicationJsonData.ckyc_id,
+                customer_id: LoanApplicationJsonData.customer_id
             },
             defaults: { ...LoanApplicationJsonData },
             transaction: options
@@ -204,6 +206,7 @@ const AddLoan = async (req, res, next) => {
         
         // res.status(200).send(ApplyLoan);
         console.log("data", data);
+        res.send({data})
 
     } catch (error) {
         next(error)

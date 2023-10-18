@@ -8,6 +8,14 @@ const customer_details = sequelize.define('customer_details', {
     // autoIncrement: true,
     primaryKey: true
   },
+  ckyc_id: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  customer_id: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
   last_name: {
     type: DataTypes.STRING,
     allowNull: false

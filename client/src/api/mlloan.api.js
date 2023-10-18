@@ -24,12 +24,12 @@ const AddLoan = async (
           ...vehicleDocsData
         },
       };
+      
       const UrlToAddLoan = "api/ml-loans/loans/create-loan";
       const response = await ML_LoansAxiosInstance.post(UrlToAddLoan, { data: JSON.stringify(RequestBody) }, {
         headers: {
           "Content-Type": "application/json",
         },
-        // body: JSON.stringify(RequestBody),
       });
       return response;
 

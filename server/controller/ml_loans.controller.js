@@ -208,42 +208,32 @@ const RefundBillsPayApi = async (URL, config) => {
     try {
       let transactionId = req.body.transactionId;
 
-      
       const username =  process.env.KP7_USERNAME;
       const password = process.env.KP7_PASSWORD;
 
-      let user = {
-        username,
-        password
-      }
-      
       let billersId = process.env.KP7_BILLERS_ID;
-      
+
       let URL = `${process.env.KP7_URL}/MLWebAPI/ApiBillsPay/Service.svc/InquireTransactionV3`;
-      
-      let passPhrase = billersId + "|" + user;
-      let digest = SignatureGenerator(passPhrase);
-      console.log(transactionId);
-      
+
       let reqBody = {
         transactionId: transactionId,
         BillersId: billersId,
-        Digest: digest
+        Digest: process.env.KP7_DIGEST
       }
-  
+
       let buffer = Buffer.from(`${username}:${password}`);
-  
+
       let auth = buffer.toString("base64");
-  
-     let config = {
+
+      let config = {
         headers: {
           Authorization: `Basic ${auth}`,
         }
-     }
-  
+      }
+
       const response = await CheckKP7TransactionApi(URL, reqBody, config);
-     console.log("RESPONSE:", response);
-      res.send(response.data)
+
+      res.status(200).send(response.data);
   
     } catch (error) {
       console.log(error);
