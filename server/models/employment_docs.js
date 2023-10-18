@@ -5,7 +5,7 @@ const employment_docs = sequelize.define('employment_docs', {
     employment_docu_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        autoIncrement: true,
+        // autoIncrement: true,
         primaryKey: true
     },
     valid_id: {
@@ -31,14 +31,29 @@ const employment_docs = sequelize.define('employment_docs', {
     application_reference: {
         type: DataTypes.STRING,
         allowNull: true
+    },
+    createdAt: {
+        type: DataTypes.DATE,
+        allowNull: false
+    },
+    updatedAt: {
+        type: DataTypes.DATE,
+        allowNull: true
+    },
+    deletedAt: {
+        type: DataTypes.DATE,
+        allowNull: true
     }
 }, {
-    timestamps: false
+    timestamps: true,
+    createdAt: true,
+    updatedAt: true,
+    deletedAt: true
 });
 
-employment_docs.customeCreate = async function (data, options) {
-    return this.create(data, options);
-};
+// employment_docs.customeCreate = async function (data, options) {
+//     return this.create(data, options);
+// };
 module.exports = employment_docs;
 
 // class employment_docs extends Model {

@@ -6,7 +6,7 @@ const loan_applications = sequelize.define('loan_applications', {
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,
-        autoIncrement: true,
+        // autoIncrement: true,
     },
     application_reference: {
         type: DataTypes.STRING,
@@ -16,7 +16,23 @@ const loan_applications = sequelize.define('loan_applications', {
         type: DataTypes.STRING,
         allowNull: true
     },
+    application_loan_type: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
     application_date: {
+        type: DataTypes.DATE,
+        allowNull: true
+    },
+    principal_amount: {
+        type: DataTypes.DATE,
+        allowNull: true
+    },
+    terms: {
+        type: DataTypes.DATE,
+        allowNull: true
+    },
+    interest: {
         type: DataTypes.DATE,
         allowNull: true
     },
@@ -61,10 +77,6 @@ const loan_applications = sequelize.define('loan_applications', {
         type: DataTypes.STRING,
         allowNull: true
     },
-    branch_approver_id: {
-        type: DataTypes.STRING,
-        allowNull: true
-    },
     customer_details_customer_details_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -80,9 +92,10 @@ const loan_applications = sequelize.define('loan_applications', {
         allowNull: false,
         primaryKey: true
     },
-    // created_at: {
-    //     type: DataTypes.DATE,
-    // },
+    created_at: {
+        type: DataTypes.DATE,
+        allowNull: false
+    },
     update_date: {
         type: DataTypes.DATE,
     },
@@ -90,7 +103,7 @@ const loan_applications = sequelize.define('loan_applications', {
         type: DataTypes.DATE,
     }
 }, {
-    createdAt: false,
+    createdAt: 'created_at',
     updatedAt: 'update_date',
     deletedAt: 'delete_date'
 });
@@ -119,111 +132,4 @@ loan_applications.customeCreate = async function (data, customerID, vehicleId, e
     }, options);
 };
 
-
-
 module.exports = loan_applications;
-
-// class loan_applications extends Model {
-//     static associate(models) {
-//         loan_applications.belongsTo(models.customer_details, { foreignKey: 'customer_details_id' });
-//         loan_applications.belongsTo(models.vehicle_docs, { foreignKey: 'vehicle_docs_vehicle_docu_id' });
-//         loan_applications.belongsTo(models.employment_docs, { foreignKey: 'employment_docs_employment_docu_id' });
-//     }
-// }
-
-// loan_applications.init({
-//     id_loan_application: {
-//         type: DataTypes.INTEGER,
-//         allowNull: false,
-//         primaryKey: true
-//     },
-//     application_reference: {
-//         type: DataTypes.STRING,
-//         allowNull: false
-//     },
-//     approved_reference: {
-//         type: DataTypes.STRING,
-//         allowNull: true
-//     },
-//     application_date: {
-//         type: DataTypes.DATE,
-//         allowNull: true
-//     },
-//     vehicle_type: {
-//         type: DataTypes.STRING,
-//         allowNull: true
-//     },
-
-//     loan_type: {
-//         type: DataTypes.STRING,
-//         allowNull: true
-//     },
-//     year: {
-//         type: DataTypes.STRING,
-//         allowNull: true
-//     },
-//     make: {
-//         type: DataTypes.STRING,
-//         allowNull: true
-//     },
-//     model: {
-//         type: DataTypes.INTEGER,
-//         allowNull: true
-//     },
-//     color: {
-//         type: DataTypes.STRING,
-//         allowNull: true
-//     },
-//     variant: {
-//         type: DataTypes.STRING,
-//         allowNull: true
-//     },
-//     plate_number: {
-//         type: DataTypes.STRING,
-//         allowNull: true
-//     },
-//     chassis_number: {
-//         type: DataTypes.INTEGER,
-//         allowNull: true
-//     },
-//     employment_type: {
-//         type: DataTypes.STRING,
-//         allowNull: true
-//     },
-//     preferred_branch: {
-//         type: DataTypes.STRING,
-//         allowNull: true
-//     },
-//     branch_approver_id: {
-//         type: DataTypes.STRING,
-//         allowNull: true
-//     },
-//     delete_date: {
-//         type: DataTypes.DATE,
-//         allowNull: false
-//     },
-//     update_date: {
-//         type: DataTypes.DATE,
-//         allowNull: false
-//     },
-//     customer_details_customer_details_id: {
-//         type: DataTypes.INTEGER,
-//         allowNull: false,
-//         primaryKey: true,
-//     },
-//     vehicle_docs_vehicle_docu_id: {
-//         type: DataTypes.INTEGER,
-//         allowNull: false,
-//         primaryKey: true
-//     },
-//     employment_docs_employment_docu_id: {
-//         type: DataTypes.INTEGER,
-//         allowNull: false,
-//         primaryKey: true
-//     },
-// }, {
-//     timestamps: false,
-//     sequelize,
-//     modelName: 'loan_applications',
-// });
-

@@ -1,46 +1,46 @@
 const axios = require("axios");
 const { customer_details } = require("../models/associations");
-const { GenerateToken } = require("../controller/symph.controller");
+const { GenerateToken } = require("../controller/billspayment.controller");
 const SignatureGenerator = require("../utils/signatureGenerator");
-const API_BASE_URL = process.env.API_SYMPH_BASE_URL;
+
 const x_api_key = process.env.CKYC_API_KEY;
 const ML_MONEY_URL = process.env.ML_MONEY_API_URL;
 
-async function CreateCustomerDetails(customerValue, options) {
-  try {
-    const createdCustomer = await customer_details.customCreate(
-      customerValue,
-      options
-    );
-    return createdCustomer;
-  } catch (error) {
-    // return null;
-    return error
-  }
-}
+// async function CreateCustomerDetails(customerValue, options) {
+//   try {
+//     const createdCustomer = await customer_details.customCreate(
+//       customerValue,
+//       options
+//     );
+//     return createdCustomer;
+//   } catch (error) {
+//     // return null;
+//     return error
+//   }
+// }
 
-async function FindCustomerDetails(
-  last_name,
-  first_name,
-  middle_name,
-  mobile_number
-) {
-  const findByName = await customer_details.findOne({
-    where: {
-      first_name: first_name,
-      last_name: last_name,
-      middle_name: middle_name,
-      mobile_number: mobile_number,
-    },
-    limit: 1,
-  });
-
-  if (findByName) {
-    return findByName;
-  } else {
-    return null;
-  }
-}
+// async function FindCustomerDetails(
+//   last_name,
+//   first_name,
+//   middle_name,
+//   mobile_number
+// ) {
+//   const findByName = await customer_details.findOne({
+//     where: {
+//       first_name: first_name,
+//       last_name: last_name,
+//       middle_name: middle_name,
+//       mobile_number: mobile_number,
+//     },
+//     limit: 1,
+//   });
+//   console.log("find", findByName);
+//   if (findByName) {
+//     return findByName;
+//   } else {
+//     return null;
+//   }
+// }
 
 const CreateCustomerDetailsToSymph = async (req, res, next) => {
   try {
@@ -111,6 +111,6 @@ const CreateCustomerDetailsToSymph = async (req, res, next) => {
 
 module.exports = {
   CreateCustomerDetailsToSymph,
-  CreateCustomerDetails,
-  FindCustomerDetails,
+  // CreateCustomerDetails,
+  // FindCustomerDetails,
 };

@@ -320,6 +320,20 @@
   display: flex;
   justify-content: center;
 }
+.custom-confirm.modal .modal-content .modal-body{
+  border-radius: var(--radius);
+  text-align: justify;
+}
+.custom-confirm.modal .modal-content{
+  width: 400px;
+}
+.custom-confirm.modal .modal-description{
+  margin: 10px 0;
+}
+.custom-confirm.modal .modal-actions{
+  text-align: end;
+  margin: 10px 0px 0px 0px;
+}
 
 @media screen and (min-width: 360px) and (max-width: 480px) {
   .custom-current,
@@ -358,6 +372,9 @@
 
   .custom-card-subtitle {
     font-size: 14px;
+  }
+  .custom-confirm.modal .modal-actions{
+    text-align: center;
   }
 }
 @media screen and (min-width: 481px) and (max-width: 768px) {

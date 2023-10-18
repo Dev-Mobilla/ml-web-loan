@@ -1,12 +1,32 @@
-const { loan_applications, customer_details, employment_docs, vehicle_docs } = require('../models/associations');
+const { loan_applications, CustomerDetails, employment_docs, vehicle_docs, sequelize } = require('../models/associations');
+const {ErrorThrower} = require('../utils/ErrorGenerator');
+const SuccessLogger = require('../utils/SuccessLogger');
+const {createEmploymentDocs} = require('./employment_docs_controller');
+const {createVehicleDocs} = require('./vehicle_docs_controller');
 
-async function createLoanApplication(LoanApplicationJsonData, customerId, vehicleId, employmentId, options) {
+async function createLoanApplication(LoanApplicationJsonData, options) {
     try {
-        const createdLoan = await loan_applications.customeCreate(LoanApplicationJsonData, customerId, vehicleId, employmentId, options);
+        // const createdLoan = await loan_applications.customeCreate(LoanApplicationJsonData, options);
+        
+        const createdLoan = await loan_applications.findOrCreate({
+            where: {
+                application_reference: LoanApplicationJsonData.application_reference
+            },
+            defaults: { ...LoanApplicationJsonData },
+            transaction: options
+        });
+        
         return createdLoan;
+
     } catch (error) {
-        console.error('Error creating user:', error);
-        return error;
+        let message = {
+            title: "Server Error",
+            body: "Something went wrong in the server. Please try again later."
+        }
+
+        let err = ErrorThrower(500, "INTERNAL_SERVER_ERROR", message, error);
+
+        throw err;
     }
 }
 
@@ -68,10 +88,126 @@ async function getAllLoanApplicants(req, res) {
         res.send(loanApplicationsWithAssociatedData);
     } catch (error) {
         console.error('Error:', error);
-        // next(error)
-        return error
+        next(error)
+        // return error
         // res.status(500).send('An error occurred');
     }
 }
 
-module.exports = { createLoanApplication, getAllLoanApplicants };
+const FindOrCreateCustomer = async (details, options) => {
+    try {
+
+        const Customer = await CustomerDetails.findOrCreate({
+            where: {
+                first_name: details.first_name,
+                middle_name: details.middle_name,
+                last_name: details.last_name,
+                email: details.email,
+                mobile_number: details.mobile_number
+            },
+            defaults: { ...details },
+            transaction: options,
+        })
+        return Customer;
+
+    } catch (error) {
+        let message = {
+            title: "Server Error",
+            body: "Something went wrong in the server. Please try again later."
+        }
+
+        let err = ErrorThrower(500, "INTERNAL_SERVER_ERROR", message, error);
+
+        throw err;
+    }
+}
+const FindMaxId = async (modelInstance, idName, options) => {
+    try {
+        const Id = idName;
+
+        const FindMaxId = await modelInstance.findOne({
+            attributes: [
+                [sequelize.fn('MAX', sequelize.col(Id)), 'max_id']
+            ],
+            transaction: options
+        })
+
+        return FindMaxId;
+        
+    } catch (error) {
+        let message = {
+            title: "Server Error",
+            body: "Something went wrong in the server. Please try again later."
+        }
+
+        let err = ErrorThrower(500, "INTERNAL_SERVER_ERROR", message, error);
+        throw err
+    }
+}
+
+const AddLoan = async (req, res, next) => {
+    try {
+        let _customerId;
+        let _employmentDocId;
+        let _vehicleDocId;
+
+        const data = JSON.parse(req.body.data);
+
+        const customerDetails = data.CustomerDetailsJsonData;
+        const employmentDetails = data.EmploymentJsonData;
+        const vehicleDetails = data.VehicleJsonData;
+        const loanApplication = data.LoanApplicationJsonData;
+
+        // const ApplyLoan = await sequelize.transaction(async (transaction) => {
+
+        //     const custMaxId = await FindMaxId(CustomerDetails, 'customer_details_id', transaction);
+        //     customerDetails.customer_details_id = ++custMaxId.dataValues.max_id;
+
+        //     const Customer = await FindOrCreateCustomer(customerDetails, transaction);
+
+        //     _customerId = Customer[0].dataValues.customer_details_id;
+
+        //     const empMaxId = await FindMaxId(employment_docs, 'employment_docu_id', transaction);
+        //     employmentDetails.employment_docu_id = ++empMaxId.dataValues.max_id;
+
+        //     const EmploymentDocs = await createEmploymentDocs(employmentDetails, transaction);
+
+        //     _employmentDocId = EmploymentDocs[0].dataValues.employment_docu_id;
+
+        //     const vehicleMaxId = await FindMaxId(vehicle_docs, 'vehicle_docu_id', transaction);
+        //     vehicleDetails.vehicle_docu_id = ++vehicleMaxId.dataValues.max_id;
+
+        //     const VehicleDocs = await createVehicleDocs(vehicleDetails, transaction);
+        //     _vehicleDocId = VehicleDocs[0].dataValues.vehicle_docu_id;
+
+        //     const loanMaxId = await FindMaxId(loan_applications, 'id_loan_application', transaction);
+
+        //     console.log(loanMaxId);
+        //     loanApplication.id_loan_application = ++loanMaxId.dataValues.max_id;
+
+        //     loanApplication.customer_details_customer_details_id = _customerId;
+        //     loanApplication.vehicle_docs_vehicle_docu_id = _vehicleDocId;
+        //     loanApplication.employment_docs_employment_docu_id = _employmentDocId;
+
+        //     const LoanApplication = await createLoanApplication(loanApplication, transaction);
+        //     // res.send(custMaxId)
+
+        //     // transaction.commit();
+
+        //     SuccessLogger(req.url, 200,`APPLY LOAN: ${JSON.stringify(LoanApplication)}, 
+        //     CREATED: ${LoanApplication[1]}, REFERENCE: ${LoanApplication[0].application_reference}, 
+        //     CODE: DUPLICATE_ENTRY` )
+
+        //     return LoanApplication
+            
+        // })
+        
+        // res.status(200).send(ApplyLoan);
+        console.log("data", data);
+
+    } catch (error) {
+        next(error)
+    }
+}
+
+module.exports = { createLoanApplication, getAllLoanApplicants, FindOrCreateCustomer, AddLoan };

@@ -231,7 +231,7 @@ const RefundBillsPayApi = async (URL, config) => {
         Digest: digest
       }
   
-      let buffer = new Buffer(`${username}:${password}`);
+      let buffer = Buffer.from(`${username}:${password}`);
   
       let auth = buffer.toString("base64");
   
@@ -243,7 +243,7 @@ const RefundBillsPayApi = async (URL, config) => {
   
       const response = await CheckKP7TransactionApi(URL, reqBody, config);
      console.log("RESPONSE:", response);
-      res.send(response)
+      res.send(response.data)
   
     } catch (error) {
       console.log(error);

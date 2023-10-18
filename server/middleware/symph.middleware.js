@@ -8,8 +8,8 @@ const ErrorResponse = (error) => {
     let errorCode = error.response.status
 
     if (statusCode.includes(errorCode)) {
-        console.log("ERROR", error);
-        return error
+        console.log("ERROR", error.response);
+        return error.response
     }else{
         const message = {
             title: "Network Error",
@@ -27,32 +27,21 @@ const ErrorLogger = (error, request, response , next) => {
 
     console.log("ERROR", ErrResponse);
     Logger.loggerError.addContext("context", `Logging.. - 
-        Request URL: ${request.url} - ${JSON.stringify(ErrResponse.response.message)} | ${JSON.stringify(ErrResponse.response.data.error.code)} - ${JSON.stringify(ErrResponse.response.status)}`);
-    Logger.loggerError.error(ErrResponse.response.data.error.stack);
+        Request URL: ${request.url} - ${JSON.stringify(ErrResponse.message)} | ${JSON.stringify(ErrResponse.data.error.code)} - ${JSON.stringify(ErrResponse.status)} | ${JSON.stringify(ErrResponse.errors)}`);
+    Logger.loggerError.error(ErrResponse.data.error.stack);
     
     next(ErrResponse)
 }
 
 const ErrorHandler = (error, request, response , next) => {
-    
-    // let errorCode = error.response.status
-    
-    // if (statusCode.includes(errorCode)) {
-    //     console.log("Error Handling");
 
-    //     next(error.response)
-    // }else{
-    //     console.log("Error Handling no status");
-    //     next(error)
-    // }
-
-    next(error)
+    next(error);
 
 }
 
 const ErrorResponder = (error, request, response , next) => {
     console.log("Error Reponding", error);
-    response.send(error.data);
+    response.status(error.status).send(error.data);
 }
 
 module.exports = {

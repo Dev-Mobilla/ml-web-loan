@@ -5,7 +5,7 @@ const customer_details = sequelize.define('customer_details', {
   customer_details_id: {
     type: DataTypes.INTEGER,
     allowNull: false,
-    autoIncrement: true,
+    // autoIncrement: true,
     primaryKey: true
   },
   last_name: {
@@ -17,6 +17,10 @@ const customer_details = sequelize.define('customer_details', {
     allowNull: false
   },
   middle_name: {
+    type: DataTypes.STRING,
+    allowNull: true
+  },
+  suffix: {
     type: DataTypes.STRING,
     allowNull: true
   },
@@ -53,7 +57,7 @@ const customer_details = sequelize.define('customer_details', {
     allowNull: true
   },
   source_of_income: {
-    type: DataTypes.FLOAT,
+    type: DataTypes.STRING,
     allowNull: false
   },
   gross_monthly_income: {
@@ -72,8 +76,23 @@ const customer_details = sequelize.define('customer_details', {
     type: DataTypes.STRING,
     allowNull: false
   },
+  createdAt: {
+    type: DataTypes.DATE,
+    allowNull: false
+  },
+  updatedAt: {
+    type: DataTypes.DATE,
+    allowNull: true
+  },
+  deletedAt: {
+    type: DataTypes.DATE,
+    allowNull: true
+  }
 }, {
-  timestamps: false
+  timestamps: true,
+  createdAt: true,
+  updatedAt: true,
+  deletedAt: true
 });
 
 customer_details.customCreate = async function (data, options) {
