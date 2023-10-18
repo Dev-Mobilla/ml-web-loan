@@ -1,5 +1,4 @@
 import axios from "axios";
-import { isCookiePresent }  from "../utils/CookieChecker";
 
 const SymphAxiosInstance = axios.create({
   baseURL: process.env.REACT_APP_SYMPH_BASE_URL,
