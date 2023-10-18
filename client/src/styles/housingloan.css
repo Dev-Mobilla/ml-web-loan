@@ -151,8 +151,6 @@
 }
 
 .pay-now-button.disabled {
-  background-color:#ff5d5d;
-  color: white;
   cursor: no-drop;
 }
 

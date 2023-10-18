@@ -6,7 +6,7 @@ const CustomMessage = (props) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowMessage(false);
-    }, 4000);
+    }, 10000);
 
     return () => {
       clearTimeout(timer);
@@ -82,16 +82,6 @@ const CustomMessage = (props) => {
     maxWidth: "768px",
   };
 
-  const mediaQuery1200px = {
-    width: "90%",
-    maxWidth: "1024px",
-  };
-
-  const mediaQuery1201px = {
-    width: "90%",
-    maxWidth: "1200px",
-  };
-
   return (
     <div style={customMessageStyle}>
       <div
@@ -100,8 +90,6 @@ const CustomMessage = (props) => {
           ...mediaQuery480px,
           ...mediaQuery768px,
           ...mediaQuery1024px,
-          ...mediaQuery1200px,
-          ...mediaQuery1201px,
         }}
       >
         <h1 style={customMessageTitleStyle}>{props.title}</h1>
