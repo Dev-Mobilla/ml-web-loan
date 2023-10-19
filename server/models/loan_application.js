@@ -21,19 +21,19 @@ const loan_applications = sequelize.define('loan_applications', {
         allowNull: false
     },
     application_date: {
-        type: DataTypes.DATE,
+        type: DataTypes.STRING,
         allowNull: true
     },
     principal_amount: {
-        type: DataTypes.DATE,
+        type: DataTypes.STRING,
         allowNull: true
     },
     terms: {
-        type: DataTypes.DATE,
+        type: DataTypes.STRING,
         allowNull: true
     },
     interest: {
-        type: DataTypes.DATE,
+        type: DataTypes.STRING,
         allowNull: true
     },
     vehicle_type: {
@@ -66,6 +66,10 @@ const loan_applications = sequelize.define('loan_applications', {
         allowNull: true
     },
     plate_number: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+    engine_number: {
         type: DataTypes.STRING,
         allowNull: true
     },

@@ -5,7 +5,8 @@ const AddLoan = async (
   vehicleDocsData, 
   employmentDocsData, 
   customerData, 
-  loanApplicationData
+  loanApplicationData,
+  hatchitReqBody
   ) => {
     try {
       // const UrlToAddLoan = `/api/ml-loans/tables`;
@@ -23,8 +24,11 @@ const AddLoan = async (
         VehicleJsonData: {
           ...vehicleDocsData
         },
+        HatchITJsonData: {
+          ...hatchitReqBody
+        }
       };
-      
+
       const UrlToAddLoan = "api/ml-loans/loans/create-loan";
       const response = await ML_LoansAxiosInstance.post(UrlToAddLoan, { data: JSON.stringify(RequestBody) }, {
         headers: {

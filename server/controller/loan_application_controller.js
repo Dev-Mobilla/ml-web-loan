@@ -2,17 +2,16 @@ const { loan_applications, CustomerDetails, employment_docs, vehicle_docs, seque
 const {ErrorThrower} = require('../utils/ErrorGenerator');
 const SuccessLogger = require('../utils/SuccessLogger');
 const {createEmploymentDocs} = require('./employment_docs_controller');
+const {HatchITAddLoan} = require('./hatchit.controller');
 const {createVehicleDocs} = require('./vehicle_docs_controller');
 
 async function createLoanApplication(LoanApplicationJsonData, options) {
     try {
         // const createdLoan = await loan_applications.customeCreate(LoanApplicationJsonData, options);
-        
+        console.log("LoanApplicationJsonData", LoanApplicationJsonData);
         const createdLoan = await loan_applications.findOrCreate({
             where: {
-                application_reference: LoanApplicationJsonData.application_reference,
-                ckyc_id: LoanApplicationJsonData.ckyc_id,
-                customer_id: LoanApplicationJsonData.customer_id
+                application_reference: LoanApplicationJsonData.application_reference
             },
             defaults: { ...LoanApplicationJsonData },
             transaction: options
@@ -105,7 +104,9 @@ const FindOrCreateCustomer = async (details, options) => {
                 middle_name: details.middle_name,
                 last_name: details.last_name,
                 email: details.email,
-                mobile_number: details.mobile_number
+                mobile_number: details.mobile_number,
+                ckyc_id: details.ckyc_id,
+                customer_id: details.customer_id
             },
             defaults: { ...details },
             transaction: options,
@@ -152,6 +153,15 @@ const AddLoan = async (req, res, next) => {
         let _customerId;
         let _employmentDocId;
         let _vehicleDocId;
+        const dateInstance = new Date();
+
+        const year = dateInstance.getFullYear().toString();
+        const month = (("0" + (dateInstance.getMonth() + 1)).slice(-2)).toString();
+        const day = ("0" + dateInstance.getDate()).slice(-2).toString();
+
+        const time = dateInstance.getTime();
+        const dateNow = `${year}${month}${day}`;
+        const application_reference = `MLBP${dateNow}${time}`;
 
         const data = JSON.parse(req.body.data);
 
@@ -159,56 +169,86 @@ const AddLoan = async (req, res, next) => {
         const employmentDetails = data.EmploymentJsonData;
         const vehicleDetails = data.VehicleJsonData;
         const loanApplication = data.LoanApplicationJsonData;
+        const hatchitDetails = data.HatchITJsonData;
 
-        // const ApplyLoan = await sequelize.transaction(async (transaction) => {
+        const CollateralDetails = {
+            interest: loanApplication.interest,
+            principa_amount: loanApplication.principa_amount,
+            term: loanApplication.terms,
+            processing_fee: null,
+            net_amount: null
+        }
+        let full_name = `${customerDetails.first_name} ${customerDetails.middle_name} 
+            ${customerDetails.last_name} ${customerDetails.suffix}`;
 
-        //     const custMaxId = await FindMaxId(CustomerDetails, 'customer_details_id', transaction);
-        //     customerDetails.customer_details_id = ++custMaxId.dataValues.max_id;
+        const CustomerDetailsHatchit = {
+            customer_id: customerDetails.customer_id,
+            ckyc_id: customerDetails.ckyc_id,
+            full_name: full_name,
+            contact_number: customerDetails.mobile_number,
+            email: customerDetails.email,
+            business_name: "",
+            country: hatchitDetails.country,
+            province: hatchitDetails.provinces,
+            city: hatchitDetails.city,
+            address: hatchitDetails.barangay
+        }
 
-        //     const Customer = await FindOrCreateCustomer(customerDetails, transaction);
-
-        //     _customerId = Customer[0].dataValues.customer_details_id;
-
-        //     const empMaxId = await FindMaxId(employment_docs, 'employment_docu_id', transaction);
-        //     employmentDetails.employment_docu_id = ++empMaxId.dataValues.max_id;
-
-        //     const EmploymentDocs = await createEmploymentDocs(employmentDetails, transaction);
-
-        //     _employmentDocId = EmploymentDocs[0].dataValues.employment_docu_id;
-
-        //     const vehicleMaxId = await FindMaxId(vehicle_docs, 'vehicle_docu_id', transaction);
-        //     vehicleDetails.vehicle_docu_id = ++vehicleMaxId.dataValues.max_id;
-
-        //     const VehicleDocs = await createVehicleDocs(vehicleDetails, transaction);
-        //     _vehicleDocId = VehicleDocs[0].dataValues.vehicle_docu_id;
-
-        //     const loanMaxId = await FindMaxId(loan_applications, 'id_loan_application', transaction);
-
-        //     console.log(loanMaxId);
-        //     loanApplication.id_loan_application = ++loanMaxId.dataValues.max_id;
-
-        //     loanApplication.customer_details_customer_details_id = _customerId;
-        //     loanApplication.vehicle_docs_vehicle_docu_id = _vehicleDocId;
-        //     loanApplication.employment_docs_employment_docu_id = _employmentDocId;
-
-        //     const LoanApplication = await createLoanApplication(loanApplication, transaction);
-        //     // res.send(custMaxId)
-
-        //     // transaction.commit();
-
-        //     SuccessLogger(req.url, 200,`APPLY LOAN: ${JSON.stringify(LoanApplication)}, 
-        //     CREATED: ${LoanApplication[1]}, REFERENCE: ${LoanApplication[0].application_reference}, 
-        //     CODE: DUPLICATE_ENTRY` )
-
-        //     return LoanApplication
-            
-        // })
+        const hatchitAddLoan = await HatchITAddLoan(CustomerDetailsHatchit, CollateralDetails);
         
-        // res.status(200).send(ApplyLoan);
-        console.log("data", data);
-        res.send({data})
+        console.log(hatchitAddLoan);
+
+        const ApplyLoan = await sequelize.transaction(async (transaction) => {
+
+            const custMaxId = await FindMaxId(CustomerDetails, 'customer_details_id', transaction);
+            customerDetails.customer_details_id = ++custMaxId.dataValues.max_id;
+
+            const Customer = await FindOrCreateCustomer(customerDetails, transaction);
+
+            _customerId = Customer[0].dataValues.customer_details_id;
+
+            const empMaxId = await FindMaxId(employment_docs, 'employment_docu_id', transaction);
+            employmentDetails.employment_docu_id = ++empMaxId.dataValues.max_id;
+            employmentDetails.application_reference = application_reference;
+
+            const EmploymentDocs = await createEmploymentDocs(employmentDetails, transaction);
+
+            _employmentDocId = EmploymentDocs[0].dataValues.employment_docu_id;
+
+            const vehicleMaxId = await FindMaxId(vehicle_docs, 'vehicle_docu_id', transaction);
+            vehicleDetails.vehicle_docu_id = ++vehicleMaxId.dataValues.max_id;
+            vehicleDetails.application_reference = application_reference;
+
+            const VehicleDocs = await createVehicleDocs(vehicleDetails, transaction);
+            _vehicleDocId = VehicleDocs[0].dataValues.vehicle_docu_id;
+
+            const loanMaxId = await FindMaxId(loan_applications, 'id_loan_application', transaction);
+
+            console.log(loanMaxId);
+            loanApplication.id_loan_application = ++loanMaxId.dataValues.max_id;
+            loanApplication.application_reference = application_reference;
+
+            loanApplication.customer_details_customer_details_id = _customerId;
+            loanApplication.vehicle_docs_vehicle_docu_id = _vehicleDocId;
+            loanApplication.employment_docs_employment_docu_id = _employmentDocId;
+
+            const LoanApplication = await createLoanApplication(loanApplication, transaction);
+            // res.send(custMaxId)
+
+            // transaction.commit();
+
+            SuccessLogger(req.url, 200,`APPLY LOAN: ${JSON.stringify(LoanApplication)}, 
+            CREATED: ${LoanApplication[1]}, REFERENCE: ${LoanApplication[0].application_reference}, 
+            CODE: DUPLICATE_ENTRY` )
+
+            return LoanApplication
+            
+        })
+        
+        res.status(200).send(ApplyLoan);
 
     } catch (error) {
+        console.log("error", error);
         next(error)
     }
 }
