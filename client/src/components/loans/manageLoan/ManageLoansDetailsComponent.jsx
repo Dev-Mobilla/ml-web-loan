@@ -85,10 +85,17 @@ const ManageLoansDetailsComponent = () => {
   const [showCustomMessage, setShowCustomMessage] = useState(false);
   const [customMessageProps, setCustomMessageProps] = useState({});
 
+  const [payNowBtn, setPayNowBtn] = useState({
+    isDisable: false,
+    classname: "",
+    text: "Pay Now",
+  });
+
   useEffect(() => {
     const showCustomAlert = async () => {
       try {
-        const kptn = sessionStorage.getItem("kptn");
+        // TODO: need get method for getting kptn
+        const kptn = localStorage.getItem("kptn");
         const response = await CheckKP7Transaction(kptn);
         if (
           response.data.respcode === "1" &&
@@ -101,6 +108,11 @@ const ManageLoansDetailsComponent = () => {
 
           setCustomMessageProps({ title, text });
           setShowCustomMessage(true);
+          setPayNowBtn({
+            isDisable:true,
+            classname: "disabled",
+            text: "Pay Now",
+          })
         }
       } catch (error) {
         console.error(error);
@@ -122,12 +134,6 @@ const ManageLoansDetailsComponent = () => {
     status: "",
     total: "",
     paymentStatus: "",
-  });
-
-  const [payNowBtn, setPayNowBtn] = useState({
-    isDisable: false,
-    classname: "",
-    text: "Pay Now",
   });
 
   const displayError = ({ message, title }) => {
@@ -673,7 +679,7 @@ const ManageLoansDetailsComponent = () => {
           "Your payment has not been processed due to a technical issue. Please try again."
         );
       } else if (paymentResponse.data.billspayStatus === "POSTED") {
-        sessionStorage.setItem("kptn", paymentResponse.data.kptn);
+        localStorage.setItem("kptn", paymentResponse.data.kptn);
         navigate("/vehicle-loan/payment-receipt", {
           state: {
             paymentData: paymentData,

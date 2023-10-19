@@ -14,3 +14,14 @@ INFO 2023-10-18T10:37:42.294 ML LOANS Server listening on port: 5000
 INFO 2023-10-18T10:37:59.731 ML LOANS Server listening on port: 5000
 INFO 2023-10-18T10:38:33.269 ML LOANS Server listening on port: 5000
 INFO 2023-10-18T10:40:29.429 ML LOANS Server listening on port: 5000
+INFO 2023-10-18T11:01:22.626 ML LOANS Server listening on port: 5000
+INFO 2023-10-18T11:02:50.949 Logging.. URL: undefined - STATUS: 200; MESSAGE: GET SERVICE FEE: {"data":{"totalServiceFee":200},"code":"SUCCESS","status":200}
+INFO 2023-10-18T11:02:52.036 Logging.. URL: undefined - STATUS: 200; MESSAGE: GET THRESHOLD AMOUNT: {"data":{"bracketTierCode":"0.00","responseCode":1,"responseMessage":"Success","threshold":"500000000.00"},"code":"SUCCESS","status":200}
+INFO 2023-10-18T11:02:54.672 Logging.. URL: undefined - STATUS: 200; MESSAGE: VALIDATE ACCOUNT: {"data":{"isValidAccountNumber":true,"responseCode":1,"responseMessage":"Success","responseSearch":{"amount":"2139","accounFirstName":"DEVTESTQD","accountLastName":"QDTEST"}},"code":"SUCCESS","status":200}
+INFO 2023-10-18T11:03:14.388 Logging.. URL: undefined - STATUS: 200; MESSAGE: KPTN: APBYASTXYZE, PAY BILLS: {"billspayStatus":"POSTED","kptn":"APBYASTXYZE","paymentStatus":"PAID","amountPaid":2139,"ckycId":"X230900000328K1","createdDate":"2023-10-18 11:03:51.017","runningBalance":24400.75,"total":2339,"totalServiceFee":200}, KP7: SUCCESS
+INFO 2023-10-18T11:53:51.943 Logging.. URL: undefined - STATUS: 200; MESSAGE: GET SERVICE FEE: {"data":{"totalServiceFee":200},"code":"SUCCESS","status":200}
+INFO 2023-10-18T11:53:53.105 Logging.. URL: undefined - STATUS: 200; MESSAGE: GET THRESHOLD AMOUNT: {"data":{"bracketTierCode":"0.00","responseCode":1,"responseMessage":"Success","threshold":"500000000.00"},"code":"SUCCESS","status":200}
+INFO 2023-10-18T11:54:57.478 Logging.. URL: undefined - STATUS: 200; MESSAGE: GET SERVICE FEE: {"data":{"totalServiceFee":200},"code":"SUCCESS","status":200}
+INFO 2023-10-18T11:54:58.719 Logging.. URL: undefined - STATUS: 200; MESSAGE: GET THRESHOLD AMOUNT: {"data":{"bracketTierCode":"0.00","responseCode":1,"responseMessage":"Success","threshold":"500000000.00"},"code":"SUCCESS","status":200}
+INFO 2023-10-18T11:55:00.970 Logging.. URL: undefined - STATUS: 200; MESSAGE: VALIDATE ACCOUNT: {"data":{"isValidAccountNumber":true,"responseCode":1,"responseMessage":"Success","responseSearch":{"amount":"2139","accounFirstName":"DEVTESTQD","accountLastName":"QDTEST"}},"code":"SUCCESS","status":200}
+INFO 2023-10-18T11:55:13.764 Logging.. URL: undefined - STATUS: 200; MESSAGE: KPTN: APBLQRAPCEZ, PAY BILLS: {"billspayStatus":"POSTED","kptn":"APBLQRAPCEZ","paymentStatus":"PAID","amountPaid":2139,"ckycId":"X230900000328K1","createdDate":"2023-10-18 11:55:50.277","runningBalance":19722.75,"total":2339,"totalServiceFee":200}, KP7: SUCCESS
