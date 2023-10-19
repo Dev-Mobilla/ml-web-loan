@@ -111,6 +111,7 @@ const CustomerRequirementComponent = () => {
       current_address: details.current_address,
       mobile_number: ckyc.mobile_number,
       email: ckyc.email,
+      
     }
   }
   const LoanApplicationJsonData = (vehicleDetails, loan_type, preferredBranch) => {
@@ -130,6 +131,7 @@ const CustomerRequirementComponent = () => {
         application_date: dateNow,
         principal_amount:vehicleDetails.principalAmount,
         terms:vehicleDetails.terms,
+        color: vehicleDetails.color,
         interest:vehicleDetails.interest,
         year:vehicleDetails.year,
         make:vehicleDetails.make,
@@ -286,6 +288,7 @@ const CustomerRequirementComponent = () => {
 
       try {
         let ckyc = {};
+        let hatchitReqBody = {};
 
         const isKycExist = await SearchKyc(mobileNumber);
 
@@ -311,8 +314,16 @@ const CustomerRequirementComponent = () => {
             civil_status: kyc.civilStatus,
             birthdate: kyc.birthDate,
             mobile_number: kyc.cellphoneNumber,
-            email: kyc.email
+            email: kyc.email,
+            
           }
+          hatchitReqBody = {
+            country: kyc.addresses.current.addressL0Name,
+            province: kyc.addresses.current.addressL1Name,
+            city: kyc.addresses.current.addressL2Name,
+            barangay: kyc.addresses.current.otherAddress
+          }
+
 
         }
         setTimeout(() => {
@@ -326,7 +337,7 @@ const CustomerRequirementComponent = () => {
         const baseData = location.state.secondStepDetails;
         const address = baseData.personalDetails[3];
         const customer = baseData.personalDetails[1];
-        customer.address = address;
+        customer.current_address = address;
         
         const preferredBranch = baseData.personalDetails[2];
         
@@ -334,6 +345,8 @@ const CustomerRequirementComponent = () => {
         
         const responseKyc = isKycExist.data.data;
         let loan_type = null;
+
+        console.log(vehicleDetails);
 
         if (vehicleDetails?.selectedVehicle === "Car/Pickup/SUV" || vehicleDetails?.selectedVehicle === "Truck/Commercial") {
           loan_type = "Car Loan"
@@ -355,6 +368,13 @@ const CustomerRequirementComponent = () => {
           email: responseKyc.email
         }
 
+        hatchitReqBody = {
+          country: responseKyc.addresses.current.addressL0Name,
+          province: responseKyc.addresses.current.addressL1Name,
+          city: responseKyc.addresses.current.addressL2Name,
+          barangay: responseKyc.addresses.current.otherAddress
+        }
+
         const vehicleDocsData = VehicleJsonData();
         const employmentDocsData = EmploymentJsonData();
         const customerData = CustomerDetailsJsonData(customer, ckyc);
@@ -367,7 +387,8 @@ const CustomerRequirementComponent = () => {
             vehicleDocsData,
             employmentDocsData, 
             customerData, 
-            loanApplicationData
+            loanApplicationData,
+            hatchitReqBody
           );
           console.log("ADD LOAN: ", AddMLLoan);
           setShowLoading({

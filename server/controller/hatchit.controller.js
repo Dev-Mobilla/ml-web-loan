@@ -8,19 +8,19 @@ const HATCHT_IT_GET_LOAN_FIELDS_KEY = process.env.GET_LOAN_FIELDS;
 const QD_GET_LOAN_FIELDS_KEY = process.env.QD_GET_LOAN_FIELDS;
 const QD_APPLY_LOAN__KEY = process.env.QD_APPLY_LOAN_KEY;
 
+const LOAN_TYPE = process.env.HATCH_IT_LOAN_TYPE;
 
-const GetLoanTypeFields = async (req, res, next) => {
+const GetLoanTypeFields = async () => {
     try {
-        const loantype = JSON.stringify({loan_type: "1"})
+        const loantype = JSON.stringify({loan_type: LOAN_TYPE})
 
         const passPhrase = `${loantype}|${HATCHT_IT_GET_LOAN_FIELDS_KEY}|${QD_GET_LOAN_FIELDS_KEY}`;
 
         const digest = SignatureGenerator(passPhrase);
-        
-        console.log(digest);
+
         const config = {
            params:{
-            loan_type: "1",
+            loan_type: LOAN_TYPE,
             digest: digest
            }
         }
@@ -29,10 +29,9 @@ const GetLoanTypeFields = async (req, res, next) => {
         
         const getLoanTypeFields = await GetLoanTypeFieldsApi(URL, config);
 
-        res.send(getLoanTypeFields.data);
+        return getLoanTypeFields.data;
     } catch (error) {
-        console.log("error");
-        next(error);
+        throw error;
     }
 }
 
@@ -47,9 +46,9 @@ const GetLoanTypeFieldsApi = async (URL, config) => {
     }
 }
 
-const GetLoanTypeItemsFields = async (req, res, next) => {
+const GetLoanTypeItemsFields = async () => {
     try {
-        const loantype = JSON.stringify({loan_type: "1"})
+        const loantype = JSON.stringify({loan_type: LOAN_TYPE})
 
         const passPhrase = `${loantype}|${HATCHT_IT_GET_LOAN_FIELDS_KEY}|${QD_GET_LOAN_FIELDS_KEY}`;
 
@@ -57,7 +56,7 @@ const GetLoanTypeItemsFields = async (req, res, next) => {
         
         const config = {
            params:{
-            loan_type: "1",
+            loan_type: LOAN_TYPE,
             digest: digest
            }
         }
@@ -66,9 +65,9 @@ const GetLoanTypeItemsFields = async (req, res, next) => {
         
         const getLoanTypeItemFields = await GetLoanTypeItemFieldsApi(URL, config);
 
-        res.send(getLoanTypeItemFields.data);
+        return getLoanTypeItemFields.data;
     } catch (error) {
-        next(error);
+        throw error;
     }
 }
 
@@ -83,9 +82,9 @@ const GetLoanTypeItemFieldsApi = async (URL, config) => {
     }
 }
 
-const AddLoan = async (req, res, next) => {
+const HatchITAddLoan = async (customerDetails, collateral) => {
     try {
-        const loantype = JSON.stringify({loan_type: "1"})
+        const loantype = JSON.stringify({loan_type: LOAN_TYPE})
 
         const passPhrase = `${loantype}|${APPLY_LOAN_KEY}|${QD_APPLY_LOAN__KEY}`;
 
@@ -93,15 +92,11 @@ const AddLoan = async (req, res, next) => {
 
         const config = {
             params:{
-                loan_type: "1",
+                loan_type: LOAN_TYPE,
                 digest: digest
             }
         }
 
-        // const data = {
-
-        // }
-         
         const URL = `${HATCH_IT_URL}/loans_api/v1/transactions/apply_loan`;
 
         const addLoan = await AddLoanApi(URL, data, config);
@@ -125,5 +120,6 @@ const AddLoanApi = async (URL, data, config) => {
 
 module.exports = {
     GetLoanTypeFields,
-    GetLoanTypeItemsFields
+    GetLoanTypeItemsFields,
+    HatchITAddLoan
 }

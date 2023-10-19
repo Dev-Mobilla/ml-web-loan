@@ -5,10 +5,10 @@ const statusCode = [404, 403, 401, 500, 400];
 
 const ErrorResponse = (error) => {
 
-    let errorCode = error.response.status
+    // let errorCode = error.response.status
+    // console.log("errrrrr: ", error?.response && statusCode.includes(errorCode));
 
-    if (statusCode.includes(errorCode)) {
-        console.log("ERROR", error.response);
+    if (error?.response && statusCode.includes(error.response.status)) {
         return error.response
     }else{
         const message = {
@@ -16,8 +16,8 @@ const ErrorResponse = (error) => {
             body: "The server encountered an unexpected error"
         }
 
-        const errRes = ErrorThrower(500, "INTERNAL_SERVER_ERROR", message)
-        return errRes
+        const errRes = ErrorThrower(500, "INTERNAL_SERVER_ERROR", message, error)
+        return errRes.response
     }
 }
 
