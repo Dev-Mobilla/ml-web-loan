@@ -38,7 +38,6 @@ const PersonalInformationComponent = ({
     onValidationChange(isValid);
     onInformationDetailsChange(informationDetails);
     fetchData();
-    // console.log("information", informationDetails);
   }, [informationDetails, onValidationChange]);
 
   const fetchData = async () => {
@@ -50,7 +49,6 @@ const PersonalInformationComponent = ({
       setListOfProvinces(await getProvinces.data);
       setListOfCities(await getCities.data);
     } catch (error) {
-      console.error("Error:", error);
     }
     setLoading(false);
   };
@@ -67,7 +65,6 @@ const PersonalInformationComponent = ({
   const handleProvinceChange = async (event) => {
     const selectedProvinceId = event.target.value;
 
-    console.log("Selected Province ID:", selectedProvinceId);
     setInformationDetails((prevState) => ({
       ...prevState,
       provinces: selectedProvinceId,

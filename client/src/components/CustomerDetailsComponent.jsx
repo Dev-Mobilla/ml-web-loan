@@ -71,6 +71,11 @@ const CustomerDetailsComponent = () => {
   });
 
   useEffect(() => {
+
+    if (location.state == null) {
+      navigate(-1);
+    }
+
     const getAddressName = (name) => {
       let isEmpty = name === "";
 
@@ -89,9 +94,6 @@ const CustomerDetailsComponent = () => {
     let country = getAddressName(informationDetails.countries);
     setAddress(`${barangay} ${city} ${province} ${country}`)
   })
-  if (location.state == null) {
-    navigate('/vehicle-loan/loan-type/new');
-  }
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const phoneRegex = /^\+?[\d\s()-]{7,15}$/;
@@ -145,8 +147,6 @@ const CustomerDetailsComponent = () => {
         address
       ],
     };
-
-    console.log("second step details:", secondStepDetails);
 
     navigate("/vehicle-loan/requirements", {
       state: {
@@ -233,7 +233,6 @@ const CustomerDetailsComponent = () => {
         handleButtonClick(true);
       }
     } catch (error) {
-      console.log("Error:", error.message);
       const props = {
         title: "Current Address not found!",
         text: "Please input valid current address",
@@ -316,7 +315,6 @@ const CustomerDetailsComponent = () => {
       const response = await SearchKyc(mobileNumber);
       const data = response.data;
       if (data.data) {
-        console.log("Log: ", data);
         setContactDetails({
           email: data.data.email,
           mobile_number: data.data.cellphoneNumber
@@ -361,7 +359,6 @@ const CustomerDetailsComponent = () => {
         setIsEditable(false);
       }
     } catch (error) {
-      console.log(error);
       return false;
     }
   };

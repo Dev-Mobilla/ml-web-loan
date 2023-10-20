@@ -21,7 +21,6 @@ const fetchBranch = async () => {
     const jsonData = await response.json();
     return jsonData;
   } catch (error) {
-    console.error("Error:", error);
   }
 };
 

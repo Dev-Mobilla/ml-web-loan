@@ -102,7 +102,7 @@ const ManageLoansDetailsComponent = () => {
           response.data.respmsg === "SUCCESS" &&
           response.data.accountNo === LoanReference
         ) {
-          const title = "Payment Process";
+          const title = "Payment Processed";
           const text =
             "We're excited to see that you've made your loan payment on time! Your payment is now being processed and will be posted within 1-3 business days.";
 

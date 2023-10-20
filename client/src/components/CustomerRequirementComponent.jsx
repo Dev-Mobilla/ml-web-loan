@@ -49,20 +49,16 @@ const CustomerRequirementComponent = () => {
   ];
 
   useEffect(() => {
-    console.log(location.state);
     if (location.state == null) {
       navigate(-1);
     }
-
     const storageLength = sessionStorage.length < 10;
 
     const isCheckEmpty =
       !CheckRequiredDocuments() &&
       !CheckVehicleDocuments(vehicleKeys) &&
       !storageLength;
-    // console.log(storageLength);
     setIsSubmitButtonDisabled(!isCheckEmpty);
-    // console.log(location.state.secondStepDetails);
   }, [optionValue, isSubmitButtonDisabled, sessionStorage]);
 
   const VehicleJsonData = () => {
@@ -185,7 +181,6 @@ const CustomerRequirementComponent = () => {
   };
 
   const OnImageSubmitHandler = (imageName, documentName, url) => {
-    console.log(location.state);
     let imageItem = { imageName, url, documentName };
     sessionStorage.setItem([modalTitle], JSON.stringify(imageItem));
 
@@ -295,11 +290,8 @@ const CustomerRequirementComponent = () => {
         // Details: If not existing Symph DB
         if (isKycExist.data.code !== "SUCCESS") {
 
-          console.log("kyc does not exist: ", isKycExist);
-
           await AddKyc();
 
-          console.log("kyc", kyc);
           const responseSearchKyc = await SearchKyc(mobileNumber);
           const kyc = responseSearchKyc.data.data;
 
@@ -346,8 +338,6 @@ const CustomerRequirementComponent = () => {
         const responseKyc = isKycExist.data.data;
         let loan_type = null;
 
-        console.log(vehicleDetails);
-
         if (vehicleDetails?.selectedVehicle === "Car/Pickup/SUV" || vehicleDetails?.selectedVehicle === "Truck/Commercial") {
           loan_type = "Car Loan"
         }else{
@@ -380,26 +370,34 @@ const CustomerRequirementComponent = () => {
         const customerData = CustomerDetailsJsonData(customer, ckyc);
         const loanApplicationData = LoanApplicationJsonData(vehicleDetails, loan_type, preferredBranch)
 
-        console.log("loading true");
+        
         // ML DB
-       setTimeout(async () => {
-          const AddMLLoan = await AddLoan(
+        const  AddMLLoan = await AddLoan(
             vehicleDocsData,
             employmentDocsData, 
             customerData, 
             loanApplicationData,
             hatchitReqBody
           );
-          console.log("ADD LOAN: ", AddMLLoan);
-          setShowLoading({
-            loading: false,
-            text: "Just a moment",
-          });
-          console.log("loading false");
-    
-       }, 2000);
 
-      
+          location.state = null
+          sessionStorage.clear();
+          
+          setTimeout(() => {
+            setShowLoading({
+              loading: false,
+              text: "Just a moment",
+            });
+            navigate(`/vehicle-loan/receipt`, {
+              state: {
+                LoanDetails: {
+                    Loan: JSON.stringify(AddMLLoan),
+                    LoanType: loan_type
+                  }
+              },
+              replace: true
+            })
+       }, 2000);
 
       //   for (const key in sessionStorage) {
       //     if (Object.hasOwnProperty.call(sessionStorage, key)) {
@@ -421,10 +419,15 @@ const CustomerRequirementComponent = () => {
 
 
       } catch (error) {
-        console.log(error);
         setShowLoading({
           loading: false,
           text: "Just a moment",
+        });
+        setShowAlert(true);
+        setAlertProps({
+          title: "Error",
+          text: error.message || "An error occurred",
+          isError: true
         });
       }
     }
