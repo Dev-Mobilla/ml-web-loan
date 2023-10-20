@@ -1,0 +1,61 @@
+.collateral-fields {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.field-group {
+  display: flex;
+  justify-content: center;
+  width: 700px;
+}
+
+.value-left,
+.value-right {
+  flex: 1;
+  margin: 10px;
+}
+
+.collateral-fields .field {
+  padding: 10px;
+}
+
+.field .field-title {
+  font-weight: bold;
+  color: var(--text-gray);
+  margin-bottom: 10px;
+  text-align: start;
+}
+
+.field span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 15px;
+  color: var(--text-gray);
+}
+
+@media screen and (min-width: 360px) and (max-width: 480px) {
+  .field-group {
+    flex-wrap: wrap;
+    width: 100%;
+  }
+
+  .value-left,
+  .value-right {
+    flex: none;
+    width: 100%;
+  }
+}
+
+@media screen and (min-width: 481px) and (max-width: 768px) {
+  .field-group {
+    width: 90%;
+  }
+}
+
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+  .field-group {
+    width: 80%;
+  }
+}

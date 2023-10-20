@@ -1,0 +1,28 @@
+ERROR 2023-10-18T11:01:37.485 Logging.. - 
+        Request URL: /api/ml-loans/check-transaction - {"title":"Authentication Error","body":"Session expired please login again."} | "AUTHENTICATION_ERROR" - 401 | undefined Error
+    at ErrorThrower (C:\Users\BALANGYAO\Desktop\ml-web-loan\server\utils\ErrorGenerator.js:2:16)
+    at Unauthorized (C:\Users\BALANGYAO\Desktop\ml-web-loan\server\middleware\auth.middleware.js:35:19)
+    at Auth (C:\Users\BALANGYAO\Desktop\ml-web-loan\server\middleware\auth.middleware.js:22:26)
+    at Layer.handle [as handle_request] (C:\Users\BALANGYAO\Desktop\ml-web-loan\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\Users\BALANGYAO\Desktop\ml-web-loan\server\node_modules\express\lib\router\index.js:328:13)
+    at C:\Users\BALANGYAO\Desktop\ml-web-loan\server\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\Users\BALANGYAO\Desktop\ml-web-loan\server\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\BALANGYAO\Desktop\ml-web-loan\server\node_modules\express\lib\router\index.js:280:10)
+    at serveStatic (C:\Users\BALANGYAO\Desktop\ml-web-loan\server\node_modules\serve-static\index.js:75:16)
+    at Layer.handle [as handle_request] (C:\Users\BALANGYAO\Desktop\ml-web-loan\server\node_modules\express\lib\router\layer.js:95:5)
+ERROR 2023-10-18T11:01:37.616 Logging.. - 
+        Request URL: /api/ml-loans/check-transaction - {"title":"Authentication Error","body":"Session expired please login again."} | "AUTHENTICATION_ERROR" - 401 | undefined Error
+    at ErrorThrower (C:\Users\BALANGYAO\Desktop\ml-web-loan\server\utils\ErrorGenerator.js:2:16)
+    at Unauthorized (C:\Users\BALANGYAO\Desktop\ml-web-loan\server\middleware\auth.middleware.js:35:19)
+    at Auth (C:\Users\BALANGYAO\Desktop\ml-web-loan\server\middleware\auth.middleware.js:22:26)
+    at Layer.handle [as handle_request] (C:\Users\BALANGYAO\Desktop\ml-web-loan\server\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\Users\BALANGYAO\Desktop\ml-web-loan\server\node_modules\express\lib\router\index.js:328:13)
+    at C:\Users\BALANGYAO\Desktop\ml-web-loan\server\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\Users\BALANGYAO\Desktop\ml-web-loan\server\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\BALANGYAO\Desktop\ml-web-loan\server\node_modules\express\lib\router\index.js:280:10)
+    at serveStatic (C:\Users\BALANGYAO\Desktop\ml-web-loan\server\node_modules\serve-static\index.js:75:16)
+    at Layer.handle [as handle_request] (C:\Users\BALANGYAO\Desktop\ml-web-loan\server\node_modules\express\lib\router\layer.js:95:5)
+ERROR 2023-10-18T11:53:59.465 Logging.. - 
+        Request URL: /api/ml-loans/validate-account-number - undefined | "ERROR" - 500 | undefined BaseError: AXIOS BAD_GATEWAY
+    at /workspace/server-api/build/utils/AxiosUtils.js:64:31
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)

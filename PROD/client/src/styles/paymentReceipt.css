@@ -1,0 +1,126 @@
+.payment-receipt--container{
+    margin: 4pc auto 6pc auto;
+}
+
+.payment-receipt--notification{
+    width: 500px;
+    margin: 10px auto 20px auto;
+    padding: 20px;
+    box-shadow: 0px 1px 2px 0px #dfdfdf;
+    border-radius: var(--radius);
+    border: 1px solid gainsboro;
+}
+.payment-receipt--notification h1{
+    margin: 5px auto 15px auto;
+    font-size: 20px;
+    font-weight: bold;
+    color: rgb(0, 173, 0);
+}
+
+.payment-receipt--notification p{
+    font-size: 16px;
+    line-height: 22px;
+}
+
+.payment-receipt--content{
+    width: 500px;
+    padding: 20px 10px;
+    box-shadow: 0px 1px 2px 0px #dfdfdf;
+    border-radius: var(--radius);
+    border: 1px solid gainsboro;
+    margin: auto;
+}
+
+.payment-receipt--header{
+    text-align: center;
+    margin: auto 10px;
+}
+.payment-receipt--header .payment-header--details{
+    margin: 10px auto 25px auto;
+}
+.payment-receipt--header .pay-bills{
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    font-size: 20px;
+    margin: 10px auto;
+}
+
+.payment-receipt--header .amount{
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    font-size: 17px;
+    margin: 25px auto 13px auto;
+}
+
+.payment-receipt--body{
+    margin: 25px 10px 15px 10px;
+}
+
+.payment-receipt--header .paid-date{
+   color: rgb(129, 129, 129);
+   font-size: 15px;
+   font-weight:lighter;
+}
+
+.transaction-details .transaction-section,
+.transaction-amount .transaction-section,
+.transaction-total .transaction-section{
+    display: flex;
+    justify-content: space-between;
+    margin: 20px auto;
+}
+.transaction-section .transaction-label,
+.transaction-section .transaction-value{
+    font-size: 15px;
+}
+
+.transaction-details,
+.transaction-amount,
+.transaction-total{
+    margin: 15px auto;
+}
+
+.payment-receipt--body .transaction-title h1, 
+.transaction-label.total,
+.transaction-total{
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.payment-receipt--footer .payment-btn{
+    background:none;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 16px;
+    color: var(--red);
+}
+
+.payment-receipt--footer{
+    color: var(--red);
+    width: 500px;
+    margin: 20px auto;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+
+@media screen and (min-width: 360px) and (max-width: 480px) {
+    .payment-receipt--notification, 
+    .payment-receipt--content,
+    .payment-receipt--footer{
+        width: 340px ;
+    }
+
+    .payment-receipt--container{
+        margin: 3pc auto;
+    }
+
+    .transaction-section .transaction-label,
+    .transaction-section .transaction-value{
+        font-size: 13px;
+    }
+    .payment-receipt--notification p{
+        font-size: 15px;
+    }
+}
