@@ -20,13 +20,6 @@ app.use(cors(
   }
 ))
 
-app.use(express.static(path.join(__dirname, '../client/build')));
-
-app.get('/', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '..', 'client', 'build', 'index.html'));
-});
-
-
 //ROUTES
 app.use('/api/ml-loans/symph', PUBLIC_ROUTER);
 // ml add loan
@@ -41,9 +34,16 @@ app.use(ErrorLogger)
 app.use(ErrorHandler);
 app.use(ErrorResponder);
 
+app.use(express.static(path.join(__dirname, '../client/build')));
+
+app.get('/*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
+});
+
 
 app.listen(PORT, () => {
   Logger.loggerInfo.addContext("context", "ML LOANS");
   Logger.loggerInfo.info(`Server listening on port: ${PORT}`);
   console.log("Server listening on port: ", PORT);
+  // console.log(path.resolve(__dirname, ));
 })

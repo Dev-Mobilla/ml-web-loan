@@ -18,7 +18,8 @@ const GetLoansDetails = async (loanId) => {
 
 const fetchBranch = async () => {
   try {
-    const GeolocationUrl = process.env.GEOLOCATOR_URL; 
+    const GeolocationUrl = process.env.REACT_APP_GEOLOCATOR_URL; 
+
     const response = await fetch(`${GeolocationUrl}/getSheets`);
     const jsonData = await response.json();
     return jsonData;
