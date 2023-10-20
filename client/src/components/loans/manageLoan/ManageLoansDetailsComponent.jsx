@@ -94,8 +94,7 @@ const ManageLoansDetailsComponent = () => {
   useEffect(() => {
     const showCustomAlert = async () => {
       try {
-        // TODO: need get method for getting kptn
-        const kptn = localStorage.getItem("kptn");
+        const kptn = sessionStorage.getItem("CzsVjSXBdoZT2UyN8OV0eA==");
         const response = await CheckKP7Transaction(kptn);
         if (
           response.data.respcode === "1" &&
@@ -679,7 +678,7 @@ const ManageLoansDetailsComponent = () => {
           "Your payment has not been processed due to a technical issue. Please try again."
         );
       } else if (paymentResponse.data.billspayStatus === "POSTED") {
-        localStorage.setItem("kptn", paymentResponse.data.kptn);
+        sessionStorage.setItem("CzsVjSXBdoZT2UyN8OV0eA==", paymentResponse.data.kptn);
         navigate("/vehicle-loan/payment-receipt", {
           state: {
             paymentData: paymentData,
