@@ -38,7 +38,6 @@ const AddLoan = async (
       return response;
 
     } catch (error) {
-      console.error("Error Posting:", error);
       return error;
     }
 };

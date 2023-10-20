@@ -299,7 +299,6 @@ const GetLoanTypeFieldsApi = async (URL, config) => {
     try {
 
         const response = await axios.get(URL, config);
-        console.log("response", response);
         return response;
     } catch (error) {
         throw error
@@ -332,7 +331,7 @@ const GetLoanTypeItemsFields = async (req, res, next) => {
 
           itemField[key] = {
             field_name: item.field_name,
-            field_type: item.field_type,
+            type: item.field_type,
             value: "",
             snapshot: JSON.stringify(item)
           }

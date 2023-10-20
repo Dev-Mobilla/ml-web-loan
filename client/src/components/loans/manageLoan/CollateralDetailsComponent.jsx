@@ -114,10 +114,8 @@ const CollateralDetailsComponent = () => {
           link.click();
           })
           .catch(error => {
-          console.error('Error downloading the file:', error);
           });
           } else {
-          console.log(`Cannot download file with extension '${fileExtension}'.`);
           }
     };
 

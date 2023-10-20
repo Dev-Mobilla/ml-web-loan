@@ -7,7 +7,7 @@ const FeatureNotAvailableModalComponent = ({ onClose }) => {
         <div className="modal-body">
           <h1 className="modal-title">Feature Not Available</h1>
           <p className="modal-description">
-            This feature is not currently available.
+            This feature is currently not available.
           </p>
           <button className="modal-button" onClick={onClose}>
             Close
