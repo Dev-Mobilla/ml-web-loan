@@ -1,5 +1,6 @@
 import axios from "axios";
 import { Loans } from "../utils/ManageLoansMockData";
+import {ML_LoansAxiosInstance} from "../helper/axios";
 
 const GetLoansDetails = async (loanId) => {
   try {
@@ -17,17 +18,18 @@ const GetLoansDetails = async (loanId) => {
 
 const fetchBranch = async () => {
   try {
-    const response = await fetch("http://10.4.8.168:8000/getSheets");
+    const GeolocationUrl = process.env.GEOLOCATOR_URL; 
+    const response = await fetch(`${GeolocationUrl}/getSheets`);
     const jsonData = await response.json();
     return jsonData;
   } catch (error) {
+    return error
   }
 };
 
 const GetSessionCookie = async () => {
   try {
-    const response = await axios.get(
-      "http://ml-loans-dev.mlhuillier.com:5000/api/get-cookie",
+    const response = await ML_LoansAxiosInstance.get("/api/ml-loans/get-cookie",
       {
         withCredentials: true,
       }
@@ -40,7 +42,6 @@ const GetSessionCookie = async () => {
 
     return res;
   } catch (error) {
-    console.error("Error:", error);
 
     const res = {
       error: error,
