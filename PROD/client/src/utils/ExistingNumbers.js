@@ -1,1 +1,0 @@
-export const numbers = [12345, 67890];
