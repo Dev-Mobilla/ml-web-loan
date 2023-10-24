@@ -162,7 +162,7 @@ const AddLoan = async (req, res, next) => {
 
         const time = dateInstance.getTime();
         const dateNow = `${year}${month}${day}`;
-        const application_reference = `MLBP${dateNow}${time}`;
+        // const application_reference = `MLBP${dateNow}${time}`;
 
         const data = req.body.data;
         // const data = JSON.parse(req.body.data);
@@ -182,89 +182,84 @@ const AddLoan = async (req, res, next) => {
         }
 
         // // DONE - FIELD VALUES
-        // const getFieldValues = await GetLoanTypeFields();
-        // const FieldValues = getFieldValues.data.map((item, key) => {
+        const getFieldValues = await GetLoanTypeFields();
+        const FieldValues = getFieldValues.data.map((item, key) => {
 
-        //     let fieldObj = Object.keys(loanTypeFieldValues).filter(field => {
-        //         if (field === item.field_name) {
-        //             return field;
-        //         }
-        //     })
+            let fieldObj = Object.keys(loanTypeFieldValues).filter(field => {
+                if (field === item.field_name) {
+                    return field;
+                }
+            })
 
-        //     return {
-        //         value: loanTypeFieldValues[fieldObj[0]] ? loanTypeFieldValues[fieldObj[0]] : "",
-        //         snapshot: JSON.stringify(item),
-        //         field_name: item.field_name
-        //     }
-        // })
+            return {
+                value: loanTypeFieldValues[fieldObj[0]] ? loanTypeFieldValues[fieldObj[0]] : "",
+                snapshot: JSON.stringify(item),
+                field_name: item.field_name
+            }
+        })
         
         // // // FIEDL ITEMS
-        // const loanTypeFieldItems = {
-        //     vehicle_description: `${loanApplication.chassis_number} ${loanApplication.engine_number} ${loanApplication.plate_number} ${loanApplication.variant} ${loanApplication.model} ${loanApplication.make}  ${loanApplication.year}`,
-        //     principal_amount: loanApplication.principal_amount,
-        //     unit: loanApplication.loan_type,
-        //     or: vehicleDetails.original_or,
-        //     comprehensive_insurance: vehicleDetails.car_insurance,
-        //     set_1_stencil: vehicleDetails.stencils,
-        //     picture_of_vehicle_1: vehicleDetails.front_side,
-        //     picture_of_vehicle_2: vehicleDetails.back_side,
-        //     picture_of_vehicle_3: vehicleDetails.right_side,
-        //     picture_of_vehicle_4: vehicleDetails.left_side,
-        // }
+        const loanTypeFieldItems = {
+            vehicle_description: `${loanApplication.chassis_number} ${loanApplication.engine_number} ${loanApplication.plate_number} ${loanApplication.variant} ${loanApplication.model} ${loanApplication.make}  ${loanApplication.year}`,
+            principal_amount: loanApplication.principal_amount,
+            unit: loanApplication.loan_type,
+            or: vehicleDetails.original_or,
+            comprehensive_insurance: vehicleDetails.car_insurance,
+            set_1_stencil: vehicleDetails.stencils,
+            picture_of_vehicle_1: vehicleDetails.front_side,
+            picture_of_vehicle_2: vehicleDetails.back_side,
+            picture_of_vehicle_3: vehicleDetails.right_side,
+            picture_of_vehicle_4: vehicleDetails.left_side,
+        }
 
-        // const getFieldItem = await GetLoanTypeItemsFields();
+        const getFieldItem = await GetLoanTypeItemsFields();
 
-        // const fieldItems = {}
+        const fieldItems = {}
 
-        // getFieldItem.data.forEach((item, key) => {
+        getFieldItem.data.forEach((item, key) => {
 
-        //     let fieldObj = Object.keys(loanTypeFieldItems).filter(field => {
-        //         if (field === item.field_name) {
-        //             return field;
-        //         }
-        //     })
+            let fieldObj = Object.keys(loanTypeFieldItems).filter(field => {
+                if (field === item.field_name) {
+                    return field;
+                }
+            })
 
-        //     fieldItems[key] = {
-        //         field_name: item.field_name,
-        //         type: item.field_type,
-        //         value: loanTypeFieldItems[fieldObj[0]] ? loanTypeFieldItems[fieldObj[0]] : "",
-        //         snapshot: JSON.stringify(item),
-        //     }
+            fieldItems[key] = {
+                field_name: item.field_name,
+                type: item.field_type,
+                value: loanTypeFieldItems[fieldObj[0]] ? loanTypeFieldItems[fieldObj[0]] : "",
+                snapshot: JSON.stringify(item),
+            }
 
-        // })
+        })
 
-        // let FieldItemsValues = JSON.stringify(JSON.stringify(fieldItems))
+        let FieldItemsValues = JSON.stringify(JSON.stringify(fieldItems))
 
-        
-        // // // console.log(FieldItemsValues);
-        // // // const fieldsValues = {
-        // // //     ...employmentDetails,
-        // // //     ...vehicleDetails
-        // // // }
-        // const CollateralDetails = {
-        //     interest: parseFloat(loanApplication.interest) ,
-        //     principal_amount: parseInt(loanApplication.principal_amount),
-        //     term: parseInt(loanApplication.terms),
+    
+        const CollateralDetails = {
+            interest: parseFloat(loanApplication.interest) ,
+            principal_amount: parseInt(loanApplication.principal_amount),
+            term: parseInt(loanApplication.terms),
 
-        // }
-        // let full_name = `${customerDetails.first_name} ${customerDetails.middle_name ? customerDetails.middle_name : ""} ${customerDetails.last_name} ${customerDetails.suffix ? customerDetails.suffix : ""}`;
+        }
+        let full_name = `${customerDetails.first_name} ${customerDetails.middle_name ? customerDetails.middle_name : ""} ${customerDetails.last_name} ${customerDetails.suffix ? customerDetails.suffix : ""}`;
 
-        // const CustomerDetailsHatchit = {
-        //     customer_id: customerDetails.customer_id,
-        //     ckyc_id: customerDetails.ckyc_id,
-        //     full_name: full_name,
-        //     contact_number: customerDetails.mobile_number,
-        //     email: customerDetails.email,
-        //     business_name: "",
-        //     country: hatchitDetails.country,
-        //     province: hatchitDetails.provinces,
-        //     city: hatchitDetails.city,
-        //     address: hatchitDetails.barangay
-        // }
+        const CustomerDetailsHatchit = {
+            customer_id: customerDetails.customer_id,
+            ckyc_id: customerDetails.ckyc_id,
+            full_name: full_name,
+            contact_number: customerDetails.mobile_number,
+            email: customerDetails.email,
+            business_name: "",
+            country: hatchitDetails.country,
+            province: hatchitDetails.provinces,
+            city: hatchitDetails.city,
+            address: hatchitDetails.barangay
+        }
 
-        // const hatchitAddLoan = await HatchITAddLoan(CustomerDetailsHatchit, CollateralDetails, FieldValues , FieldItemsValues);
+        const hatchitAddLoan = await HatchITAddLoan(CustomerDetailsHatchit, CollateralDetails, FieldValues , FieldItemsValues);
 
-        // const application_reference = hatchitAddLoan.data.ref_num;
+        const application_reference = hatchitAddLoan.data.ref_num;
 
         const ApplyLoan = await sequelize.transaction(async (transaction) => {
 
@@ -313,8 +308,8 @@ const AddLoan = async (req, res, next) => {
             
         })
         
-        // res.status(200).send({...hatchitAddLoan.data});
-        res.status(200).send(ApplyLoan);
+        res.status(200).send({...hatchitAddLoan.data});
+        // res.status(200).send(ApplyLoan);
 
     } catch (error) {
         next(error)
