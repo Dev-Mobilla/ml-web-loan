@@ -69,7 +69,7 @@ const customer_details = sequelize.define('customer_details', {
     allowNull: false
   },
   gross_monthly_income: {
-    type: DataTypes.FLOAT,
+    type: DataTypes.STRING,
     allowNull: false
   },
   current_address: {

@@ -42,9 +42,10 @@ async function getAllLoanApplicants(req, res) {
                 { model: vehicle_docs, attributes: ['vehicle_docu_id'], as: 'vehicle_docs' },
             ],
         });
-        const customerDetailsIds = loanApplications.map((loanApp) => loanApp.customer_details_customer_details_id);
-        const employmentDocsIds = loanApplications.map((loanApp) => loanApp.employment_docs_employment_docu_id);
-        const vehicleDocsIds = loanApplications.map((loanApp) => loanApp.vehicle_docs_vehicle_docu_id);
+        const customerDetailsIds = loanApplications.map((loanApp) => loanApp.customer_details_id);
+        // const customerDetailsIds = loanApplications.map((loanApp) => loanApp.customer_details_customer_details_id);
+        const employmentDocsIds = loanApplications.map((loanApp) => loanApp.employment_docu_id);
+        const vehicleDocsIds = loanApplications.map((loanApp) => loanApp.vehicle_docu_id);
 
         const customerDetails = await customer_details.findAll({
             where: {
@@ -197,7 +198,7 @@ const AddLoan = async (req, res, next) => {
             }
         })
         
-        // // FIEDL ITEMS
+        // // // FIEDL ITEMS
         const loanTypeFieldItems = {
             vehicle_description: `${loanApplication.chassis_number} ${loanApplication.engine_number} ${loanApplication.plate_number} ${loanApplication.variant} ${loanApplication.model} ${loanApplication.make}  ${loanApplication.year}`,
             principal_amount: loanApplication.principal_amount,
@@ -234,12 +235,7 @@ const AddLoan = async (req, res, next) => {
 
         let FieldItemsValues = JSON.stringify(JSON.stringify(fieldItems))
 
-        
-        // // console.log(FieldItemsValues);
-        // // const fieldsValues = {
-        // //     ...employmentDetails,
-        // //     ...vehicleDetails
-        // // }
+    
         const CollateralDetails = {
             interest: parseFloat(loanApplication.interest) ,
             principal_amount: parseInt(loanApplication.principal_amount),
@@ -295,9 +291,9 @@ const AddLoan = async (req, res, next) => {
             loanApplication.application_reference = application_reference;
             loanApplication.approved_reference = null
 
-            loanApplication.customer_details_customer_details_id = _customerId;
-            loanApplication.vehicle_docs_vehicle_docu_id = _vehicleDocId;
-            loanApplication.employment_docs_employment_docu_id = _employmentDocId;
+            loanApplication.customer_details_id = _customerId;
+            loanApplication.vehicle_docu_id = _vehicleDocId;
+            loanApplication.employment_docu_id = _employmentDocId;
 
             const LoanApplication = await createLoanApplication(loanApplication, transaction);
             // res.send(custMaxId)
@@ -313,7 +309,7 @@ const AddLoan = async (req, res, next) => {
         })
         
         res.status(200).send({...hatchitAddLoan.data});
-        // res.status(200).send(FieldItemsValues);
+        // res.status(200).send(ApplyLoan);
 
     } catch (error) {
         next(error)

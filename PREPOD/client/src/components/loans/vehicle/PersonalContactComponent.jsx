@@ -8,6 +8,7 @@ const PersonalContactComponent = ({
   setContactDetails,
   isEditable,
 }) => {
+ 
 
   useEffect(() => {
     // const isValid =
@@ -17,11 +18,21 @@ const PersonalContactComponent = ({
     // onContactDetailsChange(contactDetails);
      const isValid =
       contactDetails.mobile_number !== "" &&
-      contactDetails.email !== "";
+      contactDetails.email !== "" &&
+      /((\+[0-9]{2})|0)[.\- ]?9[0-9]{2}[.\- ]?[0-9]{3}[.\- ]?[0-9]{4}/.test(contactDetails.mobile_number);
+
+    // console.log("isValid", isValid);
+    // if (isValid) {
+    //   handleSearch(contactDetails.mobile_number, contactDetails.email);
+    // }
     onValidationChange(isValid);
     onContactDetailsChange(contactDetails);
 
   }, [contactDetails, onValidationChange]);
+
+  // const handleSearch = () => {
+  //   performSearch(contactDetails.mobile_number, contactDetails.email);
+  // }
 
   // const performSearch = async (mobileNumber) => {
   //   try {
@@ -39,9 +50,6 @@ const PersonalContactComponent = ({
   //     return false;
   //   }
   // };
-  const handleSearch = () => {
-    performSearch(contactDetails.mobile_number);
-  }
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setContactDetails({ ...contactDetails, [name]: value });
@@ -98,7 +106,7 @@ const PersonalContactComponent = ({
           onFocus={() => handleFocus('mobile_number')}
           onBlur={() => {
             handleBlur('mobile_number');
-            handleSearch(contactDetails.mobile_number);
+            // handleSearch(contactDetails.mobile_number);
           }}
           style={{ border: fieldBorders.mobile_number }}
         />
@@ -116,7 +124,7 @@ const PersonalContactComponent = ({
           onFocus={() => handleFocus('email')}
           onBlur={() => handleBlur('email')}
           style={{ border: fieldBorders.email }}
-          readOnly={isEditable}
+          // readOnly={isEditable}
         />
         <div style={{ color: 'red', fontSize: '12px', margin: '10px 20px 20px 0' }}>{errors.email}</div>
       </div>

@@ -3,7 +3,8 @@ const { customer_details } = require("../models/associations");
 const { GenerateToken } = require("../controller/billspayment.controller");
 const SignatureGenerator = require("../utils/signatureGenerator");
 
-const x_api_key = process.env.CKYC_API_KEY;
+// const x_api_key = process.env.CKYC_API_KEY;
+const x_api_key = process.env.ML_MONEY_API_KEY;
 const ML_MONEY_URL = process.env.ML_MONEY_API_URL;
 
 // async function CreateCustomerDetails(customerValue, options) {
@@ -44,6 +45,7 @@ const ML_MONEY_URL = process.env.ML_MONEY_API_URL;
 
 const CreateCustomerDetailsToSymph = async (req, res, next) => {
   try {
+    console.log("req", req);
     const getToken = await GenerateToken();
     const {
       address,
@@ -88,24 +90,25 @@ const CreateCustomerDetailsToSymph = async (req, res, next) => {
       config
     );
 
-    const { data } = response.data;
-
-    res.status(201).json({ data });
+    res.status(201).send(response.data);
   } catch (error) {
-    console.error(error);
 
-    const errorResponse = {
-      401: { code: "INVALID_JWT_TOKEN", message: "Token Already Expired" },
-      409: { code: "CKYC_KYC_EXISTS", message: "Customer already exists." },
-    };
+    // const errorResponse = {
+    //   401: { code: "INVALID_JWT_TOKEN", message: "Token Already Expired" },
+    //   409: { code: "CKYC_KYC_EXISTS", message: "Customer already exists." },
+    // };
 
-    if (error.response && errorResponse[error.response.status]) {
-      const { code, message } = errorResponse[error.response.status];
-      res.status(error.response.status).json({ error: { code, message } });
-    } else {
-      res.status(500).json({ error: "Internal server error" });
+    // if (error.response && errorResponse[error.response.status]) {
+    //   const { code, message } = errorResponse[error.response.status];
+    //   res.status(error.response.status).json({ error: { code, message } });
+    // } else {
+    //   res.status(500).json({ error: "Internal server error" });
+    // }
+    if (error.response.status === 409) {
+      res.status(409).send(error.response.data)
+    }else{
+      next(error);
     }
-    next(error);
   }
 };
 

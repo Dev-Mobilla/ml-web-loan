@@ -64,7 +64,8 @@ const ReceiptComponent = () => {
                     <p>Loan Amount:</p>
                   </div>
                   <div className="receipt-details--property-value">
-                    <p>{receiptDetails.full_name}</p>
+                    <p>{receiptDetails.full_name.replace("NULL", "")}</p>
+                    {/* <p>{receiptDetails.full_name}</p> */}
                     <p>{receiptDetails.ref_num}</p>
                     <p>{loanType}</p>
                     <p>{receiptDetails.term} Months</p>

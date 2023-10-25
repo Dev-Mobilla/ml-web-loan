@@ -81,17 +81,20 @@ const loan_applications = sequelize.define('loan_applications', {
         type: DataTypes.STRING,
         allowNull: true
     },
-    customer_details_customer_details_id: {
+    customer_details_id: {
+        // customer_details_customer_details_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,
     },
-    vehicle_docs_vehicle_docu_id: {
+    vehicle_docu_id: {
+        // vehicle_docs_vehicle_docu_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true
     },
-    employment_docs_employment_docu_id: {
+    employment_docu_id: {
+        // employment_docs_employment_docu_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true
