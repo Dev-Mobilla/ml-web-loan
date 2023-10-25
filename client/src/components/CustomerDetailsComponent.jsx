@@ -42,7 +42,7 @@ const CustomerDetailsComponent = () => {
   const [selectedOption, setSelectedOption] = useState("");
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
   const [isEditable, setIsEditable] = useState(false);
-
+const [isSearchParams, setIsSearchParams] = useState(false)
   const { firstStepDetails } = location.state || {};
   const [contactDetails, setContactDetails] = useState({
     mobile_number: "",
@@ -93,10 +93,16 @@ const CustomerDetailsComponent = () => {
     let province = getAddressName(informationDetails.provinces);
     let country = getAddressName(informationDetails.countries);
     setAddress(`${barangay} ${city} ${province} ${country}`)
+    
   })
+
+  useEffect(()=> {
+    performSearch(contactDetails.mobile_number, contactDetails.email)
+  },[contactDetails.email, contactDetails.mobile_number, setAddress])
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const phoneRegex = /^\+?[\d\s()-]{7,15}$/;
+  const phRegex = /^(09|\+639)\d{9}$/
 
   const isEmailValid = (email) => emailRegex.test(email);
   const isPhoneValid = (phone) => phoneRegex.test(phone);
@@ -105,6 +111,7 @@ const CustomerDetailsComponent = () => {
     const isContactDetailsValid =
       isPhoneValid(contactDetails.mobile_number || "") &&
       isEmailValid(contactDetails.email || "") &&
+      phRegex.test(contactDetails.mobile_number) &&
       contactDetails.mobile_number !== "";
     const isPersonalDetailsValid =
       informationDetails.firstname !== "" &&
@@ -133,6 +140,9 @@ const CustomerDetailsComponent = () => {
         isOptionSelected
       )
     );
+
+    setIsSearchParams(isContactDetailsValid)
+
   };
 
   const handleFormSubmit = (e) => {
@@ -310,57 +320,58 @@ const CustomerDetailsComponent = () => {
 
   }
 
-  const performSearch = async (mobileNumber) => {
+  const performSearch = async (mobileNumber, email) => {
     try {
-      const response = await SearchKyc(mobileNumber);
-      const data = response.data;
-      if (data.data) {
-        setContactDetails({
-          email: data.data.email,
-          mobile_number: data.data.cellphoneNumber
-        });
-        setInformationDetails({
-          firstname: data.data.name.firstName,
-          lastname: data.data.name.lastName,
-          middlename: data.data.name.middleName,
-          suffix: data.data.name.suffix,
-          birthdate: data.data.birthDate,
-          nationality: data.data.nationality,
-          civil_status: data.data.civilStatus,
-          office_address: data.data.occupation.workAddress,
-          sourceOfIncome: data.data.occupation.sourceOfIncome,
-          countries: data.data.addresses.current.addressL0Name,
-          provinces: data.data.addresses.current.addressL1Name,
-          cities: data.data.addresses.current.addressL2Name,
-          barangay: data.data.addresses.current.otherAddress
-        });
-        setIsEditable(true);
+          const response = await SearchKyc(mobileNumber, email);
+          const data = response.data;
+          if (data.data) {
+            setContactDetails({
+              email: data.data.email,
+              mobile_number: data.data.cellphoneNumber
+            });
+            setInformationDetails({
+              firstname: data.data.name.firstName,
+              lastname: data.data.name.lastName,
+              middlename: data.data.name.middleName,
+              suffix: data.data.name.suffix,
+              birthdate: data.data.birthDate,
+              nationality: data.data.nationality,
+              civil_status: data.data.civilStatus,
+              office_address: data.data.occupation.workAddress,
+              sourceOfIncome: data.data.occupation.sourceOfIncome,
+              countries: data.data.addresses.current.addressL0Name,
+              provinces: data.data.addresses.current.addressL1Name,
+              cities: data.data.addresses.current.addressL2Name,
+              barangay: data.data.addresses.current.otherAddress
+            });
+            setIsEditable(true);
+          }
+          else {
+            setContactDetails({
+              email: email,
+              mobile_number: mobileNumber
+            });
+            setInformationDetails({
+              firstname: "",
+              lastname: "",
+              middlename: "",
+              birthdate: "",
+              suffix: "",
+              nationality: "",
+              civil_status: "",
+              office_address: "",
+              sourceOfIncome: "",
+              countries: "",
+              provinces: "",
+              cities: "",
+              barangay: ""
+            });
+            setIsEditable(false);
+          }
+      } catch (error) {
+        return false;
       }
-      else {
-        setContactDetails({
-          email: "",
-          mobile_number: mobileNumber
-        });
-        setInformationDetails({
-          firstname: "",
-          lastname: "",
-          middlename: "",
-          birthdate: "",
-          suffix: "",
-          nationality: "",
-          civil_status: "",
-          office_address: "",
-          sourceOfIncome: "",
-          countries: "",
-          provinces: "",
-          cities: "",
-          barangay: ""
-        });
-        setIsEditable(false);
-      }
-    } catch (error) {
-      return false;
-    }
+    
   };
   return (
     <div className="customer-details">

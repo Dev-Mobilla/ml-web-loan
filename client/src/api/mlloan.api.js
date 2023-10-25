@@ -38,7 +38,7 @@ const AddLoan = async (
       return response;
 
     } catch (error) {
-      return error;
+      throw error;
     }
 };
 

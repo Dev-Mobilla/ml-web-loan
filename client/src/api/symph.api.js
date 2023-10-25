@@ -16,7 +16,6 @@ const GetServiceFee = async (amount) => {
     );
     return response.data;
   } catch (error) {
-    console.error(error);
     throw error;
   }
 };
@@ -31,7 +30,6 @@ const GetThresholdAmount = async () => {
     );
     return response.data;
   } catch (error) {
-    console.error(error);
     throw error;
   }
 };
@@ -51,7 +49,6 @@ const ValidateAccountNumber = async (reference, accountFName, accountLName) => {
     );
     return response.data;
   } catch (error) {
-    console.error(error);
     throw error;
   }
 };
@@ -77,7 +74,6 @@ const PayNow = async (
     );
     return response.data;
   } catch (error) {
-    console.error(error);
     throw error;
   }
 };
@@ -94,7 +90,6 @@ const GetCountries = async () => {
     );
     return response.data;
   } catch (error) {
-    console.error(error);
     throw error;
   }
 };
@@ -111,7 +106,6 @@ const GetProvinces = async () => {
     );
     return response.data;
   } catch (error) {
-    console.error(error);
     throw error;
   }
 };
@@ -128,7 +122,6 @@ const GetCities = async () => {
     );
     return response.data;
   } catch (error) {
-    console.error(error);
     throw error;
   }
 };
@@ -139,20 +132,21 @@ const CreateCustomerDetailsToSymph = async (customerDataToSymph) => {
       `${BASE_URL}/api/ml-loans/symph/basic-kyc`,
       customerDataToSymph
     );
-    return response.data;
+    return response.data
   } catch (error) {
-    console.error(error);
-    throw error;
+    error.response.data.subtitle = "Mobile number or Email is already in use."
+    throw error.response;
   }
 };
 
-const SearchKyc = async (mobileNumber) => {
+const SearchKyc = async (mobileNumber, email) => {
   try {
     const response = await ML_LoansAxiosInstance.get(
       `/api/ml-loans/symph/get-customers`,
       {
         params: {
           cellphoneNumber: mobileNumber,
+          email:email
         },
       }
     );

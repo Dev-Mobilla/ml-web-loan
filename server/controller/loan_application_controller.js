@@ -164,8 +164,8 @@ const AddLoan = async (req, res, next) => {
         const dateNow = `${year}${month}${day}`;
         // const application_reference = `MLBP${dateNow}${time}`;
 
-        const data = req.body.data;
-        // const data = JSON.parse(req.body.data);
+        // const data = req.body.data;
+        const data = JSON.parse(req.body.data);
 
         const customerDetails = data.CustomerDetailsJsonData;
         const employmentDetails = data.EmploymentJsonData;

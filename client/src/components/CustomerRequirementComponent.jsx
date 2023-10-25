@@ -218,46 +218,48 @@ const CustomerRequirementComponent = () => {
           mobileNumber: mobile_number,
           firstName: firstname,
           lastName: lastname,
-          middleName: middlename,
-          suffix: suffix || "",
+          middleName: middlename !== '' ? middlename : "null",
+          suffix: suffix !== '' ? suffix : "null",
           email: email,
           address: {
             addressL0Id: parseInt(country),
             addressL1Id: parseInt(province),
             addressL2Id: parseInt(city),
-            otherAddress: "",
-            zipCode: "",
+            // otherAddress: "",
+            // zipCode: "",
           },
         };
 
-      return await CreateCustomerDetailsToSymph(customerDataToSymph);
+       return await CreateCustomerDetailsToSymph(customerDataToSymph);
 
       } catch (error) {
-        if (error.response && error.response.status === 401) {
-          setShowAlert(true);
-          setAlertProps({
-            title: "Invalid JWT Token",
-            text: "The access token passed in the authorization header is invalid or expired. Please obtain a new access token.",
-            isError: true,
-          });
-          return;
-        } else if (error.response && error.response.status === 409) {
-          setShowAlert(true);
-          setAlertProps({
-            title: "Customer Already Exists",
-            text: "As an existing ML Wallet user, you can proceed by logging-in using this mobile number.",
-            isError: true,
-          });
-          return;
-        } else {
-          setShowAlert(true);
-          setAlertProps({
-            title: "Error",
-            text: "Failed to add customer details.",
-            isError: true,
-          });
-          return;
-        }
+
+        throw error
+        // if (error.response && error.response.status === 401) {
+        //   setShowAlert(true);
+        //   setAlertProps({
+        //     title: "Invalid JWT Token",
+        //     text: "The access token passed in the authorization header is invalid or expired. Please obtain a new access token.",
+        //     isError: true,
+        //   });
+        //   return;
+        // } else if (error.response && error.response.status === 409) {
+        //   setShowAlert(true);
+        //   setAlertProps({
+        //     title: "Customer Already Exists",
+        //     text: "As an existing ML Wallet user, you can proceed by logging-in using this mobile number.",
+        //     isError: true,
+        //   });
+        //   return;
+        // } else {
+        //   setShowAlert(true);
+        //   setAlertProps({
+        //     title: "Error",
+        //     text: "Failed to add customer details.",
+        //     isError: true,
+        //   });
+        //   return;
+        // }
       }
   }
   const ConfirmApplication = () => {
@@ -279,53 +281,73 @@ const CustomerRequirementComponent = () => {
     if (sessionStorage.length !== 0 && location.state) {
 
       const mobileNumber = location.state.secondStepDetails.personalDetails[0].mobile_number;
+      const email = location.state.secondStepDetails.personalDetails[0].email;
+      const perDetails = location.state.secondStepDetails.personalDetails[1];
       // TODO: Check KYC
 
       try {
         let ckyc = {};
         let hatchitReqBody = {};
 
-        const isKycExist = await SearchKyc(mobileNumber);
+        const isKycExist = await SearchKyc(mobileNumber, email);
 
         // Details: If not existing Symph DB
-        if (isKycExist.data.code !== "SUCCESS") {
-
+        if (isKycExist.data.data == null && isKycExist.data.code == "SUCCESS") {
+          
           await AddKyc();
+          
+          const responseSearchKyc = await SearchKyc(mobileNumber, email);
 
-          const responseSearchKyc = await SearchKyc(mobileNumber);
           const kyc = responseSearchKyc.data.data;
 
+          // setTimeout(() => {
+            ckyc = {
+              customer_id: kyc.customerId,
+              ckyc_id: kyc.ckycId,
+              lastname: kyc.name.lastName,
+              firstname: kyc.name.firstName,
+              middlename: kyc.name.middleName,
+              suffix: kyc.name.suffix,
+              nationality: perDetails.nationality,
+              civil_status: perDetails.civil_status,
+              birthdate: perDetails.birthdate,
+              mobile_number: kyc.cellphoneNumber,
+              email: kyc.email,
+              
+            }
+            hatchitReqBody = {
+              country: kyc.addresses.current.addressL0Name,
+              province: kyc.addresses.current.addressL1Name,
+              city: kyc.addresses.current.addressL2Name,
+              barangay: perDetails.barangay
+            }
+          // }, 1500);
+
+        }else{
+          const responseKyc = isKycExist.data.data;
           ckyc = {
-            customer_id: kyc.customerId,
-            ckyc_id: kyc.ckycId,
-            lastname: kyc.name.lastName,
-            firstname: kyc.name.firstName,
-            middlename: kyc.name.middleName,
-            suffix: kyc.name.suffix,
-            nationality: kyc.nationality,
-            civil_status: kyc.civilStatus,
-            birthdate: kyc.birthDate,
-            mobile_number: kyc.cellphoneNumber,
-            email: kyc.email,
-            
+            customer_id: responseKyc.customerId,
+            ckyc_id: responseKyc.ckycId,
+            lastname: responseKyc.name.lastName,
+            firstname: responseKyc.name.firstName,
+            middlename: responseKyc.name.middleName,
+            suffix: responseKyc.name.suffix,
+            nationality: perDetails.nationality,
+            civil_status: perDetails.civil_status,
+            birthdate: perDetails.birthdate,
+            mobile_number: responseKyc.cellphoneNumber,
+            email: responseKyc.email
           }
+
           hatchitReqBody = {
-            country: kyc.addresses.current.addressL0Name,
-            province: kyc.addresses.current.addressL1Name,
-            city: kyc.addresses.current.addressL2Name,
-            barangay: kyc.addresses.current.otherAddress
+            country: responseKyc.addresses.current.addressL0Name,
+            province: responseKyc.addresses.current.addressL1Name,
+            city: responseKyc.addresses.current.addressL2Name,
+            barangay: perDetails.barangay
           }
-
-
         }
-        setTimeout(() => {
-          setShowLoading({
-            loading: true,
-            text: "We're almost there!",
-          });
-        }, 1500);
         
-        //Details: If not, proceed ML DB
+        //   //Details: If not, proceed ML DB
         const baseData = location.state.secondStepDetails;
         const address = baseData.personalDetails[3];
         const customer = baseData.personalDetails[1];
@@ -335,7 +357,6 @@ const CustomerRequirementComponent = () => {
         
         const vehicleDetails = baseData.vehicleDetails
         
-        const responseKyc = isKycExist.data.data;
         let loan_type = null;
 
         if (vehicleDetails?.selectedVehicle === "Car/Pickup/SUV" || vehicleDetails?.selectedVehicle === "Truck/Commercial") {
@@ -344,44 +365,27 @@ const CustomerRequirementComponent = () => {
           loan_type = "Motorcycle Loan"
         }
 
-        ckyc = {
-          customer_id: responseKyc.customerId,
-          ckyc_id: responseKyc.ckycId,
-          lastname: responseKyc.name.lastName,
-          firstname: responseKyc.name.firstName,
-          middlename: responseKyc.name.middleName,
-          suffix: responseKyc.name.suffix,
-          nationality: responseKyc.nationality,
-          civil_status: responseKyc.civilStatus,
-          birthdate: responseKyc.birthDate,
-          mobile_number: responseKyc.cellphoneNumber,
-          email: responseKyc.email
-        }
-
-        hatchitReqBody = {
-          country: responseKyc.addresses.current.addressL0Name,
-          province: responseKyc.addresses.current.addressL1Name,
-          city: responseKyc.addresses.current.addressL2Name,
-          barangay: responseKyc.addresses.current.otherAddress
-        }
-
         const vehicleDocsData = VehicleJsonData();
         const employmentDocsData = EmploymentJsonData();
         const customerData = CustomerDetailsJsonData(customer, ckyc);
         const loanApplicationData = LoanApplicationJsonData(vehicleDetails, loan_type, preferredBranch)
-
         
-        // ML DB
+        setShowLoading({
+          loading: true,
+          text: "We're almost there!",
+        });
+        
+      //   // ML DB
         const  AddMLLoan = await AddLoan(
             vehicleDocsData,
             employmentDocsData, 
             customerData, 
             loanApplicationData,
             hatchitReqBody
-          );
+        );
 
           location.state = null
-          sessionStorage.clear();
+          // sessionStorage.clear();
           
           setTimeout(() => {
             setShowLoading({
@@ -399,36 +403,30 @@ const CustomerRequirementComponent = () => {
             })
        }, 2000);
 
-      //   for (const key in sessionStorage) {
-      //     if (Object.hasOwnProperty.call(sessionStorage, key)) {
-      //       const element = sessionStorage[key];
-      //       setshowModal(true);
-      //       setModalProps({
-      //         title: "We have received your application",
-      //         message: `Our ML Loans Team will be reviewing the information submitted. You will receive a message from us in 3-5 business days.`,
-      //       });
-      //     }
-      //   }
-      // } else {
-      //   setShowAlert(true);
-      //   setAlertProps({
-      //     title: "Upload Required",
-      //     text: "Make sure to upload all required documents.",
-      //     isError: true,
-      //   });
-
 
       } catch (error) {
         setShowLoading({
           loading: false,
           text: "Just a moment",
         });
-        setShowAlert(true);
-        setAlertProps({
-          title: "Error",
-          text: error.message || "An error occurred",
-          isError: true
-        });
+        if (error.status == 409) {
+          
+          setShowAlert(true);
+          setAlertProps({
+            title: error.statusText,
+            text: error.data.message || "An error occurred",
+            subTitle: error.data.subtitle || "",
+            isError: true
+          });
+        }else{
+          setShowAlert(true);
+          setAlertProps({
+            title: "Error",
+            text: error.message || "An error occurred",
+            subTitle: "",
+            isError: true
+          });
+        }
       }
     }
   };
@@ -511,6 +509,7 @@ const CustomerRequirementComponent = () => {
         <CustomAlert
           title={alertProps.title}
           text={alertProps.text}
+          subtitle={alertProps.subTitle ? alertProps.subTitle : ""}
           isError={alertProps.isError}
           onClose={() => setShowAlert(false)}
         />
