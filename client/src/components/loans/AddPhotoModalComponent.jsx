@@ -11,6 +11,7 @@ const AddPhotoModal = ({
   const [uploadedImage, setUploadedImage] = useState(null);
   const [guideImageSrc, setGuideImageSrc] = useState(modalDefaultGuideImage);
   const [imageName, setImageName] = useState("");
+  const [imageContent, setImageContent] = useState("");
   const fileInputRef = useRef(null);
   const [isChange, setIsChange] = useState(false);
   
@@ -26,7 +27,7 @@ const AddPhotoModal = ({
       setUploadedImage(imageUrl);
       setGuideImageSrc(imageUrl);
       setImageName(file.name);
-
+      setImageContent(JSON.stringify(file))
     }
   };
 
@@ -39,12 +40,11 @@ const AddPhotoModal = ({
   // };
 
   const handleImageSubmit = () => {
-    console.log(isChange);
 
     if (isChange) {
-      OnImageSubmitHandler(imageName, modalTitle, uploadedImage);
+      OnImageSubmitHandler(imageName, modalTitle, uploadedImage, imageContent);
     }else{
-      OnImageSubmitHandler("", modalTitle, "");
+      OnImageSubmitHandler("", modalTitle, "", imageContent);
     }
     onClose();
   }

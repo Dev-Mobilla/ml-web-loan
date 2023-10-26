@@ -19,24 +19,25 @@ const PersonalInformationComponent = ({
   const [errors, setErrors] = useState({});
   useEffect(() => {
     const isValid =
-      informationDetails.firstname !== "" &&
-      informationDetails.lastname !== "" &&
-      informationDetails.birthdate !== "" &&
-      informationDetails.nationality !== "" &&
-      informationDetails.civil_status !== "" &&
-      informationDetails.employeer_business !== "" &&
-      informationDetails.nature_business !== "" &&
-      informationDetails.tenure !== "" &&
-      informationDetails.office_address !== "" &&
-      informationDetails.office_landline !== "" &&
-      informationDetails.sourceOfIncome !== "" &&
-      informationDetails.monthly_income !== "" &&
-      informationDetails.countries !== "" &&
-      informationDetails.provinces !== "" &&
-      informationDetails.cities !== "" &&
-      informationDetails.barangay !== "";
-    onValidationChange(isValid);
-    onInformationDetailsChange(informationDetails);
+    //   informationDetails.firstname !== "" &&
+    //   informationDetails.lastname !== "" &&
+    //   informationDetails.birthdate !== "" &&
+    //   informationDetails.nationality !== "" &&
+    //   informationDetails.civil_status !== "" &&
+    //   informationDetails.employeer_business !== "" &&
+    //   informationDetails.nature_business !== "" &&
+    //   informationDetails.tenure !== "" &&
+    //   informationDetails.office_address !== "" &&
+    //   informationDetails.office_landline !== "" &&
+    //   informationDetails.sourceOfIncome !== "" &&
+    //   informationDetails.monthly_income !== "" &&
+    //   informationDetails.countries !== "" &&
+    //   informationDetails.provinces !== "" &&
+    //   informationDetails.cities !== "" &&
+    //   informationDetails.barangay !== "";
+    // onValidationChange(isValid);
+    // onInformationDetailsChange(informationDetails);
+    // console.log(informationDetails);
     fetchData();
   }, [informationDetails, onValidationChange]);
 
@@ -246,7 +247,7 @@ const PersonalInformationComponent = ({
           onFocus={() => handleFocus("birthdate")}
           onBlur={() => handleBlur("birthdate")}
           style={{ border: fieldBorders.birthdate }}
-          readOnly={isEditable}
+          readOnly={informationDetails.birthdate !== null && informationDetails.birthdate !== ""}
         />
         <div
           style={{ color: "red", fontSize: "12px", margin: "10px 20px 20px 0" }}
@@ -266,7 +267,7 @@ const PersonalInformationComponent = ({
           onFocus={() => handleFocus("nationality")}
           onBlur={() => handleBlur("nationality")}
           style={{ border: fieldBorders.nationality }}
-          readOnly={isEditable}
+          readOnly={informationDetails.nationality !== null && informationDetails.nationality !== ""}
         />
         <div
           style={{ color: "red", fontSize: "12px", margin: "10px 20px 20px 0" }}
@@ -285,7 +286,7 @@ const PersonalInformationComponent = ({
           onFocus={() => handleFocus("civil_status")}
           onBlur={() => handleBlur("civil_status")}
           style={{ border: fieldBorders.civil_status }}
-          readOnly={isEditable}
+          readOnly={informationDetails.civil_status !== null && informationDetails.civil_status !== ""}
         />
         <div
           style={{ color: "red", fontSize: "12px", margin: "10px 20px 20px 0" }}

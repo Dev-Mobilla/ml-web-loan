@@ -114,7 +114,8 @@ const ManageLoansDetailsComponent = () => {
           })
         }
       } catch (error) {
-        console.error(error);
+        // console.error(error);
+        return;
       }
     };
 
@@ -560,9 +561,13 @@ const ManageLoansDetailsComponent = () => {
 
       isSuccess = true;
     } catch (error) {
+      setShowLoading({
+        loading: false,
+        text: "",
+      });
       setAlertModal(true);
       setAlertProps({
-        message: error.displayMessage || "An error occurred",
+        message: "We were unable to process your request due to an unexpected error.",
         title: "Error",
         color: "#ff6562",
         onClose: handleModalClose,
