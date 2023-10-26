@@ -16,7 +16,7 @@ app.use(express.json());
 app.use(cors(
   {
     credentials: true,
-    origin: process.env.ML_LOANS_ORIGIN
+    //origin: process.env.ML_LOANS_ORIGIN
   }
 ))
 
