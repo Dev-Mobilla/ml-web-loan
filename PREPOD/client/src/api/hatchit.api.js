@@ -1,5 +1,6 @@
 import { sha512 } from "js-sha512";
 import { HatchITAxiosInstance } from "../helper/axios";
+import axios from "axios";
 
 const MakeDigest = (payloads) => {
   const payloadString = payloads.join("|");
@@ -9,7 +10,7 @@ const MakeDigest = (payloads) => {
 
 const MakeGetRequest = async (url, params) => {
   try {
-    const response = await HatchITAxiosInstance.get(url, {
+    const response = await axios.get(`​https://zhask.mlhuillier.com/loans_api/v1/${url}`, {
       params: { ...params },
       responseType: "json",
     });
