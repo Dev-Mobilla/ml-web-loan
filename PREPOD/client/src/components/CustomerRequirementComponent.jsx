@@ -385,7 +385,7 @@ const CustomerRequirementComponent = () => {
         );
 
           location.state = null
-          // sessionStorage.clear();
+          sessionStorage.clear();
           
           setTimeout(() => {
             setShowLoading({
