@@ -77,7 +77,7 @@ const [isSearchParams, setIsSearchParams] = useState(false)
     }
 
     const getAddressName = (name) => {
-      let isEmpty = name === "";
+      let isEmpty = name === "" || name === null;
 
       if (!isEmpty) {
         let nameVal = name.split("|");
@@ -94,7 +94,14 @@ const [isSearchParams, setIsSearchParams] = useState(false)
     let country = getAddressName(informationDetails.countries);
     setAddress(`${barangay} ${city} ${province} ${country}`)
     
-  })
+  },[informationDetails.barangay,
+    informationDetails.cities, 
+    informationDetails.provinces,
+  informationDetails.countries])
+
+  useEffect(()=> {
+    performSearch(contactDetails.mobile_number, contactDetails.email)
+  },[contactDetails.email, contactDetails.mobile_number, setAddress])
 
   useEffect(()=> {
     performSearch(contactDetails.mobile_number, contactDetails.email)
@@ -116,22 +123,27 @@ const [isSearchParams, setIsSearchParams] = useState(false)
     const isPersonalDetailsValid =
       informationDetails.firstname !== "" &&
       informationDetails.lastname !== "" &&
-      informationDetails.birthdate !== "" &&
-      informationDetails.nationality !== "" &&
-      informationDetails.civil_status !== "" &&
-      informationDetails.employeer_business !== "" &&
-      informationDetails.nature_business !== "" &&
-      informationDetails.tenure !== "" &&
-      informationDetails.office_address !== "" &&
-      informationDetails.office_landline !== "" &&
-      informationDetails.sourceOfIncome !== "" &&
-      informationDetails.monthly_income !== "" &&
-      informationDetails.countries.name !== "" &&
-      informationDetails.provinces.name !== "" &&
-      informationDetails.cities.name !== "" &&
-      informationDetails.barangay !== "";
+      informationDetails.birthdate !== "" && informationDetails.birthdate !== null &&
+      informationDetails.nationality !== "" && informationDetails.nationality !== null &&
+      informationDetails.civil_status !== "" && informationDetails.civil_status !== null &&
+      informationDetails.employeer_business !== "" && informationDetails.employeer_business !== null &&
+      informationDetails.nature_business !== "" && informationDetails.nature_business !== null &&
+      informationDetails.tenure !== "" && informationDetails.tenure !== null && 
+      informationDetails.office_address !== "" && informationDetails.office_address !== null &&
+      informationDetails.office_landline !== "" && informationDetails.office_landline !== null &&
+      informationDetails.sourceOfIncome !== "" && informationDetails.sourceOfIncome !== null &&
+      informationDetails.monthly_income !== "" && informationDetails.monthly_income !== null &&
+      informationDetails.countries.name !== "" && informationDetails.countries.name !== null &&
+      informationDetails.provinces.name !== "" && informationDetails.provinces.name !== null &&
+      informationDetails.cities.name !== "" && informationDetails.cities.name !== null &&
+      informationDetails.barangay !== "" && informationDetails.barangay !== null;
     const isAddressValid = address !== "";
     const isOptionSelected = selectedOption !== "";
+
+    console.log("isdisabled", isContactDetailsValid &&
+    isPersonalDetailsValid &&
+    isAddressValid &&
+    isOptionSelected);
     setIsSubmitDisabled(
       !(
         isContactDetailsValid &&

@@ -24,20 +24,20 @@ const ErrorLogger = (error, request, response , next) => {
 
     console.log("ERROR", ErrResponse);
     Logger.loggerError.addContext("context", `Logging.. - 
-        Request URL: ${request.url}, Response URL: ${ErrResponse.config.url} - ${JSON.stringify(ErrResponse.message)} | ${JSON.stringify(ErrResponse.statusText)} - ${JSON.stringify(ErrResponse.status)} | ${JSON.stringify(ErrResponse.errors)}`);
-    Logger.loggerError.error(ErrResponse.data.error ? ErrResponse.data.error.stack : "");
+    Request URL: ${request.url}, Response URL: ${ErrResponse.config.url} - ${JSON.stringify(ErrResponse.message)} | ${JSON.stringify(ErrResponse.statusText)} - ${JSON.stringify(ErrResponse.status)} | ${JSON.stringify(ErrResponse.errors)}`);
+    Logger.loggerError.error(ErrResponse.data.error ? ErrResponse.data.error.stack : JSON.stringify(ErrResponse));
     
     next(ErrResponse)
 }
 
 const ErrorHandler = (error, request, response , next) => {
-
+    
     next(error);
-
+    
 }
-
+    
 const ErrorResponder = (error, request, response , next) => {
-    console.log("Error Reponding", error);
+    console.log("status:", error.status);
     response.status(error.status).send(error.data);
 }
 

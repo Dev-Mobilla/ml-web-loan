@@ -127,7 +127,7 @@ const PaymentReceiptCompoenent = () => {
               </div>
               <div className="transaction-section">
                 <p className="transaction-label">Amount Sent</p>
-                <p className="transaction-value">{`Php ${paymentData.amount}`}</p>
+                <p className="transaction-value">{`Php ${paymentData.amount.toLocaleString()}`}</p>
               </div>
               <div className="transaction-section">
                 <p className="transaction-label">Service Fee</p>
@@ -138,7 +138,7 @@ const PaymentReceiptCompoenent = () => {
               <div className="transaction-section">
                 <p className="transaction-label total">Total</p>
                 <p className="transaction-value">{`Php ${
-                  paymentData.amount + paymentData.serviceFee
+                  (paymentData.amount + paymentData.serviceFee).toLocaleString()
                 }`}</p>
               </div>
             </div>

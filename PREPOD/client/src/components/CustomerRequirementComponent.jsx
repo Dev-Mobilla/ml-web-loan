@@ -64,26 +64,26 @@ const CustomerRequirementComponent = () => {
   const VehicleJsonData = () => {
     return {
       original_or:
-        JSON.parse(sessionStorage.getItem("Orginal OR/CR"))?.url || "",
-      stencils: JSON.parse(sessionStorage.getItem("Set stencils"))?.url || "",
+        JSON.parse(sessionStorage.getItem("Orginal OR/CR"))?.imageName || "",
+      stencils: JSON.parse(sessionStorage.getItem("Set stencils"))?.imageName || "",
       car_insurance:
-        JSON.parse(sessionStorage.getItem("Vehicle Insurance"))?.url || "",
-      front_side: JSON.parse(sessionStorage.getItem("Front Side"))?.url || "",
-      back_side: JSON.parse(sessionStorage.getItem("Back Side"))?.url || "",
-      right_side: JSON.parse(sessionStorage.getItem("Right Side"))?.url || "",
-      left_side: JSON.parse(sessionStorage.getItem("Left Side"))?.url || "",
+        JSON.parse(sessionStorage.getItem("Vehicle Insurance"))?.imageName || "",
+      front_side: JSON.parse(sessionStorage.getItem("Front Side"))?.imageName || "",
+      back_side: JSON.parse(sessionStorage.getItem("Back Side"))?.imageName || "",
+      right_side: JSON.parse(sessionStorage.getItem("Right Side"))?.imageName || "",
+      left_side: JSON.parse(sessionStorage.getItem("Left Side"))?.imageName || "",
     }
   }
   const EmploymentJsonData = () => {
     return {
-      valid_id: JSON.parse(sessionStorage.getItem("Valid ID"))?.url || "",
+      valid_id: JSON.parse(sessionStorage.getItem("Valid ID"))?.imageName || "",
       employee_cert:
-        JSON.parse(sessionStorage.getItem("Employee Certificate"))?.url || "",
-      payslip: JSON.parse(sessionStorage.getItem("Payslip/ITR"))?.url || "",
+        JSON.parse(sessionStorage.getItem("Employee Certificate"))?.imageName || "",
+      payslip: JSON.parse(sessionStorage.getItem("Payslip/ITR"))?.imageName || "",
       mayor_cert:
-        JSON.parse(sessionStorage.getItem("Mayor’s Certificate"))?.url || "",
+        JSON.parse(sessionStorage.getItem("Mayor’s Certificate"))?.imageName || "",
       bank_cert:
-        JSON.parse(sessionStorage.getItem("Bank Statement"))?.url || "",
+        JSON.parse(sessionStorage.getItem("Bank Statement"))?.imageName || "",
     }
   }
   const CustomerDetailsJsonData = (details, ckyc) => {
@@ -180,8 +180,8 @@ const CustomerRequirementComponent = () => {
     setOptionValue(optionVal);
   };
 
-  const OnImageSubmitHandler = (imageName, documentName, url) => {
-    let imageItem = { imageName, url, documentName };
+  const OnImageSubmitHandler = (imageName, documentName, url, imageContent) => {
+    let imageItem = { imageName, url, documentName, imageContent };
     sessionStorage.setItem([modalTitle], JSON.stringify(imageItem));
 
     const storageLength = sessionStorage.length < 10;
