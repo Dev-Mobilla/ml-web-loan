@@ -10,7 +10,7 @@ const MakeDigest = (payloads) => {
 
 const MakeGetRequest = async (url, params) => {
   try {
-    const response = await axios.get(`​https://zhask.mlhuillier.com/loans_api/v1/${url}`, {
+    const response = await HatchITAxiosInstance.get(url, {
       params: { ...params },
       responseType: "json",
     });
