@@ -1,6 +1,7 @@
 const {default: axios} = require("axios");
 const SignatureGenerator = require("../utils/signatureGenerator");
 const SuccessLogger = require("../utils/SuccessLogger");
+const {ErrorThrower} = require("../utils/ErrorGenerator");
 
 const HATCH_IT_URL = process.env.HATCHT_IT_BASE_URL;
 const APPLY_LOAN_KEY = "JGE822RTe@!JT$FKCf";
@@ -9,11 +10,29 @@ const HATCHT_IT_GET_LOAN_FIELDS_KEY = process.env.GET_LOAN_FIELDS;
 const QD_GET_LOAN_FIELDS_KEY = process.env.QD_GET_LOAN_FIELDS;
 const QD_APPLY_LOAN__KEY = "4H21&IU&%zR4kgJ4*9c";
 
-const LOAN_TYPE = process.env.HATCH_IT_LOAN_TYPE;
+// const MOTLOAN_TYPE = process.env.HATCH_IT_LOAN_TYPE;
 
-const GetLoanTypeFields = async () => {
+const GetLoanTypeFields = async (loant_type) => {
     try {
-        const loantype = JSON.stringify({loan_type: LOAN_TYPE})
+        let LOAN_TYPE = "";
+
+        switch (loant_type) {
+            case "Car Loan":
+                LOAN_TYPE = 1
+                break;
+            case "Motor Loan":
+                LOAN_TYPE = 2
+            default:
+                let message = {
+                    title: "Server Error",
+                    body: `Something went wrong in the server. Please try again later. | Get Loan Type Fields: Loan type - ${loant_type}`
+                }
+        
+                let err = ErrorThrower(500, "INTERNAL_SERVER_ERROR", message, null);
+                return err;
+        }
+
+        const loantype = JSON.stringify({loan_type: LOAN_TYPE.toString()})
 
         const passPhrase = `${loantype}|${HATCHT_IT_GET_LOAN_FIELDS_KEY}|${QD_GET_LOAN_FIELDS_KEY}`;
 
@@ -32,7 +51,19 @@ const GetLoanTypeFields = async () => {
 
         return getLoanTypeFields.data;
     } catch (error) {
-        throw error;
+
+        if (error.response.status == 401) {
+            let message = {
+                title: "Request failed",
+                body: `We're sorry, something went wrong on our end. Please try again later or contact our support team.`
+            }
+    
+            let err = ErrorThrower(500, "INTERNAL_SERVER_ERROR", message, error);
+            throw err
+        }else{
+
+            throw error;
+        }
     }
 }
 
@@ -47,9 +78,28 @@ const GetLoanTypeFieldsApi = async (URL, config) => {
     }
 }
 
-const GetLoanTypeItemsFields = async () => {
+const GetLoanTypeItemsFields = async (loan_type) => {
     try {
-        const loantype = JSON.stringify({loan_type: LOAN_TYPE})
+
+        let LOAN_TYPE;
+
+        switch (loan_type) {
+            case "Car Loan":
+                LOAN_TYPE = 1
+                break;
+            case "Motor Loan":
+                LOAN_TYPE = 2
+            default:
+                let message = {
+                    title: "Server Error",
+                    body: `Something went wrong in the server. Please try again later. | Get Loan Type Item Fields: Loan type - ${loan_type}`
+                }
+        
+                let err = ErrorThrower(500, "INTERNAL_SERVER_ERROR", message, null);
+                throw err;
+        }
+
+        const loantype = JSON.stringify({loan_type: LOAN_TYPE.toString()})
 
         const passPhrase = `${loantype}|${HATCHT_IT_GET_LOAN_FIELDS_KEY}|${QD_GET_LOAN_FIELDS_KEY}`;
 
@@ -67,8 +117,21 @@ const GetLoanTypeItemsFields = async () => {
         const getLoanTypeItemFields = await GetLoanTypeItemFieldsApi(URL, config);
 
         return getLoanTypeItemFields.data;
+
     } catch (error) {
-        throw error;
+
+        if (error.response.status == 401) {
+            let message = {
+                title: "Request failed",
+                body: `We're sorry, something went wrong on our end. Please try again later or contact our support team.`
+            }
+    
+            let err = ErrorThrower(500, "INTERNAL_SERVER_ERROR", message, error);
+            throw err
+        }else{
+
+            throw error;
+        }
     }
 }
 
@@ -83,9 +146,27 @@ const GetLoanTypeItemFieldsApi = async (URL, config) => {
     }
 }
 
-const HatchITAddLoan = async (customerDetails, collateral, fieldValues, fieldItemValues) => {
+const HatchITAddLoan = async (customerDetails, collateral, fieldValues, fieldItemValues, loan_type) => {
     try {
-        const loantype = JSON.stringify({loan_type: LOAN_TYPE})
+        let LOAN_TYPE;
+
+        switch (loan_type) {
+            case "Car Loan":
+                LOAN_TYPE = 1
+                break;
+            case "Motor Loan":
+                LOAN_TYPE = 2
+            default:
+                let message = {
+                    title: "Server Error",
+                    body: `Something went wrong in the server. Please try again later. | Get Loan Type Item Fields: Loan type - ${loan_type}`
+                }
+        
+                let err = ErrorThrower(500, "INTERNAL_SERVER_ERROR", message, null);
+                throw err;
+        }
+        
+        const loantype = JSON.stringify({loan_type: LOAN_TYPE.toString()})
 
         const passPhrase = `${loantype}|${APPLY_LOAN_KEY}|${QD_APPLY_LOAN__KEY}`;
 
@@ -119,7 +200,18 @@ const HatchITAddLoan = async (customerDetails, collateral, fieldValues, fieldIte
         return addLoan.data;
         
     } catch (error) {
-        throw error;
+       if (error.response.status == 401) {
+            let message = {
+                title: "Request failed",
+                body: `We're sorry, something went wrong on our end. Please try again later or contact our support team`
+            }
+    
+            let err = ErrorThrower(500, "INTERNAL_SERVER_ERROR", message, error);
+            throw err
+        }else{
+
+            throw error;
+        }
     }
 }
 

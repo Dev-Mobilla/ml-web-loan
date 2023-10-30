@@ -25,7 +25,7 @@
   color: #888888;
 }
 .manage-loans .loan-type.past,
-.manage-loans .loan-type.current {
+.manage-loans .loan-type.current, .manage-loans .loan-type.pending {
   font-family: var(--font-family);
   font-size: 22px;
   font-weight: 700;
@@ -98,7 +98,7 @@
   margin-left: 5px;
 }
 
-.manage-loans .loan-type.current {
+.manage-loans .loan-type.current, .manage-loans .loan-type.pending {
   color: var(--border-color);
 }
 
@@ -268,7 +268,9 @@
   margin: 20px 30px;
 }
 .manage-loans .custom-button.details-btn,
-.manage-loans .custom-button.manage-btn ,.manage-loans .custom-button.approved-btn {
+.manage-loans .custom-button.manage-btn ,
+.manage-loans .custom-button.approved-btn,
+.manage-loans .custom-button.pending-btn {
   border: none;
   color: var(--white);
   font-size: 18px;
@@ -276,7 +278,7 @@
   width: 163.96px;
   height: 30.35px;
 }
-.manage-loans .custom-button.approved-btn{
+.manage-loans .custom-button.approved-btn, .manage-loans .custom-button.pending-btn{
   cursor: no-drop;
 }
 
@@ -304,6 +306,14 @@
   border-radius: var(--radius);
 }
 
+.manage-loans .custom-button.pending-btn {
+  background-color: #FFE0B2;
+  color:#FF6D00;
+  border: 1px solid #FF6D00;
+  border-radius: var(--radius);
+  font-size: 15px;
+}
+
 .manage-loans .loans-unavailable {
   display: flex;
   align-items: center;
@@ -313,8 +323,12 @@
   font-weight: bold;
   color: rgb(167, 164, 164);
   height: 20vh;
+  flex-direction: column;
   /* border-bottom:1px solid rgba(204, 204, 204, 0.511) ;
   border-top:1px solid rgba(204, 204, 204, 0.511)  ; */
+}
+.manage-loans .loans-unavailable img{
+  width: 500px;
 }
 .manage-loans .container-loading{
   height: 20vh;
@@ -445,7 +459,8 @@
   }
   .manage-loans .custom-button.manage-btn,
   .manage-loans .custom-button.details-btn,
-  .manage-loans .custom-button.approved-btn {
+  .manage-loans .custom-button.approved-btn,
+  .manage-loans .custom-button.pending-btn {
     font-size: 15px;
     width: 100px;
     height: 30px;
@@ -467,6 +482,9 @@
   }
   .manage-loans .submit-modal .modal-inputbtn-wrapper{
     width: 280px;
+  }
+  .manage-loans .loans-unavailable img{
+    width: 400px;
   }
 }
 
@@ -522,7 +540,8 @@
   }
   .manage-loans .custom-button.manage-btn,
   .manage-loans .custom-button.details-btn,
-  .manage-loans .custom-button.approved-btn {
+  .manage-loans .custom-button.approved-btn,
+  .manage-loans .custom-button.pending-btn {
     font-size: 15px;
     width: 130px;
     height: 30px;
@@ -544,6 +563,9 @@
   }
   .manage-loans .submit-modal .modal-inputbtn-wrapper{
     width: 280px;
+  }
+  .manage-loans .loans-unavailable img{
+    width: 400px;
   }
 }
 
@@ -609,7 +631,8 @@
   } */
   .manage-loans .custom-button.manage-btn,
   .manage-loans .custom-button.details-btn,
-  .manage-loans .custom-button.approved-btn {
+  .manage-loans .custom-button.approved-btn,
+  .manage-loans .custom-button.pending-btn {
     padding: 7px 30px;
     /* margin-right: 40px; */
     font-size: 15px;

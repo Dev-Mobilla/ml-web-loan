@@ -30,26 +30,10 @@ const PersonalContactComponent = ({
 
   }, [contactDetails, onValidationChange]);
 
-  // const handleSearch = () => {
-  //   performSearch(contactDetails.mobile_number, contactDetails.email);
-  // }
+  const handleSearch = () => {
+    performSearch(contactDetails.mobile_number, contactDetails.email);
+  }
 
-  // const performSearch = async (mobileNumber) => {
-  //   try {
-  //     const response = await SearchKyc(mobileNumber);
-  //     const data = response.data;
-  //     setContactDetails({
-  //       email: data.email,
-  //       mobile_number:data.cellphoneNumber
-  //     })
-  //     console.log(mobileNumber);
-  //     console.log(data);
-  //     // setContactDetails(data);
-  //   } catch (error) {
-  //     console.log(error);
-  //     return false;
-  //   }
-  // };
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setContactDetails({ ...contactDetails, [name]: value });
@@ -106,7 +90,7 @@ const PersonalContactComponent = ({
           onFocus={() => handleFocus('mobile_number')}
           onBlur={() => {
             handleBlur('mobile_number');
-            // handleSearch(contactDetails.mobile_number);
+            handleSearch(contactDetails.mobile_number, contactDetails.email);
           }}
           style={{ border: fieldBorders.mobile_number }}
         />
@@ -122,7 +106,10 @@ const PersonalContactComponent = ({
           value={contactDetails.email}
           onChange={handleInputChange}
           onFocus={() => handleFocus('email')}
-          onBlur={() => handleBlur('email')}
+          onBlur={() => {
+            handleBlur('email')
+            handleSearch(contactDetails.mobile_number, contactDetails.email);
+          }}
           style={{ border: fieldBorders.email }}
           // readOnly={isEditable}
         />

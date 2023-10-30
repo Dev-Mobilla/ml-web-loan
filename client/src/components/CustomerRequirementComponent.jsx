@@ -235,31 +235,6 @@ const CustomerRequirementComponent = () => {
       } catch (error) {
 
         throw error
-        // if (error.response && error.response.status === 401) {
-        //   setShowAlert(true);
-        //   setAlertProps({
-        //     title: "Invalid JWT Token",
-        //     text: "The access token passed in the authorization header is invalid or expired. Please obtain a new access token.",
-        //     isError: true,
-        //   });
-        //   return;
-        // } else if (error.response && error.response.status === 409) {
-        //   setShowAlert(true);
-        //   setAlertProps({
-        //     title: "Customer Already Exists",
-        //     text: "As an existing ML Wallet user, you can proceed by logging-in using this mobile number.",
-        //     isError: true,
-        //   });
-        //   return;
-        // } else {
-        //   setShowAlert(true);
-        //   setAlertProps({
-        //     title: "Error",
-        //     text: "Failed to add customer details.",
-        //     isError: true,
-        //   });
-        //   return;
-        // }
       }
   }
   const ConfirmApplication = () => {
@@ -289,14 +264,14 @@ const CustomerRequirementComponent = () => {
         let ckyc = {};
         let hatchitReqBody = {};
 
-        const isKycExist = await SearchKyc(mobileNumber, email);
+        const isKycExist = await SearchKyc({cellphoneNumber: mobileNumber, email});
 
         // Details: If not existing Symph DB
         if (isKycExist.data.data == null && isKycExist.data.code == "SUCCESS") {
           
           await AddKyc();
           
-          const responseSearchKyc = await SearchKyc(mobileNumber, email);
+          const responseSearchKyc = await SearchKyc({cellphoneNumber: mobileNumber});
 
           const kyc = responseSearchKyc.data.data;
 
@@ -361,8 +336,8 @@ const CustomerRequirementComponent = () => {
 
         if (vehicleDetails?.selectedVehicle === "Car/Pickup/SUV" || vehicleDetails?.selectedVehicle === "Truck/Commercial") {
           loan_type = "Car Loan"
-        }else{
-          loan_type = "Motorcycle Loan"
+        }else if (vehicleDetails?.selectedVehicle === "Motorcycle") {
+          loan_type = "Motor Loan"
         }
 
         const vehicleDocsData = VehicleJsonData();
@@ -376,7 +351,7 @@ const CustomerRequirementComponent = () => {
         });
         
       //   // ML DB
-        const  AddMLLoan = await AddLoan(
+        const AddMLLoan = await AddLoan(
             vehicleDocsData,
             employmentDocsData, 
             customerData, 
@@ -385,7 +360,7 @@ const CustomerRequirementComponent = () => {
         );
 
           location.state = null
-          sessionStorage.clear();
+          // sessionStorage.clear();
           
           setTimeout(() => {
             setShowLoading({
@@ -401,8 +376,7 @@ const CustomerRequirementComponent = () => {
               },
               replace: true
             })
-       }, 2000);
-
+          }, 1500);
 
       } catch (error) {
         setShowLoading({
@@ -413,19 +387,39 @@ const CustomerRequirementComponent = () => {
           
           setShowAlert(true);
           setAlertProps({
-            title: error.statusText,
+            title: "Request Failed",
             text: error.data.message || "An error occurred",
             subTitle: error.data.subtitle || "",
+            subLink: true,
             isError: true
           });
         }else{
-          setShowAlert(true);
-          setAlertProps({
-            title: "Error",
-            text: error.message || "An error occurred",
-            subTitle: "",
-            isError: true
-          });
+          if (error.code == "ERR_BAD_RESPONSE") {
+            setShowAlert(true);
+            setAlertProps({
+              title: error.response.data.error.message.title,
+              text: error.response.data.error.message.body || "An error occurred",
+              subTitle: "",
+              isError: true
+            });
+          }else if (error.data.error.code == "INTERNAL_SERVER_ERROR") {
+            setShowAlert(true);
+            setAlertProps({
+              title: error.data.error.message.title,
+              text: error.data.error.message.body || "An error occurred",
+              subTitle: "",
+              isError: true
+            });
+          }
+          else{
+            setShowAlert(true);
+            setAlertProps({
+              title: "Error",
+              text: error.data.message || "An error occurred",
+              subTitle: "",
+              isError: true
+            });
+          }
         }
       }
     }
@@ -511,6 +505,7 @@ const CustomerRequirementComponent = () => {
           text={alertProps.text}
           subtitle={alertProps.subTitle ? alertProps.subTitle : ""}
           isError={alertProps.isError}
+          subLink = {alertProps.subLink}
           onClose={() => setShowAlert(false)}
         />
       )}

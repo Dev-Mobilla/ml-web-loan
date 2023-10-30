@@ -10,10 +10,13 @@ import {
   CustomSubmitModal,
   LoadingComponent,
   AlertModalComponent,
+  CustomAlert,
 } from "./index";
 import { useNavigate } from "react-router-dom";
 import { GetLoans } from "../api/hatchit.api";
 import { GetCookieByName } from "../utils/DataFunctions";
+import {GetAllApplications} from "../api/api";
+import Separator from '../assets/icons/sep.png'
 
 const ManageLoanComponent = () => {
   const navigate = useNavigate();
@@ -25,6 +28,8 @@ const ManageLoanComponent = () => {
   const [loading, setLoading] = useState(true);
   const [alertModal, setAlertModal] = useState(false);
   const [alertProps, setAlertProps] = useState({});
+  const [pendingLoans, setPendingLoans] = useState(null);
+  const [showAlert, setShowAlert] = useState(false);
 
   const { Housing, Vehicle, QCL } = CustomIcon;
 
@@ -32,6 +37,35 @@ const ManageLoanComponent = () => {
     setInputErrorMsg(errorMsg);
     setInputErrorStyle(errorStyle);
   };
+  const GetllApplication = async () => {
+    try {
+      const getCkycId = GetCookieByName(process.env.REACT_APP_ACCOUNT_COOKIE_NAME);
+
+      const getApplications = await GetAllApplications(getCkycId?.ckycId)
+
+      if (getApplications.data.length !== 0) {
+        const applications = getApplications.data
+
+        const newApplications = applications?.map((item, key) => {
+          item.status = "PENDING"
+
+          return item
+        })
+
+        setPendingLoans(newApplications)
+        
+      }
+    } catch (error) {
+      setShowAlert(true);
+      setAlertProps({
+        title: "Request Failed",
+        text: error.message || "An error occurred",
+        subTitle: "",
+        subLink: false,
+        isError: true
+      });
+    }
+  }
 
   const GetAllLoans = async () => {
       const getCkycId = GetCookieByName(process.env.REACT_APP_ACCOUNT_COOKIE_NAME);
@@ -91,7 +125,10 @@ const ManageLoanComponent = () => {
   };
 
   useEffect(() => {
-    GetAllLoans();
+    setTimeout(() => {
+      GetAllLoans();
+      GetllApplication();
+    }, 2000);
 
     !modal
       ? IsInputError("", "")
@@ -143,6 +180,12 @@ const ManageLoanComponent = () => {
         isDisabled: false,
         btnStyle: "custom-button details-btn",
       };
+    }else if (status?.toLowerCase() === "pending") {
+      return {
+        btnName: "Pending",
+        isDisabled: true,
+        btnStyle: "custom-button pending-btn",
+      };
     }
   };
 
@@ -152,6 +195,7 @@ const ManageLoanComponent = () => {
     if (filteredLoans?.length === 0) {
       return (
         <div className="loans-unavailable">
+          <img src={Separator} alt="ml-sep" style={{ marginBottom: '10px' }}/>
           <h1>
             You have no {status === "DISBURSED" || status === "APPROVED" ? `${status.toLowerCase()} loans` : "past loans"}.
           </h1>
@@ -189,6 +233,57 @@ const ManageLoanComponent = () => {
       );
     });
   };
+
+  const PendingLoans = () => {
+    if (pendingLoans?.length === 0) {
+      return (
+        <div className="loans-unavailable">
+          <img src={Separator} alt="ml-sep" style={{ marginBottom: '10px' }}/>
+          <h1>
+            You have no pending loans.
+          </h1>
+        </div>
+      );
+    }
+    let pending;
+
+    for (let index = 0; index < loans.length; index++) {
+      const pendingLoan = pendingLoans?.filter((pend, key) => {
+
+        const element = loans[index];
+        if (element.ref_num !== pend.ref_num) {
+          return pend;
+        }
+      })
+
+      pending = pendingLoan
+
+    }
+    
+    return pending?.map((pendLoan, key) => {
+      let statusChecker = LoanStatusChecker(pendLoan.status);
+
+      return (
+        <ManageLoanCardComponent
+          loanType={pendLoan.loan_type_name}
+          referenceNo={pendLoan.ref_num}
+          key={key}
+          icon={LoanTypeIconHandler(pendLoan.loan_type_name)}
+          btnName={statusChecker.btnName}
+          btnStyle={statusChecker.btnStyle}
+          disabled={statusChecker.isDisabled}
+          loanCardName="loan-card"
+          cardContainer={`loan-card-container current-loan`}
+          loantypeTxt={`loan-type pending`}
+          referenceTxt="reference-txt"
+          OnBtnClick={() =>
+            CardBtnClick(pendLoan.ref_num, pendLoan.loan_type_name)
+          }
+          btnType="button"
+        />
+      );
+    })
+  }
 
   const CurrentLoansCards = () => <LoansCards status="DISBURSED" />;
   const ApprovedLoansCards = () => <LoansCards status="APPROVED" />;
@@ -250,6 +345,16 @@ const ManageLoanComponent = () => {
           onClose={OnModalCloseHandler}
         />
       ) : null}
+      {showAlert && (
+        <CustomAlert
+          title={alertProps.title}
+          text={alertProps.text}
+          subtitle={alertProps.subTitle ? alertProps.subTitle : ""}
+          isError={alertProps.isError}
+          subLink = {alertProps.subLink}
+          onClose={() => setShowAlert(false)}
+        />
+      )}
       {modal ? (
         <div className="submit-modal">
           <CustomSubmitModal
@@ -295,6 +400,7 @@ const ManageLoanComponent = () => {
                 <>
                   <CurrentLoansCards />
                   <ApprovedLoansCards />
+                  <PendingLoans/>
                 </>
               )}
             </div>
