@@ -91,11 +91,13 @@ const PayNow = async (req, res, next) => {
     };
 
     const response = await axios.post(url, data, config);
+    console.log("response post:", response);
     const { billspayStatus, paymentStatus, kptn, createdDate } = response.data.data;
 
     const kp7BillsPayResp = await CheckKP7Transaction(kptn);
 
     const kp7BillsPay = kp7BillsPayResp.data;
+
     
     // TO DO: IMPLEMENT KP7 BILLSPAY STATUS CHECKING HERE ...
     
@@ -174,6 +176,7 @@ const PayNow = async (req, res, next) => {
       throw response
     }
   } catch (error) {
+    console.log("pay bills",error.response.data.error);
     next(error);
   }
 };
@@ -268,7 +271,7 @@ const UpdateBillsPayment = async (reqBody, kptn) => {
         }
     }else{
 
-        let error = ErrorThrower(404, "RESOURCE_NOT_FOUND", "No kptn/request body provided");
+        let error = ErrorThrower(404, "RESOURCE_NOT_FOUND", "No kptn/request body provided", null, null);
 
         throw error;
     }

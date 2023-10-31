@@ -154,6 +154,10 @@ const ManageLoanComponent = () => {
       loanType: "Car Loan",
       icon: <Vehicle />,
     },
+    {
+      loanType: "Motor Loan",
+      icon: <Vehicle />,
+    },
   ];
 
   const OnModalCloseHandler = () => {
