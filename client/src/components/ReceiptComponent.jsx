@@ -12,7 +12,12 @@ const ReceiptComponent = () => {
   
   const navigate = useNavigate();
   const location = useLocation();
-  const [receiptDetails, setReceiptDetails] = useState();
+  const [receiptDetails, setReceiptDetails] = useState({
+    fullname: "",
+    ref_num:"",
+    terms: "",
+    loan_amount: ""
+  });
   const [loanType, setLoanType] = useState();
   const [showReceipt, setShowReceipt] = useState(true);
 
@@ -22,7 +27,12 @@ const ReceiptComponent = () => {
     }else{
       let loan = JSON.parse(location.state.LoanDetails.Loan);
       let loan_type = location.state.LoanDetails.LoanType;
-      setReceiptDetails(loan.data);
+      setReceiptDetails({
+        fullname: loan.data.full_name ? loan.data.full_name.replace(/NULL|null/g, "") : loan.data.full_name,
+        ref_num: loan.data.ref_num,
+        terms: loan.data.term,
+        loan_amount: loan.data.principal_amount,
+      });
       setLoanType(loan_type);
       setTimeout(() => {
         setShowReceipt(false)
@@ -57,20 +67,20 @@ const ReceiptComponent = () => {
                 <div className="receiptdetails">
                   <div className="receipt-details--property-name">
                     <p>Applicant Name:</p>
-                    <p>Reference No.:</p>
+                    <p>Reference No:</p>
                     <p>Loan Type:</p>
                     <p>Terms:</p>
                     <p>Monthly Payment:</p>
                     <p>Loan Amount:</p>
                   </div>
                   <div className="receipt-details--property-value">
-                    <p>{receiptDetails.full_name.replace("NULL", "")}</p>
+                    <p>{receiptDetails.fullname}</p>
                     {/* <p>{receiptDetails.full_name}</p> */}
                     <p>{receiptDetails.ref_num}</p>
                     <p>{loanType}</p>
-                    <p>{receiptDetails.term} Months</p>
+                    <p>{receiptDetails.terms} Months</p>
                     <p>0.00</p>
-                    <p>{receiptDetails.principal_amount}</p>
+                    <p>{receiptDetails.loan_amount}</p>
                   </div>
                   </div>
                 </div>

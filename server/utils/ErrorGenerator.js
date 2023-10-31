@@ -1,4 +1,4 @@
-const ErrorThrower = (status, code, message, dbErrors) => {
+const ErrorThrower = (status, code, message, dbErrors, url) => {
     let err =  new Error();
 
     let error = {
@@ -14,6 +14,9 @@ const ErrorThrower = (status, code, message, dbErrors) => {
                     },
                     stack: err.stack,
                 }
+            },
+            config: {
+                url: url
             },
             stack: err.stack,
             code: code,

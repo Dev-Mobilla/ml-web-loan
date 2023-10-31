@@ -53,4 +53,16 @@ const GetSessionCookie = async () => {
   }
 };
 
-export { GetLoansDetails, fetchBranch, GetSessionCookie };
+const GetAllApplications = async (ckyc_id) => {
+  try {
+    const response = await ML_LoansAxiosInstance.post('/api/ml-loans/get/all-applications',
+      { ckyc_id }
+    )
+
+    return response
+  } catch (error) {
+    throw error
+  }
+}
+
+export { GetLoansDetails, fetchBranch, GetSessionCookie, GetAllApplications };

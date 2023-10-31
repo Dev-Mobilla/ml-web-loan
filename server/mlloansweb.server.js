@@ -5,7 +5,7 @@ const cors = require("cors");
 const Logger = require("./config/logger.config");
 
 const { SYMPH_API_ROUTER, ML_LOAN_ROUTER, PUBLIC_ROUTER, ML_PUBLIC_ROUTER } = require("./router/index.routes"); 
-const {ErrorHandler, ErrorLogger, ErrorResponder} = require("./middleware/symph.middleware");
+const {ErrorLogger, ErrorResponder} = require("./middleware/symph.middleware");
 const { Auth } = require("./middleware/auth.middleware");
 
 const app = express();
@@ -31,7 +31,7 @@ app.use('/api/ml-loans', Auth , ML_LOAN_ROUTER);
 // MIDDLEWARES
 // app.use(Auth);
 app.use(ErrorLogger)
-app.use(ErrorHandler);
+// app.use(ErrorHandler);
 app.use(ErrorResponder);
 
 app.use(express.static(path.join(__dirname, '../client/build')));

@@ -4,13 +4,13 @@ const CustomMessage = (props) => {
   const [showMessage, setShowMessage] = useState(true);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowMessage(false);
-    }, 10000);
+    // const timer = setTimeout(() => {
+    //   setShowMessage(false);
+    // }, 10000);
 
-    return () => {
-      clearTimeout(timer);
-    };
+    // return () => {
+    //   clearTimeout(timer);
+    // };
   }, []);
 
   const handleClose = () => {
@@ -29,6 +29,7 @@ const CustomMessage = (props) => {
     opacity: showMessage ? 1 : 0,
     pointerEvents: showMessage ? "initial" : "none",
     transition: "opacity 0.3s ease",
+    background: '#00000069'
   };
 
   const customMessageCardStyle = {
@@ -79,7 +80,7 @@ const CustomMessage = (props) => {
 
   const mediaQuery1024px = {
     width: "90%",
-    maxWidth: "768px",
+    maxWidth: "650px",
   };
 
   return (

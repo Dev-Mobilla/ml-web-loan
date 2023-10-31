@@ -22,8 +22,8 @@ async function createLoanApplication(LoanApplicationJsonData, options) {
 
     } catch (error) {
         let message = {
-            title: "Server Error",
-            body: "Something went wrong in the server. Please try again later."
+            title: "Request failed",
+            body: `We're sorry, something went wrong on our end. Please try again later or contact our support team.`
         }
 
         let err = ErrorThrower(500, "INTERNAL_SERVER_ERROR", message, error);
@@ -96,6 +96,25 @@ async function getAllLoanApplicants(req, res) {
     }
 }
 
+const GetAllApplication = async (req, res, next) => {
+    try {
+        const FindApplications = await loan_applications.findAll({
+            include: [
+                { model: CustomerDetails, attributes: ['customer_details_id'], 
+                    where: {
+                        ckyc_id: req.body.ckyc_id
+                    }
+                },
+            ],
+            attributes: [['application_reference', 'ref_num'], ['application_loan_type', 'loan_type_name']]
+        })
+
+        res.send(FindApplications)
+    } catch (error) {
+        next(error)
+    }
+}
+
 const FindOrCreateCustomer = async (details, options) => {
     try {
 
@@ -116,8 +135,8 @@ const FindOrCreateCustomer = async (details, options) => {
 
     } catch (error) {
         let message = {
-            title: "Server Error",
-            body: "Something went wrong in the server. Please try again later."
+            title: "Request failed",
+            body: `We're sorry, something went wrong on our end. Please try again later or contact our support team.`
         }
 
         let err = ErrorThrower(500, "INTERNAL_SERVER_ERROR", message, error);
@@ -140,8 +159,8 @@ const FindMaxId = async (modelInstance, idName, options) => {
         
     } catch (error) {
         let message = {
-            title: "Server Error",
-            body: "Something went wrong in the server. Please try again later."
+            title: "Request failed",
+            body: `We're sorry, something went wrong on our end. Please try again later or contact our support team.`
         }
 
         let err = ErrorThrower(500, "INTERNAL_SERVER_ERROR", message, error);
@@ -181,8 +200,10 @@ const AddLoan = async (req, res, next) => {
             bank_book_statement: employmentDetails.bank_cert
         }
 
+        
         // // DONE - FIELD VALUES
-        const getFieldValues = await GetLoanTypeFields();
+        const getFieldValues = await GetLoanTypeFields(loanApplication.application_loan_type);
+        
         const FieldValues = getFieldValues.data.map((item, key) => {
 
             let fieldObj = Object.keys(loanTypeFieldValues).filter(field => {
@@ -197,6 +218,9 @@ const AddLoan = async (req, res, next) => {
                 field_name: item.field_name
             }
         })
+        SuccessLogger(req.url, 200,`GET LOAN TYPE FIELDS: ${JSON.stringify(getFieldValues.data)}, 
+        RETREIVED SUCCESSFULLY, LOAN TYPE: ${loanApplication.application_loan_type}, 
+        CODE: RETREIVED_SUCCESS` )
         
         // // // FIEDL ITEMS
         const loanTypeFieldItems = {
@@ -212,7 +236,7 @@ const AddLoan = async (req, res, next) => {
             picture_of_vehicle_4: vehicleDetails.left_side,
         }
 
-        const getFieldItem = await GetLoanTypeItemsFields();
+        const getFieldItem = await GetLoanTypeItemsFields(loanApplication.application_loan_type);
 
         const fieldItems = {}
 
@@ -235,6 +259,10 @@ const AddLoan = async (req, res, next) => {
 
         let FieldItemsValues = JSON.stringify(JSON.stringify(fieldItems))
 
+        SuccessLogger(req.url, 200,`GET LOAN TYPE ITEM FIELDS: ${JSON.stringify(getFieldItem.data)}, 
+            RETREIVED SUCCESSFULLY, LOAN TYPE: ${loanApplication.application_loan_type}, 
+            CODE: RETREIVED_SUCCESS` )
+
     
         const CollateralDetails = {
             interest: parseFloat(loanApplication.interest) ,
@@ -242,7 +270,7 @@ const AddLoan = async (req, res, next) => {
             term: parseInt(loanApplication.terms),
 
         }
-        let full_name = `${customerDetails.first_name} ${customerDetails.middle_name ? customerDetails.middle_name : ""} ${customerDetails.last_name} ${customerDetails.suffix ? customerDetails.suffix : ""}`;
+        let full_name = `${customerDetails.first_name} ${customerDetails.middle_name || customerDetails.middle_name == "NULL" ? customerDetails.middle_name : ""} ${customerDetails.last_name} ${customerDetails.suffix || customerDetails.suffix == "NULL" ? customerDetails.suffix : ""}`;
 
         const CustomerDetailsHatchit = {
             customer_id: customerDetails.customer_id,
@@ -257,11 +285,15 @@ const AddLoan = async (req, res, next) => {
             address: hatchitDetails.barangay
         }
 
-        const hatchitAddLoan = await HatchITAddLoan(CustomerDetailsHatchit, CollateralDetails, FieldValues , FieldItemsValues);
+        const hatchitAddLoan = await HatchITAddLoan(CustomerDetailsHatchit, CollateralDetails, FieldValues , FieldItemsValues, loanApplication.application_loan_type);
 
         const application_reference = hatchitAddLoan.data.ref_num;
 
-        const ApplyLoan = await sequelize.transaction(async (transaction) => {
+        SuccessLogger(req.url, 200,`APPLY LOAN: ${JSON.stringify(hatchitAddLoan.data)}, 
+            CREATED SUCCESSFULLY, REFERENCE NUMBER: ${application_reference}, 
+            CODE: LOAN_APPLICATION_SUCCESS` )
+
+        await sequelize.transaction(async (transaction) => {
 
             const custMaxId = await FindMaxId(CustomerDetails, 'customer_details_id', transaction);
             customerDetails.customer_details_id = ++custMaxId.dataValues.max_id;
@@ -316,4 +348,4 @@ const AddLoan = async (req, res, next) => {
     }
 }
 
-module.exports = { createLoanApplication, getAllLoanApplicants, FindOrCreateCustomer, AddLoan };
+module.exports = { createLoanApplication, getAllLoanApplicants, FindOrCreateCustomer, AddLoan, GetAllApplication };

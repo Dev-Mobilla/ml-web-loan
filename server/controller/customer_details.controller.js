@@ -45,7 +45,6 @@ const ML_MONEY_URL = process.env.ML_MONEY_API_URL;
 
 const CreateCustomerDetailsToSymph = async (req, res, next) => {
   try {
-    console.log("req", req);
     const getToken = await GenerateToken();
     const {
       address,
@@ -105,8 +104,9 @@ const CreateCustomerDetailsToSymph = async (req, res, next) => {
     //   res.status(500).json({ error: "Internal server error" });
     // }
     if (error.response.status === 409) {
-      res.status(409).send(error.response.data)
-    }else{
+      res.status(409).send(error.response.data);
+    }
+    else{
       next(error);
     }
   }
