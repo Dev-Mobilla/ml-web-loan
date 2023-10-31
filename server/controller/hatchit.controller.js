@@ -22,15 +22,17 @@ const GetLoanTypeFields = async (loant_type) => {
                 break;
             case "Motor Loan":
                 LOAN_TYPE = 2
+                break;
             default:
                 let message = {
-                    title: "Server Error",
-                    body: `Something went wrong in the server. Please try again later. | Get Loan Type Fields: Loan type - ${loant_type}`
+                    title: "Request failed",
+                    body: `We're sorry, something went wrong on our end. Please try again later or contact our support team.`
                 }
         
-                let err = ErrorThrower(500, "INTERNAL_SERVER_ERROR", message, null);
-                return err;
+                let err = ErrorThrower(500, "INTERNAL_SERVER_ERROR", message, null, `${HATCH_IT_URL}/loans_api/v1/loan_type_fields/get/loan_type`);
+                throw err;
         }
+
 
         const loantype = JSON.stringify({loan_type: LOAN_TYPE.toString()})
 
@@ -51,14 +53,13 @@ const GetLoanTypeFields = async (loant_type) => {
 
         return getLoanTypeFields.data;
     } catch (error) {
-
         if (error.response.status == 401) {
             let message = {
                 title: "Request failed",
                 body: `We're sorry, something went wrong on our end. Please try again later or contact our support team.`
             }
     
-            let err = ErrorThrower(500, "INTERNAL_SERVER_ERROR", message, error);
+            let err = ErrorThrower(500, "INTERNAL_SERVER_ERROR", message, error, `${HATCH_IT_URL}/loans_api/v1/loan_type_fields/get/loan_type`);
             throw err
         }else{
 
@@ -71,7 +72,6 @@ const GetLoanTypeFieldsApi = async (URL, config) => {
     try {
 
         const response = await axios.get(URL, config);
-        // console.log("response", response);
         return response;
     } catch (error) {
         throw error
@@ -89,13 +89,14 @@ const GetLoanTypeItemsFields = async (loan_type) => {
                 break;
             case "Motor Loan":
                 LOAN_TYPE = 2
+                break;
             default:
                 let message = {
-                    title: "Server Error",
-                    body: `Something went wrong in the server. Please try again later. | Get Loan Type Item Fields: Loan type - ${loan_type}`
+                    title: "Request failed",
+                    body: `We're sorry, something went wrong on our end. Please try again later or contact our support team.`
                 }
         
-                let err = ErrorThrower(500, "INTERNAL_SERVER_ERROR", message, null);
+                let err = ErrorThrower(500, "INTERNAL_SERVER_ERROR", message, null, `${HATCH_IT_URL}/loans_api/v1/loan_type_item_fields/get/loan_type`);
                 throw err;
         }
 
@@ -126,7 +127,7 @@ const GetLoanTypeItemsFields = async (loan_type) => {
                 body: `We're sorry, something went wrong on our end. Please try again later or contact our support team.`
             }
     
-            let err = ErrorThrower(500, "INTERNAL_SERVER_ERROR", message, error);
+            let err = ErrorThrower(500, "INTERNAL_SERVER_ERROR", message, error, `${HATCH_IT_URL}/loans_api/v1/loan_type_item_fields/get/loan_type`);
             throw err
         }else{
 
@@ -156,13 +157,14 @@ const HatchITAddLoan = async (customerDetails, collateral, fieldValues, fieldIte
                 break;
             case "Motor Loan":
                 LOAN_TYPE = 2
+                break;
             default:
                 let message = {
-                    title: "Server Error",
-                    body: `Something went wrong in the server. Please try again later. | Get Loan Type Item Fields: Loan type - ${loan_type}`
+                    title: "Request failed",
+                    body: `We're sorry, something went wrong on our end. Please try again later or contact our support team.`
                 }
         
-                let err = ErrorThrower(500, "INTERNAL_SERVER_ERROR", message, null);
+                let err = ErrorThrower(500, "INTERNAL_SERVER_ERROR", message, null, `${HATCH_IT_URL}/loans_api/v1/transactions/apply_loan`);
                 throw err;
         }
         
@@ -206,7 +208,7 @@ const HatchITAddLoan = async (customerDetails, collateral, fieldValues, fieldIte
                 body: `We're sorry, something went wrong on our end. Please try again later or contact our support team`
             }
     
-            let err = ErrorThrower(500, "INTERNAL_SERVER_ERROR", message, error);
+            let err = ErrorThrower(500, "INTERNAL_SERVER_ERROR", message, error, `${HATCH_IT_URL}/loans_api/v1/transactions/apply_loan`);
             throw err
         }else{
 

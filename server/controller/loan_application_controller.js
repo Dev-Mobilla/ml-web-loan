@@ -200,8 +200,10 @@ const AddLoan = async (req, res, next) => {
             bank_book_statement: employmentDetails.bank_cert
         }
 
+        
         // // DONE - FIELD VALUES
         const getFieldValues = await GetLoanTypeFields(loanApplication.application_loan_type);
+        
         const FieldValues = getFieldValues.data.map((item, key) => {
 
             let fieldObj = Object.keys(loanTypeFieldValues).filter(field => {

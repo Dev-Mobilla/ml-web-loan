@@ -402,7 +402,17 @@ const CustomerRequirementComponent = () => {
               subTitle: "",
               isError: true
             });
-          }else if (error.data.error.code == "INTERNAL_SERVER_ERROR") {
+          }
+          else if (error.code == "ERR_NETWORK") {
+            setShowAlert(true);
+            setAlertProps({
+              title: "Request Failed",
+              text: "We're sorry, something went wrong on our end. Please try again later or contact our support team." || "An error occurred",
+              subTitle: "",
+              isError: true
+            });
+          }
+          else if (error.data.error.code == "INTERNAL_SERVER_ERROR") {
             setShowAlert(true);
             setAlertProps({
               title: error.data.error.message.title,
