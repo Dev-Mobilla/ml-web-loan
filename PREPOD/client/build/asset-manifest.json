@@ -1,0 +1,19 @@
+{
+  "files": {
+    "main.css": "/static/css/main.b8fcd1bf.css",
+    "main.js": "/static/js/main.acf9d3c1.js",
+    "static/js/787.f6d64158.chunk.js": "/static/js/787.f6d64158.chunk.js",
+    "static/media/mlwallet-qr-code.svg": "/static/media/mlwallet-qr-code.73a022861e0ef0a62e218e3734211560.svg",
+    "static/media/house.png": "/static/media/house.03f1ea023fb1a4ae82bc.png",
+    "static/media/pawn-shop.png": "/static/media/pawn-shop.c59180c98befcf09fc18.png",
+    "static/media/file.png": "/static/media/file.86aee07bd62be0baea5f.png",
+    "index.html": "/index.html",
+    "main.b8fcd1bf.css.map": "/static/css/main.b8fcd1bf.css.map",
+    "main.acf9d3c1.js.map": "/static/js/main.acf9d3c1.js.map",
+    "787.f6d64158.chunk.js.map": "/static/js/787.f6d64158.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b8fcd1bf.css",
+    "static/js/main.acf9d3c1.js"
+  ]
+}
