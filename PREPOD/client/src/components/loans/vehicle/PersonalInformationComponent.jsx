@@ -39,7 +39,7 @@ const PersonalInformationComponent = ({
     // onInformationDetailsChange(informationDetails);
     // console.log(informationDetails);
     fetchData();
-  }, [informationDetails, onValidationChange]);
+  },[]);
 
   const fetchData = async () => {
     try {
@@ -148,7 +148,7 @@ const PersonalInformationComponent = ({
       } else if (
         fieldName === "civil_status" &&
         !["married", "single", "divorced", "widowed"].includes(
-          informationDetails[fieldName].toLowerCase()
+          informationDetails[fieldName] ? informationDetails[fieldName].toLowerCase() : informationDetails[fieldName]
         )
       ) {
       setErrors((prevErrors) => ({
@@ -267,7 +267,6 @@ const PersonalInformationComponent = ({
           onFocus={() => handleFocus("nationality")}
           onBlur={() => handleBlur("nationality")}
           style={{ border: fieldBorders.nationality }}
-          readOnly={informationDetails.nationality !== null && informationDetails.nationality !== ""}
         />
         <div
           style={{ color: "red", fontSize: "12px", margin: "10px 20px 20px 0" }}
@@ -286,7 +285,6 @@ const PersonalInformationComponent = ({
           onFocus={() => handleFocus("civil_status")}
           onBlur={() => handleBlur("civil_status")}
           style={{ border: fieldBorders.civil_status }}
-          readOnly={informationDetails.civil_status !== null && informationDetails.civil_status !== ""}
         />
         <div
           style={{ color: "red", fontSize: "12px", margin: "10px 20px 20px 0" }}

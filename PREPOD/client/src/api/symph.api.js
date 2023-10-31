@@ -134,20 +134,27 @@ const CreateCustomerDetailsToSymph = async (customerDataToSymph) => {
     );
     return response.data
   } catch (error) {
-    error.response.data.subtitle = "Mobile number or Email is already in use."
+    if (error.response.status === 409 && error.response.data.code === "REGISTER_MONEY_ACCOUNT_EXISTS") {
+      error.response.data.message = "Mobile number already in use."
+      error.response.data.subtitle = "Kindly use an alternate mobile number or your officially registered mobile number and email to continue. \n Thank you."
+    }else if (error.response.status === 409 && error.response.data.code === "CKYC_KYC_EXISTS") {
+      error.response.data.message = "Email already in use."
+      error.response.data.subtitle = "Kindly use an alternate email address or your officially registered mobile number and email to continue. \n Thank you."
+    }
     throw error.response;
   }
 };
 
-const SearchKyc = async (mobileNumber, email) => {
+const SearchKyc = async (params) => {
   try {
     const response = await ML_LoansAxiosInstance.get(
       `/api/ml-loans/symph/get-customers`,
       {
-        params: {
-          cellphoneNumber: mobileNumber,
-          email:email
-        },
+        // params: {
+        //   cellphoneNumber: mobileNumber,
+        //   email:email
+        // },
+        params: {...params}
       }
     );
 

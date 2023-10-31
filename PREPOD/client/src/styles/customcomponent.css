@@ -227,6 +227,9 @@
 .modal-content {
   font-family: var(--font-family);
 }
+.custom.modal-content{
+  max-width: 400px;
+}
 
 .modal-body {
   display: grid;
@@ -257,10 +260,14 @@
 
 #title-alert {
   font-weight: 700;
+  font-size: 19px;
 }
 
 #text-alert {
   margin: 20px;
+  line-height: 23px;
+  word-wrap: break-word;
+  font-size: 17px;
 }
 #Ok-btn {
   width: 100px;
@@ -274,6 +281,22 @@
   font-weight: 100px;
   border-radius: var(--radius);
   border-color: var(--border-color);
+}
+
+#sub-btn{
+  width: 230px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  height: 40px;
+  background-color: var(--red);
+  color: var(--white);
+  font-weight: 100px;
+  border-radius: var(--radius);
+  border-color: var(--border-color);
+  font-size: 15px;
+  cursor: pointer;
 }
 
 /* LOADING */

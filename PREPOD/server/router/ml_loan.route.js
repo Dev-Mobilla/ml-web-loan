@@ -8,6 +8,7 @@ const {
 } = require("../controller/billspayment.controller");
 const { GetAddressApi } = require("../controller/get_address.controller");
 const {CheckKP7Transaction} = require("../controller/ml_loans.controller");
+const {GetAllApplication} = require("../controller/loan_application_controller");
 
 const ML_LOAN_ROUTER = express.Router();
 
@@ -21,5 +22,6 @@ ML_LOAN_ROUTER.post("/check-transaction", CheckKP7Transaction);
 ML_LOAN_ROUTER.get("/get-countries", GetAddressApi);
 ML_LOAN_ROUTER.get("/get-provinces", GetAddressApi);
 ML_LOAN_ROUTER.get("/get-cities", GetAddressApi);
+ML_LOAN_ROUTER.post('/get/all-applications', GetAllApplication);
 
 module.exports = ML_LOAN_ROUTER;

@@ -3,46 +3,41 @@ const {ErrorThrower} = require("../utils/ErrorGenerator");
 
 const statusCode = [404, 403, 401, 500, 400];
 
-const ErrorResponse = (error) => {
+const ErrorResponse = async (error, res) => {
+    let errors;
 
     if (error?.response && statusCode.includes(error.response.status)) {
-        return error.response
+        errors =  error.response
     }else{
         const message = {
-            title: "Network Error",
-            body: "The server encountered an unexpected error"
+            title: "Request failed",
+            body: `We're sorry, something went wrong on our end. Please try again later or contact our support team.`
         }
 
-        const errRes = ErrorThrower(500, "INTERNAL_SERVER_ERROR", message, error)
-        return errRes.response
+        const errRes = ErrorThrower(500, "INTERNAL_SERVER_ERROR", message, error, res.req.url)
+        errors = errRes.response
     }
+
+    return await errors;
 }
 
-const ErrorLogger = (error, request, response , next) => {
+const ErrorLogger = async (error, request, response , next) => {
 
-    const ErrResponse = ErrorResponse(error);
-
-    console.log("ERROR", ErrResponse);
+    const ErrResponse = await ErrorResponse(error, response);
+    
     Logger.loggerError.addContext("context", `Logging.. - 
-    Request URL: ${request.url}, Response URL: ${ErrResponse.config.url} - ${JSON.stringify(ErrResponse.message)} | ${JSON.stringify(ErrResponse.statusText)} - ${JSON.stringify(ErrResponse.status)} | ${JSON.stringify(ErrResponse.errors)}`);
-    Logger.loggerError.error(ErrResponse.data.error ? ErrResponse.data.error.stack : JSON.stringify(ErrResponse));
+    Request URL: ${request.url}, Response URL: ${ErrResponse.config ? ErrResponse.config.url: ErrResponse.errors.config.url} - ${JSON.stringify(ErrResponse.message)} | ${JSON.stringify(ErrResponse.statusText)} - ${JSON.stringify(ErrResponse.status)} | ${JSON.stringify(ErrResponse.errors)}`);
+    Logger.loggerError.error(JSON.stringify(ErrResponse.data.error) ? ErrResponse.data.error.stack : JSON.stringify(ErrResponse.data));
+    console.log("err", ErrResponse);
     
-    next(ErrResponse)
-}
-
-const ErrorHandler = (error, request, response , next) => {
-    
-    next(error);
-    
+    next(ErrResponse);
 }
     
 const ErrorResponder = (error, request, response , next) => {
-    console.log("status:", error.status);
     response.status(error.status).send(error.data);
 }
 
 module.exports = {
     ErrorLogger,
-    ErrorHandler,
     ErrorResponder
 }

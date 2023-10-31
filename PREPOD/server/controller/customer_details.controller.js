@@ -105,8 +105,9 @@ const CreateCustomerDetailsToSymph = async (req, res, next) => {
     //   res.status(500).json({ error: "Internal server error" });
     // }
     if (error.response.status === 409) {
-      res.status(409).send(error.response.data)
-    }else{
+      res.status(409).send(error.response.data);
+    }
+    else{
       next(error);
     }
   }

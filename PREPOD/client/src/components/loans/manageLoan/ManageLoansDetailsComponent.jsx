@@ -628,6 +628,7 @@ const ManageLoansDetailsComponent = () => {
       total,
     } = paymentData;
     try {
+      setShowModal(false);
       setShowLoading({
         loading: true,
         text: `Thank you for your patience while we process your payment. It should only take 1-2 minutes.`,

@@ -99,13 +99,9 @@ const [isSearchParams, setIsSearchParams] = useState(false)
     informationDetails.provinces,
   informationDetails.countries])
 
-  useEffect(()=> {
-    performSearch(contactDetails.mobile_number, contactDetails.email)
-  },[contactDetails.email, contactDetails.mobile_number, setAddress])
-
-  useEffect(()=> {
-    performSearch(contactDetails.mobile_number, contactDetails.email)
-  },[contactDetails.email, contactDetails.mobile_number, setAddress])
+  // useEffect(()=> {
+  //   performSearch(contactDetails.mobile_number, contactDetails.email)
+  // },[contactDetails.email, contactDetails.mobile_number, setAddress])
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const phoneRegex = /^\+?[\d\s()-]{7,15}$/;
@@ -140,10 +136,6 @@ const [isSearchParams, setIsSearchParams] = useState(false)
     const isAddressValid = address !== "";
     const isOptionSelected = selectedOption !== "";
 
-    console.log("isdisabled", isContactDetailsValid &&
-    isPersonalDetailsValid &&
-    isAddressValid &&
-    isOptionSelected);
     setIsSubmitDisabled(
       !(
         isContactDetailsValid &&
@@ -199,6 +191,7 @@ const [isSearchParams, setIsSearchParams] = useState(false)
       title: "Loading",
       text: "Please wait for a while",
       isError: false,
+      subLink: false,
     };
     setAlertProps(props);
     handleButtonClick(true);
@@ -218,6 +211,7 @@ const [isSearchParams, setIsSearchParams] = useState(false)
           title: "Please input valid Address",
           text: "Please Input your valid Current Address",
           isError: true,
+          subLink: false,
         };
         setAlertProps(props);
         handleButtonClick(true);
@@ -241,6 +235,7 @@ const [isSearchParams, setIsSearchParams] = useState(false)
           title: "Thank you for waiting",
           text: "We prefer branch near your location",
           isError: true,
+          subLink: false,
         };
         setAlertProps(props);
         setNearestBranches(nearestBranches);
@@ -250,6 +245,7 @@ const [isSearchParams, setIsSearchParams] = useState(false)
           title: "Current Address not found!",
           text: "Your current address is not found!",
           isError: true,
+          subLink: false
         };
         setAlertProps(props);
         handleButtonClick(true);
@@ -259,6 +255,7 @@ const [isSearchParams, setIsSearchParams] = useState(false)
         title: "Current Address not found!",
         text: "Please input valid current address",
         isError: true,
+        subLink: false
       };
       setAlertProps(props);
       handleButtonClick(true);
@@ -272,6 +269,7 @@ const [isSearchParams, setIsSearchParams] = useState(false)
         title: "Empty Current Address",
         text: "Please enter your Current Address",
         isError: true,
+        subLink: false
       };
       setAlertProps(props);
       handleButtonClick();
@@ -334,7 +332,7 @@ const [isSearchParams, setIsSearchParams] = useState(false)
 
   const performSearch = async (mobileNumber, email) => {
     try {
-          const response = await SearchKyc(mobileNumber, email);
+          const response = await SearchKyc({cellphoneNumber:mobileNumber, email});
           const data = response.data;
           if (data.data) {
             setContactDetails({
@@ -461,6 +459,7 @@ const [isSearchParams, setIsSearchParams] = useState(false)
                 title={alertProps.title}
                 text={alertProps.text}
                 isError={alertProps.isError}
+                subLink={alertProps.subLink}
                 onClose={() => setShowAlert(false)}
               />
             )}
