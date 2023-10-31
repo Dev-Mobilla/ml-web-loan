@@ -484,6 +484,10 @@ const ManageLoansDetailsComponent = () => {
       const thresholdResponse = await GetThresholdAmount();
 
       if (!serviceFeeResponse || !thresholdResponse || !accountDetails) {
+        setShowLoading({
+          loading: false,
+          text: "",
+        });
         throw createError(
           401,
           "Authentication failed",
@@ -500,6 +504,10 @@ const ManageLoansDetailsComponent = () => {
       );
 
       if (!validationResponse || validationResponse.code === 401) {
+        setShowLoading({
+          loading: false,
+          text: "",
+        });
         throw createError(
           401,
           "Authentication failed",
@@ -508,6 +516,10 @@ const ManageLoansDetailsComponent = () => {
       }
 
       if (validationResponse.data.responseCode === 3) {
+        setShowLoading({
+          loading: false,
+          text: "",
+        });
         throw createError(
           401,
           "Invalid account",
@@ -516,6 +528,10 @@ const ManageLoansDetailsComponent = () => {
       }
 
       if (validationResponse.data.responseCode !== 1) {
+        setShowLoading({
+          loading: false,
+          text: "",
+        });
         throw createError(
           401,
           "Authentication failed",
@@ -525,6 +541,10 @@ const ManageLoansDetailsComponent = () => {
 
       const toPay = validationResponse.data.responseSearch.amount;
       if (parseFloat(amount) !== parseFloat(toPay)) {
+        setShowLoading({
+          loading: false,
+          text: "",
+        });
         throw createError(
           401,
           "Amount mismatch",
@@ -568,7 +588,7 @@ const ManageLoansDetailsComponent = () => {
       setAlertModal(true);
       setAlertProps({
         message: "We were unable to process your request due to an unexpected error.",
-        title: "Error",
+        title: "Request Failed",
         color: "#ff6562",
         onClose: handleModalClose,
       });
@@ -650,6 +670,10 @@ const ManageLoansDetailsComponent = () => {
           errorCode === "CASH_TRANSFER_NOT_ENOUGH_BALANCE_ERROR_CODE" ||
           statusCode === 400
         ) {
+          setShowLoading({
+            loading: false,
+            text: `Thank you for your patience while we process your payment. It should only take 1-2 minutes.`,
+          });
           throw createError(
             400,
             "Insufficient Balance",
@@ -661,6 +685,10 @@ const ManageLoansDetailsComponent = () => {
           errorCode === "TRANSACTION_NOT_ALLOWED_SENDER" ||
           statusCode === 403
         ) {
+          setShowLoading({
+            loading: false,
+            text: `Thank you for your patience while we process your payment. It should only take 1-2 minutes.`,
+          });
           throw createError(
             403,
             error.message,
@@ -669,6 +697,10 @@ const ManageLoansDetailsComponent = () => {
         }
 
         if (errorCode === "AUTHENTICATION_ERROR" || statusCode === 401) {
+          setShowLoading({
+            loading: false,
+            text: `Thank you for your patience while we process your payment. It should only take 1-2 minutes.`,
+          });
           throw createError(
             400,
             "Authentication Error",
@@ -695,13 +727,59 @@ const ManageLoansDetailsComponent = () => {
         });
       }
     } catch (error) {
-      setAlertModal(true);
-      setAlertProps({
-        title: error.title || "Error",
-        message: error.message || "An error occurred",
-        color: "#ff6562",
-        onClose: handleModalClose,
+      setShowLoading({
+        loading: false,
+        text: `Thank you for your patience while we process your payment. It should only take 1-2 minutes.`,
       });
+      
+      if (error.response.status == 500) {
+        if (error.code == "ERR_BAD_RESPONSE") {
+          console.log("here");
+          setAlertModal(true);
+          setAlertProps({
+            title: error.response.data.error.message.title,
+            message: error.response.data.error.message.body || "An error occurred",
+            subTitle: "",
+            isError: true
+          });
+        }
+        else if (error.code == "ERR_NETWORK") {
+          setAlertModal(true);
+          setAlertProps({
+            title: "Request Failed",
+            message: "We're sorry, something went wrong on our end. Please try again later or contact our support team." || "An error occurred",
+            subTitle: "",
+            isError: true
+          });
+        }
+        else if (error.data.error.code == "INTERNAL_SERVER_ERROR") {
+          setAlertModal(true);
+          setAlertProps({
+            title: error.data.error.message.title,
+            message: error.data.error.message.body || "An error occurred",
+            subTitle: "",
+            isError: true
+          });
+        }
+        else{
+          setAlertModal(true);
+          setAlertProps({
+            title: "Error",
+            message: error.data.message || "An error occurred",
+            subTitle: "",
+            isError: true
+          });
+        }
+      }else{
+        setAlertModal(true);
+        setAlertProps({
+          title: error.title || "Error",
+          message: error.message || "An error occurred",
+          color: "#ff6562",
+          onClose: handleModalClose,
+        });
+        
+      }
     }
   };
 

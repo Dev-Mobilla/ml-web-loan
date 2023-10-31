@@ -6,6 +6,8 @@ const statusCode = [404, 403, 401, 500, 400];
 const ErrorResponse = async (error, res) => {
     let errors;
 
+    // console.log(error);
+
     if (error?.response && statusCode.includes(error.response.status)) {
         errors =  error.response
     }else{
@@ -28,7 +30,7 @@ const ErrorLogger = async (error, request, response , next) => {
     Logger.loggerError.addContext("context", `Logging.. - 
     Request URL: ${request.url}, Response URL: ${ErrResponse.config ? ErrResponse.config.url: ErrResponse.errors.config.url} - ${JSON.stringify(ErrResponse.message)} | ${JSON.stringify(ErrResponse.statusText)} - ${JSON.stringify(ErrResponse.status)} | ${JSON.stringify(ErrResponse.errors)}`);
     Logger.loggerError.error(JSON.stringify(ErrResponse.data.error) ? ErrResponse.data.error.stack : JSON.stringify(ErrResponse.data));
-    console.log("err", ErrResponse);
+    // console.log("err", ErrResponse);
     
     next(ErrResponse);
 }
