@@ -69,7 +69,7 @@ const DashboardComponent = () => {
               </div>
 
               <div className="housing">
-                <a href="#" onClick={openModal}>
+                <a href="/housing-loan/required-info">
                   <div className="overlap-group-3">
                     <div className="hltitle">Housing Loan</div>
                     <div className="h-desc">

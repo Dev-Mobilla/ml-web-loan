@@ -40,7 +40,6 @@ const AddPhotoModal = ({
   // };
 
   const handleImageSubmit = () => {
-
     if (isChange) {
       OnImageSubmitHandler(imageName, modalTitle, uploadedImage, imageContent);
     }else{

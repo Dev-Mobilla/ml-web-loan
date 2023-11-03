@@ -29,7 +29,7 @@ const calculateDistance = (lat1, lon1, lat2, lon2) => {
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   return earthRadius * c;
 };
-const CustomerDetailsComponent = () => {
+const CustomerDetailsComponent = ({ url }) => {
   const navigate = useNavigate();
   const location = useLocation();
  
@@ -71,6 +71,7 @@ const [isSearchParams, setIsSearchParams] = useState(false)
   });
 
   useEffect(() => {
+    console.log(location);
 
     if (location.state == null) {
       navigate(-1);
@@ -152,21 +153,53 @@ const [isSearchParams, setIsSearchParams] = useState(false)
   const handleFormSubmit = (e) => {
     e.preventDefault();
 
-    const secondStepDetails = {
-      vehicleDetails: firstStepDetails,
-      personalDetails: [
-        contactDetails,
-        informationDetails,
-        selectedOption,
-        address
-      ],
-    };
+    // const secondStepDetails = {
+    //   vehicleDetails: firstStepDetails,
+    //   personalDetails: [
+    //     contactDetails,
+    //     informationDetails,
+    //     selectedOption,
+    //     address
+    //   ],
+    // };
 
-    navigate("/vehicle-loan/requirements", {
-      state: {
-        secondStepDetails: secondStepDetails,
-      },
-    });
+    if (location.pathname == '/housing-loan/personal-details') {
+      let url = '/housing-loan/current-address'
+
+      const secondStepDetails = {
+        firstStepDetails: firstStepDetails,
+        personalDetails: [
+          contactDetails,
+          informationDetails,
+          selectedOption,
+          address
+        ],
+      };
+
+      navigate(url, {
+        state: {
+          secondStepDetails: secondStepDetails,
+        },
+      });
+    }else if (location.pathname == '/vehicle-loan/personal-details') {
+      let url = '/vehicle-loan/requirements'
+      const secondStepDetails = {
+        vehicleDetails: firstStepDetails,
+        personalDetails: [
+          contactDetails,
+          informationDetails,
+          selectedOption,
+          address
+        ],
+      };
+
+      navigate(url, {
+        state: {
+          secondStepDetails: secondStepDetails,
+        },
+      });
+    }
+   
   };
 
   const handleInputChange = (field, value) => {

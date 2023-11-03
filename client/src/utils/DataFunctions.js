@@ -58,5 +58,5 @@ export {
     GetSessionDocument,
     MakeRed,
     CheckSessionStorage,
-    GetCookieByName
+    GetCookieByName,
 }
