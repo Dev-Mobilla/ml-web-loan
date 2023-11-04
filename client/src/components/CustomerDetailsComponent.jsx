@@ -2,11 +2,15 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate, useLocation } from "react-router-dom";
 import "../styles/customerdetails.css";
+import { GetCountries, GetProvinces, GetCities } from "../api/symph.api";
+
 import {
   TopbarComponent,
   CustomHeader,
   CustomPrevBtn,
+  CustomSelect,
   CustomButton,
+  HousingRadiosComponent,
   CustomCardTitle,
   PersonalContactComponent,
   PersonalInformationComponent,
@@ -23,31 +27,46 @@ const calculateDistance = (lat1, lon1, lat2, lon2) => {
   const a =
     Math.sin(dLat / 2) * Math.sin(dLat / 2) +
     Math.cos(toRadians(lat1)) *
-      Math.cos(toRadians(lat2)) *
-      Math.sin(dLon / 2) *
-      Math.sin(dLon / 2);
+    Math.cos(toRadians(lat2)) *
+    Math.sin(dLon / 2) *
+    Math.sin(dLon / 2);
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   return earthRadius * c;
 };
 const CustomerDetailsComponent = ({ url }) => {
   const navigate = useNavigate();
   const location = useLocation();
- 
+  const [ListOfCountries, setListOfCountries] = useState([]);
+  const [ListOfProvinces, setListOfProvinces] = useState([]);
+  const [ListOfCities, setListOfCities] = useState([]);
+
+  const [ListOfNoCountries, setListOfNoCountries] = useState([]);
+  const [ListOfNoProvinces, setListOfNoProvinces] = useState([]);
+  const [ListOfNoCities, setListOfNoCities] = useState([]);
   const [address, setAddress] = useState("");
   const [customAlert, setCustomAlert] = useState(false);
   const [alertProps, setAlertProps] = useState(null);
   const [showBranches, setShowBranches] = useState(false);
   const [showAlert, setShowAlert] = useState(true);
+  const [loading, setLoading] = useState(true);
+
+  const [keepAddress, setKeepAAddress] = useState(null);
+  const [isCorrespond, setIsCorrespond] = useState(true);
   const [nearestBranches, setNearestBranches] = useState([]);
   const [selectedOption, setSelectedOption] = useState("");
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
   const [isEditable, setIsEditable] = useState(false);
-const [isSearchParams, setIsSearchParams] = useState(false)
+  const [isSearchParams, setIsSearchParams] = useState(false)
   const { firstStepDetails } = location.state || {};
   const [contactDetails, setContactDetails] = useState({
     mobile_number: "",
     email: "",
   });
+
+
+
+
+
   const [informationDetails, setInformationDetails] = useState({
     firstname: "",
     lastname: "",
@@ -69,9 +88,36 @@ const [isSearchParams, setIsSearchParams] = useState(false)
     cities: "",
     barangay: ""
   });
+  const confirmRadioVal = [
+    {
+      name: 'Yes'
+    },
+    {
+      name: 'No'
+    }
 
+  ]
+  const OnKeepAddress = (e) => {
+    const { name, value } = e.target;
+    console.log(name, value);
+    setKeepAAddress(value);
+
+    if (value === "Yes") {
+      setIsCorrespond(true);
+    } else {
+      setIsCorrespond(false);
+    }
+    console.log(keepAddress);
+  }
   useEffect(() => {
-    console.log(location);
+
+    if (!keepAddress) {
+      console.log(keepAddress);
+    } else if (keepAddress.toLowerCase() == "no") {
+      setIsCorrespond(false);
+    } else {
+      setIsCorrespond(true);
+    }
 
     if (location.state == null) {
       navigate(-1);
@@ -94,10 +140,10 @@ const [isSearchParams, setIsSearchParams] = useState(false)
     let province = getAddressName(informationDetails.provinces);
     let country = getAddressName(informationDetails.countries);
     setAddress(`${barangay} ${city} ${province} ${country}`)
-    
-  },[informationDetails.barangay,
-    informationDetails.cities, 
-    informationDetails.provinces,
+    fetchData();
+  }, [informationDetails.barangay,
+  informationDetails.cities,
+  informationDetails.provinces,
   informationDetails.countries])
 
   // useEffect(()=> {
@@ -125,7 +171,7 @@ const [isSearchParams, setIsSearchParams] = useState(false)
       informationDetails.civil_status !== "" && informationDetails.civil_status !== null &&
       informationDetails.employeer_business !== "" && informationDetails.employeer_business !== null &&
       informationDetails.nature_business !== "" && informationDetails.nature_business !== null &&
-      informationDetails.tenure !== "" && informationDetails.tenure !== null && 
+      informationDetails.tenure !== "" && informationDetails.tenure !== null &&
       informationDetails.office_address !== "" && informationDetails.office_address !== null &&
       informationDetails.office_landline !== "" && informationDetails.office_landline !== null &&
       informationDetails.sourceOfIncome !== "" && informationDetails.sourceOfIncome !== null &&
@@ -181,7 +227,7 @@ const [isSearchParams, setIsSearchParams] = useState(false)
           secondStepDetails: secondStepDetails,
         },
       });
-    }else if (location.pathname == '/vehicle-loan/personal-details') {
+    } else if (location.pathname == '/vehicle-loan/personal-details') {
       let url = '/vehicle-loan/requirements'
       const secondStepDetails = {
         vehicleDetails: firstStepDetails,
@@ -199,7 +245,7 @@ const [isSearchParams, setIsSearchParams] = useState(false)
         },
       });
     }
-   
+
   };
 
   const handleInputChange = (field, value) => {
@@ -365,56 +411,95 @@ const [isSearchParams, setIsSearchParams] = useState(false)
 
   const performSearch = async (mobileNumber, email) => {
     try {
-          const response = await SearchKyc({cellphoneNumber:mobileNumber, email});
-          const data = response.data;
-          if (data.data) {
-            setContactDetails({
-              email: data.data.email,
-              mobile_number: data.data.cellphoneNumber
-            });
-            setInformationDetails({
-              firstname: data.data.name.firstName,
-              lastname: data.data.name.lastName,
-              middlename: data.data.name.middleName,
-              suffix: data.data.name.suffix,
-              birthdate: data.data.birthDate,
-              nationality: data.data.nationality,
-              civil_status: data.data.civilStatus,
-              office_address: data.data.occupation.workAddress,
-              sourceOfIncome: data.data.occupation.sourceOfIncome,
-              countries: data.data.addresses.current.addressL0Name,
-              provinces: data.data.addresses.current.addressL1Name,
-              cities: data.data.addresses.current.addressL2Name,
-              barangay: data.data.addresses.current.otherAddress
-            });
-            setIsEditable(true);
-          }
-          else {
-            setContactDetails({
-              email: email,
-              mobile_number: mobileNumber
-            });
-            setInformationDetails({
-              firstname: "",
-              lastname: "",
-              middlename: "",
-              birthdate: "",
-              suffix: "",
-              nationality: "",
-              civil_status: "",
-              office_address: "",
-              sourceOfIncome: "",
-              countries: "",
-              provinces: "",
-              cities: "",
-              barangay: ""
-            });
-            setIsEditable(false);
-          }
-      } catch (error) {
-        return false;
+      const response = await SearchKyc({ cellphoneNumber: mobileNumber, email });
+      const data = response.data;
+      if (data.data) {
+        setContactDetails({
+          email: data.data.email,
+          mobile_number: data.data.cellphoneNumber
+        });
+        setInformationDetails({
+          firstname: data.data.name.firstName,
+          lastname: data.data.name.lastName,
+          middlename: data.data.name.middleName,
+          suffix: data.data.name.suffix,
+          birthdate: data.data.birthDate,
+          nationality: data.data.nationality,
+          civil_status: data.data.civilStatus,
+          office_address: data.data.occupation.workAddress,
+          sourceOfIncome: data.data.occupation.sourceOfIncome,
+          countries: data.data.addresses.current.addressL0Name,
+          provinces: data.data.addresses.current.addressL1Name,
+          cities: data.data.addresses.current.addressL2Name,
+          barangay: data.data.addresses.current.otherAddress
+        });
+        setIsEditable(true);
       }
-    
+      else {
+        setContactDetails({
+          email: email,
+          mobile_number: mobileNumber
+        });
+        setInformationDetails({
+          firstname: "",
+          lastname: "",
+          middlename: "",
+          birthdate: "",
+          suffix: "",
+          nationality: "",
+          civil_status: "",
+          office_address: "",
+          sourceOfIncome: "",
+          countries: "",
+          provinces: "",
+          cities: "",
+          barangay: ""
+        });
+        setIsEditable(false);
+      }
+    } catch (error) {
+      return false;
+    }
+
+  };
+  const handleCountryChange = async (event) => {
+    const selectedCountryId = event.target.value;
+
+    setInformationDetails((prevState) => ({
+      ...prevState,
+      countries: selectedCountryId,
+    }));
+  };
+  const handleProvinceChange = async (event) => {
+    const selectedProvinceId = event.target.value;
+
+    setInformationDetails((prevState) => ({
+      ...prevState,
+      provinces: selectedProvinceId,
+    }));
+  };
+  const handleNoProvinceChange = async (event) => {
+    const selectedProvinceId = event.target.value;
+
+    setInformationDetails((prevState) => ({
+      ...prevState,
+      provinces: selectedProvinceId,
+    }));
+  };
+  const fetchData = async () => {
+    try {
+      const getCountries = await GetCountries();
+      const getProvinces = await GetProvinces();
+      const getCities = await GetCities();
+      setListOfCountries(await getCountries.data);
+      setListOfProvinces(await getProvinces.data);
+      setListOfCities(await getCities.data);
+      setListOfNoCountries(await getCountries.data);
+      setListOfNoProvinces(await getProvinces.data);
+      setListOfNoCities(await getCities.data);
+    } catch (error) {
+    }
+    setLoading(false);
   };
   return (
     <div className="customer-details">
@@ -460,6 +545,99 @@ const [isSearchParams, setIsSearchParams] = useState(false)
               subTitle="Select a branch nearest to you"
               styles="custom-card-title"
             />
+            <div className="correspond-div">
+              <p id="correspondQuestion">Does the address on the previous form correspond to your current address?</p>
+              <HousingRadiosComponent
+                radioVal={confirmRadioVal}
+                onSelected={OnKeepAddress}
+                radioName={'currentAddress'}
+                styles={'preferred-branch-radios'}
+              />
+              {!isCorrespond && (
+                <>
+                  <div className="col1">
+                    <div className="correspond-input-div">
+                      <select
+                        className="correspond-select-left"
+                        name="noCountries"
+                        onChange={(event) => {
+                          handleInputChange(event);
+                          handleCountryChange(event);
+                        }}
+                        onFocus={() => handleFocus('noCountries')}
+                        onBlur={() => handleBlur('noCountries')}
+                        style={{ border: fieldBorders.countries }}
+                      >
+                        <option value="">Country</option>
+                        {ListOfNoCountries.map((noCountry) => (
+                          <option key={noCountry.addressL0Id} value={`${noCountry.name}|${noCountry.addressL0Id}`}>
+                            {noCountry.name}
+                          </option>
+                        ))}
+                      </select>
+                      <div style={{ color: 'red', fontSize: '12px', margin: '10px 20px 20px 0' }}>{errors.noCountries}</div>
+                    </div>
+                    <div className="correspond-input-div">
+                      <select
+                        className="correspond-select-right"
+                        name="noProvinces"
+                        onChange={(event) => {
+                          handleInputChange(event);
+                          handleNoProvinceChange(event);
+                        }}
+                        onFocus={() => handleFocus('noProvinces')}
+                        onBlur={() => handleBlur('noProvinces')}
+                        style={{ border: fieldBorders.provinces }}
+                      >
+                        <option value="">Province</option>
+                        {ListOfNoProvinces.map((province) => (
+                          <option key={province.addressL1Id} value={`${province.name}|${province.addressL1Id}`}>
+                            {province.name}
+                          </option>
+                        ))}
+                      </select>
+                      <div style={{ color: 'red', fontSize: '12px', margin: '10px 20px 20px 0' }}>{errors.noProvinces}</div>
+                    </div>
+                  </div>
+                  <div className="col2">
+                    <div className="correspond-input-div">
+                      <select
+                        className="correspond-select-left"
+                        name="noCities"
+                        onChange={(event) => {
+                          handleInputChange(event);
+                        }}
+                        onFocus={() => handleFocus('noCities')}
+                        onBlur={() => handleBlur('noCities')}
+                        style={{ border: fieldBorders.cities }}
+                      >
+                        <option value="">City</option>
+                        {ListOfNoCities.map((city) => (
+                          <option key={city.addressL2Id} value={`${city.name}|${city.addressL2Id}`}>
+                            {city.name}
+                          </option>
+                        ))}
+                      </select>
+
+                      <div style={{ color: 'red', fontSize: '12px', margin: '10px 20px 20px 0' }}>{errors.noCities}</div>
+                    </div>
+                    <div className="correspond-input-div">
+                      <input
+                        className="correspond-text-right"
+                        type="text"
+                        name="noBarangay"
+                        placeholder="Barangay"
+                        onChange={handleInputChange}
+                        onFocus={() => handleFocus('noBarangay')}
+                        onBlur={() => handleBlur('noBarangay')}
+                        style={{ border: fieldBorders.barangay }}
+                      />
+                      <div style={{ color: 'red', fontSize: '12px', margin: '10px 20px 20px 0' }}>{errors.noBarangay}</div>
+                    </div>
+                  </div>
+                </>
+              )}
+            </div>
             <form
               className="search-address-bar"
               onSubmit={handleFindNearestSubmit}

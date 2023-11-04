@@ -66,12 +66,6 @@
   font-size: 16px;
 }
 
-.housing-loan .confirm-address{
-  margin: 10px 0px;
-  color: var(--text-gray);
-  font-size: 16px;
-}
-
 .housing-loan .residence-type p, .housing-loan .confirm-address p{
   font-size: 18px;
   margin: 10px 50px;

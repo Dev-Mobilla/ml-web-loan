@@ -1,0 +1,26 @@
+ERROR 2023-11-04T09:02:46.929 Logging.. - 
+    Request URL: /api/ml-loans/symph/get-customers?cellphoneNumber=&email=, Response URL: https://ml-ckyc-dev.df.r.appspot.com/api/v1/customers/exact-search - undefined | "Bad Request" - 400 | undefined undefined
+ERROR 2023-11-04T09:02:51.449 Logging.. - 
+    Request URL: /api/ml-loans/symph/get-customers?cellphoneNumber=0963&email=, Response URL: https://ml-ckyc-dev.df.r.appspot.com/api/v1/customers/exact-search - undefined | "Bad Request" - 400 | undefined undefined
+ERROR 2023-11-04T09:21:55.829 Logging.. - 
+    Request URL: /api/ml-loans/symph/get-customers?cellphoneNumber=09631198435&email=, Response URL: https://ml-ckyc-dev.df.r.appspot.com/api/v1/customers/exact-search - undefined | "Bad Request" - 400 | undefined undefined
+ERROR 2023-11-04T09:54:41.110 Logging.. - 
+    Request URL: /api/ml-loans/symph/get-customers?cellphoneNumber=09631198435&email=, Response URL: https://ml-ckyc-dev.df.r.appspot.com/api/v1/customers/exact-search - undefined | "Bad Request" - 400 | undefined undefined
+ERROR 2023-11-04T10:05:17.643 Logging.. - 
+    Request URL: /api/ml-loans/symph/get-customers?cellphoneNumber=&email=, Response URL: https://ml-ckyc-dev.df.r.appspot.com/api/v1/customers/exact-search - undefined | "Bad Request" - 400 | undefined undefined
+ERROR 2023-11-04T10:07:34.569 Logging.. - 
+    Request URL: /api/ml-loans/symph/get-customers?cellphoneNumber=09631198435&email=, Response URL: https://ml-ckyc-dev.df.r.appspot.com/api/v1/customers/exact-search - undefined | "Bad Request" - 400 | undefined undefined
+ERROR 2023-11-04T10:10:12.161 Logging.. - 
+    Request URL: /api/ml-loans/symph/get-customers?cellphoneNumber=09631198435&email=, Response URL: https://ml-ckyc-dev.df.r.appspot.com/api/v1/customers/exact-search - undefined | "Bad Request" - 400 | undefined undefined
+ERROR 2023-11-04T10:43:24.208 Logging.. - 
+    Request URL: /api/ml-loans/symph/get-customers?cellphoneNumber=09631198435&email=, Response URL: https://ml-ckyc-dev.df.r.appspot.com/api/v1/customers/exact-search - undefined | "Bad Request" - 400 | undefined undefined
+ERROR 2023-11-04T10:54:11.299 Logging.. - 
+    Request URL: /api/ml-loans/symph/get-customers?cellphoneNumber=09631198435&email=, Response URL: https://ml-ckyc-dev.df.r.appspot.com/api/v1/customers/exact-search - undefined | "Bad Request" - 400 | undefined undefined
+ERROR 2023-11-04T13:19:18.970 Logging.. - 
+    Request URL: /api/ml-loans/symph/get-customers?cellphoneNumber=09631198435&email=, Response URL: https://ml-ckyc-dev.df.r.appspot.com/api/v1/customers/exact-search - undefined | "Bad Request" - 400 | undefined undefined
+ERROR 2023-11-04T14:52:15.072 Logging.. - 
+    Request URL: /api/ml-loans/symph/get-customers?cellphoneNumber=asdada&email=, Response URL: https://ml-ckyc-dev.df.r.appspot.com/api/v1/customers/exact-search - undefined | "Bad Request" - 400 | undefined undefined
+ERROR 2023-11-04T14:55:52.119 Logging.. - 
+    Request URL: /api/ml-loans/symph/get-customers?cellphoneNumber=&email=, Response URL: https://ml-ckyc-dev.df.r.appspot.com/api/v1/customers/exact-search - undefined | "Bad Request" - 400 | undefined undefined
+ERROR 2023-11-04T15:05:55.326 Logging.. - 
+    Request URL: /api/ml-loans/symph/get-customers?cellphoneNumber=09631198435&email=, Response URL: https://ml-ckyc-dev.df.r.appspot.com/api/v1/customers/exact-search - undefined | "Bad Request" - 400 | undefined undefined

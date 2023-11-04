@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import '../../../styles/housing.css';
 import HousingCardsComponent from './HousingCardsComponent';
 import CustomCardTitle from '../../custom/Custom.cardTitle';
@@ -20,10 +20,11 @@ const HousingCurrentAddressComponent = () => {
     barangay: "",
     lenghtOfStay: "",
     otherAddress: "",
-    residenceType:""
+    residenceType: ""
   })
 
   const [keepAddress, setKeepAAddress] = useState(null);
+  const [isCorrespond, setIsCorrespond] = useState(false);
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
   const [inputProps, setIsInputProps] = useState({
     disabled: true,
@@ -64,16 +65,15 @@ const HousingCurrentAddressComponent = () => {
   const { secondStepDetails } = location.state || {};
 
   useEffect(() => {
-
+    console.log(location.state);
     if (!keepAddress) {
       console.log(keepAddress);
-      
-     
-    }else if (keepAddress.toLowerCase() == "no") {
-      
-    }else if (keepAddress.toLowerCase() == "yes") {
+    } else if (keepAddress.toLowerCase() == "no") {
+      setIsCorrespond(false);
+      console.log("Address".keepAddress);
+    } else if (keepAddress.toLowerCase() == "yes") {
+      setIsCorrespond(true);
       const address = location.state.secondStepDetails.personalDetails[1];
-
       setCurrentAddress((currState) => ({
         ...currState,
         country: address.countries,
@@ -83,7 +83,7 @@ const HousingCurrentAddressComponent = () => {
       }))
     }
 
-  },[])
+  }, [])
 
   useEffect(() => {
 
@@ -91,7 +91,7 @@ const HousingCurrentAddressComponent = () => {
 
     setIsSubmitDisabled(isCompleted.includes(false))
 
-  },[currentAdress])
+  }, [currentAdress])
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
@@ -101,10 +101,10 @@ const HousingCurrentAddressComponent = () => {
       secondStepDetails: secondStepDetails,
       currentAdress
     };
-    
+
     navigate("/housing-loan/requirements", {
       state: {
-        thirdStepDetails:thirdStepDetails,
+        thirdStepDetails: thirdStepDetails,
       },
     });
   };
@@ -120,10 +120,14 @@ const HousingCurrentAddressComponent = () => {
 
   const OnKeepAddress = (e) => {
     const { name, value } = e.target;
-
     console.log(name, value);
-
     setKeepAAddress(value);
+    if (value === "Yes") {
+      setIsCorrespond(true);
+    } else {
+      setIsCorrespond(false);
+    }
+    console.log(keepAddress);
   }
 
 
@@ -133,94 +137,79 @@ const HousingCurrentAddressComponent = () => {
         <TopbarComponent />
         <CustomHeader title="Housing Loan" />
         <div className="housing-content">
-            <CustomPrevBtn />
-            <HousingCardsComponent>
-              <CustomCardTitle
-                title={'Current Address'}
-                styles={'custom-card-title'}
-              />
-              <div className="confirm-address">
-              <p>Does the address on the previous form correspond to your current address?</p>
-                <HousingRadiosComponent
-                    radioVal={confirmRadioVal}
-                    onSelected={OnKeepAddress}
-                    radioName={'address'}
-                  />
-              </div>
-              <div className="col">
-                <CustomSelect 
+          <CustomPrevBtn />
+          <HousingCardsComponent>
+            <CustomCardTitle
+              title={'Current Address'}
+              styles={'custom-card-title'}
+            />
+            <div className="col">
+              <CustomSelect
                 availableOptions={null}
                 selectName={"country"}
                 selectedOption={currentAdress.country}
                 defaultVal={'Country'}
-                styles={'custom-select col-1'}/>
+                styles={'custom-select col-1'} />
 
-                <CustomSelect 
+              <CustomSelect
                 availableOptions={null}
                 selectName={"province"}
                 selectedOption={currentAdress.province}
                 defaultVal={'Province'}
-                styles={'custom-select col-2'}/>
-              </div>
-              <div className="col">
-                <CustomSelect 
+                styles={'custom-select col-2'} />
+            </div>
+            <div className="col">
+              <CustomSelect
                 availableOptions={null}
-                selectName={"country"}
+                selectName={"city"}
                 selectedOption={currentAdress.city}
                 defaultVal={'City'}
-                styles={'custom-select col-1'}/>
-                <CustomInputField
-                  inputType={'text'}
-                  inputStyle={'custom-select col-2'}
-                  inputOnchange={null}
-                  inputVal={currentAdress.barangay}
-                  inputPlaceholder={'Barangay'}
-                  inputName={'barangay'}
-                  readOnly
-                />
-                {/* <CustomSelect 
-                availableOptions={null}
-                selectName={"province"}
-                selectedOption={currentAdress.barangay}
-                defaultVal={'Barangay'}
-                styles={'custom-select province'}/> */}
-              </div>
-              <div className="col">
+                styles={'custom-select col-1'} />
               <CustomInputField
-                  inputType={'text'}
-                  inputStyle={'custom-select col-1'}
-                  inputOnchange={OnInputChange}
-                  inputVal={currentAdress.lenghtOfStay}
-                  inputPlaceholder={'Length of stay'}
-                  inputName={'lenghtOfStay'}
-                />
-                <CustomInputField
-                  inputType={'text'}
-                  inputStyle={'custom-select col-2'}
-                  inputOnchange={OnInputChange}
-                  inputVal={currentAdress.otherAddress}
-                  inputPlaceholder={'House No./Unit No./Building Name/Street'}
-                  inputName={'otherAddress'}
-                />
-              </div>
-              <div className="residence-type">
-                <p>Type of Residence</p>
-                <HousingRadiosComponent
-                  radioVal={currendAddressRadioVal}
-                  onSelected={OnInputChange}
-                  radioName={'residenceType'}
-                />
-              </div>
-            </HousingCardsComponent>
-            <form onSubmit={handleFormSubmit}>
-                <div className="apply-btn">
-                    <CustomButton
-                        type="submit"
-                        name="Proceed"
-                        styles={buttonClassName}
-                        disabled={isSubmitDisabled}
-                    ></CustomButton>
-                </div>
+                inputType={'text'}
+                inputStyle={'custom-select col-2'}
+                inputOnchange={null}
+                inputVal={currentAdress.barangay}
+                inputPlaceholder={'Barangay'}
+                inputName={'barangay'}
+                readOnly />
+            </div>
+            <div className="col">
+              <CustomInputField
+                inputType={'text'}
+                inputStyle={'custom-select col-1'}
+                inputOnchange={OnInputChange}
+                inputVal={currentAdress.lenghtOfStay}
+                inputPlaceholder={'Length of stay'}
+                inputName={'lenghtOfStay'}
+              />
+              <CustomInputField
+                inputType={'text'}
+                inputStyle={'custom-select col-2'}
+                inputOnchange={OnInputChange}
+                inputVal={currentAdress.otherAddress}
+                inputPlaceholder={'House No./Unit No./Building Name/Street'}
+                inputName={'otherAddress'}
+              />
+            </div>
+            <div className="residence-type">
+              <p>Type of Residence</p>
+              <HousingRadiosComponent
+                radioVal={currendAddressRadioVal}
+                onSelected={OnInputChange}
+                radioName={'residenceType'}
+              />
+            </div>
+          </HousingCardsComponent>
+          <form onSubmit={handleFormSubmit}>
+            <div className="apply-btn">
+              <CustomButton
+                type="submit"
+                name="Proceed"
+                styles={buttonClassName}
+                disabled={isSubmitDisabled}
+              ></CustomButton>
+            </div>
           </form>
         </div>
       </div>
