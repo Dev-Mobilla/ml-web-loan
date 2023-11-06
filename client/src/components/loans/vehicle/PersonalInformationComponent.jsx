@@ -70,52 +70,25 @@ const PersonalInformationComponent = ({
   const handleBlur = (fieldName) => {
     // Perform validation when the input field is unfocused (blurred)
     if (informationDetails[fieldName].trim() === '') {
-      if (fieldName === 'civil_status') {
+      if (fieldName === 'firstname' ||
+        fieldName === 'lastname' ||
+        fieldName === 'civil_status' ||
+        fieldName === 'employeer_business' ||
+        fieldName === 'tenure' ||
+        fieldName === 'office_address' ||
+        fieldName === 'office_landline' ||
+        fieldName === 'sourceOfIncome' ||
+        fieldName === 'monthly_income'
+      ) {
         setErrors((prevErrors) => ({
           ...prevErrors,
-          [fieldName]: `Please enter your Civil Status`,
-        }));
-      }
-      else if (fieldName === 'employeer_business') {
-        setErrors((prevErrors) => ({
-          ...prevErrors,
-          [fieldName]: `Please enter Employeer Business Name `,
-        }));
-      }
-      else if (fieldName === 'office_address') {
-        setErrors((prevErrors) => ({
-          ...prevErrors,
-          [fieldName]: `Please enter your Office address `,
-        }));
-      }
-      else if (fieldName === 'office_landline') {
-        setErrors((prevErrors) => ({
-          ...prevErrors,
-          [fieldName]: `Please enter your Office Landline `,
-        }));
-      }
-      else if (fieldName === 'nationality') {
-        setErrors((prevErrors) => ({
-          ...prevErrors,
-          [fieldName]: `Please enter your Nationality`,
-        }));
-      }
-      else if (fieldName === 'sourceOfIncome') {
-        setErrors((prevErrors) => ({
-          ...prevErrors,
-          [fieldName]: `Please enter the Type of your Source of Income`,
-        }));
-      }
-      else if (fieldName === 'monthly_income') {
-        setErrors((prevErrors) => ({
-          ...prevErrors,
-          [fieldName]: `Please enter your Monthly Income`,
+          [fieldName]: `Please enter your ${fieldName}`,
         }));
       }
       else {
         setErrors((prevErrors) => ({
           ...prevErrors,
-          [fieldName]: `Please enter your ${fieldName}`,
+          [fieldName]: `Please select your ${fieldName}`,
         }));
       }
       setFieldBorders((prevBorders) => ({
