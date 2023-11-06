@@ -79,6 +79,7 @@ const PersonalInformationComponent = ({
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
+    
     setInformationDetails((prevDetails) => ({
       ...prevDetails,
       [name]: value,

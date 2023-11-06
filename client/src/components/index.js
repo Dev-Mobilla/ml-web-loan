@@ -65,10 +65,12 @@ import HousingCurrentAddressComponent from "./loans/housing/HousingCurrentAddres
 import CustomSelect from "./custom/Custom.select";
 import HousingRequirementsComponent from "./loans/housing/HousingRequirementsComponent";
 import CustomRequirementDocsComponent from "./custom/Custom.requirementdoc";
+import HousingCurrentAddress  from "./loans/housing/HousingCurrentAddress";
 
 export {
   
   DashboardComponent,
+  HousingCurrentAddress,
   FooterComponent,
   HeaderComponent,
   TopbarComponent,

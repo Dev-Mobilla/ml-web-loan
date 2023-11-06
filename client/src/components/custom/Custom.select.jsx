@@ -4,7 +4,7 @@ const CustomSelect = ({ selectName, availableOptions, selectedOption, OnSelectCh
   const Select = () => {
     return (
         availableOptions != null ? 
-            <select name={selectName} value={selectedOption} onChange={OnSelectChange} className={styles}>
+            <select name={selectName} value={selectedOption || ''} onChange={OnSelectChange} className={styles}>
                 <option value="">{defaultVal}</option>
                 {
                    availableOptions?.map((option, key) => {

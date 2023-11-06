@@ -3,12 +3,12 @@ import axios from "axios";
 import { useNavigate, useLocation } from "react-router-dom";
 import "../styles/customerdetails.css";
 import { GetCountries, GetProvinces, GetCities } from "../api/symph.api";
-
 import {
+  LoadingComponent,
   TopbarComponent,
   CustomHeader,
   CustomPrevBtn,
-  CustomSelect,
+  HousingCurrentAddress,
   CustomButton,
   HousingRadiosComponent,
   CustomCardTitle,
@@ -36,13 +36,10 @@ const calculateDistance = (lat1, lon1, lat2, lon2) => {
 const CustomerDetailsComponent = ({ url }) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const [ListOfCountries, setListOfCountries] = useState([]);
+
+  const [ListOfCountries, setListOfNoCountries] = useState([]);
   const [ListOfProvinces, setListOfProvinces] = useState([]);
   const [ListOfCities, setListOfCities] = useState([]);
-
-  const [ListOfNoCountries, setListOfNoCountries] = useState([]);
-  const [ListOfNoProvinces, setListOfNoProvinces] = useState([]);
-  const [ListOfNoCities, setListOfNoCities] = useState([]);
   const [address, setAddress] = useState("");
   const [customAlert, setCustomAlert] = useState(false);
   const [alertProps, setAlertProps] = useState(null);
@@ -62,10 +59,6 @@ const CustomerDetailsComponent = ({ url }) => {
     mobile_number: "",
     email: "",
   });
-
-
-
-
 
   const [informationDetails, setInformationDetails] = useState({
     firstname: "",
@@ -104,9 +97,12 @@ const CustomerDetailsComponent = ({ url }) => {
 
     if (value === "Yes") {
       setIsCorrespond(true);
+      setAddress("");
     } else {
       setIsCorrespond(false);
+      setAddress("");
     }
+
     console.log(keepAddress);
   }
   useEffect(() => {
@@ -145,6 +141,10 @@ const CustomerDetailsComponent = ({ url }) => {
   informationDetails.cities,
   informationDetails.provinces,
   informationDetails.countries])
+
+
+
+
 
   // useEffect(()=> {
   //   performSearch(contactDetails.mobile_number, contactDetails.email)
@@ -247,14 +247,24 @@ const CustomerDetailsComponent = ({ url }) => {
     }
 
   };
-
+  const fetchData = async () => {
+    try {
+      const getCountries = await GetCountries();
+      const getProvinces = await GetProvinces();
+      const getCities = await GetCities();
+      setListOfNoCountries(await getCountries.data);
+      setListOfProvinces(await getProvinces.data);
+      setListOfCities(await getCities.data);
+    } catch (error) {
+    }
+    setLoading(false);
+  };
   const handleInputChange = (field, value) => {
+    console.log(value);
     if (field === "address") {
       setAddress(value);
     } else if (field === "selectedOption") {
       setSelectedOption(value);
-    }
-    if (field == "mobile_number") {
     }
     handleValidationChange();
   };
@@ -462,47 +472,13 @@ const CustomerDetailsComponent = ({ url }) => {
     }
 
   };
-  const handleCountryChange = async (event) => {
-    const selectedCountryId = event.target.value;
-
-    setInformationDetails((prevState) => ({
-      ...prevState,
-      countries: selectedCountryId,
-    }));
-  };
-  const handleProvinceChange = async (event) => {
-    const selectedProvinceId = event.target.value;
-
-    setInformationDetails((prevState) => ({
-      ...prevState,
-      provinces: selectedProvinceId,
-    }));
-  };
-  const handleNoProvinceChange = async (event) => {
-    const selectedProvinceId = event.target.value;
-
-    setInformationDetails((prevState) => ({
-      ...prevState,
-      provinces: selectedProvinceId,
-    }));
-  };
-  const fetchData = async () => {
-    try {
-      const getCountries = await GetCountries();
-      const getProvinces = await GetProvinces();
-      const getCities = await GetCities();
-      setListOfCountries(await getCountries.data);
-      setListOfProvinces(await getProvinces.data);
-      setListOfCities(await getCities.data);
-      setListOfNoCountries(await getCountries.data);
-      setListOfNoProvinces(await getProvinces.data);
-      setListOfNoCities(await getCities.data);
-    } catch (error) {
-    }
-    setLoading(false);
-  };
   return (
     <div className="customer-details">
+      {loading && (
+        <div className="overlay">
+          <LoadingComponent containerStyle="container-loading" />
+        </div>
+      )}
       <div className="customer-details-container">
         <TopbarComponent />
         <CustomHeader title="Personal Details" />
@@ -557,25 +533,36 @@ const CustomerDetailsComponent = ({ url }) => {
                 <>
                   <div className="col1">
                     <div className="correspond-input-div">
+                      <HousingCurrentAddress
+                        onInformationDetailsChange={setInformationDetails}
+                        onValidationChange={handleValidationChange}
+                        informationDetails={informationDetails}
+                        setInformationDetails={setInformationDetails}
+                        theListOfCountries={ListOfCountries}
+                        styles={'correspond-select-left'}
+                      />
+                    </div>
+                  </div>
+                  {/* 
                       <select
                         className="correspond-select-left"
-                        name="noCountries"
+                        name="Countries"
                         onChange={(event) => {
                           handleInputChange(event);
                           handleCountryChange(event);
                         }}
-                        onFocus={() => handleFocus('noCountries')}
-                        onBlur={() => handleBlur('noCountries')}
-                        style={{ border: fieldBorders.countries }}
+                        onFocus={() => handleFocus('Countries')}
+                        onBlur={() => handleBlur('Countries')}
+                        style={{ border: fieldBorders.Countries }}
                       >
                         <option value="">Country</option>
-                        {ListOfNoCountries.map((noCountry) => (
-                          <option key={noCountry.addressL0Id} value={`${noCountry.name}|${noCountry.addressL0Id}`}>
-                            {noCountry.name}
+                        {ListOfCountries.map((Country) => (
+                          <option key={Country.addressL0Id} value={`${Country.name}|${Country.addressL0Id}`}>
+                            {Country.name}
                           </option>
                         ))}
                       </select>
-                      <div style={{ color: 'red', fontSize: '12px', margin: '10px 20px 20px 0' }}>{errors.noCountries}</div>
+                      <div style={{ color: 'red', fontSize: '12px', margin: '10px 20px 20px 0' }}>{errors.Countries}</div>
                     </div>
                     <div className="correspond-input-div">
                       <select
@@ -583,14 +570,14 @@ const CustomerDetailsComponent = ({ url }) => {
                         name="noProvinces"
                         onChange={(event) => {
                           handleInputChange(event);
-                          handleNoProvinceChange(event);
+                          handleProvinceChange(event);
                         }}
                         onFocus={() => handleFocus('noProvinces')}
                         onBlur={() => handleBlur('noProvinces')}
                         style={{ border: fieldBorders.provinces }}
                       >
                         <option value="">Province</option>
-                        {ListOfNoProvinces.map((province) => (
+                        {ListOfProvinces.map((province) => (
                           <option key={province.addressL1Id} value={`${province.name}|${province.addressL1Id}`}>
                             {province.name}
                           </option>
@@ -612,7 +599,7 @@ const CustomerDetailsComponent = ({ url }) => {
                         style={{ border: fieldBorders.cities }}
                       >
                         <option value="">City</option>
-                        {ListOfNoCities.map((city) => (
+                        {ListOfCities.map((city) => (
                           <option key={city.addressL2Id} value={`${city.name}|${city.addressL2Id}`}>
                             {city.name}
                           </option>
@@ -634,7 +621,7 @@ const CustomerDetailsComponent = ({ url }) => {
                       />
                       <div style={{ color: 'red', fontSize: '12px', margin: '10px 20px 20px 0' }}>{errors.noBarangay}</div>
                     </div>
-                  </div>
+                  </div> */}
                 </>
               )}
             </div>
