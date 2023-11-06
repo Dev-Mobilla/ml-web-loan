@@ -726,7 +726,7 @@
   .dashboard .pensioner,
   .dashboard .salary {
     top: 0;
-    margin-left: 0;
+    margin:15px 0;
     cursor: pointer;
     position: relative;
     width: 47%;
@@ -1059,6 +1059,114 @@
   .dashboard .s-desc {
     width: 150px;
     left: 80px;
+  }
+
+  .dashboard .s-icon {
+    top: 15px;
+    height: 50px;
+    width: 50px;
+    left: 0px;
+  }
+  .dashboard .login-modal .modal-container {
+    width: 50%;
+  }
+  .dashboard .login-modal .modal-inputbtn-wrapper {
+    width: 60%;
+  }
+}
+@media screen and (min-width: 1201px) and (max-width: 1400px) {
+  .dashboard .content-card--wrapper {
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .dashboard .vehicle,
+  .dashboard .housing,
+  .dashboard .QCL,
+  .dashboard .SBL,
+  .dashboard .pensioner,
+  .dashboard .salary {
+    top: 0;
+    margin: 10px 0;
+    cursor: pointer;
+    position: relative;
+    width: 27%;
+    left: 0;
+  }
+  .dashboard .overlap-5,
+  .dashboard .overlap-group-3,
+  .dashboard .overlap-group-qcl,
+  .dashboard .overlap-group-sbl,
+  .dashboard .overlap-group-pensioner,
+  .dashboard .overlap-group-salary {
+    width: 100%;
+    top: 0;
+  }
+  .dashboard .floating-diamond {
+    display: none;
+  }
+  .dashboard .img {
+    display: none;
+  }
+  .dashboard .body-bg {
+    top: 400px;
+    left: 0;
+    margin: auto;
+  }
+  .dashboard .v-desc,
+  .dashboard .h-desc,
+  .dashboard .QCL-desc,
+  .dashboard .SBL-desc,
+  .dashboard .p-desc,
+  .dashboard .s-desc {
+    font-size: 15px;
+    left: 85px;
+    top: 55px;
+  }
+
+  .dashboard .vltitle,
+  .dashboard .hltitle,
+  .dashboard .QC-ltitle,
+  .dashboard .SB-ltitle,
+  .dashboard .ptitle,
+  .dashboard .stitle {
+    font-size: 22px;
+    left: 90px;
+    top: 20px;
+    width: 190px;
+  }
+
+  .dashboard .v-icon,
+  .dashboard .h-icon,
+  .dashboard .QCL-icon,
+  .dashboard .SBL-icon,
+  .dashboard .p-icon,
+  .dashboard .s-icon {
+    top: 35px;
+    height: 50px;
+    width: 50px;
+    left: 15px;
+  }
+  .dashboard .QC-ltitle {
+    width: 190px;
+    left: 80px;
+  }
+
+  .dashboard .SB-ltitle {
+    font-size: 22px;
+    left: 80px;
+    top: 20px;
+    width: 200px;
+  }
+
+  .dashboard .ptitle {
+    width: 150px;
+    left: 80px;
+  }
+  .dashboard .stitle {
+    font-size: 22px;
+    left: 60px;
+    top: 0;
   }
 
   .dashboard .s-icon {
