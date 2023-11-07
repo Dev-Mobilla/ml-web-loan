@@ -31,7 +31,20 @@ const DashboardComponent = () => {
   const closeModal = () => {
     setIsModalOpen(false);
   };
+  const[isModalVisible, setModalVisible] = useState (false);
 
+  const handleFeatureModalOpen = (event) =>{
+    if (window.innerWidth < 360 ) {
+      event.preventDefault();
+    } else {
+      setModalVisible(false);
+    }
+      };
+  const handleFeatureModalClose = () =>{
+      setModalVisible(false);              
+    }
+  
+ 
   return (
     <div className="dashboard">
       <div className="dashboard-div">
@@ -51,23 +64,42 @@ const DashboardComponent = () => {
             />
 
             <div className="content-card--wrapper">
-              <div className="vehicle">
-                <a href="/vehicle-loan/loan-type/new">
-                  <div className="overlap-5">
-                    <div className="v-desc">
-                      <li>New/Used Cars or Motorcycles</li>
-                      <li>Refinance your owned vehicle</li>
-                    </div>
-                    <div className="vltitle">Vehicle Loan</div>
-                    <img
-                      className="v-icon"
-                      alt="V icon"
-                      src="https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e41e67e1c2a81b98b3c871/img/v-icon@2x.png"
-                    />
+                  <div className="vehicle">
+                    {isModalVisible ? (
+                      <div className="overlap-5" onClick={handleFeatureModalOpen}>
+                        <div className="v-desc">
+                          <li>New/Used Cars or Motorcycles</li>
+                          <li>Refinance your owned vehicle</li>
+                        </div>
+                        <div className="vltitle">Vehicle Loan</div>
+                        <img
+                          className="v-icon"
+                          alt="V icon"
+                          src="https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e41e67e1c2a81b98b3c871/img/v-icon@2x.png"
+                        />
+                      </div>
+                    ) : (
+                      <a href="/vehicle-loan/loan-type/new" onClick={handleFeatureModalOpen}>
+                        <div className="overlap-5">
+                          <div className="v-desc">
+                            <li>New/Used Cars or Motorcycles</li>
+                            <li>Refinance your owned vehicle</li>
+                          </div>
+                          <div className="vltitle">Vehicle Loan</div>
+                          <img
+                            className="v-icon"
+                            alt="V icon"
+                            src="https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e41e67e1c2a81b98b3c871/img/v-icon@2x.png"
+                          />
+                        </div>
+                      </a>
+                    )}
                   </div>
-                </a>
-              </div>
 
+                  {isModalVisible && (
+                    <FeatureNotAvailableModalComponent onClose={handleFeatureModalClose} />
+                  )}
+         
               <div className="housing">
                 <a href="/housing-loan/required-info">
                   <div className="overlap-group-3">
