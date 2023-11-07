@@ -105,19 +105,22 @@ const PersonalInformationComponent = ({
 
   const handleBlur = (fieldName) => {
     // Perform validation when the input field is unfocused (blurred)
+    console.log("fieldName", fieldName);
     if (informationDetails[fieldName] === '') {
       const errorMessages = {
-        civil_status: `Please enter your Civil Status`,
-        employeer_business: `Please enter Employeer Business Name`,
-        office_address: `Please enter your Office address`,
-        office_landline: `Please enter your Office Landline`,
-        nationality: `Please select your Nationality`,
-        sourceOfIncome: `Please enter the Type of your Source of Income`,
-        monthly_income: `Please enter your Monthly Income`,
+        civil_status: `Please enter your civil status`,
+        employeer_business: `Please enter employeer business name`,
+        office_address: `Please enter your office address`,
+        office_landline: `Please enter your office landline`,
+        nationality: `Please enter your nationality`,
+        sourceOfIncome: `Please enter your source of income`,
+        monthly_income: `Please enter your monthly income`,
+        firstname: `Please enter your first name`,
+        lastname: `Please enter your last name`,
+        tenure: `Please enter length of tenure`,
+        barangay: `Please enter your barangay`,
       };
-      // if (fieldName === 'civil_status') {
-      // } 
-    // if (informationDetails[fieldName].trim() === "") {
+
       if (errorMessages.hasOwnProperty(fieldName)) {
         setErrors((prevErrors) => ({
           ...prevErrors,

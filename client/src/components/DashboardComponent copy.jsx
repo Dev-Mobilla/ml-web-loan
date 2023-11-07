@@ -1,20 +1,15 @@
 import React, { useEffect, useState } from "react";
 import "../styles/dashboard.css";
-import { useNavigate } from 'react-router-dom';
 
 import {
   HeaderComponent,
   TopbarComponent,
   FeatureNotAvailableModalComponent,
-  CustomIcon,
-  CustomCardTitle
 } from "./index";
 import { isCookiePresent } from "../utils/CookieChecker";
 
 const DashboardComponent = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const navigate = useNavigate();
-
   const ManageLoansHandler = () => {
     const sessionCookieName = process.env.REACT_APP_SESSION_COOKIE_NAME;
     const accountCookieName = process.env.REACT_APP_ACCOUNT_COOKIE_NAME;
@@ -38,106 +33,17 @@ const DashboardComponent = () => {
   };
   const[isModalVisible, setModalVisible] = useState (false);
 
-  const handleFeatureModalOpen = (event, link) =>{
-    if (link) {
-      console.log(link);
+  const handleFeatureModalOpen = (event) =>{
+    if (window.innerWidth < 360 ) {
       event.preventDefault();
-      navigate(link)
     } else {
-      setModalVisible(true);
+      setModalVisible(false);
     }
-  };
-
+      };
   const handleFeatureModalClose = () =>{
       setModalVisible(false);              
     }
-
-  const { Housing, Vehicle, QCL, HousingLoan, SBL, Salary, Pension} = CustomIcon;
-
-  const MenuItems = [
-    {
-      name: "Vehicle Loan",
-      icon: <Vehicle/>,
-      list: [
-        "New/Used Cars or Motorcycles",
-        "Refinance your owned vehicle"
-      ],
-      link: "/vehicle-loan/loan-type/new"
-    },
-    {
-      name: "Housing Loan",
-      icon: <HousingLoan/>,
-      list: [
-        "House/Lot/Condo",
-        "Refinance an owned house",
-      ],
-      link: null
-    },
-    {
-      name: "Quick Cash Loan",
-      icon: <QCL/>,
-      list: [
-        "Pawn Jewelry, Watches, Others",
-        " Renew Online",
-      ],
-      link: null
-    },
-    {
-      name: "Small Business Loan",
-      icon: <SBL/>,
-      list: [
-        "Cash Loans",
-        " Small Business Owners",
-      ],
-      link: null
-    },
-    {
-      name: "Pensioner's Loan",
-      icon: <Pension/>,
-      list: [
-        "Cash Loans for Pensioners",
-        "Online payments via ML Wallet",
-      ],
-      link: null
-    },
-    {
-      name: "Salary Loan",
-      icon: <Salary/>,
-      list: [
-        "Cash Loans for Workers",
-        " Online payments via ML Wallet",
-      ],
-      link: null
-    }
-  ]
-
-  const Menu = () => {
-    return MenuItems?.map((item, key) => {
-      return (
-        <div className="menu-item" key={key} onClick={(e) => handleFeatureModalOpen(e, item.link)}>
-          <div className="menu-item--wrapper">
-            <div className="menu-item--col-1">
-              {
-                item.icon
-              }
-            </div>
-            <div className="menu-item--col-2">
-              <CustomCardTitle
-                title={item.name}
-                styles={'menu-item--title'}
-              />
-              <div className="menu-item--subtitle">
-                {
-                  item.list?.map((list, index) => <li key={index} className="subtitle-list">{list}</li>)
-                }
-              </div>
-            </div>
-          </div>
-        </div>
-      )
-    })
-
-  } 
+  
  
   return (
     <div className="dashboard">
@@ -158,13 +64,7 @@ const DashboardComponent = () => {
             />
 
             <div className="content-card--wrapper">
-                <div className="menu-wrapper">
-                  <Menu/>
-                </div>
-                {isModalVisible && (
-                    <FeatureNotAvailableModalComponent onClose={handleFeatureModalClose} />
-                )}
-                  {/* <div className="vehicle">
+                  <div className="vehicle">
                     {isModalVisible ? (
                       <div className="overlap-5" onClick={handleFeatureModalOpen}>
                         <div className="v-desc">
@@ -347,7 +247,7 @@ const DashboardComponent = () => {
                     </div>
                   </div>
                 </a>
-              </div> */}
+              </div>
             </div>
           </div>
         </div>
