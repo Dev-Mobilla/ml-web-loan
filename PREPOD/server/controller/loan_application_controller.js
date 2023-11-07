@@ -26,7 +26,7 @@ async function createLoanApplication(LoanApplicationJsonData, options) {
             body: `We're sorry, something went wrong on our end. Please try again later or contact our support team.`
         }
 
-        let err = ErrorThrower(500, "INTERNAL_SERVER_ERROR", message, error, 'server:/create-loan/loan-application');
+        let err = ErrorThrower(500, "INTERNAL_SERVER_ERROR", message, error);
 
         throw err;
     }
@@ -139,7 +139,7 @@ const FindOrCreateCustomer = async (details, options) => {
             body: `We're sorry, something went wrong on our end. Please try again later or contact our support team.`
         }
 
-        let err = ErrorThrower(500, "INTERNAL_SERVER_ERROR", message, error, 'server:/find-create-customer');
+        let err = ErrorThrower(500, "INTERNAL_SERVER_ERROR", message, error);
 
         throw err;
     }
@@ -163,7 +163,7 @@ const FindMaxId = async (modelInstance, idName, options) => {
             body: `We're sorry, something went wrong on our end. Please try again later or contact our support team.`
         }
 
-        let err = ErrorThrower(500, "INTERNAL_SERVER_ERROR", message, error, 'server:/find-max-id');
+        let err = ErrorThrower(500, "INTERNAL_SERVER_ERROR", message, error);
         throw err
     }
 }
@@ -221,10 +221,12 @@ const AddLoan = async (req, res, next) => {
         SuccessLogger(req.url, 200,`GET LOAN TYPE FIELDS: ${JSON.stringify(getFieldValues.data)}, 
         RETREIVED SUCCESSFULLY, LOAN TYPE: ${loanApplication.application_loan_type}, 
         CODE: RETREIVED_SUCCESS` )
+
+        let vehicleDESC = `${loanApplication.chassis_number} ${loanApplication.engine_number} ${loanApplication.plate_number} ${loanApplication.variant} ${loanApplication.model} ${loanApplication.make}  ${loanApplication.year}`;
         
         // // // FIEDL ITEMS
         const loanTypeFieldItems = {
-            vehicle_description: `${loanApplication.chassis_number} ${loanApplication.engine_number} ${loanApplication.plate_number} ${loanApplication.variant} ${loanApplication.model} ${loanApplication.make}  ${loanApplication.year}`,
+            vehicle_description: vehicleDESC.replace(/NULL|null/g, ""),
             principal_amount: loanApplication.principal_amount,
             unit: loanApplication.loan_type,
             or: vehicleDetails.original_or,
@@ -257,7 +259,7 @@ const AddLoan = async (req, res, next) => {
 
         })
 
-        let FieldItemsValues = JSON.stringify(JSON.stringify(fieldItems))
+        let FieldItemsValues = JSON.stringify(fieldItems);
 
         SuccessLogger(req.url, 200,`GET LOAN TYPE ITEM FIELDS: ${JSON.stringify(getFieldItem.data)}, 
             RETREIVED SUCCESSFULLY, LOAN TYPE: ${loanApplication.application_loan_type}, 
@@ -270,12 +272,12 @@ const AddLoan = async (req, res, next) => {
             term: parseInt(loanApplication.terms),
 
         }
-        let full_name = `${customerDetails.first_name} ${customerDetails.middle_name || customerDetails.middle_name == "NULL" ? customerDetails.middle_name : ""} ${customerDetails.last_name} ${customerDetails.suffix || customerDetails.suffix == "NULL" ? customerDetails.suffix : ""}`;
-
+        // let full_name = `${customerDetails.first_name} ${customerDetails.middle_name || customerDetails.middle_name == "NULL" ? customerDetails.middle_name : ""} ${customerDetails.last_name} ${customerDetails.suffix || customerDetails.suffix == "NULL" ? customerDetails.suffix : ""}`;
+        let full_name = `${customerDetails.first_name} ${customerDetails.middle_name} ${customerDetails.last_name} ${customerDetails.suffix}`;
         const CustomerDetailsHatchit = {
             customer_id: customerDetails.customer_id,
             ckyc_id: customerDetails.ckyc_id,
-            full_name: full_name,
+            full_name: full_name.replace(/NULL|null/g, ""),
             contact_number: customerDetails.mobile_number,
             email: customerDetails.email,
             business_name: "",
