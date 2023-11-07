@@ -20,14 +20,34 @@
   flex-direction: column;
   margin: 0 auto;
   max-width: 400px;
-  padding: 10px;
+  padding: 5px;
   color: var(--text-gray);
 }
+.correspond-div .radio-wrapper{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.correspond-div .current-address--col{
+  display: flex;
+  /* align-items: center; */
+  margin-top: 15px;
+}
+.correspond-div .current-address--col .c-details-input.current-address-country{
+  width: 48%;
+  margin: 0 5px 10px 0;
+}
 
-.correspond-div .housing-radios.preferred-branch-radios {
-  display: inline;
-  margin-left: 80px;
-  margin-bottom: 100px;
+.correspond-div .current-address--col .c-details-input.current-address-provinces{
+  width: 50%;
+  margin: 0 0 10px 5px;
+}
+.correspond-div .correspond-input-div .c-details-input{
+  margin: 5px 0;
+}
+
+.correspond-div .preferred-branch-radios{
+  width: 50%;
 }
 
 .correspond-div .col1 {

@@ -360,22 +360,22 @@ const CustomerRequirementComponent = () => {
         );
 
           location.state = null
-          sessionStorage.clear();
+          // sessionStorage.clear();
           
           setTimeout(() => {
             setShowLoading({
               loading: false,
               text: "Just a moment",
             });
-            navigate(`/vehicle-loan/receipt`, {
-              state: {
-                LoanDetails: {
-                    Loan: JSON.stringify(AddMLLoan),
-                    LoanType: loan_type
-                  }
-              },
-              replace: true
-            })
+            // navigate(`/vehicle-loan/receipt`, {
+            //   state: {
+            //     LoanDetails: {
+            //         Loan: JSON.stringify(AddMLLoan),
+            //         LoanType: loan_type
+            //       }
+            //   },
+            //   replace: true
+            // })
           }, 1500);
 
       } catch (error) {

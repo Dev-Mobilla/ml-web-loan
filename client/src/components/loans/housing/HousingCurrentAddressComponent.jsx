@@ -23,14 +23,13 @@ const HousingCurrentAddressComponent = () => {
     residenceType: ""
   })
 
-  const [keepAddress, setKeepAAddress] = useState(null);
-  const [isCorrespond, setIsCorrespond] = useState(false);
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
   const [inputProps, setIsInputProps] = useState({
     disabled: true,
     isInput: true,
     isReadOnly: true
   });
+
   const buttonClassName = isSubmitDisabled ? "btn-disabled" : "btn-enabled";
 
   const location = useLocation();
@@ -52,36 +51,10 @@ const HousingCurrentAddressComponent = () => {
 
   ]
 
-  const confirmRadioVal = [
-    {
-      name: 'Yes'
-    },
-    {
-      name: 'No'
-    }
-
-  ]
-
   const { secondStepDetails } = location.state || {};
 
   useEffect(() => {
-    console.log(location.state);
-    if (!keepAddress) {
-      console.log(keepAddress);
-    } else if (keepAddress.toLowerCase() == "no") {
-      setIsCorrespond(false);
-      console.log("Address".keepAddress);
-    } else if (keepAddress.toLowerCase() == "yes") {
-      setIsCorrespond(true);
-      const address = location.state.secondStepDetails.personalDetails[1];
-      setCurrentAddress((currState) => ({
-        ...currState,
-        country: address.countries,
-        province: address.provinces,
-        city: address.cities,
-        barangay: address.barangay
-      }))
-    }
+    console.log(secondStepDetails);
 
   }, [])
 
@@ -118,18 +91,6 @@ const HousingCurrentAddressComponent = () => {
     }))
   }
 
-  const OnKeepAddress = (e) => {
-    const { name, value } = e.target;
-    console.log(name, value);
-    setKeepAAddress(value);
-    if (value === "Yes") {
-      setIsCorrespond(true);
-    } else {
-      setIsCorrespond(false);
-    }
-    console.log(keepAddress);
-  }
-
 
   return (
     <div className='housing-loan'>
@@ -144,12 +105,15 @@ const HousingCurrentAddressComponent = () => {
               styles={'custom-card-title'}
             />
             <div className="col">
-              <CustomSelect
-                availableOptions={null}
-                selectName={"country"}
-                selectedOption={currentAdress.country}
-                defaultVal={'Country'}
-                styles={'custom-select col-1'} />
+              <CustomInputField
+                inputType={'text'}
+                inputStyle={'custom-select col-1'}
+                inputOnchange={null}
+                inputVal={currentAdress.country}
+                inputPlaceholder={'Country'}
+                inputName={'country'}
+                readOnly
+              />
 
               <CustomSelect
                 availableOptions={null}

@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from "react";
 
 
-const HousingCurrentAddress = ({ informationDetails,
-  setInformationDetails,
+const HousingCurrentAddress = ({ currentAdd,
+  setCurrentAdd,
   theListOfCountries,
-  styles
+  styles,
+  ListOfProvinces,
+  ListOfCities
 }) => {
 
   const [errors, setErrors] = useState({});
 
-
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    setInformationDetails((prevDetails) => ({
+    setCurrentAdd((prevDetails) => ({
       ...prevDetails,
       [name]: value,
     }));
@@ -21,7 +22,7 @@ const HousingCurrentAddress = ({ informationDetails,
   const handleNoCountryChange = async (event) => {
     const selectedCountryId = event.target.value;
 
-    setInformationDetails((prevState) => ({
+    setCurrentAdd((prevState) => ({
       ...prevState,
       countries: selectedCountryId,
     }));
@@ -30,7 +31,7 @@ const HousingCurrentAddress = ({ informationDetails,
   const handleProvinceChange = async (event) => {
     const selectedProvinceId = event.target.value;
 
-    setInformationDetails((prevState) => ({
+    setCurrentAdd((prevState) => ({
       ...prevState,
       provinces: selectedProvinceId,
     }));
@@ -47,25 +48,19 @@ const HousingCurrentAddress = ({ informationDetails,
 
   const handleBlur = (fieldName) => {
     // Perform validation when the input field is unfocused (blurred)
-    if (informationDetails[fieldName] === '') {
+    console.log("fieldName", fieldName);
+    console.log(currentAdd[fieldName]);
+    if (currentAdd[fieldName] === '') {
       const errorMessages = {
-        country: `Please enter your current country`,
-        province: `Please enter your current province`,
-        city: `Please enter your current city`,
+        countries: `Please select your current country`,
+        provinces: `Please select your current province`,
+        cities: `Please select your current city`,
         barangay: `Please enter your current barangay`,
       };
-      // if (fieldName === 'civil_status') {
-      // } 
-      // if (informationDetails[fieldName].trim() === "") {
       if (errorMessages.hasOwnProperty(fieldName)) {
         setErrors((prevErrors) => ({
           ...prevErrors,
           [fieldName]: errorMessages[fieldName],
-        }));
-      } else {
-        setErrors((prevErrors) => ({
-          ...prevErrors,
-          [fieldName]: `Please select your ${fieldName}`,
         }));
       }
       setFieldBorders((prevBorders) => ({
@@ -81,27 +76,89 @@ const HousingCurrentAddress = ({ informationDetails,
   }
 
   return (
-    <div className="c-details-input">
-      <select
-        className={styles}
-        name="noCountries"
-        value={informationDetails.countries}
-        onChange={(event) => {
-          handleNoCountryChange(event);
-        }}
-        onFocus={() => handleFocus('noCountries')}
-        onBlur={() => handleBlur('noCountries')}
-        style={{ border: fieldBorders.noCountries }}
-      >
-        <option value="">Country</option>
-        {theListOfCountries.map((noCountry) => (
-          <option key={noCountry.addressL0Id} value={`${noCountry.name}|${noCountry.addressL0Id}`}>
-            {noCountry.name}
-          </option>
-        ))}
-      </select>
-      <div style={{ color: 'red', fontSize: '12px', margin: '10px 20px 20px 0' }}>{errors.noCountries}</div>
+    <div>
+      <div className="current-address--col">
+      <div className="c-details-input current-address-country">
+        <select
+          className="d-select"
+          name="countries"
+          value={currentAdd.countries}
+          onChange={(event) => {
+            handleInputChange(event);
+            handleNoCountryChange(event);
+          }}
+          onFocus={() => handleFocus('countries')}
+          onBlur={() => handleBlur('countries')}
+          style={{ border: fieldBorders.countries }}
+        >
+          <option value="">Country</option>
+          {theListOfCountries.map((country) => (
+            <option key={country.addressL0Id} value={`${country.name}|${country.addressL0Id}`}>
+              {country.name}
+            </option>
+          ))}
+        </select>
+        <div style={{ color: 'red', fontSize: '12px', margin: '10px 20px 0px 0' }}>{errors.countries}</div>
+      </div>
+      <div className="c-details-input current-address-provinces">
 
+          <select
+            className="d-select"
+            name="provinces"
+            value={currentAdd.provinces}
+            onChange={(event) => {
+              handleInputChange(event);
+              handleProvinceChange(event);
+            }}
+            onFocus={() => handleFocus('provinces')}
+            onBlur={() => handleBlur('provinces')}
+            style={{ border: fieldBorders.provinces }}
+          >
+            <option value="">Province</option>
+            {ListOfProvinces.map((province) => (
+              <option key={province.addressL1Id} value={`${province.name}|${province.addressL1Id}`}>
+                {province.name}
+              </option>
+            ))}
+          </select>
+        <div style={{ color: 'red', fontSize: '12px', margin: '10px 20px 0px 0' }}>{errors.provinces}</div>
+      </div>
+      </div>
+      <div className="c-details-input">
+        <select
+          className="d-select"
+          name="cities"
+          value={currentAdd.cities}
+          onChange={(event) => {
+            handleInputChange(event);
+          }}
+          onFocus={() => handleFocus('cities')}
+          onBlur={() => handleBlur('cities')}
+          style={{ border: fieldBorders.cities }}
+        >
+          <option value="">City</option>
+          {ListOfCities.map((city) => (
+            <option key={city.addressL2Id} value={`${city.name}|${city.addressL2Id}`}>
+              {city.name}
+            </option>
+          ))}
+        </select>
+        <div style={{ color: 'red', fontSize: '12px', margin: '10px 20px 15px 0' }}>{errors.cities}</div>
+      </div>
+      <div className="c-details-input">
+        <input
+          className="d-input"
+          type="text"
+          name="barangay"
+          placeholder="Barangay"
+          value={currentAdd.barangay}
+          onChange={handleInputChange}
+          onFocus={() => handleFocus('barangay')}
+          onBlur={() => handleBlur('barangay')}
+          style={{ border: fieldBorders.barangay }}
+        />
+        <div style={{ color: 'red', fontSize: '12px', margin: '10px 20px 10px 0' }}>{errors.barangay}</div>
+      </div>
     </div>
   )
 }

@@ -47,7 +47,7 @@ const CustomerDetailsComponent = ({ url }) => {
   const [showAlert, setShowAlert] = useState(true);
   const [loading, setLoading] = useState(true);
 
-  const [keepAddress, setKeepAAddress] = useState(null);
+  const [keepAddress, setKeepAAddress] = useState("Yes");
   const [isCorrespond, setIsCorrespond] = useState(true);
   const [nearestBranches, setNearestBranches] = useState([]);
   const [selectedOption, setSelectedOption] = useState("");
@@ -81,6 +81,12 @@ const CustomerDetailsComponent = ({ url }) => {
     cities: "",
     barangay: ""
   });
+  const [currentAdd, setCurrentAdd] = useState({
+    countries: "",
+    provinces: "",
+    cities: "",
+    barangay: ""
+  })
   const confirmRadioVal = [
     {
       name: 'Yes'
@@ -92,59 +98,60 @@ const CustomerDetailsComponent = ({ url }) => {
   ]
   const OnKeepAddress = (e) => {
     const { name, value } = e.target;
-    console.log(name, value);
     setKeepAAddress(value);
 
     if (value === "Yes") {
       setIsCorrespond(true);
-      setAddress("");
     } else {
       setIsCorrespond(false);
       setAddress("");
     }
 
-    console.log(keepAddress);
   }
   useEffect(() => {
-
-    if (!keepAddress) {
-      console.log(keepAddress);
-    } else if (keepAddress.toLowerCase() == "no") {
+    
+    if (keepAddress.toLowerCase() == "no") {
       setIsCorrespond(false);
-    } else {
+
+      let barangay = getAddressName(currentAdd.barangay);
+      let city = getAddressName(currentAdd.cities);
+      let province = getAddressName(currentAdd.provinces);
+      let country = getAddressName(currentAdd.countries);
+      setAddress(`${barangay} ${city} ${province} ${country}`)
+
+    } else if (keepAddress.toLowerCase() == "yes") {
       setIsCorrespond(true);
+      let barangay = getAddressName(informationDetails.barangay);
+      let city = getAddressName(informationDetails.cities);
+      let province = getAddressName(informationDetails.provinces);
+      let country = getAddressName(informationDetails.countries);
+      setAddress(`${barangay} ${city} ${province} ${country}`)
     }
 
     if (location.state == null) {
       navigate(-1);
     }
 
-    const getAddressName = (name) => {
-      let isEmpty = name === "" || name === null;
+    handleValidationChange();
 
-      if (!isEmpty) {
-        let nameVal = name.split("|");
-
-        return nameVal[0].toUpperCase();
-
-      }
-      return name;
-
-    }
-    let barangay = getAddressName(informationDetails.barangay);
-    let city = getAddressName(informationDetails.cities);
-    let province = getAddressName(informationDetails.provinces);
-    let country = getAddressName(informationDetails.countries);
-    setAddress(`${barangay} ${city} ${province} ${country}`)
     fetchData();
   }, [informationDetails.barangay,
   informationDetails.cities,
   informationDetails.provinces,
-  informationDetails.countries])
+  informationDetails.countries, keepAddress,currentAdd])
 
+  const getAddressName = (name) => {
+    let isEmpty = name === "" || name === null;
 
+    if (!isEmpty) {
+      let nameVal = name.split("|");
 
+      return nameVal[0].toUpperCase();
 
+    }
+    return name;
+
+  }
 
   // useEffect(()=> {
   //   performSearch(contactDetails.mobile_number, contactDetails.email)
@@ -188,13 +195,24 @@ const CustomerDetailsComponent = ({ url }) => {
         isContactDetailsValid &&
         isPersonalDetailsValid &&
         isAddressValid &&
-        isOptionSelected
+        isOptionSelected &&
+        isCurrentAdd()
       )
     );
 
     setIsSearchParams(isContactDetailsValid)
 
   };
+  
+  const isCurrentAdd = () => {
+    const CurrentAdd = Object.keys(currentAdd).map(key => currentAdd[key] != "" && currentAdd[key] != null );
+
+    if (keepAddress.toLowerCase() == "no") {
+      return !CurrentAdd.includes(false);
+    }else if (keepAddress.toLowerCase() == "yes") {
+      return true
+    }
+  }
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
@@ -218,7 +236,8 @@ const CustomerDetailsComponent = ({ url }) => {
           contactDetails,
           informationDetails,
           selectedOption,
-          address
+          address,
+          currentAdd
         ],
       };
 
@@ -260,7 +279,6 @@ const CustomerDetailsComponent = ({ url }) => {
     setLoading(false);
   };
   const handleInputChange = (field, value) => {
-    console.log(value);
     if (field === "address") {
       setAddress(value);
     } else if (field === "selectedOption") {
@@ -398,7 +416,7 @@ const CustomerDetailsComponent = ({ url }) => {
       if (fieldName === "current_address") {
         setErrors((prevErrors) => ({
           ...prevErrors,
-          [fieldName]: `Please enter your Current Address`,
+          [fieldName]: `Current Address required`,
         }));
       } else {
         setErrors((prevErrors) => ({
@@ -522,106 +540,30 @@ const CustomerDetailsComponent = ({ url }) => {
               styles="custom-card-title"
             />
             <div className="correspond-div">
-              <p id="correspondQuestion">Does the address on the previous form correspond to your current address?</p>
+              <p id="correspondQuestion"><span style={{ color: 'red' }}>*</span> Does the address on the previous form correspond to your current address?</p>
               <HousingRadiosComponent
                 radioVal={confirmRadioVal}
                 onSelected={OnKeepAddress}
                 radioName={'currentAddress'}
                 styles={'preferred-branch-radios'}
+                parentStyles={'radio-wrapper'}
+                defaultVal={keepAddress}
+                
               />
               {!isCorrespond && (
                 <>
-                  <div className="col1">
                     <div className="correspond-input-div">
                       <HousingCurrentAddress
                         onInformationDetailsChange={setInformationDetails}
                         onValidationChange={handleValidationChange}
-                        informationDetails={informationDetails}
-                        setInformationDetails={setInformationDetails}
+                        currentAdd={currentAdd}
+                        setCurrentAdd={setCurrentAdd}
                         theListOfCountries={ListOfCountries}
+                        ListOfProvinces={ListOfProvinces}
+                        ListOfCities={ListOfCities}
                         styles={'correspond-select-left'}
                       />
                     </div>
-                  </div>
-                  {/* 
-                      <select
-                        className="correspond-select-left"
-                        name="Countries"
-                        onChange={(event) => {
-                          handleInputChange(event);
-                          handleCountryChange(event);
-                        }}
-                        onFocus={() => handleFocus('Countries')}
-                        onBlur={() => handleBlur('Countries')}
-                        style={{ border: fieldBorders.Countries }}
-                      >
-                        <option value="">Country</option>
-                        {ListOfCountries.map((Country) => (
-                          <option key={Country.addressL0Id} value={`${Country.name}|${Country.addressL0Id}`}>
-                            {Country.name}
-                          </option>
-                        ))}
-                      </select>
-                      <div style={{ color: 'red', fontSize: '12px', margin: '10px 20px 20px 0' }}>{errors.Countries}</div>
-                    </div>
-                    <div className="correspond-input-div">
-                      <select
-                        className="correspond-select-right"
-                        name="noProvinces"
-                        onChange={(event) => {
-                          handleInputChange(event);
-                          handleProvinceChange(event);
-                        }}
-                        onFocus={() => handleFocus('noProvinces')}
-                        onBlur={() => handleBlur('noProvinces')}
-                        style={{ border: fieldBorders.provinces }}
-                      >
-                        <option value="">Province</option>
-                        {ListOfProvinces.map((province) => (
-                          <option key={province.addressL1Id} value={`${province.name}|${province.addressL1Id}`}>
-                            {province.name}
-                          </option>
-                        ))}
-                      </select>
-                      <div style={{ color: 'red', fontSize: '12px', margin: '10px 20px 20px 0' }}>{errors.noProvinces}</div>
-                    </div>
-                  </div>
-                  <div className="col2">
-                    <div className="correspond-input-div">
-                      <select
-                        className="correspond-select-left"
-                        name="noCities"
-                        onChange={(event) => {
-                          handleInputChange(event);
-                        }}
-                        onFocus={() => handleFocus('noCities')}
-                        onBlur={() => handleBlur('noCities')}
-                        style={{ border: fieldBorders.cities }}
-                      >
-                        <option value="">City</option>
-                        {ListOfCities.map((city) => (
-                          <option key={city.addressL2Id} value={`${city.name}|${city.addressL2Id}`}>
-                            {city.name}
-                          </option>
-                        ))}
-                      </select>
-
-                      <div style={{ color: 'red', fontSize: '12px', margin: '10px 20px 20px 0' }}>{errors.noCities}</div>
-                    </div>
-                    <div className="correspond-input-div">
-                      <input
-                        className="correspond-text-right"
-                        type="text"
-                        name="noBarangay"
-                        placeholder="Barangay"
-                        onChange={handleInputChange}
-                        onFocus={() => handleFocus('noBarangay')}
-                        onBlur={() => handleBlur('noBarangay')}
-                        style={{ border: fieldBorders.barangay }}
-                      />
-                      <div style={{ color: 'red', fontSize: '12px', margin: '10px 20px 20px 0' }}>{errors.noBarangay}</div>
-                    </div>
-                  </div> */}
                 </>
               )}
             </div>

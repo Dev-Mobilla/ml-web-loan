@@ -1,7 +1,7 @@
 const { loan_applications, CustomerDetails, employment_docs, vehicle_docs, sequelize } = require('../models/associations');
 const {ErrorThrower} = require('../utils/ErrorGenerator');
 const fields = require('../utils/LoanTypeFields.utils');
-const {FieldValues} = require('../utils/LoanTypeFields.utils');
+// const {FieldValues} = require('../utils/LoanTypeFields.utils');
 const SuccessLogger = require('../utils/SuccessLogger');
 const {createEmploymentDocs} = require('./employment_docs_controller');
 const {HatchITAddLoan, GetLoanTypeFields, GetLoanTypeItemsFields} = require('./hatchit.controller');
@@ -257,7 +257,7 @@ const AddLoan = async (req, res, next) => {
 
         })
 
-        let FieldItemsValues = JSON.stringify(JSON.stringify(fieldItems))
+        let FieldItemsValues = JSON.stringify(fieldItems)
 
         SuccessLogger(req.url, 200,`GET LOAN TYPE ITEM FIELDS: ${JSON.stringify(getFieldItem.data)}, 
             RETREIVED SUCCESSFULLY, LOAN TYPE: ${loanApplication.application_loan_type}, 
@@ -270,12 +270,12 @@ const AddLoan = async (req, res, next) => {
             term: parseInt(loanApplication.terms),
 
         }
-        let full_name = `${customerDetails.first_name} ${customerDetails.middle_name || customerDetails.middle_name == "NULL" ? customerDetails.middle_name : ""} ${customerDetails.last_name} ${customerDetails.suffix || customerDetails.suffix == "NULL" ? customerDetails.suffix : ""}`;
+        let full_name = `${customerDetails.first_name} ${customerDetails.middle_name} ${customerDetails.last_name} ${customerDetails.suffix}`;
 
         const CustomerDetailsHatchit = {
             customer_id: customerDetails.customer_id,
             ckyc_id: customerDetails.ckyc_id,
-            full_name: full_name,
+            full_name: full_name.replace(/NULL|null/g, ""),
             contact_number: customerDetails.mobile_number,
             email: customerDetails.email,
             business_name: "",

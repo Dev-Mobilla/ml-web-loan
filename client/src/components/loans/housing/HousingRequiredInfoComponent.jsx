@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import LoanDataComponent from '../vehicle/LoanDataComponent';
 import HousingCardsComponent from './HousingCardsComponent';
 import HousingRadiosComponent from './HousingRadiosComponent';
@@ -16,6 +16,12 @@ const HousingRequiredInfoComponent = () => {
     const [housingLoanType, setHousingLoanType] = useState("A loan for a housing lot");
 
     const navigate = useNavigate();
+
+    useEffect(() => {
+      const isValid = housingLoanType !== "";
+      console.log(isValid);
+      setIsSubmitDisabled(!isValid)
+    })
 
     const {
       loanAmount,
@@ -70,9 +76,9 @@ const HousingRequiredInfoComponent = () => {
       };
     const selectedOption = (e) => {
         const value = e.target.value;
-        setIsSubmitDisabled(false)
         setHousingLoanType(value);
     }
+
   return (
   
   <div className="housing-loan">
@@ -95,6 +101,7 @@ const HousingRequiredInfoComponent = () => {
                 <HousingRadiosComponent 
                     radioVal={requiredInfo}
                     onSelected={selectedOption}
+                    defaultVal={housingLoanType}
                 />
                 </HousingCardsComponent>
                 <div className="computation-card">
