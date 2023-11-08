@@ -26,7 +26,7 @@ async function createLoanApplication(LoanApplicationJsonData, options) {
             body: `We're sorry, something went wrong on our end. Please try again later or contact our support team.`
         }
 
-        let err = ErrorThrower(500, "INTERNAL_SERVER_ERROR", message, error);
+        let err = ErrorThrower(500, "INTERNAL_SERVER_ERROR", message, error, JSON.stringify(LoanApplicationJsonData));
 
         throw err;
     }
@@ -139,7 +139,7 @@ const FindOrCreateCustomer = async (details, options) => {
             body: `We're sorry, something went wrong on our end. Please try again later or contact our support team.`
         }
 
-        let err = ErrorThrower(500, "INTERNAL_SERVER_ERROR", message, error);
+        let err = ErrorThrower(500, "INTERNAL_SERVER_ERROR", message, error, JSON.stringify(details));
 
         throw err;
     }
@@ -163,7 +163,7 @@ const FindMaxId = async (modelInstance, idName, options) => {
             body: `We're sorry, something went wrong on our end. Please try again later or contact our support team.`
         }
 
-        let err = ErrorThrower(500, "INTERNAL_SERVER_ERROR", message, error);
+        let err = ErrorThrower(500, "INTERNAL_SERVER_ERROR", message, error, idName);
         throw err
     }
 }

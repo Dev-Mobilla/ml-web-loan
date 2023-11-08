@@ -57,7 +57,7 @@ const RefundBillsPaymentApi = async (req, res, next) => {
 
         }else{
 
-            let error =  ErrorThrower(404, "RESOURCE_NOT_FOUND", "No kptn provided");
+            let error =  ErrorThrower(404, "RESOURCE_NOT_FOUND", "No kptn provided", null, null, kptn);
 
             throw error
         }
@@ -76,6 +76,11 @@ const RefundBillsPaymentApi = async (req, res, next) => {
 const UpdateBillsPaymentApi = async (req, res, next) => {
     const kptn = req.query.kptn;
     const reqBody = req.body;
+
+    const dataBody = {
+      kptn,
+      reqBody
+    }
   
     console.log("reqBody", reqBody);
   
@@ -114,7 +119,7 @@ const UpdateBillsPaymentApi = async (req, res, next) => {
   
         }else{
   
-            let error =  ErrorThrower(404, "RESOURCE_NOT_FOUND", "No kptn/request body provided");
+            let error =  ErrorThrower(404, "RESOURCE_NOT_FOUND", "No kptn/request body provided", null, null, JSON.stringify(dataBody));
   
             throw error
         }
