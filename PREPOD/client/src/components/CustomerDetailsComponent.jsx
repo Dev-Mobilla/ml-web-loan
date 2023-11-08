@@ -339,7 +339,8 @@ const [isSearchParams, setIsSearchParams] = useState(false)
               email: data.data.email,
               mobile_number: data.data.cellphoneNumber
             });
-            setInformationDetails({
+            setInformationDetails((prevState) => ({
+              ...prevState,
               firstname: data.data.name.firstName,
               lastname: data.data.name.lastName,
               middlename: data.data.name.middleName,
@@ -353,7 +354,7 @@ const [isSearchParams, setIsSearchParams] = useState(false)
               provinces: data.data.addresses.current.addressL1Name,
               cities: data.data.addresses.current.addressL2Name,
               barangay: data.data.addresses.current.otherAddress
-            });
+            }));
             setIsEditable(true);
           }
           else {
@@ -361,21 +362,30 @@ const [isSearchParams, setIsSearchParams] = useState(false)
               email: email,
               mobile_number: mobileNumber
             });
-            setInformationDetails({
-              firstname: "",
-              lastname: "",
-              middlename: "",
-              birthdate: "",
-              suffix: "",
-              nationality: "",
-              civil_status: "",
-              office_address: "",
-              sourceOfIncome: "",
-              countries: "",
-              provinces: "",
-              cities: "",
-              barangay: ""
-            });
+            setInformationDetails((prevState) => (
+              {
+                ...prevState,
+                  firstname: "",
+                  lastname: "",
+                  middlename: "",
+                  suffix: "",
+                  birthdate: "",
+                  suffix: "",
+                  nationality: "",
+                  civil_status: "",
+                  employeer_business: "",
+                  nature_business: "",
+                  tenure: "",
+                  office_address: "",
+                  office_landline: "",
+                  sourceOfIncome: "",
+                  monthly_income: "",
+                  countries: "",
+                  provinces: "",
+                  cities: "",
+                  barangay: ""
+              }
+            ));
             setIsEditable(false);
           }
       } catch (error) {

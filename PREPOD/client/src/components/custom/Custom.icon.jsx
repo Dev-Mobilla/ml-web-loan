@@ -1,3 +1,4 @@
+import housingIcon from "../../assets/icons/Hlmng_icon.svg"
 const Housing = ({ classname }) => {
   return (
     <div>
@@ -91,9 +92,51 @@ const Vehicle = ({ classname }) => {
     />
   );
 };
+const HousingLoan = ({ classname }) => {
+  return (
+    <img
+      className="loantype-icon"
+      alt="Housing"
+      src={housingIcon}
+    />
+  );
+};
+
+const SBL = ({ classname }) => {
+  return (
+    <img
+      className="loantype-icon"
+      alt="Housing"
+      src="https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e41e67e1c2a81b98b3c871/img/sbl-icon@2x.png"
+    />
+  );
+};
+const Pension = ({ classname }) => {
+  return (
+    <img
+      className="loantype-icon"
+      alt="Housing"
+      src="https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e41e67e1c2a81b98b3c871/img/p-icon@2x.png"
+    />
+  );
+};
+
+const Salary = ({ classname }) => {
+  return (
+    <img
+      className="loantype-icon"
+      alt="Housing"
+      src="https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e41e67e1c2a81b98b3c871/img/s-icon@2x.png"
+    />
+  );
+};
 
 export default {
   Housing,
   Vehicle,
   QCL,
+  HousingLoan,
+  SBL,
+  Pension,
+  Salary
 };

@@ -11,24 +11,24 @@ const PersonalContactComponent = ({
  
 
   useEffect(() => {
-    // const isValid =
-    //   contactDetails.mobile_number.trim() !== "" &&
-    //   contactDetails.email.trim() !== "";
-    // onValidationChange(isValid);
-    // onContactDetailsChange(contactDetails);
+    
      const isValid =
       contactDetails.mobile_number !== "" &&
       contactDetails.email !== "" &&
-      /((\+[0-9]{2})|0)[.\- ]?9[0-9]{2}[.\- ]?[0-9]{3}[.\- ]?[0-9]{4}/.test(contactDetails.mobile_number);
+      !isEmailValid(contactDetails.email) &&
+      !isPhoneValid(contactDetails.mobile_number)
 
-    // console.log("isValid", isValid);
-    // if (isValid) {
-    //   handleSearch(contactDetails.mobile_number, contactDetails.email);
-    // }
     onValidationChange(isValid);
     onContactDetailsChange(contactDetails);
 
   }, [contactDetails, onValidationChange]);
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phoneRegex = /^\+?[\d\s()-]{7,15}$/;
+    const phRegex = /^(09|\+639)\d{9}$/
+
+    const isEmailValid = (email) => emailRegex.test(email);
+    const isPhoneValid = (phone) => phRegex.test(phone);
 
   const handleSearch = () => {
     performSearch(contactDetails.mobile_number, contactDetails.email);
@@ -50,6 +50,7 @@ const PersonalContactComponent = ({
   };
   const handleBlur = (fieldName) => {
     // Perform validation when the input field is unfocused (blurred)
+    console.log(fieldName);
     if (contactDetails[fieldName] === '') {
       if (fieldName === 'mobile_number') {
         setErrors((prevErrors) => ({
@@ -66,6 +67,17 @@ const PersonalContactComponent = ({
       setFieldBorders((prevBorders) => ({
         ...prevBorders,
         [fieldName]: '1px solid red',
+      }));
+    }
+    else if (fieldName === 'mobile_number' && !isPhoneValid(contactDetails[fieldName])) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        [fieldName]: `Please enter a valid mobile number`,
+      }));
+    }else if (fieldName === 'email' && !isEmailValid(contactDetails[fieldName])) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        [fieldName]: `Please enter a valid email address`,
       }));
     }
     else {
