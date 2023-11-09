@@ -218,8 +218,8 @@ const CustomerRequirementComponent = () => {
           mobileNumber: mobile_number,
           firstName: firstname,
           lastName: lastname,
-          middleName: middlename !== '' ? middlename : "null",
-          suffix: suffix !== '' ? suffix : "null",
+          middleName: middlename !== '' ? middlename : "",
+          suffix: suffix !== '' ? suffix : "",
           email: email,
           address: {
             addressL0Id: parseInt(country),
