@@ -404,6 +404,7 @@ const [isSearchParams, setIsSearchParams] = useState(false)
             <CustomCardTitle
               title="Contact Details"
               styles="custom-card-title"
+              subTitle="For ML Wallet account holders, please use your registered ML Wallet number and email."
             />
             <div className="customer-details-group">
               <PersonalContactComponent
