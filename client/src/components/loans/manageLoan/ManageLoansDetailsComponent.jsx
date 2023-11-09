@@ -11,6 +11,7 @@ import {
   PaymentDetailsModalComponent,
   CustomLoadingModal,
   CustomMessage,
+  CustomIcon,
 } from "../../index";
 import houseIcon from "../../../assets/icons/house.png";
 import mlicon from "../../../assets/icons/diamond.png";
@@ -885,12 +886,29 @@ const ManageLoansDetailsComponent = () => {
     </div>
   );
 
+  const { Vehicle, QCL, HousingLoan, SBL, Salary, Pension} = CustomIcon;
+
+  const LoanIcon = ({loantype}) => {
+    if (loantype === "Car Loan" || loantype === "Motor Loan") {
+      return <Vehicle/>;
+    }else if (loantype === "Real Estate Loan") {
+      return <HousingLoan/>;
+    }else if (loantype === "Small Business Loan") {
+      return <SBL/>
+    }else if (loantype === "Pensioner's Loan") {
+      return <Pension/>
+    }
+  }
+
   return (
     <div className="loan-details">
       <div className="div">
         <TopbarComponent />
         {isLoading ? (
-          <LoadingModalComponent />
+          <CustomLoadingModal
+          loadingText={showLoading.text}
+          loadingIcon={LoadingIcon}
+        />
         ) : (
           <>
             <CustomHeader title="Manage Existing Loan" />
@@ -915,7 +933,10 @@ const ManageLoansDetailsComponent = () => {
           <div className="card">
             <div className="h-card">
               <div className="h-card-header">
-                <img src={houseIcon} alt="Housing Loan Icon" />
+                {
+                  <LoanIcon loantype={loanDetails.loanType}/>
+                }
+                
                 <div className="h-card-text">
                   <div className="h-ltxt">{loanDetails.loanType}</div>
                   <div className="h-lrefno">
