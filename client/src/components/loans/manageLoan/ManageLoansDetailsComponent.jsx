@@ -553,7 +553,7 @@ const ManageLoansDetailsComponent = () => {
       }
 
       const confirmation = await showConfirmationModal({
-        loanType: "ML VEHICLE LOANS FINANCING",
+        loanType: "ML VEHICLE LOANS AND FINANCING",
         amount: parseFloat(toPay),
         accountFirstName:
           validationResponse.data.responseSearch.accounFirstName,
