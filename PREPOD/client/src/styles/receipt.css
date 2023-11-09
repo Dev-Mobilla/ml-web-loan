@@ -31,7 +31,7 @@
     left: 0;
     /* position: absolute; */
     top: 0;
-    width: 400px;
+    /* width: 400px; */
   }
   
   .receipt .receipt-overlap-group-2 {
@@ -40,7 +40,7 @@
     height: 260px;
     /* left: -4px; */
     /* position: relative; */
-    width: 404px;
+    width: 100%;
     padding: 10px;
     margin: auto;
   }
@@ -74,6 +74,9 @@
     margin: auto 25px;
     display: flex;
     justify-content: space-around;
+  }
+  .receipt-details--property-name{
+    margin-right: 12px;
   }
   .receipt .success-note{
     color: #ff2800;
@@ -159,7 +162,7 @@
       }
       .receipt .receipt-overlap-group-2 {
         /* position: relative; */
-        margin: auto;
+        margin: auto 10px;
         width: 95%;
         left: 10px;
       }
@@ -173,10 +176,17 @@
         /* position: relative; */
       }
       .receipt .receiptdetails{
-        font-size: 16px;
+        font-size: 13px;
         /* left: 30px; */
         /* top: 30px; */
         /* position: relative; */
+        margin: auto 10px;
+      }
+      .receipt-details--property-name{
+        margin-right: 0;
+      }
+      .receipt-details--property-value .name{
+        font-size: 12px;
       }
       .receipt .dashboard-back-btn{
         width: 95%;
@@ -196,15 +206,15 @@
     .receipt .receipt-body-bg {
         left: 0;
         top: 185px;
-        width: 85%;
+        width: 100%;
       }
       .receipt .receipt-overlap-group-2 {
         /* position: relative; */
-        width: 85%;
+        width: 90%;
         left: 10px;
       }
       .receipt .receipt-content{
-        width: 85%;
+        width: 100%;
       }
       .receipt .receipttitle {
         font-size: 20px;
@@ -213,12 +223,15 @@
         /* position: relative; */
       }
       .receipt .receiptdetails{
-        font-size: 16px;
+        font-size: 15px;
         left: 130px;
         /* width: 300px; */
         
         /* top: 30px; */
         /* position: relative; */
+      }
+      .receipt-details--property-value .name{
+        font-size: 14px;
       }
       .receipt .dashboard-back-btn{
         width: 85%;
@@ -233,11 +246,11 @@
     .receipt .receipt-body-bg {
         left: 0;
         top: 185px;
-        width: 80%;
+        width: 85%;
       }
       .receipt .receipt-overlap-group-2 {
         position: relative;
-        width: 80%;
+        width: 85%;
         left: 0;
       }
       .receipt .receipt-content{
@@ -250,12 +263,15 @@
         position: relative; */
       }
       .receipt .receiptdetails{
-        font-size: 16px;
+        font-size: 15px;
         left: 250px;
         /* width: 300px; */
         
         /* top: 30px; */
         /* position: relative; */
+      }
+      .receipt-details--property-value .name{
+        font-size: 14px;
       }
       .receipt .dashboard-back-btn{
         width: 80%;

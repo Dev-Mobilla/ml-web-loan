@@ -96,6 +96,8 @@ const PayNow = async (req, res, next) => {
     console.log("response post:", response);
     const { billspayStatus, paymentStatus, kptn, createdDate } = response.data.data;
 
+    SuccessLogger(url, 200, `BILLSPAY DATA: ${JSON.stringify(response.data.data)}`);
+
     const kp7BillsPayResp = await CheckKP7Transaction(kptn);
 
     const kp7BillsPay = kp7BillsPayResp.data;
@@ -118,7 +120,7 @@ const PayNow = async (req, res, next) => {
 
         let reqBody = {
           billspayStatus: "FAILED",
-          createdDate
+          transactionDate:createdDate
         }
 
         const updateBillsPay = await UpdateBillsPayment(reqBody, kptn);
@@ -149,7 +151,7 @@ const PayNow = async (req, res, next) => {
         
         let reqBody = {
           billspayStatus: "POSTED",
-          createdDate
+          transactionDate:createdDate
         }
         SuccessLogger("CheckKP7Transaction", 200, `REQ DATA: ${JSON.stringify(reqBody)}`);
 
