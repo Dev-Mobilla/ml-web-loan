@@ -31,7 +31,7 @@ const ManageLoanComponent = () => {
   const [pendingLoans, setPendingLoans] = useState(null);
   const [showAlert, setShowAlert] = useState(false);
 
-  const { Housing, Vehicle, QCL } = CustomIcon;
+  const { Vehicle, QCL, HousingLoan, Pension, SBL } = CustomIcon;
 
   const IsInputError = (errorMsg, errorStyle) => {
     setInputErrorMsg(errorMsg);
@@ -52,14 +52,16 @@ const ManageLoanComponent = () => {
           return item
         })
 
-        setPendingLoans(newApplications)
+        setPendingLoans(newApplications);
         
       }
     } catch (error) {
+      setLoading(false);
+      setAlertModal(false)
       setShowAlert(true);
       setAlertProps({
-        title: "Request Failed",
-        text: error.message || "An error occurred",
+        title: error.response.data.error.message.title,
+        text: error.response.data.error.message.body || "An error occurred",
         subTitle: "",
         subLink: false,
         isError: true
@@ -76,11 +78,17 @@ const ManageLoanComponent = () => {
 
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
-      const displayError = (message) => {
-        setAlertModal(true);
+      const displayError = (message, title) => {
+        setLoading(false);
+        setAlertModal(false);
+        setShowAlert(true);
         setAlertProps({
-          message: message
-        })
+          title: title,
+          text: message || "An error occurred",
+          subTitle: "",
+          subLink: false,
+          isError: true
+        });
       }
 
       switch (response.status) {
@@ -103,23 +111,23 @@ const ManageLoanComponent = () => {
           // setLoans(updatedLoanData);
               
             } catch (error) {
-              displayError("An error occurred while fetching the loan details.");
+              displayError("An error occurred while fetching the loan details.", "Request Failed");
             }
             setLoading(false);
           }, 3000);
 
           break;
         case 404:
-          displayError("Loan does not exist");
+          displayError("Loan does not exist", "Not Found");
           break;
         case 401:
-          displayError("Session Expired. Please Login again")
+          displayError("Session expired please login again.", "Session Expired")
           break;
         case 500:
-          displayError("An error occurred while fetching loan details.")
+          displayError("An error occurred while fetching loan details.", "Request Failed")
           break;
         default:
-          displayError("An error occurred while fetching loan details.")
+          displayError("An error occurred while fetching loan details.", "Request Failed")
           break;
       }
   };
@@ -128,7 +136,10 @@ const ManageLoanComponent = () => {
     setTimeout(() => {
       GetAllLoans();
       GetllApplication();
-    }, 2000);
+    }, 1500);
+  }, [])
+
+  useEffect(() => {
 
     !modal
       ? IsInputError("", "")
@@ -143,8 +154,8 @@ const ManageLoanComponent = () => {
 
   const loansIcon = [
     {
-      loanType: "Housing Loan",
-      icon: <Housing />,
+      loanType: "Real Estate Loan",
+      icon: <HousingLoan />,
     },
     {
       loanType: "Quick Cash Loan",
@@ -157,6 +168,14 @@ const ManageLoanComponent = () => {
     {
       loanType: "Motor Loan",
       icon: <Vehicle />,
+    },
+    {
+      loanType: "Small Business Loan",
+      icon: <SBL />,
+    },
+    {
+      loanType: "Pensioner's Loan",
+      icon: <Pension />,
     },
   ];
 
@@ -239,6 +258,8 @@ const ManageLoanComponent = () => {
   };
 
   const PendingLoans = () => {
+    console.log("loan", loans);
+
     if (pendingLoans?.length === 0) {
       return (
         <div className="loans-unavailable">
@@ -263,6 +284,16 @@ const ManageLoanComponent = () => {
       pending = pendingLoan
 
     }
+    const compareRefNumber = (loan_1, loan_2) => {
+      for (let index = 0; index < loan_1.length; index++) {
+        const element = loan_1[index];
+        return element
+      }
+    }
+
+    let pend = compareRefNumber(loans, pendingLoans)
+
+    console.log(pend);
     
     return pending?.map((pendLoan, key) => {
       let statusChecker = LoanStatusChecker(pendLoan.status);

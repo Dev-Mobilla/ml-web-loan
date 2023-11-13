@@ -32,7 +32,7 @@ const Unauthorized = () => {
         body: "Session expired please login again."
     }
 
-    const error = ErrorThrower(401, "AUTHENTICATION_ERROR", message)
+    const error = ErrorThrower(401, "AUTHENTICATION_ERROR", message, null, null, null)
  
     return error;
 }
