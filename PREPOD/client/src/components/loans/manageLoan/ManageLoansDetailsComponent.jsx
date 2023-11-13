@@ -796,6 +796,26 @@ const ManageLoansDetailsComponent = () => {
           isError: true
         });
       }
+      else if (error.response.status == 400) {
+
+       if (error.response.data.error.code == "CASH_TRANSFER_NOT_ENOUGH_BALANCE_ERROR_CODE") {
+          setAlertModal(true);
+          setAlertProps({
+            title: "Insufficient Balance",
+            message: "There is insufficient balance on your account to proceed with this transaction. Please try again." || "An error occurred",
+            subTitle: "",
+            isError: true
+          });
+        }else{
+          setAlertModal(true);
+            setAlertProps({
+              title: "Request Failed",
+              message: "We're sorry, something went wrong on our end. Please try again later or contact our support team." || "An error occurred",
+              subTitle: "",
+              isError: true
+            });
+        }
+      }
       else{
         setAlertModal(true);
           setAlertProps({
@@ -900,6 +920,25 @@ const ManageLoansDetailsComponent = () => {
     }
   }
 
+  const PastDue = () => {
+      let dateInstance = new Date();
+      
+      let requestDate = new Date(loanDetails.paymentDueDate);
+
+      let diffTime = Math.abs(dateInstance.valueOf() - requestDate.valueOf());
+
+      let days = diffTime / (24 * 60 * 60 * 1000);
+
+
+      if (days < 1) {
+        return false
+      }else{
+        return true
+
+      }
+
+  }
+
   return (
     <div className="loan-details">
       <div className="div">
@@ -944,20 +983,30 @@ const ManageLoansDetailsComponent = () => {
                   </div>
                 </div>
               </div>
-              <CustomStatus
-                status={
-                  loanDetails.status === "DISBURSED"
-                    ? "Current"
-                    : loanDetails.status
-                }
-                styles={
-                  loanDetails.status?.toLowerCase() === "disbursed"
-                    ? "custom-current"
-                    : loanDetails.status?.toLowerCase() === "closed"
-                    ? "custom-pastdue"
-                    : ""
-                }
-              />
+              {
+                isLoading ? 
+                    <CustomStatus
+                    status={""}
+                    styles={""}
+                  /> 
+                : 
+                  <CustomStatus
+                  status={
+                    PastDue() && loanDetails.status === "DISBURSED" ? "Past Due" 
+                      : loanDetails.status === "DISBURSED"
+                      ? "Current" 
+                      : loanDetails.status
+                  }
+                  styles={
+                    PastDue() && loanDetails.status === "DISBURSED" ? "custom-pastdue"
+                      : loanDetails.status?.toLowerCase() === "disbursed"
+                      ? "custom-current"
+                      : loanDetails.status?.toLowerCase() === "closed"
+                      ? "custom-pastdue"
+                      : PastDue() ? "custom-pastdue" : ""
+                  }
+                />
+              }
             </div>
 
             <div className="hl-inputs">
