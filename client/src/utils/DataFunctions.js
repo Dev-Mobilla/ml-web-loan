@@ -54,9 +54,16 @@ const GetCookieByName = (cookieName) => {
     return null;
 }
 
+const LoanTypes = [ "Housing Loan" ]
+
+const LoanTypeChecker = (loantype) => {
+    return LoanTypes.includes(loantype);
+}
+
 export {
     GetSessionDocument,
     MakeRed,
     CheckSessionStorage,
     GetCookieByName,
+    LoanTypeChecker
 }

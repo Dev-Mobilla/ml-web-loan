@@ -20,7 +20,7 @@ const HousingCurrentAddressComponent = () => {
     barangay: "",
     lenghtOfStay: "",
     otherAddress: "",
-    residenceType: ""
+    residenceType: "Owned (full paid)"
   })
 
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
@@ -56,7 +56,40 @@ const HousingCurrentAddressComponent = () => {
   useEffect(() => {
     console.log(secondStepDetails);
 
-  }, [])
+    const { isCorrespond, personalDetails } = secondStepDetails
+
+    if (isCorrespond) {
+      const currAdd = {
+        country: getAddressName(personalDetails[4].countries),
+        province: getAddressName(personalDetails[4].provinces),
+        city: getAddressName(personalDetails[4].cities),
+        barangay: personalDetails[4].barangay
+      }
+      setCurrentAddress({...currentAdress, ...currAdd })
+    }else{
+      const currAdd = {
+        country: personalDetails[1].countries,
+        province: personalDetails[1].provinces,
+        city: personalDetails[1].cities,
+        barangay: personalDetails[1].barangay
+      }
+      setCurrentAddress({...currentAdress, ...currAdd })
+    }
+
+  }, [secondStepDetails])
+
+  const getAddressName = (name) => {
+    let isEmpty = name === "" || name === null;
+
+    if (!isEmpty) {
+      let nameVal = name.split("|");
+
+      return nameVal[0].toUpperCase();
+
+    }
+    return name;
+
+  }
 
   useEffect(() => {
 
@@ -162,6 +195,7 @@ const HousingCurrentAddressComponent = () => {
                 radioVal={currendAddressRadioVal}
                 onSelected={OnInputChange}
                 radioName={'residenceType'}
+                defaultVal={currentAdress.residenceType}
               />
             </div>
           </HousingCardsComponent>

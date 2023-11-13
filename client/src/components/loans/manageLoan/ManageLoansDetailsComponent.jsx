@@ -11,6 +11,7 @@ import {
   PaymentDetailsModalComponent,
   CustomLoadingModal,
   CustomMessage,
+  CustomIcon,
 } from "../../index";
 import houseIcon from "../../../assets/icons/house.png";
 import mlicon from "../../../assets/icons/diamond.png";
@@ -553,7 +554,7 @@ const ManageLoansDetailsComponent = () => {
       }
 
       const confirmation = await showConfirmationModal({
-        loanType: "ML VEHICLE LOANS FINANCING",
+        loanType: "ML VEHICLE LOANS AND FINANCING",
         amount: parseFloat(toPay),
         accountFirstName:
           validationResponse.data.responseSearch.accounFirstName,
@@ -586,17 +587,33 @@ const ManageLoansDetailsComponent = () => {
         text: "",
       });
       setAlertModal(true);
-      setAlertProps({
-        message: "We were unable to process your request due to an unexpected error.",
-        title: "Request Failed",
-        color: "#ff6562",
-        onClose: handleModalClose,
-      });
-      setPayNowBtn({
-        isDisable: false,
-        classname: "",
-        text: "Pay Now",
-      });
+      if (error.code == 401) {
+        setAlertProps({
+          message: error.displayMessage,
+          title: "Request Failed",
+          color: "#ff6562",
+          onClose: handleModalClose,
+        });
+        setPayNowBtn({
+          isDisable: false,
+          classname: "",
+          text: "Pay Now",
+        });
+      }
+      else{
+        setAlertProps({
+          message: "We were unable to process your request due to an unexpected error.",
+          title: "Request Failed",
+          color: "#ff6562",
+          onClose: handleModalClose,
+        });
+        setPayNowBtn({
+          isDisable: false,
+          classname: "",
+          text: "Pay Now",
+        });
+      }
+      
     }
   };
 
@@ -734,7 +751,6 @@ const ManageLoansDetailsComponent = () => {
       
       if (error.response.status == 500) {
         if (error.code == "ERR_BAD_RESPONSE") {
-          console.log("here");
           setAlertModal(true);
           setAlertProps({
             title: error.response.data.error.message.title,
@@ -764,21 +780,30 @@ const ManageLoansDetailsComponent = () => {
         else{
           setAlertModal(true);
           setAlertProps({
-            title: "Error",
-            message: error.data.message || "An error occurred",
+            title: "Request Failed",
+            message: "We're sorry, something went wrong on our end. Please try again later or contact our support team." || "An error occurred",
             subTitle: "",
             isError: true
           });
         }
-      }else{
+      }
+      else if (error.response.status == 422) {
         setAlertModal(true);
         setAlertProps({
-          title: error.title || "Error",
-          message: error.message || "An error occurred",
-          color: "#ff6562",
-          onClose: handleModalClose,
+          title: "Request Failed",
+          message: "We're sorry, something went wrong on our end. Please try again later or contact our support team." || "An error occurred",
+          subTitle: "",
+          isError: true
         });
-        
+      }
+      else{
+        setAlertModal(true);
+          setAlertProps({
+            title: "Request Failed",
+            message: "We're sorry, something went wrong on our end. Please try again later or contact our support team." || "An error occurred",
+            subTitle: "",
+            isError: true
+          });
       }
     }
   };
@@ -861,12 +886,29 @@ const ManageLoansDetailsComponent = () => {
     </div>
   );
 
+  const { Vehicle, QCL, HousingLoan, SBL, Salary, Pension} = CustomIcon;
+
+  const LoanIcon = ({loantype}) => {
+    if (loantype === "Car Loan" || loantype === "Motor Loan") {
+      return <Vehicle/>;
+    }else if (loantype === "Real Estate Loan") {
+      return <HousingLoan/>;
+    }else if (loantype === "Small Business Loan") {
+      return <SBL/>
+    }else if (loantype === "Pensioner's Loan") {
+      return <Pension/>
+    }
+  }
+
   return (
     <div className="loan-details">
       <div className="div">
         <TopbarComponent />
         {isLoading ? (
-          <LoadingModalComponent />
+          <CustomLoadingModal
+          loadingText={showLoading.text}
+          loadingIcon={LoadingIcon}
+        />
         ) : (
           <>
             <CustomHeader title="Manage Existing Loan" />
@@ -891,7 +933,10 @@ const ManageLoansDetailsComponent = () => {
           <div className="card">
             <div className="h-card">
               <div className="h-card-header">
-                <img src={houseIcon} alt="Housing Loan Icon" />
+                {
+                  <LoanIcon loantype={loanDetails.loanType}/>
+                }
+                
                 <div className="h-card-text">
                   <div className="h-ltxt">{loanDetails.loanType}</div>
                   <div className="h-lrefno">

@@ -190,7 +190,7 @@ const HousingRequirementsComponent = () => {
     <div className="customer-requirement housing-loan">
         <div className="requirement-container">
             <TopbarComponent />
-            <CustomHeader title="Vehicle Details" />
+            <CustomHeader title="Housing Details" />
             <div className="requirement-content">
             <CustomPrevBtn />
             <div className="card">

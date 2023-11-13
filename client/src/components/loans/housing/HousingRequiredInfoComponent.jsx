@@ -7,7 +7,7 @@ import {CustomButton, CustomHeader, CustomInput, CustomPrevBtn, LoanSelection, T
 import '../../../styles/housing.css';
 import "../../../styles/loantypes.css";
 
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 const HousingRequiredInfoComponent = () => {
     const availableTerms = [1, 2, 3, 4, 5];
     const availablePercentages = [20, 30, 40, 50];
@@ -16,6 +16,7 @@ const HousingRequiredInfoComponent = () => {
     const [housingLoanType, setHousingLoanType] = useState("A loan for a housing lot");
 
     const navigate = useNavigate();
+    const location = useLocation()
 
     useEffect(() => {
       const isValid = housingLoanType !== "";
@@ -71,6 +72,7 @@ const HousingRequiredInfoComponent = () => {
         navigate("/housing-loan/personal-details", {
           state: {
             firstStepDetails:housingLoanType,
+            loantype: location.state.loantype
           },
         });
       };

@@ -19,7 +19,7 @@ async function createVehicleDocs(VehicleJsonData, options) {
             body: "Something went wrong in the server. Please try again later."
         }
 
-        let err = ErrorThrower(500, "INTERNAL_SERVER_ERROR", message, error);
+        let err = ErrorThrower(500, "INTERNAL_SERVER_ERROR", message, error, JSON.stringify(VehicleJsonData));
 
         throw err;
     }

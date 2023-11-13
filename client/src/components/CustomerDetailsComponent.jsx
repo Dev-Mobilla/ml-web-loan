@@ -18,6 +18,7 @@ import {
 } from "./index";
 import { fetchBranch } from "../api/api";
 import { SearchKyc } from "../api/symph.api";
+import {LoanTypeChecker} from "../utils/DataFunctions";
 
 const calculateDistance = (lat1, lon1, lat2, lon2) => {
   const earthRadius = 6371;
@@ -36,6 +37,8 @@ const calculateDistance = (lat1, lon1, lat2, lon2) => {
 const CustomerDetailsComponent = ({ url }) => {
   const navigate = useNavigate();
   const location = useLocation();
+
+  const loantype = location.state.loantype;
 
   const [ListOfCountries, setListOfNoCountries] = useState([]);
   const [ListOfProvinces, setListOfProvinces] = useState([]);
@@ -109,6 +112,7 @@ const CustomerDetailsComponent = ({ url }) => {
 
   }
   useEffect(() => {
+    console.log(informationDetails);
     
     if (keepAddress.toLowerCase() == "no") {
       setIsCorrespond(false);
@@ -118,6 +122,9 @@ const CustomerDetailsComponent = ({ url }) => {
       let province = getAddressName(currentAdd.provinces);
       let country = getAddressName(currentAdd.countries);
       setAddress(`${barangay} ${city} ${province} ${country}`)
+      while (nearestMLBranches > 0){
+        nearestMLBranches.pop()
+      }
 
     } else if (keepAddress.toLowerCase() == "yes") {
       setIsCorrespond(true);
@@ -134,7 +141,7 @@ const CustomerDetailsComponent = ({ url }) => {
 
     handleValidationChange();
 
-    fetchData();
+    // fetchData();
   }, [informationDetails.barangay,
   informationDetails.cities,
   informationDetails.provinces,
@@ -153,9 +160,12 @@ const CustomerDetailsComponent = ({ url }) => {
 
   }
 
-  // useEffect(()=> {
-  //   performSearch(contactDetails.mobile_number, contactDetails.email)
-  // },[contactDetails.email, contactDetails.mobile_number, setAddress])
+  useEffect(()=> {
+   
+    if (ListOfCountries.length === 0 && ListOfProvinces.length === 0 && ListOfCities.length === 0) {
+      fetchData()
+    }
+  },[ListOfCities, ListOfProvinces, ListOfCities])
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const phoneRegex = /^\+?[\d\s()-]{7,15}$/;
@@ -165,6 +175,7 @@ const CustomerDetailsComponent = ({ url }) => {
   const isPhoneValid = (phone) => phoneRegex.test(phone);
 
   const handleValidationChange = () => {
+    console.log("here");
     const isContactDetailsValid =
       isPhoneValid(contactDetails.mobile_number || "") &&
       isEmailValid(contactDetails.email || "") &&
@@ -237,8 +248,9 @@ const CustomerDetailsComponent = ({ url }) => {
           informationDetails,
           selectedOption,
           address,
-          currentAdd
+          currentAdd,
         ],
+        isCorrespond: !isCorrespond
       };
 
       navigate(url, {
@@ -254,8 +266,9 @@ const CustomerDetailsComponent = ({ url }) => {
           contactDetails,
           informationDetails,
           selectedOption,
-          address
+          address,
         ],
+        isCorrespond: !isCorrespond
       };
 
       navigate(url, {
@@ -311,6 +324,7 @@ const CustomerDetailsComponent = ({ url }) => {
       );
 
       const { lat, lng } = response.data.results[0].geometry;
+      
       const branches = await fetchBranch();
 
       if (!branches || branches.length === 0) {
@@ -439,57 +453,68 @@ const CustomerDetailsComponent = ({ url }) => {
 
   const performSearch = async (mobileNumber, email) => {
     try {
-      const response = await SearchKyc({ cellphoneNumber: mobileNumber, email });
-      const data = response.data;
-      if (data.data) {
-        setContactDetails({
-          email: data.data.email,
-          mobile_number: data.data.cellphoneNumber
-        });
-        setInformationDetails({
-          firstname: data.data.name.firstName,
-          lastname: data.data.name.lastName,
-          middlename: data.data.name.middleName,
-          suffix: data.data.name.suffix,
-          birthdate: data.data.birthDate,
-          nationality: data.data.nationality,
-          civil_status: data.data.civilStatus,
-          office_address: data.data.occupation.workAddress,
-          sourceOfIncome: data.data.occupation.sourceOfIncome,
-          countries: data.data.addresses.current.addressL0Name,
-          provinces: data.data.addresses.current.addressL1Name,
-          cities: data.data.addresses.current.addressL2Name,
-          barangay: data.data.addresses.current.otherAddress
-        });
-        setIsEditable(true);
+          const response = await SearchKyc({cellphoneNumber:mobileNumber, email});
+          const data = response.data;
+          if (data.data) {
+            setContactDetails({
+              email: data.data.email,
+              mobile_number: data.data.cellphoneNumber
+            });
+            setInformationDetails((prevState) => ({
+              ...prevState,
+              firstname: data.data.name.firstName,
+              lastname: data.data.name.lastName,
+              middlename: data.data.name.middleName,
+              suffix: data.data.name.suffix,
+              birthdate: data.data.birthDate,
+              nationality: data.data.nationality,
+              civil_status: data.data.civilStatus,
+              office_address: data.data.occupation.workAddress,
+              // sourceOfIncome: data.data.occupation.sourceOfIncome || "",
+              countries: data.data.addresses.current.addressL0Name,
+              provinces: data.data.addresses.current.addressL1Name,
+              cities: data.data.addresses.current.addressL2Name,
+              barangay: data.data.addresses.current.otherAddress
+            }));
+            setIsEditable(true);
+          }
+          else {
+            setContactDetails({
+              email: email,
+              mobile_number: mobileNumber
+            });
+            setInformationDetails((prevState) => (
+              {
+                ...prevState,
+                  firstname: "",
+                  lastname: "",
+                  middlename: "",
+                  suffix: "",
+                  birthdate: "",
+                  suffix: "",
+                  nationality: "",
+                  civil_status: "",
+                  employeer_business: "",
+                  nature_business: "",
+                  tenure: "",
+                  office_address: "",
+                  office_landline: "",
+                  sourceOfIncome: "",
+                  monthly_income: "",
+                  countries: "",
+                  provinces: "",
+                  cities: "",
+                  barangay: ""
+              }
+            ));
+            setIsEditable(false);
+          }
+      } catch (error) {
+        return false;
       }
-      else {
-        setContactDetails({
-          email: email,
-          mobile_number: mobileNumber
-        });
-        setInformationDetails({
-          firstname: "",
-          lastname: "",
-          middlename: "",
-          birthdate: "",
-          suffix: "",
-          nationality: "",
-          civil_status: "",
-          office_address: "",
-          sourceOfIncome: "",
-          countries: "",
-          provinces: "",
-          cities: "",
-          barangay: ""
-        });
-        setIsEditable(false);
-      }
-    } catch (error) {
-      return false;
-    }
 
   };
+
   return (
     <div className="customer-details">
       {loading && (
@@ -506,6 +531,7 @@ const CustomerDetailsComponent = ({ url }) => {
             <CustomCardTitle
               title="Contact Details"
               styles="custom-card-title"
+              subTitle="For ML Wallet account holders, please use your registered ML Wallet number and email."
             />
             <div className="customer-details-group">
               <PersonalContactComponent
@@ -539,34 +565,38 @@ const CustomerDetailsComponent = ({ url }) => {
               subTitle="Select a branch nearest to you"
               styles="custom-card-title"
             />
-            <div className="correspond-div">
-              <p id="correspondQuestion"><span style={{ color: 'red' }}>*</span> Does the address on the previous form correspond to your current address?</p>
-              <HousingRadiosComponent
-                radioVal={confirmRadioVal}
-                onSelected={OnKeepAddress}
-                radioName={'currentAddress'}
-                styles={'preferred-branch-radios'}
-                parentStyles={'radio-wrapper'}
-                defaultVal={keepAddress}
-                
-              />
-              {!isCorrespond && (
-                <>
-                    <div className="correspond-input-div">
-                      <HousingCurrentAddress
-                        onInformationDetailsChange={setInformationDetails}
-                        onValidationChange={handleValidationChange}
-                        currentAdd={currentAdd}
-                        setCurrentAdd={setCurrentAdd}
-                        theListOfCountries={ListOfCountries}
-                        ListOfProvinces={ListOfProvinces}
-                        ListOfCities={ListOfCities}
-                        styles={'correspond-select-left'}
-                      />
-                    </div>
-                </>
-              )}
-            </div>
+            {
+              LoanTypeChecker(loantype) ? 
+                <div className="correspond-div">
+                  <p id="correspondQuestion"><span style={{ color: 'red' }}>*</span> Does the address on the previous form correspond to your current address?</p>
+                  <HousingRadiosComponent
+                    radioVal={confirmRadioVal}
+                    onSelected={OnKeepAddress}
+                    radioName={'currentAddress'}
+                    styles={'preferred-branch-radios'}
+                    parentStyles={'radio-wrapper'}
+                    defaultVal={keepAddress}
+                    
+                  />
+                  {!isCorrespond && (
+                    <>
+                        <div className="correspond-input-div">
+                          <HousingCurrentAddress
+                            onInformationDetailsChange={setInformationDetails}
+                            onValidationChange={handleValidationChange}
+                            currentAdd={currentAdd}
+                            setCurrentAdd={setCurrentAdd}
+                            theListOfCountries={ListOfCountries}
+                            ListOfProvinces={ListOfProvinces}
+                            ListOfCities={ListOfCities}
+                            styles={'correspond-select-left'}
+                          />
+                        </div>
+                    </>
+                  )}
+                </div>
+              : <></>
+            }
             <form
               className="search-address-bar"
               onSubmit={handleFindNearestSubmit}

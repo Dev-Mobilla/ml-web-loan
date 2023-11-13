@@ -1,12 +1,14 @@
 .alertbackground {
   height: 105%;
-  background: var(--white);
+  /* background: var(--white); */
   position: fixed;
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
   top: 1px;
+  background-color: var(--bg-shadow);
+  z-index: 999;
 }
 
 .alertcontainer {
@@ -18,8 +20,13 @@
   display: flex;
   flex-direction: column;
   padding: 25px;
+  
 }
-
+.alertcontainer h1{
+  font-size: 21px;
+    font-weight: 700;
+    text-align: center;
+}
 .alertcontainer .body {
   flex: 50%;
   display: flex;

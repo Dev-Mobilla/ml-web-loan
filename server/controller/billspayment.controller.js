@@ -90,9 +90,13 @@ const PayNow = async (req, res, next) => {
       amountPaid: req.body.amountPaid,
     };
 
+    SuccessLogger(url, 200, `REQ DATA: ${JSON.stringify(data)}`);
+
     const response = await axios.post(url, data, config);
     console.log("response post:", response);
     const { billspayStatus, paymentStatus, kptn, createdDate } = response.data.data;
+
+    SuccessLogger(url, 200, `BILLSPAY DATA: ${JSON.stringify(response.data.data)}`);
 
     const kp7BillsPayResp = await CheckKP7Transaction(kptn);
 
@@ -116,7 +120,7 @@ const PayNow = async (req, res, next) => {
 
         let reqBody = {
           billspayStatus: "FAILED",
-          createdDate
+          transactionDate:createdDate
         }
 
         const updateBillsPay = await UpdateBillsPayment(reqBody, kptn);
@@ -147,8 +151,9 @@ const PayNow = async (req, res, next) => {
         
         let reqBody = {
           billspayStatus: "POSTED",
-          createdDate
+          transactionDate:createdDate
         }
+        SuccessLogger("CheckKP7Transaction", 200, `REQ DATA: ${JSON.stringify(reqBody)}`);
 
         const updateBillsPay = await UpdateBillsPayment(reqBody, kptn);
 
@@ -222,7 +227,7 @@ const RefundBillsPayment = async (kptn) => {
             }
         }else{
 
-            let error = ErrorThrower(404, "RESOURCE_NOT_FOUND", "No kptn provided");
+            let error = ErrorThrower(404, "RESOURCE_NOT_FOUND", "No kptn provided", null, null, kptn);
 
             throw error;
         }
@@ -233,6 +238,11 @@ const RefundBillsPayment = async (kptn) => {
 };
 
 const UpdateBillsPayment = async (reqBody, kptn) => {
+
+  const dataBody = {
+    kptn,
+    reqBody
+  }
 
   try {
 
@@ -271,7 +281,7 @@ const UpdateBillsPayment = async (reqBody, kptn) => {
         }
     }else{
 
-        let error = ErrorThrower(404, "RESOURCE_NOT_FOUND", "No kptn/request body provided", null, null);
+        let error = ErrorThrower(404, "RESOURCE_NOT_FOUND", "No kptn/request body provided", null, null, JSON.stringify(dataBody));
 
         throw error;
     }
