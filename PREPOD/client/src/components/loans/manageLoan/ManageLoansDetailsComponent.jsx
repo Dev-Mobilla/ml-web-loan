@@ -744,6 +744,7 @@ const ManageLoansDetailsComponent = () => {
         });
       }
     } catch (error) {
+      console.log("payment", error);
       setShowLoading({
         loading: false,
         text: `Thank you for your patience while we process your payment. It should only take 1-2 minutes.`,
