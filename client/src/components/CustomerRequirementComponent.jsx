@@ -15,6 +15,7 @@ import {
   CustomAlert,
   CustomConfirmation,
   CustomLoadingModal,
+  OTPModalComponent,
 } from "./index";
 import { GetSessionDocument } from "../utils/DataFunctions";
 import { CreateCustomerDetailsToSymph, SearchKyc } from "../api/symph.api";
@@ -25,14 +26,16 @@ const CustomerRequirementComponent = () => {
   const location = useLocation();
   const { modalOpen, modalTitle, modalDefaultGuideImage, closeModal } =
     useModal();
-  const [showModal, setshowModal] = useState(false);
+
+  const [showOTP, setShowOTP] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [isOtpCorrect, setIsOtpCorrect] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
   const [alertProps, setAlertProps] = useState(null);
   const [modalProps, setModalProps] = useState(null);
   const [isSubmitButtonDisabled, setIsSubmitButtonDisabled] = useState(false);
   const [optionValue, setOptionValue] = useState("");
   const [showConfirm, setShowConfirm] = useState(false);
-  const [confimationProps, setConfimationProps] = useState({});
   const [showLoading, setShowLoading] = useState({
     loading: false,
     text: "",
@@ -47,6 +50,23 @@ const CustomerRequirementComponent = () => {
     "Right Side",
     "Left Side",
   ];
+
+  const handleCancel = () => {
+    setShowConfirm(false);
+    setShowOTP(false);
+    setIsOtpCorrect(false);
+  };
+
+  const handleOtpSubmit = (otp) => {
+    const isCorrect = verifyOtp(otp);
+    setIsOtpCorrect(isCorrect);
+    setShowSuccess(isCorrect);
+    setShowOTP(false);
+  };
+
+  const verifyOtp = (otp) => {
+    // TODO: Implement OTP verification logic
+  };
 
   useEffect(() => {
     if (location.state == null) {
@@ -65,27 +85,36 @@ const CustomerRequirementComponent = () => {
     return {
       original_or:
         JSON.parse(sessionStorage.getItem("Orginal OR/CR"))?.imageName || "",
-      stencils: JSON.parse(sessionStorage.getItem("Set stencils"))?.imageName || "",
+      stencils:
+        JSON.parse(sessionStorage.getItem("Set stencils"))?.imageName || "",
       car_insurance:
-        JSON.parse(sessionStorage.getItem("Vehicle Insurance"))?.imageName || "",
-      front_side: JSON.parse(sessionStorage.getItem("Front Side"))?.imageName || "",
-      back_side: JSON.parse(sessionStorage.getItem("Back Side"))?.imageName || "",
-      right_side: JSON.parse(sessionStorage.getItem("Right Side"))?.imageName || "",
-      left_side: JSON.parse(sessionStorage.getItem("Left Side"))?.imageName || "",
-    }
-  }
+        JSON.parse(sessionStorage.getItem("Vehicle Insurance"))?.imageName ||
+        "",
+      front_side:
+        JSON.parse(sessionStorage.getItem("Front Side"))?.imageName || "",
+      back_side:
+        JSON.parse(sessionStorage.getItem("Back Side"))?.imageName || "",
+      right_side:
+        JSON.parse(sessionStorage.getItem("Right Side"))?.imageName || "",
+      left_side:
+        JSON.parse(sessionStorage.getItem("Left Side"))?.imageName || "",
+    };
+  };
   const EmploymentJsonData = () => {
     return {
       valid_id: JSON.parse(sessionStorage.getItem("Valid ID"))?.imageName || "",
       employee_cert:
-        JSON.parse(sessionStorage.getItem("Employee Certificate"))?.imageName || "",
-      payslip: JSON.parse(sessionStorage.getItem("Payslip/ITR"))?.imageName || "",
+        JSON.parse(sessionStorage.getItem("Employee Certificate"))?.imageName ||
+        "",
+      payslip:
+        JSON.parse(sessionStorage.getItem("Payslip/ITR"))?.imageName || "",
       mayor_cert:
-        JSON.parse(sessionStorage.getItem("Mayor’s Certificate"))?.imageName || "",
+        JSON.parse(sessionStorage.getItem("Mayor’s Certificate"))?.imageName ||
+        "",
       bank_cert:
         JSON.parse(sessionStorage.getItem("Bank Statement"))?.imageName || "",
-    }
-  }
+    };
+  };
   const CustomerDetailsJsonData = (details, ckyc) => {
     return {
       customer_id: ckyc.customer_id,
@@ -107,37 +136,40 @@ const CustomerRequirementComponent = () => {
       current_address: details.current_address,
       mobile_number: ckyc.mobile_number,
       email: ckyc.email,
-      
-    }
-  }
-  const LoanApplicationJsonData = (vehicleDetails, loan_type, preferredBranch) => {
-    
+    };
+  };
+  const LoanApplicationJsonData = (
+    vehicleDetails,
+    loan_type,
+    preferredBranch
+  ) => {
     const dateInstance = new Date();
 
     const year = dateInstance.getFullYear().toString();
-    const month = (("0" + (dateInstance.getMonth() + 1)).slice(-2)).toString();
+    const month = ("0" + (dateInstance.getMonth() + 1)).slice(-2).toString();
     const day = ("0" + dateInstance.getDate()).slice(-2).toString();
 
     const dateNow = `${year}-${month}-${day}`;
 
     const request = {
-        vehicle_type:vehicleDetails.selectedVehicle,
-        loan_type:vehicleDetails.type,
-        application_loan_type: loan_type,
-        application_date: dateNow,
-        principal_amount:vehicleDetails.principalAmount,
-        terms:vehicleDetails.terms,
-        color: vehicleDetails.color,
-        interest:vehicleDetails.interest,
-        year:vehicleDetails.year,
-        make:vehicleDetails.make,
-        model:vehicleDetails.model,
-        variant:vehicleDetails.variant ? vehicleDetails.variant : null,
-        plate_number:vehicleDetails.plateNo ?vehicleDetails.plateNo : null,
-        engine_number:vehicleDetails.engineNo ?vehicleDetails.engineNo : null,
-        chassis_number:vehicleDetails.chassisNo ?vehicleDetails.chassisNo : null,
-        preferred_branch: preferredBranch,
-      
+      vehicle_type: vehicleDetails.selectedVehicle,
+      loan_type: vehicleDetails.type,
+      application_loan_type: loan_type,
+      application_date: dateNow,
+      principal_amount: vehicleDetails.principalAmount,
+      terms: vehicleDetails.terms,
+      color: vehicleDetails.color,
+      interest: vehicleDetails.interest,
+      year: vehicleDetails.year,
+      make: vehicleDetails.make,
+      model: vehicleDetails.model,
+      variant: vehicleDetails.variant ? vehicleDetails.variant : null,
+      plate_number: vehicleDetails.plateNo ? vehicleDetails.plateNo : null,
+      engine_number: vehicleDetails.engineNo ? vehicleDetails.engineNo : null,
+      chassis_number: vehicleDetails.chassisNo
+        ? vehicleDetails.chassisNo
+        : null,
+      preferred_branch: preferredBranch,
     };
 
     return request;
@@ -195,67 +227,60 @@ const CustomerRequirementComponent = () => {
 
   const AddKyc = async () => {
     // Symph DB
-      try {
-        const personalDetails =
-          location.state.secondStepDetails.personalDetails;
+    try {
+      const personalDetails = location.state.secondStepDetails.personalDetails;
 
-        const { email, mobile_number } = personalDetails[0];
-        const {
-          firstname,
-          lastname,
-          suffix,
-          middlename,
-          countries,
-          provinces,
-          cities,
-        } = personalDetails[1];
+      const { email, mobile_number } = personalDetails[0];
+      const {
+        firstname,
+        lastname,
+        suffix,
+        middlename,
+        countries,
+        provinces,
+        cities,
+      } = personalDetails[1];
 
-        const country = countries.split("|")[1].trim();
-        const province = provinces.split("|")[1].trim();
-        const city = cities.split("|")[1].trim();
+      const country = countries.split("|")[1].trim();
+      const province = provinces.split("|")[1].trim();
+      const city = cities.split("|")[1].trim();
 
-        const customerDataToSymph = {
-          mobileNumber: mobile_number,
-          firstName: firstname,
-          lastName: lastname,
-          middleName: middlename !== '' ? middlename : "",
-          suffix: suffix !== '' ? suffix : "",
-          email: email,
-          address: {
-            addressL0Id: parseInt(country),
-            addressL1Id: parseInt(province),
-            addressL2Id: parseInt(city),
-            // otherAddress: "",
-            // zipCode: "",
-          },
-        };
+      const customerDataToSymph = {
+        mobileNumber: mobile_number,
+        firstName: firstname,
+        lastName: lastname,
+        middleName: middlename !== "" ? middlename : "",
+        suffix: suffix !== "" ? suffix : "",
+        email: email,
+        address: {
+          addressL0Id: parseInt(country),
+          addressL1Id: parseInt(province),
+          addressL2Id: parseInt(city),
+          // otherAddress: "",
+          // zipCode: "",
+        },
+      };
 
-       return await CreateCustomerDetailsToSymph(customerDataToSymph);
-
-      } catch (error) {
-
-        throw error
-      }
-  }
+      return await CreateCustomerDetailsToSymph(customerDataToSymph);
+    } catch (error) {
+      throw error;
+    }
+  };
   const ConfirmApplication = () => {
-    setShowConfirm(true)
-    setConfimationProps({
-      title: "Submit Application?",
-      message: "Please make sure that all the details provided are correct.",
-      confirmBtn: "Submit"
-    })
-  }
+    setShowConfirm(true);
+  };
 
   const OnSubmitRequirementsHandler = async () => {
     setShowConfirm(false);
+    setShowOTP(true);
     setShowLoading({
       loading: true,
       text: "Just a moment",
     });
 
     if (sessionStorage.length !== 0 && location.state) {
-
-      const mobileNumber = location.state.secondStepDetails.personalDetails[0].mobile_number;
+      const mobileNumber =
+        location.state.secondStepDetails.personalDetails[0].mobile_number;
       const email = location.state.secondStepDetails.personalDetails[0].email;
       const perDetails = location.state.secondStepDetails.personalDetails[1];
       // TODO: Check KYC
@@ -264,41 +289,43 @@ const CustomerRequirementComponent = () => {
         let ckyc = {};
         let hatchitReqBody = {};
 
-        const isKycExist = await SearchKyc({cellphoneNumber: mobileNumber, email});
+        const isKycExist = await SearchKyc({
+          cellphoneNumber: mobileNumber,
+          email,
+        });
 
         // Details: If not existing Symph DB
         if (isKycExist.data.data == null && isKycExist.data.code == "SUCCESS") {
-          
           await AddKyc();
-          
-          const responseSearchKyc = await SearchKyc({cellphoneNumber: mobileNumber});
+
+          const responseSearchKyc = await SearchKyc({
+            cellphoneNumber: mobileNumber,
+          });
 
           const kyc = responseSearchKyc.data.data;
 
           // setTimeout(() => {
-            ckyc = {
-              customer_id: kyc.customerId,
-              ckyc_id: kyc.ckycId,
-              lastname: kyc.name.lastName,
-              firstname: kyc.name.firstName,
-              middlename: kyc.name.middleName,
-              suffix: kyc.name.suffix,
-              nationality: perDetails.nationality,
-              civil_status: perDetails.civil_status,
-              birthdate: perDetails.birthdate,
-              mobile_number: kyc.cellphoneNumber,
-              email: kyc.email,
-              
-            }
-            hatchitReqBody = {
-              country: kyc.addresses.current.addressL0Name,
-              province: kyc.addresses.current.addressL1Name,
-              city: kyc.addresses.current.addressL2Name,
-              barangay: perDetails.barangay
-            }
+          ckyc = {
+            customer_id: kyc.customerId,
+            ckyc_id: kyc.ckycId,
+            lastname: kyc.name.lastName,
+            firstname: kyc.name.firstName,
+            middlename: kyc.name.middleName,
+            suffix: kyc.name.suffix,
+            nationality: perDetails.nationality,
+            civil_status: perDetails.civil_status,
+            birthdate: perDetails.birthdate,
+            mobile_number: kyc.cellphoneNumber,
+            email: kyc.email,
+          };
+          hatchitReqBody = {
+            country: kyc.addresses.current.addressL0Name,
+            province: kyc.addresses.current.addressL1Name,
+            city: kyc.addresses.current.addressL2Name,
+            barangay: perDetails.barangay,
+          };
           // }, 1500);
-
-        }else{
+        } else {
           const responseKyc = isKycExist.data.data;
           ckyc = {
             customer_id: responseKyc.customerId,
@@ -311,123 +338,128 @@ const CustomerRequirementComponent = () => {
             civil_status: perDetails.civil_status,
             birthdate: perDetails.birthdate,
             mobile_number: responseKyc.cellphoneNumber,
-            email: responseKyc.email
-          }
+            email: responseKyc.email,
+          };
 
           hatchitReqBody = {
             country: responseKyc.addresses.current.addressL0Name,
             province: responseKyc.addresses.current.addressL1Name,
             city: responseKyc.addresses.current.addressL2Name,
-            barangay: perDetails.barangay
-          }
+            barangay: perDetails.barangay,
+          };
         }
-        
+
         //   //Details: If not, proceed ML DB
         const baseData = location.state.secondStepDetails;
         const address = baseData.personalDetails[3];
         const customer = baseData.personalDetails[1];
         customer.current_address = address;
-        
+
         const preferredBranch = baseData.personalDetails[2];
-        
-        const vehicleDetails = baseData.vehicleDetails
-        
+
+        const vehicleDetails = baseData.vehicleDetails;
+
         let loan_type = null;
 
-        if (vehicleDetails?.selectedVehicle === "Car/Pickup/SUV" || vehicleDetails?.selectedVehicle === "Truck/Commercial") {
-          loan_type = "Car Loan"
-        }else if (vehicleDetails?.selectedVehicle === "Motorcycle") {
-          loan_type = "Motor Loan"
+        if (
+          vehicleDetails?.selectedVehicle === "Car/Pickup/SUV" ||
+          vehicleDetails?.selectedVehicle === "Truck/Commercial"
+        ) {
+          loan_type = "Car Loan";
+        } else if (vehicleDetails?.selectedVehicle === "Motorcycle") {
+          loan_type = "Motor Loan";
         }
 
         const vehicleDocsData = VehicleJsonData();
         const employmentDocsData = EmploymentJsonData();
         const customerData = CustomerDetailsJsonData(customer, ckyc);
-        const loanApplicationData = LoanApplicationJsonData(vehicleDetails, loan_type, preferredBranch)
-        
+        const loanApplicationData = LoanApplicationJsonData(
+          vehicleDetails,
+          loan_type,
+          preferredBranch
+        );
+
         setShowLoading({
           loading: true,
           text: "We're almost there!",
         });
-        
-      //   // ML DB
+
+        //   // ML DB
         const AddMLLoan = await AddLoan(
-            vehicleDocsData,
-            employmentDocsData, 
-            customerData, 
-            loanApplicationData,
-            hatchitReqBody
+          vehicleDocsData,
+          employmentDocsData,
+          customerData,
+          loanApplicationData,
+          hatchitReqBody
         );
 
-          location.state = null
-          sessionStorage.clear();
-          
-          setTimeout(() => {
-            setShowLoading({
-              loading: false,
-              text: "Just a moment",
-            });
-            navigate(`/vehicle-loan/receipt`, {
-              state: {
-                LoanDetails: {
-                    Loan: JSON.stringify(AddMLLoan),
-                    LoanType: loan_type
-                  }
-              },
-              replace: true
-            })
-          }, 1500);
+        location.state = null;
+        sessionStorage.clear();
 
+        setTimeout(() => {
+          setShowLoading({
+            loading: false,
+            text: "Just a moment",
+          });
+          navigate(`/vehicle-loan/receipt`, {
+            state: {
+              LoanDetails: {
+                Loan: JSON.stringify(AddMLLoan),
+                LoanType: loan_type,
+              },
+            },
+            replace: true,
+          });
+        }, 1500);
       } catch (error) {
         setShowLoading({
           loading: false,
           text: "Just a moment",
         });
         if (error.status == 409) {
-          
           setShowAlert(true);
           setAlertProps({
             title: "Request Failed",
             text: error.data.message || "An error occurred",
             subTitle: error.data.subtitle || "",
             subLink: true,
-            isError: true
+            isError: true,
           });
-        }else{
+        } else {
           if (error.code == "ERR_BAD_RESPONSE") {
             setShowAlert(true);
             setAlertProps({
               title: error.response.data.error.message.title,
-              text: error.response.data.error.message.body || "An error occurred",
+              text:
+                error.response.data.error.message.body || "An error occurred",
               subTitle: "",
-              isError: true
+              isError: true,
             });
-          }
-          else if (error.code == "ERR_NETWORK") {
+          } else if (error.code == "ERR_NETWORK") {
             setShowAlert(true);
             setAlertProps({
               title: "Request Failed",
-              text: "We're sorry, something went wrong on our end. Please try again later or contact our support team." || "An error occurred",
+              text:
+                "We're sorry, something went wrong on our end. Please try again later or contact our support team." ||
+                "An error occurred",
               subTitle: "",
-              isError: true
+              isError: true,
             });
-          }
-          else if (error.data.error.code == "INTERNAL_SERVER_ERROR") {
+          } else if (error.data.error.code == "INTERNAL_SERVER_ERROR") {
             setShowAlert(true);
             setAlertProps({
               title: error.data.error.message.title,
               text: error.data.error.message.body || "An error occurred",
               subTitle: "",
-              isError: true
+              isError: true,
             });
-          }
-          else{
+          } else {
             setShowAlert(true);
             setAlertProps({
               title: "Error",
               text: error.data.message || "An error occurred",
               subTitle: "",
-              isError: true
+              isError: true,
             });
           }
         }
@@ -501,35 +533,43 @@ const CustomerRequirementComponent = () => {
           </div>
         </div>
       </div>
-      {showModal && (
-        <SuccessModal
-          hideModal={setshowModal}
-          title={modalProps.title}
-          message={modalProps.message}
-        />
-      )}
-
       {showAlert && (
         <CustomAlert
           title={alertProps.title}
           text={alertProps.text}
           subtitle={alertProps.subTitle ? alertProps.subTitle : ""}
           isError={alertProps.isError}
-          subLink = {alertProps.subLink}
+          subLink={alertProps.subLink}
           onClose={() => setShowAlert(false)}
         />
       )}
-      {
-        showConfirm && (
-          <CustomConfirmation
-          title={confimationProps.title}
-          message={confimationProps.message}
+
+      {showConfirm && (
+        <CustomConfirmation
+          title="Submit Application?"
+          message="Please make sure that all the details provided are correct."
           onClose={() => setShowConfirm(false)}
           onConfirm={OnSubmitRequirementsHandler}
-          confirmBtn={confimationProps.confirmBtn}
-          />
-        )
-      }
+          confirmBtn="Submit"
+        />
+      )}
+
+      {showOTP && (
+        <OTPModalComponent
+          time={60}
+          HandleSubmitOTP={handleOtpSubmit}
+          HandleCancel={handleCancel}
+        />
+      )}
+
+      {showSuccess && (
+        <SuccessModal
+          hideModal={() => setShowSuccess(false)}
+          title={modalProps.title}
+          message={modalProps.message}
+        />
+      )}
+
       {showLoading.loading ? (
         <CustomLoadingModal
           loadingText={showLoading.text}
@@ -538,6 +578,7 @@ const CustomerRequirementComponent = () => {
       ) : (
         <></>
       )}
+
       <AddPhotoModal
         isOpen={modalOpen}
         onClose={closeModal}
