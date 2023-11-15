@@ -134,8 +134,8 @@ const ManageLoanComponent = () => {
 
   useEffect(() => {
     setTimeout(() => {
-      GetAllLoans();
-      GetllApplication();
+      // GetAllLoans();
+      // GetllApplication();
     }, 1500);
   }, [])
 

@@ -231,7 +231,7 @@
   }
 
   .loan-details .card {
-    padding: 30px;
+    padding: 15px;
   }
 
   .loan-details .h-card {
@@ -240,8 +240,8 @@
   }
 
   .card .h-card-header img {
-    width: 55px;
-    height: 55px;
+    width: 50%;
+    height: 50px;
   }
 
   .loan-details .input-group {
@@ -262,7 +262,7 @@
   }
 
   .h-card-header {
-    padding: 5px;
+    padding: 0;
   }
 
   .hl-inputs {
@@ -329,8 +329,9 @@
   }
 
   .hl-transactions {
-    margin-left: 15px;
+    margin-left: 5px;
     font-size: 14px;
+    justify-content: space-around;
   }
 
   .hl-transactions .ammount {
@@ -355,7 +356,7 @@
   }
 
   .loan-details .card {
-    padding: 15px 10px;
+    padding: 15px 20px;
   }
 
   .loan-details .h-card {
@@ -443,7 +444,11 @@
 
   .payment-schedule-btn,
   .collateral-details-btn {
-    padding: 5px 12px;
+    /* padding: 5px 12px; */
+    width: 150px;
+    height: 35px;
+    font-size: 13px;
+    padding: 4px;
   }
 
   .rec-payment-txt {
@@ -453,6 +458,7 @@
   .hl-transactions {
     margin-left: 15px;
     font-size: 15px;
+    justify-content: space-around;
   }
 
   .hl-transactions .ammount {
