@@ -28,7 +28,7 @@ const PaymentReceiptCompoenent = () => {
   );
 
   const ManageLoansBtn = () => {
-    navigate("/manage-loans", { state: null });
+    navigate("/manage-loans", { state: null, replace: true });
   };
 
   useEffect(() => {

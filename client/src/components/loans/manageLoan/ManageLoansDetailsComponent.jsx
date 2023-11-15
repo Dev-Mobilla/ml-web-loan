@@ -921,21 +921,11 @@ const ManageLoansDetailsComponent = () => {
   }
 
   const PastDue = () => {
-      let dateInstance = new Date();
-      
-      let requestDate = new Date(loanDetails.paymentDueDate);
+    let dateInstance = new Date();
+    
+    let requestDate = new Date(loanDetails.paymentDueDate);
 
-      let diffTime = Math.abs(dateInstance.valueOf() - requestDate.valueOf());
-
-      let days = diffTime / (24 * 60 * 60 * 1000);
-
-
-      if (days < 1) {
-        return false
-      }else{
-        return true
-
-      }
+    return dateInstance > requestDate
 
   }
 
