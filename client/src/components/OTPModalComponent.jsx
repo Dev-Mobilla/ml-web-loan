@@ -3,7 +3,7 @@ import "../styles/otpcomponent.css";
 import CustomCardTitle from "./custom/Custom.cardTitle";
 import CustomButton from "./custom/Custom.button";
 
-const OTPModalComponent = ({ time, HandleCancel, HandleSubmitOTP }) => {
+const OTPModalComponent = ({ time, HandleCancel, HandleSubmitOTP, number, HandleResendOTP }) => {
   const [seconds, setSeconds] = useState(time);
   const [isDisabled, setIsDisabled] = useState(false);
   const inputRefs = useRef([]);
@@ -32,13 +32,20 @@ const OTPModalComponent = ({ time, HandleCancel, HandleSubmitOTP }) => {
     const interval = setInterval(() => {
       if (seconds > 0) {
         setSeconds(seconds - 1);
-      } else {
-        setIsDisabled(true);
       }
     }, 1000);
 
     return () => clearInterval(interval);
   }, [seconds]);
+
+  useEffect(() => {
+
+    if (otp.length < 6 && (seconds == 0 || seconds > 0)) {
+      setIsDisabled(true)
+    }else{
+      setIsDisabled(false)
+    }
+  },[otp, seconds])
 
   return (
     <div className="otp-component">
@@ -49,7 +56,8 @@ const OTPModalComponent = ({ time, HandleCancel, HandleSubmitOTP }) => {
               <CustomCardTitle title="One Time Pin" styles="custom-title" />
             </div>
             <div className="otp-modal--sub-title">
-              <p>We've sent a 6-digit code to your device.</p>
+              <p>We've sent a 6-digit code to your mobile number ending in *******<span>{number?.slice(7, 12)}</span>.</p>
+              <br />
               <p>Please enter the code.</p>
             </div>
             <div className="otp-modal--input">
@@ -70,7 +78,7 @@ const OTPModalComponent = ({ time, HandleCancel, HandleSubmitOTP }) => {
                 <p className="timer-text">{seconds}</p>
               </div>
             </div>
-            {isDisabled ? (
+            {isDisabled && seconds === 0 ? (
               <div className="otp-modal--resend">
                 <p>Did not received an OTP?</p>
                 <CustomButton
@@ -78,7 +86,7 @@ const OTPModalComponent = ({ time, HandleCancel, HandleSubmitOTP }) => {
                   styles="resend-btn"
                   EventHandler={() => {
                     setSeconds(60);
-                    setIsDisabled(false);
+                    HandleResendOTP()
                   }}
                 />
               </div>
