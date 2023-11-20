@@ -55,6 +55,7 @@ const CreateCustomerDetailsToSymph = async (req, res, next) => {
       middleName,
       mobileNumber,
       suffix,
+      otpCode
     } = req.body;
 
     const body = {
@@ -65,6 +66,7 @@ const CreateCustomerDetailsToSymph = async (req, res, next) => {
       middleName,
       mobileNumber,
       suffix,
+      otpCode
     };
 
     const token = getToken.data.data.token;
@@ -84,8 +86,11 @@ const CreateCustomerDetailsToSymph = async (req, res, next) => {
       headers,
     };
 
+    const endpoint = '/api/register/validated-basic-kyc';
+    // const endpoint = '/api/register/basic-kyc';
+
     const response = await axios.post(
-      `${ML_MONEY_URL}/api/register/basic-kyc`,
+      `${ML_MONEY_URL}${endpoint}`,
       body,
       config
     );

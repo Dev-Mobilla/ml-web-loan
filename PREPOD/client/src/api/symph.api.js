@@ -128,8 +128,9 @@ const GetCities = async () => {
 
 const CreateCustomerDetailsToSymph = async (customerDataToSymph) => {
   try {
+    const endpoint = `/api/ml-loans/symph/basic-kyc`;
     const response = await axios.post(
-      `${BASE_URL}/api/ml-loans/symph/basic-kyc`,
+      `${BASE_URL}${endpoint}`,
       customerDataToSymph
     );
     return response.data
@@ -163,6 +164,18 @@ const SearchKyc = async (params) => {
     throw error;
   }
 };
+const GetOTP = async (mobileno) => {
+  try {
+    const response = await ML_LoansAxiosInstance.post(`/api/ml-loans/symph/get-otp`, {
+      mobileNumber:mobileno
+    })
+
+    return response;
+  } catch (error) {
+    throw error
+  }
+}
+
 export {
   CreateCustomerDetailsToSymph,
   GetCities,
@@ -173,4 +186,5 @@ export {
   PayNow,
   ValidateAccountNumber,
   SearchKyc,
+  GetOTP
 };

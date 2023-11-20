@@ -105,7 +105,6 @@ const PersonalInformationComponent = ({
 
   const handleBlur = (fieldName) => {
     // Perform validation when the input field is unfocused (blurred)
-    console.log("fieldName", fieldName);
     if (informationDetails[fieldName] === '') {
       const errorMessages = {
         civil_status: `Please enter your civil status`,
