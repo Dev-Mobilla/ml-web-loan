@@ -18,7 +18,7 @@ import {
   OTPModalComponent,
 } from "./index";
 import { GetSessionDocument } from "../utils/DataFunctions";
-import { CreateCustomerDetailsToSymph, SearchKyc } from "../api/symph.api";
+import { CreateCustomerDetailsToSymph, SearchKyc, GetOTP } from "../api/symph.api";
 import { AddLoan } from "../api/mlloan.api";
 
 const CustomerRequirementComponent = () => {
@@ -26,8 +26,10 @@ const CustomerRequirementComponent = () => {
   const location = useLocation();
   const { modalOpen, modalTitle, modalDefaultGuideImage, closeModal } =
     useModal();
+  const [mobileNumber, setMobileNumber] = useState(null);
 
   const [showOTP, setShowOTP] = useState(false);
+  const [otp, setOtp] = useState(null);
   const [showSuccess, setShowSuccess] = useState(false);
   const [isOtpCorrect, setIsOtpCorrect] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
@@ -40,6 +42,9 @@ const CustomerRequirementComponent = () => {
     loading: false,
     text: "",
   });
+
+  let ckycBody = {};
+  let hatchitReqBody = {};
 
   let vehicleKeys = [
     "Orginal OR/CR",
@@ -57,21 +62,11 @@ const CustomerRequirementComponent = () => {
     setIsOtpCorrect(false);
   };
 
-  const handleOtpSubmit = (otp) => {
-    const isCorrect = verifyOtp(otp);
-    setIsOtpCorrect(isCorrect);
-    setShowSuccess(isCorrect);
-    setShowOTP(false);
-  };
-
-  const verifyOtp = (otp) => {
-    // TODO: Implement OTP verification logic
-  };
-
   useEffect(() => {
     if (location.state == null) {
       navigate(-1);
     }
+    setMobileNumber(location.state.secondStepDetails.personalDetails[0].mobile_number)
     const storageLength = sessionStorage.length < 10;
 
     const isCheckEmpty =
@@ -225,7 +220,7 @@ const CustomerRequirementComponent = () => {
     setIsSubmitButtonDisabled(!isEmpty);
   };
 
-  const AddKyc = async () => {
+  const AddKyc = async (otpCode) => {
     // Symph DB
     try {
       const personalDetails = location.state.secondStepDetails.personalDetails;
@@ -244,9 +239,27 @@ const CustomerRequirementComponent = () => {
       const country = countries.split("|")[1].trim();
       const province = provinces.split("|")[1].trim();
       const city = cities.split("|")[1].trim();
+      
+
+      // const customerDataToSymph = {
+      //   mobileNumber: mobile_number,
+      //   firstName: firstname,
+      //   lastName: lastname,
+      //   middleName: middlename !== "" ? middlename : "",
+      //   suffix: suffix !== "" ? suffix : "",
+      //   email: email,
+      //   address: {
+      //     addressL0Id: parseInt(country),
+      //     addressL1Id: parseInt(province),
+      //     addressL2Id: parseInt(city),
+      //     // otherAddress: "",
+      //     // zipCode: "",
+      //   },
+      // };
 
       const customerDataToSymph = {
         mobileNumber: mobile_number,
+        otpCode: otpCode,
         firstName: firstname,
         lastName: lastname,
         middleName: middlename !== "" ? middlename : "",
@@ -256,8 +269,6 @@ const CustomerRequirementComponent = () => {
           addressL0Id: parseInt(country),
           addressL1Id: parseInt(province),
           addressL2Id: parseInt(city),
-          // otherAddress: "",
-          // zipCode: "",
         },
       };
 
@@ -266,90 +277,95 @@ const CustomerRequirementComponent = () => {
       throw error;
     }
   };
+
+  const GetOTPCode = async () => {
+    try {
+      const response = await GetOTP(mobileNumber);
+
+      return response
+    } catch (error) {
+      throw error
+    }
+  }
+
+  const GetResendOTPCode = async () => {
+    try {
+      const response = await GetOTP(mobileNumber);
+
+      return response
+    } catch (error) {
+      setShowLoading(false);
+      setShowOTP(false)
+      if (error.response.status == 500) {
+        if (error.response.data.error.code === "ERR_SMS_OTP") {
+          setShowAlert(true);
+          setAlertProps({
+            title: error.response.data.error.message.title,
+            text: error.response.data.error.message.body,
+            subTitle: "",
+            isError: true,
+          });
+        }else{
+          setShowAlert(true);
+          setAlertProps({
+            title: "Request Failed",
+            text: "We're sorry, something went wrong on our end. Please try again later or contact our support team.",
+            subTitle: "",
+            isError: true,
+          });
+        }
+      }else{
+        setShowAlert(true);
+        setAlertProps({
+          title: "Request Failed",
+          text: "We're sorry, something went wrong on our end. Please try again later or contact our support team.",
+          subTitle: "",
+          isError: true,
+        });
+      }
+      
+    }
+  }
+
   const ConfirmApplication = () => {
     setShowConfirm(true);
   };
 
-  const OnSubmitRequirementsHandler = async () => {
-    setShowConfirm(false);
-    setShowOTP(true);
-    setShowLoading({
-      loading: true,
-      text: "Just a moment",
-    });
+  const handleOtpSubmit = async (optionVal) => {
 
-    if (sessionStorage.length !== 0 && location.state) {
-      const mobileNumber =
-        location.state.secondStepDetails.personalDetails[0].mobile_number;
-      const email = location.state.secondStepDetails.personalDetails[0].email;
-      const perDetails = location.state.secondStepDetails.personalDetails[1];
-      // TODO: Check KYC
-
-      try {
-        let ckyc = {};
-        let hatchitReqBody = {};
-
-        const isKycExist = await SearchKyc({
-          cellphoneNumber: mobileNumber,
-          email,
+    try {
+      if (!optionVal) {
+        setShowOTP(false);
+  
+        let error = {
+          status: 400,
+          code: "INVALID_OTP_PROVIDED",
+          data: {
+            message: {
+              title: "Invalid OTP",
+              body: "Looks like you've entered an invalid OTP. Please try again."
+            }
+          }
+        }
+        throw error
+      }else{
+        console.log("valid otp");
+        setShowOTP(false);
+        setShowLoading({
+          loading: true,
+          text: "Just a moment",
         });
 
-        // Details: If not existing Symph DB
-        if (isKycExist.data.data == null && isKycExist.data.code == "SUCCESS") {
-          await AddKyc();
+        await AddKyc(optionVal);
+  
+        const responseSearchKyc = await SearchKyc({
+          cellphoneNumber: mobileNumber,
+        });
+  
+        const kyc = responseSearchKyc.data.data;
 
-          const responseSearchKyc = await SearchKyc({
-            cellphoneNumber: mobileNumber,
-          });
+        const perDetails = location.state.secondStepDetails.personalDetails[1];
 
-          const kyc = responseSearchKyc.data.data;
-
-          // setTimeout(() => {
-          ckyc = {
-            customer_id: kyc.customerId,
-            ckyc_id: kyc.ckycId,
-            lastname: kyc.name.lastName,
-            firstname: kyc.name.firstName,
-            middlename: kyc.name.middleName,
-            suffix: kyc.name.suffix,
-            nationality: perDetails.nationality,
-            civil_status: perDetails.civil_status,
-            birthdate: perDetails.birthdate,
-            mobile_number: kyc.cellphoneNumber,
-            email: kyc.email,
-          };
-          hatchitReqBody = {
-            country: kyc.addresses.current.addressL0Name,
-            province: kyc.addresses.current.addressL1Name,
-            city: kyc.addresses.current.addressL2Name,
-            barangay: perDetails.barangay,
-          };
-          // }, 1500);
-        } else {
-          const responseKyc = isKycExist.data.data;
-          ckyc = {
-            customer_id: responseKyc.customerId,
-            ckyc_id: responseKyc.ckycId,
-            lastname: responseKyc.name.lastName,
-            firstname: responseKyc.name.firstName,
-            middlename: responseKyc.name.middleName,
-            suffix: responseKyc.name.suffix,
-            nationality: perDetails.nationality,
-            civil_status: perDetails.civil_status,
-            birthdate: perDetails.birthdate,
-            mobile_number: responseKyc.cellphoneNumber,
-            email: responseKyc.email,
-          };
-
-          hatchitReqBody = {
-            country: responseKyc.addresses.current.addressL0Name,
-            province: responseKyc.addresses.current.addressL1Name,
-            city: responseKyc.addresses.current.addressL2Name,
-            barangay: perDetails.barangay,
-          };
-        }
-
-        //   //Details: If not, proceed ML DB
         const baseData = location.state.secondStepDetails;
         const address = baseData.personalDetails[3];
         const customer = baseData.personalDetails[1];
@@ -369,22 +385,38 @@ const CustomerRequirementComponent = () => {
         } else if (vehicleDetails?.selectedVehicle === "Motorcycle") {
           loan_type = "Motor Loan";
         }
+  
+        ckycBody = {
+          customer_id: kyc.customerId,
+          ckyc_id: kyc.ckycId,
+          lastname: kyc.name.lastName,
+          firstname: kyc.name.firstName,
+          middlename: kyc.name.middleName,
+          suffix: kyc.name.suffix,
+          nationality: perDetails.nationality,
+          civil_status: perDetails.civil_status,
+          birthdate: perDetails.birthdate,
+          mobile_number: kyc.cellphoneNumber,
+          email: kyc.email,
+        };
+
+        hatchitReqBody = {
+          country: kyc.addresses.current.addressL0Name,
+          province: kyc.addresses.current.addressL1Name,
+          city: kyc.addresses.current.addressL2Name,
+          barangay: perDetails.barangay,
+        };
 
         const vehicleDocsData = VehicleJsonData();
         const employmentDocsData = EmploymentJsonData();
-        const customerData = CustomerDetailsJsonData(customer, ckyc);
+        const customerData = CustomerDetailsJsonData(customer, ckycBody);
         const loanApplicationData = LoanApplicationJsonData(
           vehicleDetails,
           loan_type,
           preferredBranch
         );
 
-        setShowLoading({
-          loading: true,
-          text: "We're almost there!",
-        });
-
-        //   // ML DB
+        // ML DB
         const AddMLLoan = await AddLoan(
           vehicleDocsData,
           employmentDocsData,
@@ -411,58 +443,208 @@ const CustomerRequirementComponent = () => {
             replace: true,
           });
         }, 1500);
+      }
+    } catch (error) {
+      setShowOTP(false);
+      setShowLoading({
+        loading: false,
+        text: "Just a moment",
+      });
+      ErrorHandler(error.response)
+    }
+  };
+
+  const ErrorHandler = (error) => {
+    if (error.status == 409) {
+      setShowAlert(true);
+      setAlertProps({
+        title: "Request Failed",
+        text: error.data.message || "An error occurred",
+        subTitle: error.data.subtitle || "",
+        subLink: true,
+        isError: true,
+      });
+    }else if (error.status == 502) {
+      setShowAlert(true);
+      setAlertProps({
+        title: "Request Failed",
+        text:
+          "We're sorry, something went wrong on our end. Please try again later or contact our support team." ||
+          "An error occurred",
+        subTitle: "",
+        isError: true,
+      });
+    }
+    else {
+      if (error.code == "ERR_BAD_RESPONSE") {
+        setShowAlert(true);
+        setAlertProps({
+          title: error.response.data.error.message.title,
+          text:
+            error.response.data.error.message.body || "An error occurred",
+          subTitle: "",
+          isError: true,
+        });
+      } else if (error.code == "ERR_NETWORK") {
+        setShowAlert(true);
+        setAlertProps({
+          title: "Request Failed",
+          text:
+            "We're sorry, something went wrong on our end. Please try again later or contact our support team." ||
+            "An error occurred",
+          subTitle: "",
+          isError: true,
+        });
+      } else if (error.data.error.code == "INTERNAL_SERVER_ERROR") {
+        setShowAlert(true);
+        setAlertProps({
+          title: error.data.error.message.title,
+          text: error.data.error.message.body || "An error occurred",
+          subTitle: "",
+          isError: true,
+        });
+      } else if (error.code === "INVALID_OTP_PROVIDED") {
+        setShowAlert(true);
+        setAlertProps({
+          title: error.data.message.title,
+          text: error.data.message.body,
+          subTitle: "",
+          isError: true,
+        });
+      }else {
+        setShowAlert(true);
+        setAlertProps({
+          title: "Error",
+          text: error.data.message || "An error occurred",
+          subTitle: "",
+          isError: true,
+        });
+      }
+    }
+  }
+
+  const OnSubmitRequirementsHandler = async () => {
+    setShowConfirm(false);
+    setShowLoading({
+      loading: true,
+      text: "Just a moment",
+    });
+
+    if (sessionStorage.length !== 0 && location.state) {
+      const mobileNumber =
+        location.state.secondStepDetails.personalDetails[0].mobile_number;
+      const email = location.state.secondStepDetails.personalDetails[0].email;
+      const perDetails = location.state.secondStepDetails.personalDetails[1];
+      // TODO: Check KYC
+
+      try {
+
+        const isKycExist = await SearchKyc({
+          cellphoneNumber: mobileNumber,
+          email,
+        });
+
+        console.log("got here!!");
+        //   //Details: If not, proceed ML DB
+        const baseData = location.state.secondStepDetails;
+        const address = baseData.personalDetails[3];
+        const customer = baseData.personalDetails[1];
+        customer.current_address = address;
+
+        const preferredBranch = baseData.personalDetails[2];
+
+        const vehicleDetails = baseData.vehicleDetails;
+
+        let loan_type = null;
+
+        if (
+          vehicleDetails?.selectedVehicle === "Car/Pickup/SUV" ||
+          vehicleDetails?.selectedVehicle === "Truck/Commercial"
+        ) {
+          loan_type = "Car Loan";
+        } else if (vehicleDetails?.selectedVehicle === "Motorcycle") {
+          loan_type = "Motor Loan";
+        }
+
+        setShowLoading({
+          loading: true,
+          text: "We're almost there!",
+        });
+
+        // Details: If not existing Symph DB
+        if (isKycExist.data.data == null && isKycExist.data.code == "SUCCESS") {
+          setShowOTP(true);
+          await GetOTPCode();
+
+        } else {
+          const responseKyc = isKycExist.data.data;
+
+          ckycBody = {
+            customer_id: responseKyc.customerId,
+            ckyc_id: responseKyc.ckycId,
+            lastname: responseKyc.name.lastName,
+            firstname: responseKyc.name.firstName,
+            middlename: responseKyc.name.middleName,
+            suffix: responseKyc.name.suffix,
+            nationality: perDetails.nationality,
+            civil_status: perDetails.civil_status,
+            birthdate: perDetails.birthdate,
+            mobile_number: responseKyc.cellphoneNumber,
+            email: responseKyc.email,
+          };
+
+          hatchitReqBody = {
+            country: responseKyc.addresses.current.addressL0Name,
+            province: responseKyc.addresses.current.addressL1Name,
+            city: responseKyc.addresses.current.addressL2Name,
+            barangay: perDetails.barangay,
+          };
+
+          const vehicleDocsData = VehicleJsonData();
+          const employmentDocsData = EmploymentJsonData();
+          const customerData = CustomerDetailsJsonData(customer, ckycBody);
+          const loanApplicationData = LoanApplicationJsonData(
+            vehicleDetails,
+            loan_type,
+            preferredBranch
+          );
+
+          // ML DB
+          const AddMLLoan = await AddLoan(
+            vehicleDocsData,
+            employmentDocsData,
+            customerData,
+            loanApplicationData,
+            hatchitReqBody
+          );
+
+          location.state = null;
+          sessionStorage.clear();
+
+          setTimeout(() => {
+            setShowLoading({
+              loading: false,
+              text: "Just a moment",
+            });
+            navigate(`/vehicle-loan/receipt`, {
+              state: {
+                LoanDetails: {
+                  Loan: JSON.stringify(AddMLLoan),
+                  LoanType: loan_type,
+                },
+              },
+              replace: true,
+            });
+          }, 1500);
+        }
+        
       } catch (error) {
+        setShowOTP(false);
         setShowLoading({
           loading: false,
           text: "Just a moment",
         });
-        if (error.status == 409) {
-          setShowAlert(true);
-          setAlertProps({
-            title: "Request Failed",
-            text: error.data.message || "An error occurred",
-            subTitle: error.data.subtitle || "",
-            subLink: true,
-            isError: true,
-          });
-        } else {
-          if (error.code == "ERR_BAD_RESPONSE") {
-            setShowAlert(true);
-            setAlertProps({
-              title: error.response.data.error.message.title,
-              text:
-                error.response.data.error.message.body || "An error occurred",
-              subTitle: "",
-              isError: true,
-            });
-          } else if (error.code == "ERR_NETWORK") {
-            setShowAlert(true);
-            setAlertProps({
-              title: "Request Failed",
-              text:
-                "We're sorry, something went wrong on our end. Please try again later or contact our support team." ||
-                "An error occurred",
-              subTitle: "",
-              isError: true,
-            });
-          } else if (error.data.error.code == "INTERNAL_SERVER_ERROR") {
-            setShowAlert(true);
-            setAlertProps({
-              title: error.data.error.message.title,
-              text: error.data.error.message.body || "An error occurred",
-              subTitle: "",
-              isError: true,
-            });
-          } else {
-            setShowAlert(true);
-            setAlertProps({
-              title: "Error",
-              text: error.data.message || "An error occurred",
-              subTitle: "",
-              isError: true,
-            });
-          }
-        }
+        ErrorHandler(error);
       }
     }
   };
@@ -559,6 +741,8 @@ const CustomerRequirementComponent = () => {
           time={60}
           HandleSubmitOTP={handleOtpSubmit}
           HandleCancel={handleCancel}
+          number={mobileNumber}
+          HandleResendOTP={GetResendOTPCode}
         />
       )}
 
