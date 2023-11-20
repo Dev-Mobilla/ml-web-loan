@@ -1036,16 +1036,29 @@ const ManageLoansDetailsComponent = () => {
               ) : (
                 <></>
               )}
-              {loanDetails.status?.toLowerCase() === "closed" ? (
-                <div className="remarks">
-                  <div className="past-remarks">
-                    <p>Note/Remarks</p>
-                    <p>This {loanDetails.loanType} has been fully paid.</p>
-                    <br></br>
-                    <p>Please contact loans@mlhuillier.com for more details.</p>
+              {loanDetails.status?.toLowerCase() === "closed" ? 
+                loanDetails.paymentStatus?.toLowerCase() === "unpaid" ?
+                (
+                  <div className="remarks">
+                    <div className="past-remarks">
+                      <p>Note/Remarks</p>
+                      <p>This {loanDetails.loanType} was closed due to an unsettled payment.</p>
+                      <br></br>
+                      <p>Please contact loans@mlhuillier.com for more details.</p>
+                    </div>
                   </div>
-                </div>
-              ) : (
+                )
+                : (
+                  <div className="remarks">
+                    <div className="past-remarks">
+                      <p>Note/Remarks</p>
+                      <p>This {loanDetails.loanType} has been fully paid.</p>
+                      <br></br>
+                      <p>Please contact loans@mlhuillier.com for more details.</p>
+                    </div>
+                  </div>
+                )
+              : (
                 <></>
               )}
 

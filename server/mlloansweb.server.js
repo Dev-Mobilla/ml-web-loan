@@ -29,9 +29,7 @@ app.use('/api/loans/symph', SYMPH_API_ROUTER);
 app.use('/api/ml-loans', Auth , ML_LOAN_ROUTER);
 
 // MIDDLEWARES
-// app.use(Auth);
 app.use(ErrorLogger)
-// app.use(ErrorHandler);
 app.use(ErrorResponder);
 
 app.use(express.static(path.join(__dirname, '../client/build')));

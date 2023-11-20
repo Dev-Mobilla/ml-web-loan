@@ -24,7 +24,6 @@ const RefundBillsPaymentApi = async (req, res, next) => {
         }
     })
     .then(async ( token ) => {
-        console.log(token);
         if (kptn) {
 
             let URL = `${process.env.API_SYMPH_BASE_URL}/v1/api/1.0/billspay/refund/${kptn}`;
@@ -34,8 +33,6 @@ const RefundBillsPaymentApi = async (req, res, next) => {
             let passPhrase = makeStringtify + "|" + process.env.SYMPH_SECRET_KEY;
 
             let x_hash = SignatureGenerator(passPhrase);
-
-            console.log(x_hash);
 
             let headers = {
                 Authorization: `Bearer ${token}`,
@@ -50,9 +47,6 @@ const RefundBillsPaymentApi = async (req, res, next) => {
 
             const response = await RefundBillsPayApi(URL, config);
 
-            console.log("praise the lord");
-
-            console.log("refundApiResponse", response);
             return response
 
         }else{
@@ -64,11 +58,9 @@ const RefundBillsPaymentApi = async (req, res, next) => {
 
     })
     .then(resp => {
-        console.log("dsfdg");
         res.send(resp.data)
     })
     .catch(error => {
-        console.log("next catch");
         next(error)
     })
 }
@@ -82,8 +74,6 @@ const UpdateBillsPaymentApi = async (req, res, next) => {
       reqBody
     }
   
-    console.log("reqBody", reqBody);
-  
     GenerateToken()
     .then(( response ) => {
         if (response.status === 201 && response.data.data.token) {
@@ -93,7 +83,6 @@ const UpdateBillsPaymentApi = async (req, res, next) => {
         }
     })
     .then(async ( token ) => {
-        console.log(token);
         if (kptn) {
   
             let URL = `${process.env.API_SYMPH_BASE_URL}/v1/api/1.0/billspay/${kptn}`;
@@ -113,8 +102,6 @@ const UpdateBillsPaymentApi = async (req, res, next) => {
   
             const response = await UpdateBillsPayApi(URL, reqBody, config);
   
-            console.log("praise the lord", response);
-  
             return response
   
         }else{
@@ -127,10 +114,8 @@ const UpdateBillsPaymentApi = async (req, res, next) => {
     })
     .then(resp => {
       res.send(resp.data)
-      console.log("dsfdg");
     })
     .catch(error => {
-        console.log("next catch", error);
         next(error)
     })
   }
@@ -150,7 +135,6 @@ const UpdateBillsPaymentApi = async (req, res, next) => {
       const signature = `${apikey}|${secret}|${date}`;
   
       const digest = SignatureGenerator(signature);
-      console.log("digest", digest);
   
       const URL = process.env.AUTH_SERVICE_SYMPH_URL;
       const reqBody = {
@@ -159,8 +143,6 @@ const UpdateBillsPaymentApi = async (req, res, next) => {
       };
   
       const response = await axios.post(URL, reqBody);
-  
-      console.log("response", response);
   
       res.send(response.data);
     } catch (error) {
@@ -250,7 +232,6 @@ const RefundBillsPayApi = async (URL, config) => {
       res.status(200).send(response.data);
   
     } catch (error) {
-      console.log(error);
       res.send(error)
     }
   }
@@ -273,7 +254,6 @@ const GetLoanTypeFields = async (req, res, next) => {
 
         const digest = SignatureGenerator(passPhrase);
         
-        console.log(digest);
         const config = {
            params:{
             loan_type: LOAN_TYPE,
@@ -295,7 +275,6 @@ const GetLoanTypeFields = async (req, res, next) => {
 
         res.send(loanFields);
     } catch (error) {
-        console.log("error");
         next(error);
     }
 }
@@ -342,7 +321,6 @@ const GetLoanTypeItemsFields = async (req, res, next) => {
           }
 
         })
-        console.log("list", JSON.stringify(JSON.stringify(itemField)));
         res.send(JSON.stringify(JSON.stringify(itemField)));
 
     } catch (error) {
@@ -400,6 +378,46 @@ const AddLoanApi = async (URL, data, config) => {
         throw error
     }
 }
+
+const GetOTPCode = async (req, res, next) => {
+  try {
+
+    const URL = `${process.env.ML_WALLET_OTP_URL}/MLWalletOTP/api/WalletOTP/{ext}/sendOTP`;
+
+    const mobileNumber = req.body.mobileNumber;
+
+    const reqBody = {mobileNumber: mobileNumber}
+
+    const config = {
+      params:{
+        username: process.env.ML_WALLET_OTP_UNAME,
+        password: process.env.ML_WALLET_OTP_PASS,
+        mobileno: mobileNumber,
+        otp_msg: `Your M.Lhuillier One-Time-Pin (OTP) is <otp>. Please do not share this code with anyone.`,
+        timeLimit: 1
+      }
+    }
+
+    const response = await axios.post(URL, {}, config);
+
+    const isError = Boolean(response.data.error);
+
+    if (!isError) {
+      res.send(response.data);
+    }else{
+      const message = {
+        title: "Request OTP failed",
+        body: response.data.message
+      }
+      const errRes = ErrorThrower(500, "ERR_SMS_OTP", message, null, URL, JSON.stringify(reqBody));
+
+      throw errRes
+    }
+
+  } catch (error) {
+    next(error)
+  }
+}
   
 module.exports = {
     GenerateTokenApi,
@@ -408,6 +426,7 @@ module.exports = {
     RefundBillsPaymentApi,
     GetLoanTypeFields,
     GetLoanTypeItemsFields,
-    AddLoan
+    AddLoan,
+    GetOTPCode
   };
   

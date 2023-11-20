@@ -393,6 +393,7 @@ const [isSearchParams, setIsSearchParams] = useState(false)
       }
     
   };
+
   return (
     <div className="customer-details">
       <div className="customer-details-container">
@@ -404,7 +405,8 @@ const [isSearchParams, setIsSearchParams] = useState(false)
             <CustomCardTitle
               title="Contact Details"
               styles="custom-card-title"
-              subTitle="For ML Wallet account holders, please use your registered ML Wallet number and email."
+              subTitle={`For ML Wallet account holders, please use your registered ML Wallet number and email.
+              Otherwise, use an active mobile number. Your OTP will be sent here.`}
             />
             <div className="customer-details-group">
               <PersonalContactComponent
