@@ -112,7 +112,7 @@ const CustomerDetailsComponent = ({ url }) => {
 
   }
   useEffect(() => {
-    console.log(informationDetails);
+
     
     if (keepAddress.toLowerCase() == "no") {
       setIsCorrespond(false);
@@ -175,7 +175,6 @@ const CustomerDetailsComponent = ({ url }) => {
   const isPhoneValid = (phone) => phoneRegex.test(phone);
 
   const handleValidationChange = () => {
-    console.log("here");
     const isContactDetailsValid =
       isPhoneValid(contactDetails.mobile_number || "") &&
       isEmailValid(contactDetails.email || "") &&
@@ -242,38 +241,46 @@ const CustomerDetailsComponent = ({ url }) => {
       let url = '/housing-loan/current-address'
 
       const secondStepDetails = {
-        firstStepDetails: firstStepDetails,
-        personalDetails: [
+        loanDetails: {
+          loantype: firstStepDetails,
+          isCorrespond: !isCorrespond,
+          appLoanType: loantype
+        },
+        personalDetails: {
           contactDetails,
           informationDetails,
           selectedOption,
           address,
           currentAdd,
-        ],
-        isCorrespond: !isCorrespond
+        },
+        
       };
 
       navigate(url, {
         state: {
-          secondStepDetails: secondStepDetails,
+          loan: {...secondStepDetails},
         },
       });
     } else if (location.pathname == '/vehicle-loan/personal-details') {
       let url = '/vehicle-loan/requirements'
       const secondStepDetails = {
-        vehicleDetails: firstStepDetails,
-        personalDetails: [
+        loanDetails: {
+          loantype: firstStepDetails.type,
+          vehicleDetails: firstStepDetails,
+          isCorrespond: !isCorrespond,
+          appLoanType: loantype
+        },
+        personalDetails: {
           contactDetails,
           informationDetails,
           selectedOption,
           address,
-        ],
-        isCorrespond: !isCorrespond
+        },
       };
 
       navigate(url, {
         state: {
-          secondStepDetails: secondStepDetails,
+          loan: {...secondStepDetails},
         },
       });
     }
@@ -531,7 +538,8 @@ const CustomerDetailsComponent = ({ url }) => {
             <CustomCardTitle
               title="Contact Details"
               styles="custom-card-title"
-              subTitle="For ML Wallet account holders, please use your registered ML Wallet number and email."
+              subTitle={`For ML Wallet account holders, please use your registered ML Wallet number and email.
+              Otherwise, use an active mobile number. Your OTP will be sent here.`}
             />
             <div className="customer-details-group">
               <PersonalContactComponent

@@ -20,7 +20,6 @@ const HousingRequiredInfoComponent = () => {
 
     useEffect(() => {
       const isValid = housingLoanType !== "";
-      console.log(isValid);
       setIsSubmitDisabled(!isValid)
     })
 

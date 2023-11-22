@@ -217,12 +217,7 @@ const ManageLoanComponent = () => {
 
     if (filteredLoans?.length === 0) {
       return (
-        <div className="loans-unavailable">
-          <img src={Separator} alt="ml-sep" style={{ marginBottom: '10px' }}/>
-          <h1>
-            You have no {status === "DISBURSED" || status === "APPROVED" ? `${status.toLowerCase()} loans` : "past loans"}.
-          </h1>
-        </div>
+        <></>
       );
     }
 
@@ -258,44 +253,32 @@ const ManageLoanComponent = () => {
   };
 
   const PendingLoans = () => {
-    console.log("loan", loans);
 
     if (pendingLoans?.length === 0) {
       return (
-        <div className="loans-unavailable">
-          <img src={Separator} alt="ml-sep" style={{ marginBottom: '10px' }}/>
-          <h1>
-            You have no pending loans.
-          </h1>
-        </div>
+       <></>
       );
     }
-    let pending;
 
-    for (let index = 0; index < loans.length; index++) {
-      const pendingLoan = pendingLoans?.filter((pend, key) => {
-
-        const element = loans[index];
-        if (element.ref_num !== pend.ref_num) {
-          return pend;
-        }
-      })
-
-      pending = pendingLoan
-
-    }
     const compareRefNumber = (loan_1, loan_2) => {
-      for (let index = 0; index < loan_1.length; index++) {
-        const element = loan_1[index];
-        return element
+      let newPendingLoan = [];
+      if (loan_1.length != 0) {
+        
+        for (let index = 0; index < loan_2.length; index++) {
+          const element = loan_2[index];
+          if (loan_1[index].ref_num !== element.ref_num) {
+           newPendingLoan.push(loan_2[index]) 
+          }
+        }
+        return newPendingLoan
       }
+      return loan_2
     }
 
     let pend = compareRefNumber(loans, pendingLoans)
 
-    console.log(pend);
     
-    return pending?.map((pendLoan, key) => {
+    return pend?.map((pendLoan, key) => {
       let statusChecker = LoanStatusChecker(pendLoan.status);
 
       return (
@@ -432,11 +415,19 @@ const ManageLoanComponent = () => {
               {loading ? (
                 <LoadingComponent containerStyle="container-loading" />
               ) : (
+                loans.length != 0 || pendingLoans.length != 0 ?
                 <>
                   <CurrentLoansCards />
                   <ApprovedLoansCards />
                   <PendingLoans/>
                 </>
+                : 
+                <div className="loans-unavailable">
+                  <img src={Separator} alt="ml-sep" style={{ marginBottom: '10px' }}/>
+                  <h1>
+                    You have no current loans.
+                  </h1>
+               </div>
               )}
             </div>
             <div className="past-loan-card">
@@ -447,7 +438,17 @@ const ManageLoanComponent = () => {
               {loading ? (
                 <LoadingComponent containerStyle="container-loading" />
               ) : (
-                <PastLoansCards />
+                loans.length != 0 ?
+                <>
+                  <PastLoansCards />
+                </>
+                : 
+                <div className="loans-unavailable">
+                  <img src={Separator} alt="ml-sep" style={{ marginBottom: '10px' }}/>
+                  <h1>
+                    You have no past loans.
+                  </h1>
+               </div>
               )}
             </div>
           </div>

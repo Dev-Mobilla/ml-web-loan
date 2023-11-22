@@ -1,7 +1,7 @@
 const loan_applications = require("./loan_application");
 const CustomerDetails = require("./customer_details");
 const employment_docs = require("./employment_docs");
-const vehicle_docs = require("./vehicle_docs");
+const LoanDocs = require("./loan_docs");
 const sequelize = require("../config/mlloan.server");
 
 CustomerDetails.hasMany(loan_applications, {
@@ -24,19 +24,19 @@ employment_docs.belongsTo(loan_applications, {
   // as: "loan_applications",
   foreignKey: "employment_docu_id",
 });
-loan_applications.hasOne(vehicle_docs, {
+loan_applications.hasOne(LoanDocs, {
   // as: "vehicle_docs",
-  foreignKey: "vehicle_docu_id",
+  foreignKey: "loan_docu_id",
 });
-vehicle_docs.belongsTo(loan_applications, {
+LoanDocs.belongsTo(loan_applications, {
   // as: "loan_applications",
-  foreignKey: "vehicle_docu_id",
+  foreignKey: "loan_docu_id",
 });
 
 module.exports = {
   loan_applications,
   CustomerDetails,
   employment_docs,
-  vehicle_docs,
+  LoanDocs,
   sequelize,
 };

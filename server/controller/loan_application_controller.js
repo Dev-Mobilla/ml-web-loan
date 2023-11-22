@@ -1,11 +1,11 @@
-const { loan_applications, CustomerDetails, employment_docs, vehicle_docs, sequelize } = require('../models/associations');
+const { loan_applications, CustomerDetails, employment_docs, LoanDocs, sequelize } = require('../models/associations');
 const {ErrorThrower} = require('../utils/ErrorGenerator');
 const fields = require('../utils/LoanTypeFields.utils');
 // const {FieldValues} = require('../utils/LoanTypeFields.utils');
 const SuccessLogger = require('../utils/SuccessLogger');
 const {createEmploymentDocs} = require('./employment_docs_controller');
 const {HatchITAddLoan, GetLoanTypeFields, GetLoanTypeItemsFields} = require('./hatchit.controller');
-const {createVehicleDocs} = require('./vehicle_docs_controller');
+const {createLoanDocs} = require('./loan_docs_controller');
 
 async function createLoanApplication(LoanApplicationJsonData, options) {
     try {
@@ -39,13 +39,13 @@ async function getAllLoanApplicants(req, res) {
             include: [
                 { model: customer_details, attributes: ['customer_details_id'], as: 'customer_details' },
                 { model: employment_docs, attributes: ['employment_docu_id'], as: 'employment_docs' },
-                { model: vehicle_docs, attributes: ['vehicle_docu_id'], as: 'vehicle_docs' },
+                { model: vehicle_docs, attributes: ['loan_docu_id'], as: 'vehicle_docs' },
             ],
         });
         const customerDetailsIds = loanApplications.map((loanApp) => loanApp.customer_details_id);
         // const customerDetailsIds = loanApplications.map((loanApp) => loanApp.customer_details_customer_details_id);
         const employmentDocsIds = loanApplications.map((loanApp) => loanApp.employment_docu_id);
-        const vehicleDocsIds = loanApplications.map((loanApp) => loanApp.vehicle_docu_id);
+        const vehicleDocsIds = loanApplications.map((loanApp) => loanApp.loan_docu_id);
 
         const customerDetails = await customer_details.findAll({
             where: {
@@ -59,7 +59,7 @@ async function getAllLoanApplicants(req, res) {
         });
         const vehicleDocs = await vehicle_docs.findAll({
             where: {
-                vehicle_docu_id: vehicleDocsIds,
+                loan_docu_id: vehicleDocsIds,
             },
         });
 
@@ -77,7 +77,7 @@ async function getAllLoanApplicants(req, res) {
 
         const vehicleDocsMap = {};
         vehicleDocs.forEach((doc) => {
-            const docId = doc.vehicle_docu_id;
+            const docId = doc.loan_docu_id;
             vehicleDocsMap[docId] = { vehicle_docs: doc };
         });
 
@@ -172,7 +172,7 @@ const AddLoan = async (req, res, next) => {
     try {
         let _customerId;
         let _employmentDocId;
-        let _vehicleDocId;
+        let _loanDocId;
         const dateInstance = new Date();
 
         const year = dateInstance.getFullYear().toString();
@@ -180,17 +180,42 @@ const AddLoan = async (req, res, next) => {
         const day = ("0" + dateInstance.getDate()).slice(-2).toString();
 
         const time = dateInstance.getTime();
-        const dateNow = `${year}${month}${day}`;
-        // const application_reference = `MLBP${dateNow}${time}`;
-
-        // const data = req.body.data;
+        const dateNow = `${year}-${month}-${day}`;
+        
         const data = JSON.parse(req.body.data);
+        // const data = req.body.data;
 
         const customerDetails = data.CustomerDetailsJsonData;
         const employmentDetails = data.EmploymentJsonData;
-        const vehicleDetails = data.VehicleJsonData;
+        const loanDocsDetails = data.LoanDocJsonData;
         const loanApplication = data.LoanApplicationJsonData;
         const hatchitDetails = data.HatchITJsonData;
+
+        let vehicleDESC = `${loanApplication.chassis_number} ${loanApplication.engine_number} ${loanApplication.plate_number} ${loanApplication.variant} ${loanApplication.model} ${loanApplication.make}  ${loanApplication.year}`;
+
+        let loanTypeFieldItems = {}
+
+        if (loanApplication.application_loan_type === "Car Loan" || loanApplication.application_loan_type === "Motor Loan") {
+            loanTypeFieldItems = {
+                vehicle_description: vehicleDESC.replace(/NULL|null/g, ""),
+                principal_amount: loanApplication.principal_amount,
+                unit: loanApplication.loan_type,
+                or: loanDocsDetails.original_or,
+                comprehensive_insurance: loanDocsDetails.car_insurance,
+                set_1_stencil: loanDocsDetails.stencils,
+                picture_of_vehicle_1: loanDocsDetails.front_side,
+                picture_of_vehicle_2: loanDocsDetails.back_side,
+                picture_of_vehicle_3: loanDocsDetails.right_side,
+                picture_of_vehicle_4: loanDocsDetails.left_side,
+            }
+        }else if (loanApplication.application_loan_type === "Real Estate Loan"){
+            loanTypeFieldItems = {
+                tct_cct: loanDocsDetails.cct_no,
+                property_description: loanDocsDetails.property_description,
+                land_title: loanDocsDetails.land_title,
+                map_of_property: loanDocsDetails.map_of_property,
+            }
+        }
 
         const loanTypeFieldValues = {
             valid_id_1: employmentDetails.valid_id,
@@ -218,25 +243,12 @@ const AddLoan = async (req, res, next) => {
                 field_name: item.field_name
             }
         })
+
         SuccessLogger(req.url, 200,`GET LOAN TYPE FIELDS: ${JSON.stringify(getFieldValues.data)}, 
         RETREIVED SUCCESSFULLY, LOAN TYPE: ${loanApplication.application_loan_type}, 
         CODE: RETREIVED_SUCCESS` )
-
-        let vehicleDESC = `${loanApplication.chassis_number} ${loanApplication.engine_number} ${loanApplication.plate_number} ${loanApplication.variant} ${loanApplication.model} ${loanApplication.make}  ${loanApplication.year}`;
         
         // // // FIEDL ITEMS
-        const loanTypeFieldItems = {
-            vehicle_description: vehicleDESC.replace(/NULL|null/g, ""),
-            principal_amount: loanApplication.principal_amount,
-            unit: loanApplication.loan_type,
-            or: vehicleDetails.original_or,
-            comprehensive_insurance: vehicleDetails.car_insurance,
-            set_1_stencil: vehicleDetails.stencils,
-            picture_of_vehicle_1: vehicleDetails.front_side,
-            picture_of_vehicle_2: vehicleDetails.back_side,
-            picture_of_vehicle_3: vehicleDetails.right_side,
-            picture_of_vehicle_4: vehicleDetails.left_side,
-        }
 
         const getFieldItem = await GetLoanTypeItemsFields(loanApplication.application_loan_type);
 
@@ -274,6 +286,7 @@ const AddLoan = async (req, res, next) => {
         }
         // let full_name = `${customerDetails.first_name} ${customerDetails.middle_name || customerDetails.middle_name == "NULL" ? customerDetails.middle_name : ""} ${customerDetails.last_name} ${customerDetails.suffix || customerDetails.suffix == "NULL" ? customerDetails.suffix : ""}`;
         let full_name = `${customerDetails.first_name} ${customerDetails.middle_name} ${customerDetails.last_name} ${customerDetails.suffix}`;
+        
         const CustomerDetailsHatchit = {
             customer_id: customerDetails.customer_id,
             ckyc_id: customerDetails.ckyc_id,
@@ -284,18 +297,21 @@ const AddLoan = async (req, res, next) => {
             country: hatchitDetails.country,
             province: hatchitDetails.provinces,
             city: hatchitDetails.city,
-            address: hatchitDetails.barangay
+            address: `${hatchitDetails.barangay} ${hatchitDetails.city} ${hatchitDetails.provinces} ${hatchitDetails.country}`,
         }
 
         const hatchitAddLoan = await HatchITAddLoan(CustomerDetailsHatchit, CollateralDetails, FieldValues , FieldItemsValues, loanApplication.application_loan_type);
 
         const application_reference = hatchitAddLoan.data.ref_num;
+        // const application_reference = "ML12345";
+        // const application_date = `${dateNow}`;
+
 
         SuccessLogger(req.url, 200,`APPLY LOAN: ${JSON.stringify(hatchitAddLoan.data)}, 
             CREATED SUCCESSFULLY, REFERENCE NUMBER: ${application_reference}, 
             CODE: LOAN_APPLICATION_SUCCESS` )
 
-        await sequelize.transaction(async (transaction) => {
+        const application = await sequelize.transaction(async (transaction) => {
 
             const custMaxId = await FindMaxId(CustomerDetails, 'customer_details_id', transaction);
             customerDetails.customer_details_id = ++custMaxId.dataValues.max_id;
@@ -312,12 +328,12 @@ const AddLoan = async (req, res, next) => {
 
             _employmentDocId = EmploymentDocs[0].dataValues.employment_docu_id;
 
-            const vehicleMaxId = await FindMaxId(vehicle_docs, 'vehicle_docu_id', transaction);
-            vehicleDetails.vehicle_docu_id = ++vehicleMaxId.dataValues.max_id;
-            vehicleDetails.application_reference = application_reference;
+            const LoanDocsMaxId = await FindMaxId(LoanDocs, 'loan_docu_id', transaction);
+            loanDocsDetails.loan_docu_id = ++LoanDocsMaxId.dataValues.max_id;
+            loanDocsDetails.application_reference = application_reference;
 
-            const VehicleDocs = await createVehicleDocs(vehicleDetails, transaction);
-            _vehicleDocId = VehicleDocs[0].dataValues.vehicle_docu_id;
+            const LoanDoc = await createLoanDocs(loanDocsDetails, transaction);
+            _loanDocId = LoanDoc[0].dataValues.loan_docu_id;
 
             const loanMaxId = await FindMaxId(loan_applications, 'id_loan_application', transaction);
 
@@ -326,7 +342,7 @@ const AddLoan = async (req, res, next) => {
             loanApplication.approved_reference = null
 
             loanApplication.customer_details_id = _customerId;
-            loanApplication.vehicle_docu_id = _vehicleDocId;
+            loanApplication.loan_docu_id = _loanDocId;
             loanApplication.employment_docu_id = _employmentDocId;
 
             const LoanApplication = await createLoanApplication(loanApplication, transaction);
@@ -342,7 +358,7 @@ const AddLoan = async (req, res, next) => {
             
         })
         
-        res.status(200).send({...hatchitAddLoan.data});
+        res.status(200).send({...hatchitAddLoan});
         // res.status(200).send(ApplyLoan);
 
     } catch (error) {

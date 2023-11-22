@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {
   TopbarComponent,
   CustomHeader,
@@ -8,14 +8,16 @@ import {
   LoanTypeSecondHandComponent,
 } from "../components";
 import "../styles/loantypes.css";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { Navigate, useLocation, useNavigate, useParams } from "react-router-dom";
 
 const LoanTypeComponent = () => {
   const { type } = useParams();
   const navigate = useNavigate();
 
   const SelectLoanTypeHandler = (args) => {
-    navigate(`/vehicle-loan/loan-type/${args}`, { replace: true });
+    navigate(`/vehicle-loan/loan-type/${args}`, { replace: true, state: {
+      loantype: "Vehicle Loan"
+    }});
   };
 
   return (
@@ -33,11 +35,11 @@ const LoanTypeComponent = () => {
           />
         </div>
         {type === "new" ? (
-          <LoanTypeNewComponent />
+          <LoanTypeNewComponent/>
         ) : type === "second-hand" ? (
-          <LoanTypeSecondHandComponent />
+          <LoanTypeSecondHandComponent/>
         ) : type === "refinance" ? (
-          <LoanTypeSecondHandComponent />
+          <LoanTypeSecondHandComponent/>
         ) : (
           <Navigate to={"/not-found"} />
         )}

@@ -28,16 +28,17 @@
     text-align: center;
 }
 .alertcontainer .body {
-  flex: 50%;
+  flex: 50% 1;
   display: flex;
   justify-content: center;
   align-items: center;
-  text-align: center;
+  text-align: justify;
   line-height: 25px;
+  margin: auto 5px;
 }
 
 .alertcontainer .body span {
-  font-size: 20px;
+  font-size: 17px;
   margin-bottom: 10px;
 }
 

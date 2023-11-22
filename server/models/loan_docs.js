@@ -1,8 +1,8 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/mlloan.server');
 
-const vehicle_docs = sequelize.define('vehicle_docs', {
-    vehicle_docu_id: {
+const loan_docs = sequelize.define('loan_docs', {
+    loan_docu_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
         // autoIncrement: true,
@@ -36,6 +36,22 @@ const vehicle_docs = sequelize.define('vehicle_docs', {
         type: DataTypes.STRING,
         allowNull: true
     },
+    cct_no: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+    property_map: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+    land_title: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+    property_description: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
     application_reference: {
         type: DataTypes.STRING,
         allowNull: true
@@ -59,9 +75,9 @@ const vehicle_docs = sequelize.define('vehicle_docs', {
     deletedAt: true
 });
 
-vehicle_docs.customeCreate = async function (data, options) {
+loan_docs.customeCreate = async function (data, options) {
     return this.create(data, options);
 };
 
-module.exports = vehicle_docs;
+module.exports = loan_docs;
 

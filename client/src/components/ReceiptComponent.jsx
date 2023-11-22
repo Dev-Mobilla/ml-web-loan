@@ -16,7 +16,8 @@ const ReceiptComponent = () => {
     fullname: "",
     ref_num:"",
     terms: "",
-    loan_amount: ""
+    loan_amount: "",
+    isHousing: false
   });
   const [loanType, setLoanType] = useState();
   const [showReceipt, setShowReceipt] = useState(true);
@@ -26,12 +27,16 @@ const ReceiptComponent = () => {
       navigate('/');
     }else{
       let loan = JSON.parse(location.state.LoanDetails.Loan);
+      let data = loan.data.data
       let loan_type = location.state.LoanDetails.LoanType;
+      let isHousingLoan = loan_type === "Real Estate Loan";
+
       setReceiptDetails({
-        fullname: loan.data.full_name ? loan.data.full_name.replace(/NULL|null/g, "") : loan.data.full_name,
-        ref_num: loan.data.ref_num,
-        terms: loan.data.term,
-        loan_amount: loan.data.principal_amount,
+        fullname: data.full_name ? data.full_name.replace(/NULL|null/g, "") : data.full_name,
+        ref_num: data.ref_num,
+        terms: data.term,
+        loan_amount: data.principal_amount,
+        isHousing: isHousingLoan
       });
       setLoanType(loan_type);
       setTimeout(() => {
@@ -69,18 +74,35 @@ const ReceiptComponent = () => {
                     <p>Applicant Name:</p>
                     <p>Reference No:</p>
                     <p>Loan Type:</p>
-                    <p>Terms:</p>
-                    <p>Monthly Payment:</p>
-                    <p>Loan Amount:</p>
+
+                    {
+                      !receiptDetails.isHousing ? 
+                      (
+                        <>
+                          <p>Terms:</p>
+                          <p>Monthly Payment:</p>
+                          <p>Loan Amount:</p>
+                        </>
+                    )
+                      : <></>
+                    }
                   </div>
                   <div className="receipt-details--property-value">
                     <p>{receiptDetails.fullname}</p>
                     {/* <p>{receiptDetails.full_name}</p> */}
                     <p>{receiptDetails.ref_num}</p>
                     <p>{loanType}</p>
-                    <p>{receiptDetails.terms} Months</p>
-                    <p>0.00</p>
-                    <p>{receiptDetails.loan_amount}</p>
+                    {
+                      !receiptDetails.isHousing ? 
+                      (
+                        <>
+                          <p>{receiptDetails.terms} Months</p>
+                          <p>0.00</p>
+                          <p>{receiptDetails.loan_amount}</p>
+                        </>
+                      )
+                      : <></>
+                    }
                   </div>
                   </div>
                 </div>

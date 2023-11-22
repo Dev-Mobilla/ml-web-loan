@@ -65,7 +65,7 @@ const routes = [
       { path: "/housing-loan/personal-details", element: <CustomerDetails/> },
       { path: "/housing-loan/current-address", element: <HousingCurrentAddressComponent/> },
       { path: "/housing-loan/requirements", element: <HousingRequirement/> },
-      { path: "/vehicle-loan/receipt", element: <Receipt /> },
+      { path: "/apply-loan/receipt", element: <Receipt /> },
       { path: "/vehicle-loan/payment-receipt", element: <PaymentReceipt /> },
     ],
   },

@@ -51,32 +51,32 @@ const HousingCurrentAddressComponent = () => {
 
   ]
 
-  const { secondStepDetails } = location.state || {};
+  const { loan } = location.state || {};
 
   useEffect(() => {
-    console.log(secondStepDetails);
 
-    const { isCorrespond, personalDetails } = secondStepDetails
+    const { loanDetails, personalDetails } = loan
 
-    if (isCorrespond) {
+    if (loanDetails.isCorrespond) {
       const currAdd = {
-        country: getAddressName(personalDetails[4].countries),
-        province: getAddressName(personalDetails[4].provinces),
-        city: getAddressName(personalDetails[4].cities),
-        barangay: personalDetails[4].barangay
+        country: getAddressName(personalDetails.currentAdd.countries),
+        province: getAddressName(personalDetails.currentAdd.provinces),
+        city: getAddressName(personalDetails.currentAdd.cities),
+        barangay: personalDetails.currentAdd.barangay
       }
       setCurrentAddress({...currentAdress, ...currAdd })
     }else{
+      
       const currAdd = {
-        country: personalDetails[1].countries,
-        province: personalDetails[1].provinces,
-        city: personalDetails[1].cities,
-        barangay: personalDetails[1].barangay
+        country: personalDetails.informationDetails.countries.includes("|") ? getAddressName(personalDetails.informationDetails.countries) : personalDetails.informationDetails.countries,
+        province: personalDetails.informationDetails.provinces.includes("|") ? getAddressName(personalDetails.informationDetails.provinces) : personalDetails.informationDetails.provinces,
+        city: personalDetails.informationDetails.cities.includes("|") ? getAddressName(personalDetails.informationDetails.cities) : personalDetails.informationDetails.cities,
+        barangay: personalDetails.informationDetails.barangay
       }
       setCurrentAddress({...currentAdress, ...currAdd })
     }
 
-  }, [secondStepDetails])
+  }, [loan])
 
   const getAddressName = (name) => {
     let isEmpty = name === "" || name === null;
@@ -103,14 +103,15 @@ const HousingCurrentAddressComponent = () => {
     e.preventDefault();
 
     // localStorage.setItem("firstStep", JSON.stringify(firstStepDetails));
+
+    loan.loanDetails.housingDetails = currentAdress;
     const thirdStepDetails = {
-      secondStepDetails: secondStepDetails,
-      currentAdress
+      ...loan
     };
 
     navigate("/housing-loan/requirements", {
       state: {
-        thirdStepDetails: thirdStepDetails,
+        loan: {...thirdStepDetails},
       },
     });
   };

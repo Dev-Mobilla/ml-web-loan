@@ -796,6 +796,26 @@ const ManageLoansDetailsComponent = () => {
           isError: true
         });
       }
+      else if (error.response.status == 400) {
+
+       if (error.response.data.error.code == "CASH_TRANSFER_NOT_ENOUGH_BALANCE_ERROR_CODE") {
+          setAlertModal(true);
+          setAlertProps({
+            title: "Insufficient Balance",
+            message: "There is insufficient balance on your account to proceed with this transaction. Please try again." || "An error occurred",
+            subTitle: "",
+            isError: true
+          });
+        }else{
+          setAlertModal(true);
+            setAlertProps({
+              title: "Request Failed",
+              message: "We're sorry, something went wrong on our end. Please try again later or contact our support team." || "An error occurred",
+              subTitle: "",
+              isError: true
+            });
+        }
+      }
       else{
         setAlertModal(true);
           setAlertProps({
@@ -900,6 +920,15 @@ const ManageLoansDetailsComponent = () => {
     }
   }
 
+  const PastDue = () => {
+    let dateInstance = new Date();
+    
+    let requestDate = new Date(loanDetails.paymentDueDate);
+
+    return dateInstance > requestDate
+
+  }
+
   return (
     <div className="loan-details">
       <div className="div">
@@ -944,20 +973,30 @@ const ManageLoansDetailsComponent = () => {
                   </div>
                 </div>
               </div>
-              <CustomStatus
-                status={
-                  loanDetails.status === "DISBURSED"
-                    ? "Current"
-                    : loanDetails.status
-                }
-                styles={
-                  loanDetails.status?.toLowerCase() === "disbursed"
-                    ? "custom-current"
-                    : loanDetails.status?.toLowerCase() === "closed"
-                    ? "custom-pastdue"
-                    : ""
-                }
-              />
+              {
+                isLoading ? 
+                    <CustomStatus
+                    status={""}
+                    styles={""}
+                  /> 
+                : 
+                  <CustomStatus
+                  status={
+                    PastDue() && loanDetails.status === "DISBURSED" ? "Past Due" 
+                      : loanDetails.status === "DISBURSED"
+                      ? "Current" 
+                      : loanDetails.status
+                  }
+                  styles={
+                    PastDue() && loanDetails.status === "DISBURSED" ? "custom-pastdue"
+                      : loanDetails.status?.toLowerCase() === "disbursed"
+                      ? "custom-current"
+                      : loanDetails.status?.toLowerCase() === "closed"
+                      ? "custom-pastdue"
+                      : PastDue() ? "custom-pastdue" : ""
+                  }
+                />
+              }
             </div>
 
             <div className="hl-inputs">
@@ -997,16 +1036,18 @@ const ManageLoansDetailsComponent = () => {
               ) : (
                 <></>
               )}
-              {loanDetails.status?.toLowerCase() === "closed" ? (
-                <div className="remarks">
-                  <div className="past-remarks">
-                    <p>Note/Remarks</p>
-                    <p>This {loanDetails.loanType} has been fully paid.</p>
-                    <br></br>
-                    <p>Please contact loans@mlhuillier.com for more details.</p>
+              {loanDetails.status?.toLowerCase() === "closed" ? 
+                (
+                  <div className="remarks">
+                    <div className="past-remarks">
+                      <p>Note/Remarks</p>
+                      <p>Your {loanDetails.loanType} has been closed.</p>
+                      <br></br>
+                      <p>Please visit our nearest branch or contact loans@mlhuillier.com for more details.</p>
+                    </div>
                   </div>
-                </div>
-              ) : (
+                )
+              : (
                 <></>
               )}
 
@@ -1057,26 +1098,29 @@ const ManageLoansDetailsComponent = () => {
                   EventHandler={handleCollateralDetails}
                 />
               </div>
-
-              <div className="hl-buttom payment-history">
-                <div className="rec-payment-txt">
-                  <h1>Recent Payments</h1>
-                </div>
-                <div className="rc-details">
-                  {paymentsHistory ? (
-                    paymentsHistory.map((payment, index) => (
-                      <div className="hl-transactions" key={index}>
-                        <div className="date">{payment.paid_date}</div>
-                        <div className="ammount">{payment.paid_amount}</div>
+              {
+                loanDetails.status?.toLowerCase() !== "closed" ?
+                <div className="hl-buttom payment-history">
+                  <div className="rec-payment-txt">
+                    <h1>Recent Payments</h1>
+                  </div>
+                  <div className="rc-details">
+                    {paymentsHistory ? (
+                      paymentsHistory.map((payment, index) => (
+                        <div className="hl-transactions" key={index}>
+                          <div className="date">{payment.paid_date}</div>
+                          <div className="ammount">{payment.paid_amount}</div>
+                        </div>
+                      ))
+                    ) : (
+                      <div style={{ marginTop: "10px" }}>
+                        <p>{message}</p>
                       </div>
-                    ))
-                  ) : (
-                    <div style={{ marginTop: "10px" }}>
-                      <p>{message}</p>
-                    </div>
-                  )}
+                    )}
+                  </div>
                 </div>
-              </div>
+                : <></>
+              }
             </div>
           </div>
         </div>
