@@ -1037,24 +1037,13 @@ const ManageLoansDetailsComponent = () => {
                 <></>
               )}
               {loanDetails.status?.toLowerCase() === "closed" ? 
-                loanDetails.paymentStatus?.toLowerCase() === "unpaid" ?
                 (
                   <div className="remarks">
                     <div className="past-remarks">
                       <p>Note/Remarks</p>
-                      <p>This {loanDetails.loanType} was closed due to an unsettled payment.</p>
+                      <p>Your {loanDetails.loanType} has been closed.</p>
                       <br></br>
-                      <p>Please contact loans@mlhuillier.com for more details.</p>
-                    </div>
-                  </div>
-                )
-                : (
-                  <div className="remarks">
-                    <div className="past-remarks">
-                      <p>Note/Remarks</p>
-                      <p>This {loanDetails.loanType} has been fully paid.</p>
-                      <br></br>
-                      <p>Please contact loans@mlhuillier.com for more details.</p>
+                      <p>Please visit our nearest branch or contact loans@mlhuillier.com for more details.</p>
                     </div>
                   </div>
                 )
@@ -1109,26 +1098,29 @@ const ManageLoansDetailsComponent = () => {
                   EventHandler={handleCollateralDetails}
                 />
               </div>
-
-              <div className="hl-buttom payment-history">
-                <div className="rec-payment-txt">
-                  <h1>Recent Payments</h1>
-                </div>
-                <div className="rc-details">
-                  {paymentsHistory ? (
-                    paymentsHistory.map((payment, index) => (
-                      <div className="hl-transactions" key={index}>
-                        <div className="date">{payment.paid_date}</div>
-                        <div className="ammount">{payment.paid_amount}</div>
+              {
+                loanDetails.status?.toLowerCase() !== "closed" ?
+                <div className="hl-buttom payment-history">
+                  <div className="rec-payment-txt">
+                    <h1>Recent Payments</h1>
+                  </div>
+                  <div className="rc-details">
+                    {paymentsHistory ? (
+                      paymentsHistory.map((payment, index) => (
+                        <div className="hl-transactions" key={index}>
+                          <div className="date">{payment.paid_date}</div>
+                          <div className="ammount">{payment.paid_amount}</div>
+                        </div>
+                      ))
+                    ) : (
+                      <div style={{ marginTop: "10px" }}>
+                        <p>{message}</p>
                       </div>
-                    ))
-                  ) : (
-                    <div style={{ marginTop: "10px" }}>
-                      <p>{message}</p>
-                    </div>
-                  )}
+                    )}
+                  </div>
                 </div>
-              </div>
+                : <></>
+              }
             </div>
           </div>
         </div>

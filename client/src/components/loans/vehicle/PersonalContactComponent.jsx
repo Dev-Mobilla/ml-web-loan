@@ -31,7 +31,17 @@ const PersonalContactComponent = ({
     const isPhoneValid = (phone) => phRegex.test(phone);
 
   const handleSearch = () => {
-    performSearch(contactDetails.mobile_number, contactDetails.email);
+    const isValid =
+      contactDetails.mobile_number !== "" &&
+      contactDetails.email !== "" &&
+      isEmailValid(contactDetails.email) &&
+      isPhoneValid(contactDetails.mobile_number)
+
+      console.log("isvalid", isValid);
+
+    if (isValid) {
+      performSearch(contactDetails.mobile_number, contactDetails.email);
+    }
   }
 
   const handleInputChange = (e) => {

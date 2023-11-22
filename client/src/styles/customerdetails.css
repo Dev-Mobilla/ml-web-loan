@@ -14,6 +14,91 @@
   box-sizing: border-box;
 }
 
+.correspond-div {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin: 0 auto;
+  max-width: 400px;
+  padding: 5px;
+  color: var(--text-gray);
+}
+.correspond-div .radio-wrapper{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.correspond-div .current-address--col{
+  display: flex;
+  /* align-items: center; */
+  margin-top: 15px;
+}
+.correspond-div .current-address--col .c-details-input.current-address-country{
+  width: 48%;
+  margin: 0 5px 10px 0;
+}
+
+.correspond-div .current-address--col .c-details-input.current-address-provinces{
+  width: 50%;
+  margin: 0 0 10px 5px;
+}
+.correspond-div .correspond-input-div .c-details-input{
+  margin: 5px 0;
+}
+
+.correspond-div .preferred-branch-radios{
+  width: 50%;
+}
+
+.correspond-div .col1 {
+  display: flex;
+  /* justify-content: center; */
+  margin-top: 20px;
+  width: 650px;
+  align-items: center;
+}
+.correspond-div .col2 {
+  display: flex;
+  /* justify-content: center; */
+  margin: auto;
+  width: 650px;
+  align-items: center;
+}
+
+.correspond-div .correspond-select-left {
+  width: 150px;
+  padding: 10px;
+  border: 1px solid var(--border-color-gray);
+  color: var(--text-gray);
+  border-radius: var(--radius);
+  font-size: 16px;
+  margin-right: 10px;
+}
+.correspond-div .correspond-select-right {
+  padding: 10px;
+  border: 1px solid var(--border-color-gray);
+  color: var(--text-gray);
+  border-radius: var(--radius);
+  font-size: 16px;
+}
+.correspond-div .correspond-text-right {
+  padding: 10px;
+  border: 1px solid var(--border-color-gray);
+  color: var(--text-gray);
+  border-radius: var(--radius);
+  font-size: 16px;
+  width: 243px;
+}
+#correspondQuestion {
+  color: var(--text-gray);
+  margin-bottom: 10px;
+}
+
+.confirm-address {
+  margin: 0px 0px 30px 50px;
+  color: var(--text-gray);
+}
+
 input[type="date"]::before {
   color: var(--text-gray);
   content: attr(placeholder);
@@ -32,9 +117,10 @@ input[type="date"]:focus::before,
 input[type="date"]:valid::before {
   content: "" !important;
 }
-.customer-details-group .c-details-input input:read-only{
+
+.customer-details-group .c-details-input input:read-only {
   cursor: no-drop;
-  background-color:rgba(232, 232, 232, 0.405) ;
+  background-color: rgba(232, 232, 232, 0.405);
 }
 
 
@@ -145,6 +231,32 @@ input[type="date"]:valid::before {
   z-index: 9999;
   /* Ensure the overlay appears on top of other elements */
 }
+
+.confirm-address .col {
+  display: flex;
+  /* justify-content: center; */
+  margin: auto;
+  width: 650px;
+  align-items: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 .search-address-bar {
   display: flex;

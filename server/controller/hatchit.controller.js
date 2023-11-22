@@ -23,6 +23,9 @@ const GetLoanTypeFields = async (loant_type) => {
             case "Motor Loan":
                 LOAN_TYPE = 2
                 break;
+            case "Real Estate Loan":
+                LOAN_TYPE = 3
+                break;
             default:
                 let message = {
                     title: "Request failed",
@@ -89,6 +92,9 @@ const GetLoanTypeItemsFields = async (loan_type) => {
                 break;
             case "Motor Loan":
                 LOAN_TYPE = 2
+                break;
+            case "Real Estate Loan":
+                LOAN_TYPE = 3
                 break;
             default:
                 let message = {
@@ -157,6 +163,9 @@ const HatchITAddLoan = async (customerDetails, collateral, fieldValues, fieldIte
                 break;
             case "Motor Loan":
                 LOAN_TYPE = 2
+                break;
+            case "Real Estate Loan":
+                LOAN_TYPE = 3
                 break;
             default:
                 let message = {

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { ML_LoansAxiosInstance } from "../helper/axios";
 
 const AddLoan = async (
-  vehicleDocsData, 
+  loanDocsData, 
   employmentDocsData, 
   customerData, 
   loanApplicationData,
@@ -21,8 +21,8 @@ const AddLoan = async (
         EmploymentJsonData: {
           ...employmentDocsData
         },
-        VehicleJsonData: {
-          ...vehicleDocsData
+        LoanDocJsonData: {
+          ...loanDocsData
         },
         HatchITJsonData: {
           ...hatchitReqBody

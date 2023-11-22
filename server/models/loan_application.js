@@ -22,7 +22,7 @@ const loan_applications = sequelize.define('loan_applications', {
     },
     application_date: {
         type: DataTypes.STRING,
-        allowNull: true
+        allowNull: false
     },
     principal_amount: {
         type: DataTypes.STRING,
@@ -77,6 +77,14 @@ const loan_applications = sequelize.define('loan_applications', {
         type: DataTypes.INTEGER,
         allowNull: true
     },
+    residence_type: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+    stay_length:  {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
     preferred_branch: {
         type: DataTypes.STRING,
         allowNull: true
@@ -87,7 +95,7 @@ const loan_applications = sequelize.define('loan_applications', {
         allowNull: false,
         primaryKey: true,
     },
-    vehicle_docu_id: {
+    loan_docu_id: {
         // vehicle_docs_vehicle_docu_id: {
         type: DataTypes.INTEGER,
         allowNull: false,

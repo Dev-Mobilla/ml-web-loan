@@ -34,6 +34,8 @@ const ErrorLogger = async (error, request, response , next) => {
     Request URL: ${request.url}, Response URL: ${ErrResponse.hasOwnProperty("config") ? JSON.stringify(ErrResponse.config): ErrResponse.errors.config.url} - ${JSON.stringify(ErrResponse.message)} | ${JSON.stringify(ErrResponse.statusText)} | ${ErrResponse.code} - ${JSON.stringify(ErrResponse.status)} | ${JSON.stringify(ErrResponse.errors)}`);
     Logger.loggerError.error(JSON.stringify(ErrResponse.data.error) ? ErrResponse.data.error.stack : JSON.stringify(ErrResponse.data));
     // console.log("err", ErrResponse);
+
+    console.log(ErrResponse);
     
     next(ErrResponse);
 }

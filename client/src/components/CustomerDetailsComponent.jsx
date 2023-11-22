@@ -2,11 +2,15 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate, useLocation } from "react-router-dom";
 import "../styles/customerdetails.css";
+import { GetCountries, GetProvinces, GetCities } from "../api/symph.api";
 import {
+  LoadingComponent,
   TopbarComponent,
   CustomHeader,
   CustomPrevBtn,
+  HousingCurrentAddress,
   CustomButton,
+  HousingRadiosComponent,
   CustomCardTitle,
   PersonalContactComponent,
   PersonalInformationComponent,
@@ -14,6 +18,7 @@ import {
 } from "./index";
 import { fetchBranch } from "../api/api";
 import { SearchKyc } from "../api/symph.api";
+import {LoanTypeChecker} from "../utils/DataFunctions";
 
 const calculateDistance = (lat1, lon1, lat2, lon2) => {
   const earthRadius = 6371;
@@ -23,31 +28,41 @@ const calculateDistance = (lat1, lon1, lat2, lon2) => {
   const a =
     Math.sin(dLat / 2) * Math.sin(dLat / 2) +
     Math.cos(toRadians(lat1)) *
-      Math.cos(toRadians(lat2)) *
-      Math.sin(dLon / 2) *
-      Math.sin(dLon / 2);
+    Math.cos(toRadians(lat2)) *
+    Math.sin(dLon / 2) *
+    Math.sin(dLon / 2);
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   return earthRadius * c;
 };
-const CustomerDetailsComponent = () => {
+const CustomerDetailsComponent = ({ url }) => {
   const navigate = useNavigate();
   const location = useLocation();
- 
+
+  const loantype = location.state.loantype;
+
+  const [ListOfCountries, setListOfNoCountries] = useState([]);
+  const [ListOfProvinces, setListOfProvinces] = useState([]);
+  const [ListOfCities, setListOfCities] = useState([]);
   const [address, setAddress] = useState("");
   const [customAlert, setCustomAlert] = useState(false);
   const [alertProps, setAlertProps] = useState(null);
   const [showBranches, setShowBranches] = useState(false);
   const [showAlert, setShowAlert] = useState(true);
+  const [loading, setLoading] = useState(true);
+
+  const [keepAddress, setKeepAAddress] = useState("Yes");
+  const [isCorrespond, setIsCorrespond] = useState(true);
   const [nearestBranches, setNearestBranches] = useState([]);
   const [selectedOption, setSelectedOption] = useState("");
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
   const [isEditable, setIsEditable] = useState(false);
-const [isSearchParams, setIsSearchParams] = useState(false)
+  const [isSearchParams, setIsSearchParams] = useState(false)
   const { firstStepDetails } = location.state || {};
   const [contactDetails, setContactDetails] = useState({
     mobile_number: "",
     email: "",
   });
+
   const [informationDetails, setInformationDetails] = useState({
     firstname: "",
     lastname: "",
@@ -69,39 +84,88 @@ const [isSearchParams, setIsSearchParams] = useState(false)
     cities: "",
     barangay: ""
   });
+  const [currentAdd, setCurrentAdd] = useState({
+    countries: "",
+    provinces: "",
+    cities: "",
+    barangay: ""
+  })
+  const confirmRadioVal = [
+    {
+      name: 'Yes'
+    },
+    {
+      name: 'No'
+    }
 
+  ]
+  const OnKeepAddress = (e) => {
+    const { name, value } = e.target;
+    setKeepAAddress(value);
+
+    if (value === "Yes") {
+      setIsCorrespond(true);
+    } else {
+      setIsCorrespond(false);
+      setAddress("");
+    }
+
+  }
   useEffect(() => {
+
+    
+    if (keepAddress.toLowerCase() == "no") {
+      setIsCorrespond(false);
+
+      let barangay = getAddressName(currentAdd.barangay);
+      let city = getAddressName(currentAdd.cities);
+      let province = getAddressName(currentAdd.provinces);
+      let country = getAddressName(currentAdd.countries);
+      setAddress(`${barangay} ${city} ${province} ${country}`)
+      while (nearestMLBranches > 0){
+        nearestMLBranches.pop()
+      }
+
+    } else if (keepAddress.toLowerCase() == "yes") {
+      setIsCorrespond(true);
+      let barangay = getAddressName(informationDetails.barangay);
+      let city = getAddressName(informationDetails.cities);
+      let province = getAddressName(informationDetails.provinces);
+      let country = getAddressName(informationDetails.countries);
+      setAddress(`${barangay} ${city} ${province} ${country}`)
+    }
 
     if (location.state == null) {
       navigate(-1);
     }
 
-    const getAddressName = (name) => {
-      let isEmpty = name === "" || name === null;
+    handleValidationChange();
 
-      if (!isEmpty) {
-        let nameVal = name.split("|");
+    // fetchData();
+  }, [informationDetails.barangay,
+  informationDetails.cities,
+  informationDetails.provinces,
+  informationDetails.countries, keepAddress,currentAdd])
 
-        return nameVal[0].toUpperCase();
+  const getAddressName = (name) => {
+    let isEmpty = name === "" || name === null;
 
-      }
-      return name;
+    if (!isEmpty) {
+      let nameVal = name.split("|");
+
+      return nameVal[0].toUpperCase();
 
     }
-    let barangay = getAddressName(informationDetails.barangay);
-    let city = getAddressName(informationDetails.cities);
-    let province = getAddressName(informationDetails.provinces);
-    let country = getAddressName(informationDetails.countries);
-    setAddress(`${barangay} ${city} ${province} ${country}`)
-    
-  },[informationDetails.barangay,
-    informationDetails.cities, 
-    informationDetails.provinces,
-  informationDetails.countries])
+    return name;
 
-  // useEffect(()=> {
-  //   performSearch(contactDetails.mobile_number, contactDetails.email)
-  // },[contactDetails.email, contactDetails.mobile_number, setAddress])
+  }
+
+  useEffect(()=> {
+   
+    if (ListOfCountries.length === 0 && ListOfProvinces.length === 0 && ListOfCities.length === 0) {
+      fetchData()
+    }
+  },[ListOfCities, ListOfProvinces, ListOfCities])
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const phoneRegex = /^\+?[\d\s()-]{7,15}$/;
@@ -124,7 +188,7 @@ const [isSearchParams, setIsSearchParams] = useState(false)
       informationDetails.civil_status !== "" && informationDetails.civil_status !== null &&
       informationDetails.employeer_business !== "" && informationDetails.employeer_business !== null &&
       informationDetails.nature_business !== "" && informationDetails.nature_business !== null &&
-      informationDetails.tenure !== "" && informationDetails.tenure !== null && 
+      informationDetails.tenure !== "" && informationDetails.tenure !== null &&
       informationDetails.office_address !== "" && informationDetails.office_address !== null &&
       informationDetails.office_landline !== "" && informationDetails.office_landline !== null &&
       informationDetails.sourceOfIncome !== "" && informationDetails.sourceOfIncome !== null &&
@@ -141,41 +205,104 @@ const [isSearchParams, setIsSearchParams] = useState(false)
         isContactDetailsValid &&
         isPersonalDetailsValid &&
         isAddressValid &&
-        isOptionSelected
+        isOptionSelected &&
+        isCurrentAdd()
       )
     );
 
     setIsSearchParams(isContactDetailsValid)
 
   };
+  
+  const isCurrentAdd = () => {
+    const CurrentAdd = Object.keys(currentAdd).map(key => currentAdd[key] != "" && currentAdd[key] != null );
+
+    if (keepAddress.toLowerCase() == "no") {
+      return !CurrentAdd.includes(false);
+    }else if (keepAddress.toLowerCase() == "yes") {
+      return true
+    }
+  }
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
 
-    const secondStepDetails = {
-      vehicleDetails: firstStepDetails,
-      personalDetails: [
-        contactDetails,
-        informationDetails,
-        selectedOption,
-        address
-      ],
-    };
+    // const secondStepDetails = {
+    //   vehicleDetails: firstStepDetails,
+    //   personalDetails: [
+    //     contactDetails,
+    //     informationDetails,
+    //     selectedOption,
+    //     address
+    //   ],
+    // };
 
-    navigate("/vehicle-loan/requirements", {
-      state: {
-        secondStepDetails: secondStepDetails,
-      },
-    });
+    if (location.pathname == '/housing-loan/personal-details') {
+      let url = '/housing-loan/current-address'
+
+      const secondStepDetails = {
+        loanDetails: {
+          loantype: firstStepDetails,
+          isCorrespond: !isCorrespond,
+          appLoanType: loantype
+        },
+        personalDetails: {
+          contactDetails,
+          informationDetails,
+          selectedOption,
+          address,
+          currentAdd,
+        },
+        
+      };
+
+      navigate(url, {
+        state: {
+          loan: {...secondStepDetails},
+        },
+      });
+    } else if (location.pathname == '/vehicle-loan/personal-details') {
+      let url = '/vehicle-loan/requirements'
+      const secondStepDetails = {
+        loanDetails: {
+          loantype: firstStepDetails.type,
+          vehicleDetails: firstStepDetails,
+          isCorrespond: !isCorrespond,
+          appLoanType: loantype
+        },
+        personalDetails: {
+          contactDetails,
+          informationDetails,
+          selectedOption,
+          address,
+        },
+      };
+
+      navigate(url, {
+        state: {
+          loan: {...secondStepDetails},
+        },
+      });
+    }
+
   };
-
+  const fetchData = async () => {
+    try {
+      const getCountries = await GetCountries();
+      const getProvinces = await GetProvinces();
+      const getCities = await GetCities();
+      setListOfNoCountries(await getCountries.data);
+      setListOfProvinces(await getProvinces.data);
+      setListOfCities(await getCities.data);
+    } catch (error) {
+    }
+    setLoading(false);
+  };
   const handleInputChange = (field, value) => {
     if (field === "address") {
       setAddress(value);
     } else if (field === "selectedOption") {
       setSelectedOption(value);
-    }
-    if (field == "mobile_number") {
     }
     handleValidationChange();
   };
@@ -204,6 +331,7 @@ const [isSearchParams, setIsSearchParams] = useState(false)
       );
 
       const { lat, lng } = response.data.results[0].geometry;
+      
       const branches = await fetchBranch();
 
       if (!branches || branches.length === 0) {
@@ -309,7 +437,7 @@ const [isSearchParams, setIsSearchParams] = useState(false)
       if (fieldName === "current_address") {
         setErrors((prevErrors) => ({
           ...prevErrors,
-          [fieldName]: `Please enter your Current Address`,
+          [fieldName]: `Current Address required`,
         }));
       } else {
         setErrors((prevErrors) => ({
@@ -349,7 +477,7 @@ const [isSearchParams, setIsSearchParams] = useState(false)
               nationality: data.data.nationality,
               civil_status: data.data.civilStatus,
               office_address: data.data.occupation.workAddress,
-              sourceOfIncome: data.data.occupation.sourceOfIncome,
+              // sourceOfIncome: data.data.occupation.sourceOfIncome || "",
               countries: data.data.addresses.current.addressL0Name,
               provinces: data.data.addresses.current.addressL1Name,
               cities: data.data.addresses.current.addressL2Name,
@@ -391,11 +519,16 @@ const [isSearchParams, setIsSearchParams] = useState(false)
       } catch (error) {
         return false;
       }
-    
+
   };
 
   return (
     <div className="customer-details">
+      {loading && (
+        <div className="overlay">
+          <LoadingComponent containerStyle="container-loading" />
+        </div>
+      )}
       <div className="customer-details-container">
         <TopbarComponent />
         <CustomHeader title="Personal Details" />
@@ -440,6 +573,38 @@ const [isSearchParams, setIsSearchParams] = useState(false)
               subTitle="Select a branch nearest to you"
               styles="custom-card-title"
             />
+            {
+              LoanTypeChecker(loantype) ? 
+                <div className="correspond-div">
+                  <p id="correspondQuestion"><span style={{ color: 'red' }}>*</span> Does the address on the previous form correspond to your current address?</p>
+                  <HousingRadiosComponent
+                    radioVal={confirmRadioVal}
+                    onSelected={OnKeepAddress}
+                    radioName={'currentAddress'}
+                    styles={'preferred-branch-radios'}
+                    parentStyles={'radio-wrapper'}
+                    defaultVal={keepAddress}
+                    
+                  />
+                  {!isCorrespond && (
+                    <>
+                        <div className="correspond-input-div">
+                          <HousingCurrentAddress
+                            onInformationDetailsChange={setInformationDetails}
+                            onValidationChange={handleValidationChange}
+                            currentAdd={currentAdd}
+                            setCurrentAdd={setCurrentAdd}
+                            theListOfCountries={ListOfCountries}
+                            ListOfProvinces={ListOfProvinces}
+                            ListOfCities={ListOfCities}
+                            styles={'correspond-select-left'}
+                          />
+                        </div>
+                    </>
+                  )}
+                </div>
+              : <></>
+            }
             <form
               className="search-address-bar"
               onSubmit={handleFindNearestSubmit}

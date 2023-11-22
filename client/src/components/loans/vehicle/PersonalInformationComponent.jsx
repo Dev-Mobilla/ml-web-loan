@@ -79,6 +79,7 @@ const PersonalInformationComponent = ({
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
+    
     setInformationDetails((prevDetails) => ({
       ...prevDetails,
       [name]: value,
@@ -531,7 +532,6 @@ const PersonalInformationComponent = ({
           style={{ border: fieldBorders.barangay }}
         />
         <div style={{ color: 'red', fontSize: '12px', margin: '10px 20px 20px 0' }}>{errors.barangay}</div>
-
       </div>
     </div>
   );

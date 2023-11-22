@@ -1,5 +1,4 @@
 import DashboardComponent from "./DashboardComponent";
-import HousingLoanComponent from "./HousingLoanComponent";
 import FooterComponent from "./layout/FooterComponent";
 import HeaderComponent from "./layout/HeaderComponent";
 import TopbarComponent from "./layout/TopbarComponent";
@@ -43,6 +42,7 @@ import CollateralDetailsComponent from "./loans/manageLoan/CollateralDetailsComp
 import PaymentDetailsModalComponent from "./loans/manageLoan/PaymentDetailsModalComponent";
 import PaymentReceiptCompoenent from './PaymentReceiptCompoenent';
 
+
 // CUSTOM COMPONENTS
 import OTPModalComponent from "./OTPModalComponent";
 import CustomHeader from "./custom/Custom.header";
@@ -57,16 +57,24 @@ import CustomAlert from "./custom/Custom.Alert";
 import CustomLoadingModal from "./custom/Custom.LoadingModal";
 import CustomMessage from "./custom/Custom.message";
 import CustomConfirmation from "./custom/Custom.confirm";
+import HousingCardsComponent from "./loans/housing/HousingCardsComponent";
+import HousingRadiosComponent from "./loans/housing/HousingRadiosComponent";
+import HousingRequiredInfoComponent from "./loans/housing/HousingRequiredInfoComponent";
+import HousingPersonalDetails from "./loans/housing/HousingPersonalDetailsComponent";
+import HousingCurrentAddressComponent from "./loans/housing/HousingCurrentAddressComponent";
+import CustomSelect from "./custom/Custom.select";
+import HousingRequirementsComponent from "./loans/housing/HousingRequirementsComponent";
+import CustomRequirementDocsComponent from "./custom/Custom.requirementdoc";
+import HousingCurrentAddress  from "./loans/housing/HousingCurrentAddress";
 
 export {
-  
   DashboardComponent,
+  HousingCurrentAddress,
   FooterComponent,
   HeaderComponent,
   TopbarComponent,
   LoginComponent,
   ManageLoanComponent,
-  HousingLoanComponent,
   QuickCashLoanComponent,
   QuickCashHeaderComponent,
   LoanTypeNewComponent,
@@ -114,5 +122,13 @@ export {
   CustomLoadingModal,
   PaymentReceiptCompoenent,
   CustomMessage,
-  CustomConfirmation
+  CustomConfirmation,
+  HousingCardsComponent,
+  HousingRadiosComponent,
+  HousingRequiredInfoComponent,
+  HousingPersonalDetails,
+  HousingCurrentAddressComponent,
+  CustomSelect,
+  HousingRequirementsComponent,
+  CustomRequirementDocsComponent,
 };

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 
 import "../../../styles/loantypes.css";
 import {
@@ -15,6 +15,7 @@ import {
 const LoanTypeNewComponent = () => {
   const { type } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const availableTerms = [1, 2, 3, 4, 5];
   const availablePercentages = [20, 30, 40, 50];
@@ -78,6 +79,7 @@ const LoanTypeNewComponent = () => {
     navigate("/vehicle-loan/personal-details", {
       state: {
         firstStepDetails: firstStepDetails,
+        loantype: location.state.loantype
       },
     });
   };

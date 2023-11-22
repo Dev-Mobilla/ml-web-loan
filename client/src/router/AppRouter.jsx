@@ -9,11 +9,14 @@ import {
   Receipt,
   Error,
   PaymentReceipt,
+  HousingLoan,
+  HousingRequirement,
 } from "../pages";
 import LoanType from "../pages/LoanType.page";
 import CustomerDetails from "../pages/CustomerDetails.page";
 import CustomerRequirements from "../pages/CustomerRequirements.page";
 import { isCookiePresent } from "../utils/CookieChecker";
+import {HousingCurrentAddressComponent, HousingRequiredInfoComponent, HousingRequirementsComponent} from "../components";
 
 const ProtectedRoute = ({ component: Component, ...rest }) => {
   const sessionCookieName = process.env.REACT_APP_SESSION_COOKIE_NAME;
@@ -58,7 +61,11 @@ const routes = [
       { path: "/vehicle-loan/loan-type/:type", element: <LoanType /> },
       { path: "/vehicle-loan/personal-details", element: <CustomerDetails /> },
       { path: "/vehicle-loan/requirements", element: <CustomerRequirements /> },
-      { path: "/vehicle-loan/receipt", element: <Receipt /> },
+      { path: "/housing-loan/required-info", element: <HousingRequiredInfoComponent /> },
+      { path: "/housing-loan/personal-details", element: <CustomerDetails/> },
+      { path: "/housing-loan/current-address", element: <HousingCurrentAddressComponent/> },
+      { path: "/housing-loan/requirements", element: <HousingRequirement/> },
+      { path: "/apply-loan/receipt", element: <Receipt /> },
       { path: "/vehicle-loan/payment-receipt", element: <PaymentReceipt /> },
     ],
   },

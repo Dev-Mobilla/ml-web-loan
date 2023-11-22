@@ -66,7 +66,7 @@ const CustomerRequirementComponent = () => {
     if (location.state == null) {
       navigate(-1);
     }
-    setMobileNumber(location.state.secondStepDetails.personalDetails[0].mobile_number)
+    setMobileNumber(location.state.loan.personalDetails.contactDetails.mobile_number)
     const storageLength = sessionStorage.length < 10;
 
     const isCheckEmpty =
@@ -76,7 +76,7 @@ const CustomerRequirementComponent = () => {
     setIsSubmitButtonDisabled(!isCheckEmpty);
   }, [optionValue, isSubmitButtonDisabled, sessionStorage]);
 
-  const VehicleJsonData = () => {
+  const LoanDocsJsonData = () => {
     return {
       original_or:
         JSON.parse(sessionStorage.getItem("Orginal OR/CR"))?.imageName || "",
@@ -93,6 +93,11 @@ const CustomerRequirementComponent = () => {
         JSON.parse(sessionStorage.getItem("Right Side"))?.imageName || "",
       left_side:
         JSON.parse(sessionStorage.getItem("Left Side"))?.imageName || "",
+      cct_no: "",
+      property_map: "",
+      land_title: "",
+      property_description: "",
+      
     };
   };
   const EmploymentJsonData = () => {
@@ -148,7 +153,7 @@ const CustomerRequirementComponent = () => {
 
     const request = {
       vehicle_type: vehicleDetails.selectedVehicle,
-      loan_type: vehicleDetails.type,
+      loan_type: vehicleDetails.loantype,
       application_loan_type: loan_type,
       application_date: dateNow,
       principal_amount: vehicleDetails.principalAmount,
@@ -165,6 +170,8 @@ const CustomerRequirementComponent = () => {
         ? vehicleDetails.chassisNo
         : null,
       preferred_branch: preferredBranch,
+      residence_type: "",
+      stay_length: "",
     };
 
     return request;
@@ -220,51 +227,35 @@ const CustomerRequirementComponent = () => {
     setIsSubmitButtonDisabled(!isEmpty);
   };
 
+  const personalDetails = location.state.loan.personalDetails;
+
+  const contactDetails = personalDetails.contactDetails;
+  const {
+    firstname,
+    lastname,
+    suffix,
+    middlename,
+    countries,
+    provinces,
+    cities,
+  } = personalDetails.informationDetails;
+
   const AddKyc = async (otpCode) => {
     // Symph DB
     try {
-      const personalDetails = location.state.secondStepDetails.personalDetails;
-
-      const { email, mobile_number } = personalDetails[0];
-      const {
-        firstname,
-        lastname,
-        suffix,
-        middlename,
-        countries,
-        provinces,
-        cities,
-      } = personalDetails[1];
 
       const country = countries.split("|")[1].trim();
       const province = provinces.split("|")[1].trim();
       const city = cities.split("|")[1].trim();
-      
-
-      // const customerDataToSymph = {
-      //   mobileNumber: mobile_number,
-      //   firstName: firstname,
-      //   lastName: lastname,
-      //   middleName: middlename !== "" ? middlename : "",
-      //   suffix: suffix !== "" ? suffix : "",
-      //   email: email,
-      //   address: {
-      //     addressL0Id: parseInt(country),
-      //     addressL1Id: parseInt(province),
-      //     addressL2Id: parseInt(city),
-      //     // otherAddress: "",
-      //     // zipCode: "",
-      //   },
-      // };
 
       const customerDataToSymph = {
-        mobileNumber: mobile_number,
+        mobileNumber: contactDetails.mobile_number,
         otpCode: otpCode,
         firstName: firstname,
         lastName: lastname,
         middleName: middlename !== "" ? middlename : "",
         suffix: suffix !== "" ? suffix : "",
-        email: email,
+        email:  contactDetails.email,
         address: {
           addressL0Id: parseInt(country),
           addressL1Id: parseInt(province),
@@ -349,7 +340,6 @@ const CustomerRequirementComponent = () => {
         }
         throw error
       }else{
-        console.log("valid otp");
         setShowOTP(false);
         setShowLoading({
           loading: true,
@@ -364,25 +354,24 @@ const CustomerRequirementComponent = () => {
   
         const kyc = responseSearchKyc.data.data;
 
-        const perDetails = location.state.secondStepDetails.personalDetails[1];
+        const baseData = location.state.loan;
 
-        const baseData = location.state.secondStepDetails;
-        const address = baseData.personalDetails[3];
-        const customer = baseData.personalDetails[1];
-        customer.current_address = address;
+        const vehicle_details = baseData.loandDetails.vehicleDetails;
+        vehicle_details.loantype = baseData.loanDetails.loantype.replace("-", " ");
 
-        const preferredBranch = baseData.personalDetails[2];
+        const customer = personalDetails.informationDetails;
+        customer.current_address = `${vehicle_details.otherAddress} ${vehicle_details.barangay} ${vehicle_details.city} ${vehicle_details.province} ${vehicle_details.country}`;
 
-        const vehicleDetails = baseData.vehicleDetails;
+        const preferredBranch = personalDetails.selectedOption;
 
         let loan_type = null;
 
         if (
-          vehicleDetails?.selectedVehicle === "Car/Pickup/SUV" ||
-          vehicleDetails?.selectedVehicle === "Truck/Commercial"
+          vehicle_details?.selectedVehicle === "Car/Pickup/SUV" ||
+          vehicle_details?.selectedVehicle === "Truck/Commercial"
         ) {
           loan_type = "Car Loan";
-        } else if (vehicleDetails?.selectedVehicle === "Motorcycle") {
+        } else if (vehicle_details?.selectedVehicle === "Motorcycle") {
           loan_type = "Motor Loan";
         }
   
@@ -393,9 +382,9 @@ const CustomerRequirementComponent = () => {
           firstname: kyc.name.firstName,
           middlename: kyc.name.middleName,
           suffix: kyc.name.suffix,
-          nationality: perDetails.nationality,
-          civil_status: perDetails.civil_status,
-          birthdate: perDetails.birthdate,
+          nationality: customer.nationality,
+          civil_status: customer.civil_status,
+          birthdate: customer.birthdate,
           mobile_number: kyc.cellphoneNumber,
           email: kyc.email,
         };
@@ -404,21 +393,21 @@ const CustomerRequirementComponent = () => {
           country: kyc.addresses.current.addressL0Name,
           province: kyc.addresses.current.addressL1Name,
           city: kyc.addresses.current.addressL2Name,
-          barangay: perDetails.barangay,
+          barangay: customer.barangay,
         };
 
-        const vehicleDocsData = VehicleJsonData();
+        const loanDocsData = LoanDocsJsonData();
         const employmentDocsData = EmploymentJsonData();
         const customerData = CustomerDetailsJsonData(customer, ckycBody);
         const loanApplicationData = LoanApplicationJsonData(
-          vehicleDetails,
+          vehicle_details,
           loan_type,
           preferredBranch
         );
 
         // ML DB
         const AddMLLoan = await AddLoan(
-          vehicleDocsData,
+          loanDocsData,
           employmentDocsData,
           customerData,
           loanApplicationData,
@@ -433,7 +422,7 @@ const CustomerRequirementComponent = () => {
             loading: false,
             text: "Just a moment",
           });
-          navigate(`/vehicle-loan/receipt`, {
+          navigate(`/apply-loan/receipt`, {
             state: {
               LoanDetails: {
                 Loan: JSON.stringify(AddMLLoan),
@@ -531,10 +520,8 @@ const CustomerRequirementComponent = () => {
     });
 
     if (sessionStorage.length !== 0 && location.state) {
-      const mobileNumber =
-        location.state.secondStepDetails.personalDetails[0].mobile_number;
-      const email = location.state.secondStepDetails.personalDetails[0].email;
-      const perDetails = location.state.secondStepDetails.personalDetails[1];
+      const mobileNumber = contactDetails.mobile_number;
+      const email = contactDetails.email;
       // TODO: Check KYC
 
       try {
@@ -543,26 +530,25 @@ const CustomerRequirementComponent = () => {
           cellphoneNumber: mobileNumber,
           email,
         });
-
-        console.log("got here!!");
         //   //Details: If not, proceed ML DB
-        const baseData = location.state.secondStepDetails;
-        const address = baseData.personalDetails[3];
-        const customer = baseData.personalDetails[1];
-        customer.current_address = address;
+        const baseData = location.state.loan;
 
-        const preferredBranch = baseData.personalDetails[2];
+        const vehicle_details = baseData.loanDetails.vehicleDetails;
+        vehicle_details.loantype = baseData.loanDetails.loantype.replace("-", " ");
 
-        const vehicleDetails = baseData.vehicleDetails;
+        const customer = personalDetails.informationDetails;
+        customer.current_address = `${vehicle_details.otherAddress} ${vehicle_details.barangay} ${vehicle_details.city} ${vehicle_details.province} ${vehicle_details.country}`;
+
+        const preferredBranch = personalDetails.selectedOption;
 
         let loan_type = null;
 
         if (
-          vehicleDetails?.selectedVehicle === "Car/Pickup/SUV" ||
-          vehicleDetails?.selectedVehicle === "Truck/Commercial"
+          vehicle_details?.selectedVehicle === "Car/Pickup/SUV" ||
+          vehicle_details?.selectedVehicle === "Truck/Commercial"
         ) {
           loan_type = "Car Loan";
-        } else if (vehicleDetails?.selectedVehicle === "Motorcycle") {
+        } else if (vehicle_details?.selectedVehicle === "Motorcycle") {
           loan_type = "Motor Loan";
         }
 
@@ -586,9 +572,9 @@ const CustomerRequirementComponent = () => {
             firstname: responseKyc.name.firstName,
             middlename: responseKyc.name.middleName,
             suffix: responseKyc.name.suffix,
-            nationality: perDetails.nationality,
-            civil_status: perDetails.civil_status,
-            birthdate: perDetails.birthdate,
+            nationality: customer.nationality,
+            civil_status: customer.civil_status,
+            birthdate: customer.birthdate,
             mobile_number: responseKyc.cellphoneNumber,
             email: responseKyc.email,
           };
@@ -597,21 +583,22 @@ const CustomerRequirementComponent = () => {
             country: responseKyc.addresses.current.addressL0Name,
             province: responseKyc.addresses.current.addressL1Name,
             city: responseKyc.addresses.current.addressL2Name,
-            barangay: perDetails.barangay,
+            barangay: customer.barangay,
+            address: customer.current_address
           };
 
-          const vehicleDocsData = VehicleJsonData();
+          const loanDocsData = LoanDocsJsonData();
           const employmentDocsData = EmploymentJsonData();
           const customerData = CustomerDetailsJsonData(customer, ckycBody);
           const loanApplicationData = LoanApplicationJsonData(
-            vehicleDetails,
+            vehicle_details,
             loan_type,
             preferredBranch
           );
 
           // ML DB
           const AddMLLoan = await AddLoan(
-            vehicleDocsData,
+            loanDocsData,
             employmentDocsData,
             customerData,
             loanApplicationData,
@@ -626,7 +613,7 @@ const CustomerRequirementComponent = () => {
               loading: false,
               text: "Just a moment",
             });
-            navigate(`/vehicle-loan/receipt`, {
+            navigate(`/apply-loan/receipt`, {
               state: {
                 LoanDetails: {
                   Loan: JSON.stringify(AddMLLoan),
