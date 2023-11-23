@@ -70,3 +70,52 @@
   font-size: 18px;
   margin: 10px 50px;
 }
+
+@media screen and (min-width: 360px) and (max-width: 480px) {
+  .housing-loan .housing-radios{
+    margin: 10px 10px;
+  }
+  .housing-card .loan-vehicle-amounts{
+    width: 100%;
+    margin: 10px 10px 10px 5px;
+  }
+
+  .housing-loan .main-content{
+    gap: 40px;
+  }
+  .housing-loan .loan-term-selection .main-content{
+    gap: 15px;
+  }
+  .housing-loan .housing-card, .housing-loan .computation-card{
+    padding: 15px;
+  }
+
+}
+
+@media screen and (min-width: 481px) and (max-width: 768px) {
+  .housing-loan .housing-radios{
+    margin: 10px 10px;
+  }
+
+  .housing-loan .main-content{
+    gap: 80px;
+  }
+  .housing-loan .loan-term-selection .main-content{
+    gap: 60px;
+  }
+
+}
+
+@media screen and (min-width: 1950px) {
+  .housing-loan .housing-radios{
+    margin: 10px 10px;
+  }
+
+  .housing-loan .main-content{
+    gap: 80px;
+  }
+  .housing-loan .loan-term-selection .main-content{
+    gap: 60px;
+  }
+
+}

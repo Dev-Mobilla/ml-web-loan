@@ -76,6 +76,7 @@ const HousingRequirementsComponent = () => {
   const handleCancel = () => {
     setShowConfirm(false);
     setShowOTP(false);
+    setShowLoading(false)
   };
   
   useEffect(() => {
@@ -242,10 +243,10 @@ const LoanApplicationJsonData = (
     loan_type: loanDocs.loantype,
     application_loan_type: loan_type,
     application_date: dateNow,
-    principal_amount: "",
-    terms: "",
+    principal_amount: loanDocs.principalAmount,
+    terms: loanDocs.terms,
     color: "",
-    interest: "",
+    interest: 0.02,
     year: "",
     make: "",
     model: "",
@@ -480,7 +481,7 @@ const mobileNumber = contactDetails.mobile_number;
         );
 
         location.state = null;
-        // sessionStorage.clear();
+        sessionStorage.clear();
 
         setTimeout(() => {
           setShowLoading({
@@ -504,7 +505,12 @@ const mobileNumber = contactDetails.mobile_number;
         loading: false,
         text: "Just a moment",
       });
-      ErrorHandler(error)
+      if (error.status == 401 && error.data?.code == "INVALID_OTP") {
+        error.code = "INVALID_OTP"
+        ErrorHandler(error);
+      }else{
+        ErrorHandler(error.response);
+      }
     }
   };
 
@@ -549,7 +555,16 @@ const mobileNumber = contactDetails.mobile_number;
           subTitle: "",
           isError: true,
         });
-      } else if (error.data.error.code == "INTERNAL_SERVER_ERROR") {
+      } else if (error.code == "INVALID_OTP") {
+        setShowAlert(true);
+        setAlertProps({
+          title: "Invalid OTP",
+          text: error.data.message,
+          subTitle: "",
+          isError: true,
+        });
+      }
+      else if (error.data.error.code == "INTERNAL_SERVER_ERROR") {
         setShowAlert(true);
         setAlertProps({
           title: error.data.error.message.title,
@@ -714,7 +729,7 @@ const mobileNumber = contactDetails.mobile_number;
           );
 
           location.state = null;
-          // sessionStorage.clear();
+          sessionStorage.clear();
 
           setTimeout(() => {
             setShowLoading({

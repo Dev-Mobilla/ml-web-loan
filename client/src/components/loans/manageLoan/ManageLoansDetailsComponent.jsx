@@ -93,6 +93,7 @@ const ManageLoansDetailsComponent = () => {
   });
 
   useEffect(() => {
+
     const showCustomAlert = async () => {
       try {
         const kptn = sessionStorage.getItem("CzsVjSXBdoZT2UyN8OV0eA==");
@@ -668,7 +669,7 @@ const ManageLoansDetailsComponent = () => {
       setShowModal(false);
       setShowLoading({
         loading: true,
-        text: `Thank you for your patience while we process your payment. It should only take 1-2 minutes.`,
+        text: `Please wait a moment while we complete your payment processing.`,
       });
       const paymentResponse = await PayNow(
         accountFirstName,
@@ -746,7 +747,7 @@ const ManageLoansDetailsComponent = () => {
     } catch (error) {
       setShowLoading({
         loading: false,
-        text: `Thank you for your patience while we process your payment. It should only take 1-2 minutes.`,
+        text: `Thank you for your patience while we process your payment. Please wait a moment while we complete your payment processing.`,
       });
       
       if (error.response.status == 500) {

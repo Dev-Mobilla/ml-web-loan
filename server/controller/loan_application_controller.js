@@ -1,4 +1,5 @@
 const { loan_applications, CustomerDetails, employment_docs, LoanDocs, sequelize } = require('../models/associations');
+const {CalculateNetAmount} = require('../utils/DataUtils.utils');
 const {ErrorThrower} = require('../utils/ErrorGenerator');
 const fields = require('../utils/LoanTypeFields.utils');
 // const {FieldValues} = require('../utils/LoanTypeFields.utils');
@@ -277,12 +278,14 @@ const AddLoan = async (req, res, next) => {
             RETREIVED SUCCESSFULLY, LOAN TYPE: ${loanApplication.application_loan_type}, 
             CODE: RETREIVED_SUCCESS` )
 
+        const processing_fee = 3000;
     
         const CollateralDetails = {
-            interest: parseFloat(loanApplication.interest) ,
+            interest: parseFloat(loanApplication.interest),
             principal_amount: parseInt(loanApplication.principal_amount),
             term: parseInt(loanApplication.terms),
-
+            processing_fee: processing_fee,
+            net_amount: CalculateNetAmount(processing_fee, loanApplication.principal_amount)
         }
         // let full_name = `${customerDetails.first_name} ${customerDetails.middle_name || customerDetails.middle_name == "NULL" ? customerDetails.middle_name : ""} ${customerDetails.last_name} ${customerDetails.suffix || customerDetails.suffix == "NULL" ? customerDetails.suffix : ""}`;
         let full_name = `${customerDetails.first_name} ${customerDetails.middle_name} ${customerDetails.last_name} ${customerDetails.suffix}`;

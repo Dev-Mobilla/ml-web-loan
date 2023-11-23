@@ -113,7 +113,6 @@ const CustomerDetailsComponent = ({ url }) => {
   }
   useEffect(() => {
 
-    
     if (keepAddress.toLowerCase() == "no") {
       setIsCorrespond(false);
 
@@ -242,9 +241,10 @@ const CustomerDetailsComponent = ({ url }) => {
 
       const secondStepDetails = {
         loanDetails: {
-          loantype: firstStepDetails,
+          loantype: firstStepDetails.housingLoanType,
           isCorrespond: !isCorrespond,
-          appLoanType: loantype
+          appLoanType: loantype,
+          housingDetails: firstStepDetails
         },
         personalDetails: {
           contactDetails,

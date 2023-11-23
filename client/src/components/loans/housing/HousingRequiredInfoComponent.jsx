@@ -3,7 +3,7 @@ import LoanDataComponent from '../vehicle/LoanDataComponent';
 import HousingCardsComponent from './HousingCardsComponent';
 import HousingRadiosComponent from './HousingRadiosComponent';
 import CustomCardTitle from '../../custom/Custom.cardTitle';
-import {CustomButton, CustomHeader, CustomInput, CustomPrevBtn, LoanSelection, TopbarComponent} from '../..';
+import {CustomButton, CustomHeader, CustomInput, CustomInputField, CustomPrevBtn, LoanSelection, TopbarComponent} from '../..';
 import '../../../styles/housing.css';
 import "../../../styles/loantypes.css";
 
@@ -14,14 +14,27 @@ const HousingRequiredInfoComponent = () => {
     const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
     const buttonClassName = isSubmitDisabled ? "btn-disabled" : "btn-enabled";
     const [housingLoanType, setHousingLoanType] = useState("A loan for a housing lot");
+    const [housingDetails, setHousingDetails] = useState({
+      principalAmount: "",
+      terms: "",
+      interest: "2.0"
+    })
 
     const navigate = useNavigate();
     const location = useLocation()
 
     useEffect(() => {
-      const isValid = housingLoanType !== "";
-      setIsSubmitDisabled(!isValid)
+      const isValid = housingLoanType !== "" && !CheckHousingDetails();
+      setIsSubmitDisabled(!isValid);
     })
+
+    const CheckHousingDetails = () => {
+      
+      const isComplete = Object.keys(housingDetails).map(key => housingDetails[key] != null && housingDetails[key] != "" )
+
+      return isComplete?.includes(false);
+    };
+
 
     const {
       loanAmount,
@@ -70,7 +83,7 @@ const HousingRequiredInfoComponent = () => {
         
         navigate("/housing-loan/personal-details", {
           state: {
-            firstStepDetails:housingLoanType,
+            firstStepDetails:{housingLoanType, ...housingDetails},
             loantype: location.state.loantype
           },
         });
@@ -78,6 +91,11 @@ const HousingRequiredInfoComponent = () => {
     const selectedOption = (e) => {
         const value = e.target.value;
         setHousingLoanType(value);
+    }
+
+    const handleVehicleDetailsAmount = (e) => {
+      const { name, value } = e.target;
+      setHousingDetails({ ...housingDetails, [name]: value });
     }
 
   return (
@@ -103,6 +121,7 @@ const HousingRequiredInfoComponent = () => {
                     radioVal={requiredInfo}
                     onSelected={selectedOption}
                     defaultVal={housingLoanType}
+                    styles={''}
                 />
                 </HousingCardsComponent>
                 <div className="computation-card">
@@ -142,7 +161,7 @@ const HousingRequiredInfoComponent = () => {
                     </div>
                     <CustomInput
                         styles="loan-amount disable-data"
-                        label="Loan Ammount"
+                        label="Loan Amount"
                         placeholder="0.00"
                         onChangeHandler={(e) => setLoanAmount(parseFloat(e))}
                         inputVal={loanAmount}
@@ -168,16 +187,63 @@ const HousingRequiredInfoComponent = () => {
                     />
                     </div>
                 </div>
-                <form onSubmit={handleFormSubmit}>
-                <div className="apply-btn">
-                    <CustomButton
-                        type="submit"
-                        name="Apply Online"
-                        styles={buttonClassName}
-                        disabled={isSubmitDisabled}
-                    ></CustomButton>
+                <HousingCardsComponent>
+                  <CustomCardTitle
+                    title={'Housing Details'}
+                    styles={'custom-card-title'}
+                    subTitle={''}
+                  />
+                  <div className="loan-vehicle-amounts">
+              <div className="loan-vehicle-form-group">
+               {/* <div className="input-group"> */}
+                  <div className="form-group">
+                    <CustomInputField
+                        inputPlaceholder={"0.00"}
+                        inputStyle="form-control principal"
+                        inputVal={housingDetails.principalAmount}
+                        inputType="text"
+                        inputName="principalAmount"
+                        inputOnchange={handleVehicleDetailsAmount}
+                        onKeyDownHandler={OnKeydownPriceHandler}
+                    />
+                    <p className="amount-label">Principal Amount</p>
+                  </div>
+                 <div className="form-group">
+                 <CustomInputField
+                    inputPlaceholder={"0"}
+                    inputStyle="form-control terms"
+                    inputVal={housingDetails.terms}
+                    inputType="text"
+                    inputName="terms"
+                    inputOnchange={handleVehicleDetailsAmount}
+                    onKeyDownHandler={OnKeydownPriceHandler}
+                  />
+                    <p className="amount-label">Terms (months)</p>
+                 </div>
+                <div className="form-group">
+                  <CustomInputField
+                  inputPlaceholder={"0%"}
+                  inputStyle="form-control interest"
+                  inputVal={housingDetails.interest}
+                  inputType="text"
+                  inputName="interest"
+                  readOnly={true}
+                  />
+                  <p className="amount-label">Interest</p>
                 </div>
-          </form>
+              </div>
+            </div>
+                </HousingCardsComponent>
+                <form onSubmit={handleFormSubmit}>
+                  <div className="apply-btn">
+                      <CustomButton
+                          type="submit"
+                          name="Apply Online"
+                          styles={buttonClassName}
+                          disabled={isSubmitDisabled}
+                      ></CustomButton>
+                  </div>
+                </form>
             </div>
         </div>
     </div>     

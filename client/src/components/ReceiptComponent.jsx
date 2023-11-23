@@ -75,40 +75,40 @@ const ReceiptComponent = () => {
                     <p>Reference No:</p>
                     <p>Loan Type:</p>
 
-                    {
+                    {/* {
                       !receiptDetails.isHousing ? 
                       (
-                        <>
+                        <> */}
                           <p>Terms:</p>
-                          <p>Monthly Payment:</p>
+                          {/* <p>Monthly Payment:</p> */}
                           <p>Loan Amount:</p>
-                        </>
+                        {/* </>
                     )
                       : <></>
-                    }
+                    } */}
                   </div>
                   <div className="receipt-details--property-value">
                     <p>{receiptDetails.fullname}</p>
                     {/* <p>{receiptDetails.full_name}</p> */}
                     <p>{receiptDetails.ref_num}</p>
                     <p>{loanType}</p>
-                    {
+                    {/* {
                       !receiptDetails.isHousing ? 
                       (
-                        <>
+                        <> */}
                           <p>{receiptDetails.terms} Months</p>
-                          <p>0.00</p>
+                          {/* <p>0.00</p> */}
                           <p>{receiptDetails.loan_amount}</p>
-                        </>
+                        {/* </>
                       )
                       : <></>
-                    }
+                    } */}
                   </div>
                   </div>
                 </div>
                 
                 <div className="success-note">
-                  <p>Note: Please save your reference number.</p>
+                  <p>Note: Please keep your reference number and await a call from the loan team.</p>
                 </div>
                 <div className="dashboard-back-btn">
                   <div className="receipt-dashboard" onClick={BackToDashBoardHandler}>Go back to Dashboard</div>

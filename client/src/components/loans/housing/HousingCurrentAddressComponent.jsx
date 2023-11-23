@@ -104,7 +104,7 @@ const HousingCurrentAddressComponent = () => {
 
     // localStorage.setItem("firstStep", JSON.stringify(firstStepDetails));
 
-    loan.loanDetails.housingDetails = currentAdress;
+    loan.loanDetails.housingDetails.currentAddress = currentAdress;
     const thirdStepDetails = {
       ...loan
     };

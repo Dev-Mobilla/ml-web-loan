@@ -59,7 +59,7 @@ const CustomerRequirementComponent = () => {
   const handleCancel = () => {
     setShowConfirm(false);
     setShowOTP(false);
-    setIsOtpCorrect(false);
+    setShowLoading(false)
   };
 
   useEffect(() => {
@@ -159,7 +159,7 @@ const CustomerRequirementComponent = () => {
       principal_amount: vehicleDetails.principalAmount,
       terms: vehicleDetails.terms,
       color: vehicleDetails.color,
-      interest: vehicleDetails.interest,
+      interest: 0.015,
       year: vehicleDetails.year,
       make: vehicleDetails.make,
       model: vehicleDetails.model,
@@ -439,7 +439,12 @@ const CustomerRequirementComponent = () => {
         loading: false,
         text: "Just a moment",
       });
-      ErrorHandler(error.response)
+      if (error.status == 401 && error.data?.code == "INVALID_OTP") {
+        error.code = "INVALID_OTP"
+        ErrorHandler(error);
+      }else{
+        ErrorHandler(error.response);
+      }
     }
   };
 
@@ -484,7 +489,16 @@ const CustomerRequirementComponent = () => {
           subTitle: "",
           isError: true,
         });
-      } else if (error.data.error.code == "INTERNAL_SERVER_ERROR") {
+      } else if (error.code == "INVALID_OTP") {
+          setShowAlert(true);
+          setAlertProps({
+            title: "Invalid OTP",
+            text: error.data.message,
+            subTitle: "",
+            isError: true,
+          });
+      }
+      else if (error.data.error.code == "INTERNAL_SERVER_ERROR") {
         setShowAlert(true);
         setAlertProps({
           title: error.data.error.message.title,
@@ -501,6 +515,7 @@ const CustomerRequirementComponent = () => {
           isError: true,
         });
       }else {
+        
         setShowAlert(true);
         setAlertProps({
           title: "Error",
@@ -631,7 +646,12 @@ const CustomerRequirementComponent = () => {
           loading: false,
           text: "Just a moment",
         });
-        ErrorHandler(error);
+        if (error.status == 401 && error.data?.code == "INVALID_OTP") {
+          error.code = "INVALID_OTP"
+          ErrorHandler(error);
+        }else{
+          ErrorHandler(error.response);
+        }
       }
     }
   };

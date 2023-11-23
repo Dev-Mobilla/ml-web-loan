@@ -35,7 +35,7 @@
     position: absolute;
     top: 181px;
     transition: all 0.2s ease;
-    width: 1005;
+    width: 100%;
 }
 
 .header .overlap-group-2 {
@@ -171,8 +171,8 @@
     }
     .header .overlap-group {
         width: 100%;
-        height: 120px;
-        background-size:120%;
+        height: 125px;
+        background-size:200%;
         background-repeat: no-repeat;
         top: 0;
     }
@@ -190,35 +190,35 @@
     }
     .header .overlap-3 {
         position: relative;
-        top:55px;
+        top:60px;
         left: 25px;
     }
     
     .header .dlcard {
-        width: 50%;
-        height: 50%;
+        width: 63%;
+        height: 63%;
         border-radius: 5px;
     }
     
     .header .dltxtt {
-        font-size: 10px;
-        left: 30px;
+        font-size: 12px;
+        left: 35px;
         margin: 0px 0px 0px 8px;
-        top:0;
+        top:2px;
     }
     
     .header .dltxt {
-        font-size: 10px;
+        font-size: 12px;
         margin: 0px 0px 0px 8px;
-        left: 30px;
-        top: 10px;
+        left: 35px;
+        top: 14px;
     }
     
     .header .dl-btn {
-        top:5px;
+        top: 7px;
         left: 10px;
-        height: 20px;
-        width: 15px;
+        height: 17px;
+        width: 29px;
     }
     .header .existing-loan-btn {
         height: 100%;
@@ -230,36 +230,36 @@
     
     .header .overlap-group-2 {
         position: relative;
-        top:55px;
-        left: 135px;
+        top:60px;
+        left: 160px;
     
     }
     
     .header .overlap-2 {
-        width: 50%;
-        height: 50%;
+        width: 65%;
+        height: 65%;
         border-radius: 5px;
     }
     
     .header .m-ltxtt {
-        font-size: 10px;
-        left: 30px;
+        font-size: 13px;
+        left: 35px;
         margin: 0px 0px 0px 8px;
-        top:0;
+        top:2px;
     }
     
     .header .m-ltxt {
-        font-size: 10px;
+        font-size: 12px;
         margin: 0px 0px 0px 8px;
-        left: 30px;
-        top: 10px;
+        left: 35px;
+        top: 16px;
     }
     
     .header .ml-btn {
         top:3px;
         left: 5px;
-        height: 20px;
-        width: 25px;
+        height: 25px;
+        width: 29px;
     }
 
 }

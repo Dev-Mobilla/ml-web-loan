@@ -327,8 +327,8 @@ input[type="radio"] {
     font-size: 16px;
   }
   .loan-vehicle-amounts{
-    width: 90%;
-    margin: 10px 20px 20px 20px;
+    width: 100%;
+    margin: 10px 10px 20px 10px;
   }
   .loan-vehicle-amounts .form-group{
     display: flex;
