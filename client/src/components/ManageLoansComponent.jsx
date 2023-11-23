@@ -136,7 +136,7 @@ const ManageLoanComponent = () => {
     setTimeout(() => {
       GetAllLoans();
       GetllApplication();
-    }, 1500);
+    }, 1000);
   }, [])
 
   useEffect(() => {
@@ -263,19 +263,31 @@ const ManageLoanComponent = () => {
     const compareRefNumber = (loan_1, loan_2) => {
       let newPendingLoan = [];
       if (loan_1.length != 0) {
-        
-        for (let index = 0; index < loan_2.length; index++) {
-          const element = loan_2[index];
-          if (loan_1[index].ref_num !== element.ref_num) {
-           newPendingLoan.push(loan_2[index]) 
+
+        if (loan_1.length > loan_2.length) {
+          for (let index = 0; index < loan_2.length; index++) {
+            const element = loan_2[index];
+            if (loan_1[index].ref_num !== element.ref_num) {
+              newPendingLoan.push(loan_2[index])
+            }
           }
+          return newPendingLoan
+        }else if (loan_1.length < loan_2.length) {
+          for (let index = 0; index < loan_1.length; index++) {
+            const element = loan_1[index];
+            if (loan_2[index].ref_num !== element.ref_num) {
+              newPendingLoan.push(loan_2[index])
+            }
+          }
+          return newPendingLoan
         }
-        return newPendingLoan
+        
+        
       }
       return loan_2
     }
 
-    let pend = compareRefNumber(loans, pendingLoans)
+    let pend = compareRefNumber(loans, pendingLoans);
 
     
     return pend?.map((pendLoan, key) => {
