@@ -1,0 +1,492 @@
+.housing-content,
+.collateral-content {
+  padding: 30px;
+  font-family: var(--font-family);
+  margin-bottom: 140px;
+}
+
+.loan-details .card {
+  border: 1px solid var(--border-color);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px var(--bg-shadow);
+  margin: 20px auto;
+  max-width: 1024px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.card .h-card-header img {
+  width: 80px;
+  height: 80px;
+}
+
+.h-card {
+  display: flex;
+  justify-content: space-around;
+}
+
+.h-card-header {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+}
+
+.h-card-text {
+  max-width: 300px;
+}
+
+.h-ltxt {
+  color: var(--text-red);
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.33px;
+  line-height: normal;
+  white-space: nowrap;
+  width: 170px;
+}
+
+.h-lrefno {
+  color: var(--text-gray);
+  font-size: 20px;
+  font-weight: 400;
+  letter-spacing: -0.33px;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.hl-inputs {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.input-group,
+.input-group-collateral {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 30px;
+  align-items: center;
+}
+
+.input-group {
+  width: 400px;
+}
+
+.input-group-collateral {
+  width: 550px;
+}
+
+.input-label,
+.text-label {
+  font-size: 18px;
+  font-weight: 400;
+  margin-right: 5px;
+  line-height: 21px;
+  letter-spacing: -0.3px;
+  color: var(--text-gray);
+}
+
+.remarks {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 30px;
+  align-items: center;
+}
+
+.past-remarks {
+  font-size: 18px;
+  font-style: italic;
+  font-weight: 400;
+  margin-right: 10px;
+  line-height: 21px;
+  letter-spacing: -0.3px;
+  color: var(--text-gray);
+}
+
+.input-wrapper,
+.collateral-input {
+  flex-grow: 1;
+  display: flex;
+  justify-content: end !important;
+}
+
+.input-wrapper input,
+.collateral-input input {
+  width: 157px;
+  height: 38px;
+  padding: 10px;
+  border-radius: var(--radius);
+  margin-right: 10px;
+  border: 1px solid;
+  border-color: var(--text-gray);
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 30px;
+  text-align: right;
+}
+
+.collateral-input input {
+  width: 300px;
+}
+
+.input-wrapper input::placeholder,
+.collateral-input input::placeholder {
+  color: var(--text-gray);
+}
+
+.pay-now-button {
+  background-color: var(--red);
+  color: white;
+  padding: 8px 16px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  border: 1px solid;
+  width: 136px;
+  height: 35px;
+  font-size: 15px;
+}
+
+.pay-now-button.disabled {
+  cursor: no-drop;
+}
+
+.pay-now-button img {
+  margin-right: 8px;
+  width: 31px;
+  height: 27px;
+}
+
+.btns {
+  display: flex;
+  justify-content: space-between;
+  margin: 50px 5px 30px 0;
+}
+
+.note {
+  display: flex;
+}
+
+.note .paynote {
+  width: 250px;
+  font-weight: 400;
+  font-style: italic;
+  font-size: 14px;
+  color: #888888;
+  line-height: 16px;
+  letter-spacing: -0.3px;
+}
+.rec-payment-txt {
+  color: var(--text-red);
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 26px;
+}
+.rc-details {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+}
+
+.hl-transactions {
+  display: flex;
+  margin-left: 30px;
+  padding: 10px;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 21px;
+  color: var(--text-gray);
+}
+
+.hl-transactions .time {
+  margin-left: 30px;
+}
+
+.hl-transactions .ammount {
+  margin-left: 110px;
+}
+
+.disable-data {
+  background-color: #ebebeb;
+}
+
+.payment-history {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 400px;
+  margin: 10px 0px;
+}
+
+@media screen and (min-width: 360px) and (max-width: 480px) {
+  .housing-content {
+    padding: 10px 15px 10px 15px;
+  }
+
+  .custom-prevbtn.prevpagebtn {
+    display: none;
+  }
+
+  .loan-details .card {
+    padding: 15px;
+  }
+
+  .loan-details .h-card {
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .card .h-card-header img {
+    width: 50%;
+    height: 50px;
+  }
+
+  .loan-details .input-group {
+    justify-content: end;
+    width: 300px;
+  }
+
+  .input-label {
+    font-size: 14px;
+  }
+
+  .text-label {
+    margin-bottom: 10px;
+  }
+
+  .h-card-text {
+    max-width: 130px;
+  }
+
+  .h-card-header {
+    padding: 0;
+  }
+
+  .hl-inputs {
+    margin-top: 20px;
+  }
+
+  .h-ltxt {
+    font-size: 18px;
+  }
+
+  .h-lrefno {
+    font-size: 14px;
+  }
+
+  .hl-inputs .input-label {
+    font-size: 16px;
+    width: 150px;
+    padding-right: 10px;
+  }
+
+  .hl-inputs .input-wrapper input {
+    width: 130px;
+    height: 32px;
+    font-size: 16px;
+    font-weight: 400;
+  }
+
+  .input-group-collateral {
+    display: block;
+    width: 100%;
+  }
+
+  .collateral-input {
+    justify-content: start !important;
+  }
+
+  .note {
+    width: 300px;
+  }
+
+  .note .paynote {
+    min-width: 140px;
+    max-width: 210px;
+    width: fit-content;
+    margin-right: 10px;
+    font-size: 14px;
+  }
+
+  .pay-now-button {
+    border-radius: 5px;
+    width: 126px;
+    height: 30px;
+    font-size: 14px;
+  }
+
+  .pay-now-button img {
+    margin-right: 8px;
+    width: 26px;
+    height: 22px;
+  }
+
+  .rec-payment-txt {
+    font-size: 18px;
+  }
+
+  .hl-transactions {
+    margin-left: 5px;
+    font-size: 14px;
+    justify-content: space-around;
+  }
+
+  .hl-transactions .ammount {
+    margin-left: 50px;
+  }
+
+  .past-remarks {
+    font-size: 16px;
+  }
+  .loan-details .payment-history {
+    width: 300px;
+  }
+}
+
+@media screen and (min-width: 481px) and (max-width: 768px) {
+  .housing-content {
+    padding: 10px 15px 10px 15px;
+  }
+
+  .custom-prevbtn.prevpagebtn {
+    display: none;
+  }
+
+  .loan-details .card {
+    padding: 15px 20px;
+  }
+
+  .loan-details .h-card {
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .loan-details .custom-current {
+    width: 150px;
+    margin: auto 5px;
+    height: 30px;
+  }
+
+  .card .h-card-header img {
+    width: 60px;
+    height: 60px;
+  }
+
+  .loan-details .input-group {
+    justify-content: end;
+  }
+
+  .input-label {
+    font-size: 14px;
+  }
+
+  .h-card-text {
+    max-width: 130px;
+  }
+
+  .h-card-header {
+    padding: 5px;
+  }
+
+  .loan-details .h-ltxt {
+    font-size: 20px;
+  }
+
+  .loan-details .h-lrefno {
+    font-size: 16px;
+  }
+
+  .hl-inputs .input-label {
+    font-size: 17px;
+    padding-right: 10px;
+    text-align: end;
+  }
+  .loan-details .input-wrapper {
+    flex-grow: inherit;
+  }
+
+  .hl-inputs .input-wrapper input {
+    width: 170px;
+    height: 32px;
+    font-size: 16px;
+    font-weight: 400;
+  }
+
+  .note {
+    width: 400px;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .note .paynote {
+    min-width: 140px;
+    max-width: 210px;
+    width: fit-content;
+    margin-right: 10px;
+    font-size: 15px;
+  }
+
+  .pay-now-button {
+    border-radius: 5px;
+    width: 136px;
+    height: 36px;
+    font-size: 15px;
+  }
+
+  .pay-now-button img {
+    margin-right: 8px;
+    width: 28px;
+    height: 22px;
+  }
+
+  .payment-schedule-btn,
+  .collateral-details-btn {
+    /* padding: 5px 12px; */
+    width: 150px;
+    height: 35px;
+    font-size: 13px;
+    padding: 4px;
+  }
+
+  .rec-payment-txt {
+    font-size: 20px;
+  }
+
+  .hl-transactions {
+    margin-left: 15px;
+    font-size: 15px;
+    justify-content: space-around;
+  }
+
+  .hl-transactions .ammount {
+    margin-left: 50px;
+  }
+
+  .past-remarks {
+    font-size: 16px;
+  }
+}
+
+@media screen and (min-width: 481px) and (max-width: 600px) {
+  .text-label {
+    margin-bottom: 10px;
+  }
+
+  .collateral {
+    padding: 20px;
+  }
+
+  .input-group-collateral {
+    display: block;
+    width: 100%;
+  }
+}
+
+@media screen and (min-width: 601px) and (max-width: 768px) {
+  .input-group-collateral {
+    width: 80%;
+  }
+}

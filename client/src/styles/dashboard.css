@@ -1,0 +1,275 @@
+.dashboard {
+  background-color: var(--white);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+}
+.dashboard .menu-wrapper{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 90px auto 0px auto;
+  width: 1250px;
+}
+.dashboard .menu-item{
+  border: 1px solid var(--border-color);
+  padding: 10px 0 10px 0;
+  border-radius: 20px;
+  width: 320px;
+  margin: 30px auto;
+  cursor: pointer;
+  box-shadow: 0px 3px 4px 1px #b8b8b8;
+  transition: transform 0.3s ease-in-out;
+  &:hover {
+    transform: scale(0.9);
+  }
+}
+.dashboard .menu-item--wrapper{
+  margin: auto 10px;
+}
+
+.dashboard .menu-item .menu-item--title{
+  color: var(--border-color);
+  font-size: 22px;
+  font-weight: 700;
+  padding: 10px 0;
+}
+
+.dashboard .menu-item .menu-item--col-1,
+.dashboard .menu-item .menu-item--col-2{
+  margin: 0 6px;
+}
+
+.dashboard .menu-item .menu-item--col-1 img{
+  width: 50px;
+}
+
+.dashboard .menu-item--subtitle .subtitle-list{
+  color: var(--text-gray);
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.dashboard .dashboard-div {
+  background-color: var(--white);
+  height: 1024px;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.dashboard .overlap {
+  height: 707px;
+  position: absolute;
+  top: 71px;
+  width: 100%;
+}
+
+.dashboard .body-bg {
+  height: 425px;
+  position: absolute;
+  top: 282px;
+  width: 100%;
+}
+
+.dashboard .floating-diamond {
+  height: 287px;
+  position: absolute;
+  top: 25px;
+  width: 1005;
+}
+
+.dashboard .img {
+  height: 287px;
+  left: 93%;
+  position: absolute;
+  top: 0;
+  width: 135px;
+}
+
+@media screen and (min-width: 360px) and (max-width: 480px) {
+  .dashboard .content-card--wrapper{
+    display: block;
+  }
+  .dashboard .floating-diamond {
+    display: none;
+  }
+  .dashboard .img {
+    display: none;
+  }
+  .dashboard .body-bg {
+    top: 120px;
+  }
+  .dashboard .menu-wrapper{
+    display: block;
+    margin: 0px auto 0px auto;
+    width:95%;
+  }
+  .dashboard .menu-item--wrapper{
+    display: flex;
+    margin: auto 10px;
+    align-items: center;
+  }
+  .dashboard .menu-item{
+    width: 95%;
+    margin: 20px auto;
+    transition: none;
+  }
+  .dashboard .menu-item .menu-item--title{
+    font-size: 20px;
+  }
+  .dashboard .menu-item--subtitle .subtitle-list{
+    font-size: 16px;
+  }
+}
+@media screen and (min-width: 481px) and (max-width: 768px) {
+  .dashboard .content-card--wrapper {
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  
+  .dashboard .login-modal .modal-container {
+    width: 75%;
+  }
+  .dashboard .login-modal .modal-inputbtn-wrapper {
+    width: 75%;
+  }
+  .dashboard .body-bg {
+    top: 180px;
+  }
+  .dashboard .menu-wrapper{
+    margin: 0px auto 0px auto;
+    width:95%;
+  }
+  .dashboard .menu-item--wrapper{
+    margin: auto 10px;
+  }
+  .dashboard .menu-item{
+    width: 47%;
+    margin: 15px 5px;
+    transition: none;
+  }
+  .dashboard .menu-item .menu-item--title{
+    font-size: 19px;
+  }
+  .dashboard .menu-item--subtitle .subtitle-list{
+    font-size: 17px;
+  }
+  .dashboard .menu-item .menu-item--col-1 img{
+    width: 45px;
+  }
+}
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+  .dashboard .content-card--wrapper {
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  
+  .dashboard .login-modal .modal-container {
+    width: 70%;
+  }
+  .dashboard .login-modal .modal-inputbtn-wrapper {
+    width: 70%;
+  }
+
+  .dashboard .body-bg {
+    top: 240px;
+  }
+  .dashboard .menu-wrapper{
+    margin: 0px auto 0px auto;
+    width:95%;
+  }
+  .dashboard .menu-item--wrapper{
+    margin: auto 10px;
+  }
+  .dashboard .menu-item{
+    width: 40%;
+    margin: 15px 5px;
+    transition: none;
+  }
+  .dashboard .menu-item .menu-item--title{
+    font-size: 20px;
+  }
+  .dashboard .menu-item--subtitle .subtitle-list{
+    font-size: 18px;
+  }
+  .dashboard .menu-item .menu-item--col-1 img{
+    width: 48px;
+  }
+}
+@media screen and (min-width: 1025px) and (max-width: 1200px) {
+  .dashboard .content-card--wrapper {
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .dashboard .body-bg {
+    top: 250px;
+  }
+
+  .dashboard .login-modal .modal-container {
+    width: 50%;
+  }
+  .dashboard .login-modal .modal-inputbtn-wrapper {
+    width: 60%;
+  }
+  .dashboard .menu-wrapper{
+    margin: 0px auto 0px auto;
+    width:95%;
+  }
+  .dashboard .menu-item--wrapper{
+    margin: auto 10px;
+  }
+  .dashboard .menu-item{
+    width: 32%;
+    margin: 15px 5px;
+    transition: none;
+  }
+  .dashboard .menu-item .menu-item--title{
+    font-size: 20px;
+  }
+  .dashboard .menu-item--subtitle .subtitle-list{
+    font-size: 18px;
+  }
+  .dashboard .menu-item .menu-item--col-1 img{
+    width: 48px;
+  }
+}
+@media screen and (min-width: 1201px) and (max-width: 1400px) {
+  .dashboard .content-card--wrapper {
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .dashboard .body-bg {
+    top: 350px;
+    left: 0;
+    margin: auto;
+  }
+  .dashboard .login-modal .modal-container {
+    width: 50%;
+  }
+  .dashboard .login-modal .modal-inputbtn-wrapper {
+    width: 60%;
+  }
+  .dashboard .menu-wrapper{
+    margin: 0px auto 0px auto;
+  }
+  .dashboard .menu-item--wrapper{
+    margin: auto 10px;
+  }
+  .dashboard .menu-item{
+    margin: 15px 15px;
+  }
+  .dashboard .menu-item .menu-item--title{
+    font-size: 21px;
+  }
+  .dashboard .menu-item .menu-item--col-1 img{
+    width: 49px;
+  }
+}

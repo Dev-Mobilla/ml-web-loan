@@ -1,0 +1,38 @@
+.footer {
+  background-color: var(--red);
+  color: var(--white);
+  padding: 10px;
+  font-family: var(--font-family);
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 42px;
+}
+
+.left-side {
+  flex: 1;
+}
+
+.right-side {
+  flex: 1;
+  text-align: right;
+}
+
+.right-side a {
+  color: var(--white);
+  text-decoration: none;
+  margin: 0 10px;
+}
+
+@media screen and (min-width: 360px) and (max-width: 480px) {
+  .footer-content {
+    font-size: 12px;
+  }
+
+  .right-side {
+    flex: none;
+  }
+}
