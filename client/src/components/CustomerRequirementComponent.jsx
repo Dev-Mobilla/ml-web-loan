@@ -442,7 +442,14 @@ const CustomerRequirementComponent = () => {
       if (error.status == 401 && error.data?.code == "INVALID_OTP") {
         error.code = "INVALID_OTP"
         ErrorHandler(error);
-      }else{
+      }else if (error.status == 500 && error.data?.code == "INVALID_OTP") {
+        error.code = "INVALID_OTP"
+        ErrorHandler(error);
+      }
+      else if (error.status == 409) {
+          ErrorHandler(error);
+      }
+      else{
         ErrorHandler(error.response);
       }
     }
