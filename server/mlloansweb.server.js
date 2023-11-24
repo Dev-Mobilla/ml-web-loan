@@ -2,6 +2,9 @@ require("dotenv").config();
 const express = require("express");
 const path = require("path");
 const cors = require("cors");
+const https = require('https');
+const fs = require('fs');
+
 const Logger = require("./config/logger.config");
 
 const { SYMPH_API_ROUTER, ML_LOAN_ROUTER, PUBLIC_ROUTER, ML_PUBLIC_ROUTER } = require("./router/index.routes"); 
@@ -11,6 +14,14 @@ const { Auth } = require("./middleware/auth.middleware");
 const app = express();
 
 const PORT = process.env.PORT;
+
+const options = {
+  key: fs.readFileSync('server.key'),
+  cert: fs.readFileSync('server.cert')
+}
+
+const server = https.createServer(options, app);
+
 app.use(express.json());
 
 app.use(cors(
@@ -18,9 +29,9 @@ app.use(cors(
     credentials: true,
     origin: process.env.ML_LOANS_ORIGIN
   }
-))
-
-//ROUTES
+  ))
+  
+  //ROUTES
 app.use('/api/ml-loans/symph', PUBLIC_ROUTER);
 // ml add loan
 app.use('/api/ml-loans/loans', ML_PUBLIC_ROUTER);
@@ -39,9 +50,9 @@ app.get('/*', (req, res) => {
 });
 
 
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   Logger.loggerInfo.addContext("context", "ML LOANS");
   Logger.loggerInfo.info(`Server listening on port: ${PORT}`);
-  console.log("Server listening on port: ", PORT);
+  console.log("Https Server listening on port: ", PORT);
   // console.log(path.resolve(__dirname, ));
 })
