@@ -690,7 +690,7 @@ const ManageLoansDetailsComponent = () => {
         ) {
           setShowLoading({
             loading: false,
-            text: `Thank you for your patience while we process your payment. It should only take 1-2 minutes.`,
+            text: `Please wait a moment while we complete your payment processing.`,
           });
           throw createError(
             400,
@@ -705,7 +705,7 @@ const ManageLoansDetailsComponent = () => {
         ) {
           setShowLoading({
             loading: false,
-            text: `Thank you for your patience while we process your payment. It should only take 1-2 minutes.`,
+            text: `Please wait a moment while we complete your payment processing.`,
           });
           throw createError(
             403,
@@ -717,7 +717,7 @@ const ManageLoansDetailsComponent = () => {
         if (errorCode === "AUTHENTICATION_ERROR" || statusCode === 401) {
           setShowLoading({
             loading: false,
-            text: `Thank you for your patience while we process your payment. It should only take 1-2 minutes.`,
+            text: `Please wait a moment while we complete your payment processing.`,
           });
           throw createError(
             400,

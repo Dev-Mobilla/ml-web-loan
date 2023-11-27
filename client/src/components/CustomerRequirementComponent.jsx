@@ -356,7 +356,7 @@ const CustomerRequirementComponent = () => {
 
         const baseData = location.state.loan;
 
-        const vehicle_details = baseData.loandDetails.vehicleDetails;
+        const vehicle_details = baseData.loanDetails.vehicleDetails;
         vehicle_details.loantype = baseData.loanDetails.loantype.replace("-", " ");
 
         const customer = personalDetails.informationDetails;
@@ -414,6 +414,8 @@ const CustomerRequirementComponent = () => {
           hatchitReqBody
         );
 
+        console.log("niagi diri po!!");
+
         location.state = null;
         sessionStorage.clear();
 
@@ -439,16 +441,25 @@ const CustomerRequirementComponent = () => {
         loading: false,
         text: "Just a moment",
       });
+      console.log("error ni", error);
       if (error.status == 401 && error.data?.code == "INVALID_OTP") {
         error.code = "INVALID_OTP"
         ErrorHandler(error);
-      }else{
+      }else if (error.status == 500 && error.data?.code == "INVALID_OTP") {
+        error.code = "INVALID_OTP"
+        ErrorHandler(error);
+      }
+      else if (error.status == 409) {
+          ErrorHandler(error);
+      }
+      else{
         ErrorHandler(error.response);
       }
     }
   };
 
   const ErrorHandler = (error) => {
+    console.log("error handler", error);
     if (error.status == 409) {
       setShowAlert(true);
       setAlertProps({

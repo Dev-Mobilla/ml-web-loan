@@ -382,7 +382,7 @@ const AddLoanApi = async (URL, data, config) => {
 const GetOTPCode = async (req, res, next) => {
   try {
 
-    const URL = `${process.env.ML_WALLET_OTP_URL}/MLWalletOTP/api/WalletOTP/{ext}/sendOTP`;
+    const URL = `${process.env.ML_WALLET_OTP_URL}/MLWalletOTP/api/WalletOTP/ext/sendOTP`;
 
     const mobileNumber = req.body.mobileNumber;
 
@@ -415,6 +415,7 @@ const GetOTPCode = async (req, res, next) => {
     }
 
   } catch (error) {
+    console.log("OTP",error);
     next(error)
   }
 }

@@ -25,7 +25,7 @@ const CustomAlert = (props) => {
                         {
                             subLink && 
                             <button onClick={handleSubLink} id="sub-btn">
-                                Complete the form once more
+                                Modify previous form
                             </button>
                         }
                         {isError && subLink ?
