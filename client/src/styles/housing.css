@@ -89,6 +89,22 @@
   .housing-loan .housing-card, .housing-loan .computation-card{
     padding: 15px;
   }
+  .housing-loan .col{
+    flex-direction: column;
+    justify-content:left;
+    align-items: normal;
+    width: 100%;
+  }
+  .housing-loan .col .custom-select{
+    margin: 8px auto;
+  }
+  .housing-loan .col .custom-select.col-1,
+  .housing-loan .col .custom-select.col-2{
+    width: 100%;
+  }
+  .housing-loan .residence-type p{
+    margin: 0 0 3px 0;
+  }
 
 }
 
@@ -102,6 +118,22 @@
   }
   .housing-loan .loan-term-selection .main-content{
     gap: 60px;
+  }
+  .housing-loan .col{
+    flex-direction: column;
+    justify-content:left;
+    align-items: normal;
+    width: 100%;
+  }
+  .housing-loan .col .custom-select{
+    margin: 8px auto;
+  }
+  .housing-loan .col .custom-select.col-1,
+  .housing-loan .col .custom-select.col-2{
+    width: 100%;
+  }
+  .housing-loan .residence-type p{
+    margin: 0 0 3px 0;
   }
 
 }

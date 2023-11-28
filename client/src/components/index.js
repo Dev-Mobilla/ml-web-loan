@@ -3,6 +3,7 @@ import FooterComponent from "./layout/FooterComponent";
 import HeaderComponent from "./layout/HeaderComponent";
 import TopbarComponent from "./layout/TopbarComponent";
 import LoadingComponent from "./layout/LoadingComponent";
+import MobileHeaderComponent from "./layout/MobileHeaderComponent";
 
 import LoginComponent from "./LoginComponent";
 import ManageLoanComponent from "./ManageLoansComponent";
@@ -131,4 +132,5 @@ export {
   CustomSelect,
   HousingRequirementsComponent,
   CustomRequirementDocsComponent,
+  MobileHeaderComponent
 };

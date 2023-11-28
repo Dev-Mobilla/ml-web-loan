@@ -603,7 +603,7 @@ const ManageLoansDetailsComponent = () => {
       }
       else{
         setAlertProps({
-          message: "We were unable to process your request due to an unexpected error.",
+          message: "We're sorry, something went wrong on our end. Please try again later.",
           title: "Request Failed",
           color: "#ff6562",
           onClose: handleModalClose,
@@ -669,7 +669,7 @@ const ManageLoansDetailsComponent = () => {
       setShowModal(false);
       setShowLoading({
         loading: true,
-        text: `Please wait a moment while we complete your payment processing.`,
+        text: `Please wait a moment while we process your payment.`,
       });
       const paymentResponse = await PayNow(
         accountFirstName,
@@ -690,7 +690,7 @@ const ManageLoansDetailsComponent = () => {
         ) {
           setShowLoading({
             loading: false,
-            text: `Please wait a moment while we complete your payment processing.`,
+            text: `Please wait a moment while we process your payment.`,
           });
           throw createError(
             400,
@@ -705,7 +705,7 @@ const ManageLoansDetailsComponent = () => {
         ) {
           setShowLoading({
             loading: false,
-            text: `Please wait a moment while we complete your payment processing.`,
+            text: `Please wait a moment while we process your payment.`,
           });
           throw createError(
             403,
@@ -717,7 +717,7 @@ const ManageLoansDetailsComponent = () => {
         if (errorCode === "AUTHENTICATION_ERROR" || statusCode === 401) {
           setShowLoading({
             loading: false,
-            text: `Please wait a moment while we complete your payment processing.`,
+            text: `Please wait a moment while we process your payment.`,
           });
           throw createError(
             400,
@@ -747,7 +747,7 @@ const ManageLoansDetailsComponent = () => {
     } catch (error) {
       setShowLoading({
         loading: false,
-        text: `Thank you for your patience while we process your payment. Please wait a moment while we complete your payment processing.`,
+        text: `Please wait a moment while we process your payment.`,
       });
       
       if (error.response.status == 500) {
@@ -923,10 +923,16 @@ const ManageLoansDetailsComponent = () => {
 
   const PastDue = () => {
     let dateInstance = new Date();
+
+    const year = dateInstance.getFullYear().toString();
+    const month = ("0" + (dateInstance.getMonth() + 1)).slice(-2).toString();
+    const day = ("0" + dateInstance.getDate()).slice(-2).toString();
+
+    const dateNow = new Date(`${year}-${month}-${day}`);
     
     let requestDate = new Date(loanDetails.paymentDueDate);
 
-    return dateInstance > requestDate
+    return dateNow > requestDate
 
   }
 

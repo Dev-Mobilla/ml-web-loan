@@ -7,7 +7,9 @@ import {
   TopbarComponent,
   FeatureNotAvailableModalComponent,
   CustomIcon,
-  CustomCardTitle
+  CustomCardTitle,
+  MobileHeaderComponent,
+  CustomHeader
 } from "./index";
 import { isCookiePresent } from "../utils/CookieChecker";
 
@@ -146,6 +148,13 @@ const DashboardComponent = () => {
     <div className="dashboard">
       <div className="dashboard-div">
         <TopbarComponent />
+        <div className="mobile-header-dashboard">
+          <CustomHeader
+          title={'Loan Marketplace'}
+          />
+          <MobileHeaderComponent manageLoansEvent={ManageLoansHandler}/>
+          <p className="available-loans-text">Available Loans</p>
+        </div>
         <div className="overlap">
           <HeaderComponent manageLoansEvent={ManageLoansHandler} />
           <div className="body-bg">
