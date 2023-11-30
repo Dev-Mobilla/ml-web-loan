@@ -448,6 +448,8 @@ const CustomerRequirementComponent = () => {
       }
       else if (error.status == 409) {
           ErrorHandler(error);
+      }else if (error.code == "ERR_NETWORK") {
+        ErrorHandler(error);
       }
       else{
         ErrorHandler(error.response);
@@ -656,7 +658,10 @@ const CustomerRequirementComponent = () => {
         if (error.status == 401 && error.data?.code == "INVALID_OTP") {
           error.code = "INVALID_OTP"
           ErrorHandler(error);
-        }else{
+        }else if (error.code == "ERR_NETWORK") {
+          ErrorHandler(error);
+        }
+        else{
           ErrorHandler(error.response);
         }
       }
