@@ -414,8 +414,6 @@ const CustomerRequirementComponent = () => {
           hatchitReqBody
         );
 
-        console.log("niagi diri po!!");
-
         location.state = null;
         sessionStorage.clear();
 
@@ -441,7 +439,6 @@ const CustomerRequirementComponent = () => {
         loading: false,
         text: "Just a moment",
       });
-      console.log("error ni", error);
       if (error.status == 401 && error.data?.code == "INVALID_OTP") {
         error.code = "INVALID_OTP"
         ErrorHandler(error);
@@ -459,7 +456,6 @@ const CustomerRequirementComponent = () => {
   };
 
   const ErrorHandler = (error) => {
-    console.log("error handler", error);
     if (error.status == 409) {
       setShowAlert(true);
       setAlertProps({

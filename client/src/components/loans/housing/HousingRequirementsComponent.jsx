@@ -392,6 +392,7 @@ const mobileNumber = contactDetails.mobile_number;
 
         const houisngLoanDetails = baseData.loanDetails.housingDetails;
         houisngLoanDetails.loantype = baseData.loanDetails.loantype;
+        const currentAdd = houisngLoanDetails.currentAddress;
 
         const customer = personalDetails.informationDetails;
         customer.current_address = `${houisngLoanDetails.otherAddress} ${houisngLoanDetails.barangay} ${houisngLoanDetails.city} ${houisngLoanDetails.province} ${houisngLoanDetails.country}`;
@@ -456,10 +457,10 @@ const mobileNumber = contactDetails.mobile_number;
         };
 
         hatchitReqBody = {
-          country: houisngLoanDetails.country,
-          province: houisngLoanDetails.province,
-          city: houisngLoanDetails.city,
-          barangay: houisngLoanDetails.otherAddress + " " + houisngLoanDetails.barangay,
+          country: currentAdd.country,
+          province: currentAdd.province,
+          city: currentAdd.city,
+          barangay: currentAdd.otherAddress + " " + currentAdd.barangay,
         };
 
         const loandDocsData = LoanDocsJsonData();
@@ -509,6 +510,9 @@ const mobileNumber = contactDetails.mobile_number;
         error.code = "INVALID_OTP"
         ErrorHandler(error);
       }else if (error.status == 409) {
+        ErrorHandler(error);
+      }
+      else if (error.status == 502) {
         ErrorHandler(error);
       }
       else{
@@ -628,6 +632,7 @@ const mobileNumber = contactDetails.mobile_number;
 
         const houisngLoanDetails = baseData.loanDetails.housingDetails;
         houisngLoanDetails.loantype = baseData.loanDetails.loantype;
+        const currentAdd = houisngLoanDetails.currentAddress;
 
         const customer = personalDetails.informationDetails;
         customer.current_address = `${houisngLoanDetails.otherAddress} ${houisngLoanDetails.barangay} ${houisngLoanDetails.city} ${houisngLoanDetails.province} ${houisngLoanDetails.country}`;
@@ -707,10 +712,10 @@ const mobileNumber = contactDetails.mobile_number;
           };
 
           hatchitReqBody = {
-            country: houisngLoanDetails.country,
-            province: houisngLoanDetails.province,
-            city: houisngLoanDetails.city,
-            barangay: houisngLoanDetails.otherAddress + " " + houisngLoanDetails.barangay,
+            country: currentAdd.country,
+            province: currentAdd.province,
+            city: currentAdd.city,
+            barangay: currentAdd.otherAddress + " " + currentAdd.barangay,
           };
 
           const loanDocsData = LoanDocsJsonData();
@@ -757,7 +762,7 @@ const mobileNumber = contactDetails.mobile_number;
           loading: false,
           text: "Just a moment",
         });
-        ErrorHandler(error);
+        ErrorHandler(error.response);
       }
     }
   };

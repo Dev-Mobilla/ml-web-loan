@@ -25,11 +25,12 @@ const ManageLoanComponent = () => {
   const [inputErrorMsg, setInputErrorMsg] = useState("");
   const [inputErrorStyle, setInputErrorStyle] = useState("");
   const [loans, setLoans] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [alertModal, setAlertModal] = useState(false);
   const [alertProps, setAlertProps] = useState({});
   const [pendingLoans, setPendingLoans] = useState([]);
   const [showAlert, setShowAlert] = useState(false);
+  const [isNoLoan, setIsNoLoan] = useState(false);
 
   const { Vehicle, QCL, HousingLoan, Pension, SBL } = CustomIcon;
 
@@ -53,19 +54,35 @@ const ManageLoanComponent = () => {
         })
 
         setPendingLoans(newApplications);
+        // setLoading(false)
+        // if (loans?.length === 0) {
+        //   setLoading(false)
+        // }
         
       }
     } catch (error) {
+      console.log(error);
       setLoading(false);
       setAlertModal(false)
       setShowAlert(true);
-      setAlertProps({
-        title: error.response.data.error.message.title,
-        text: error.response.data.error.message.body || "An error occurred",
-        subTitle: "",
-        subLink: false,
-        isError: true
-      });
+      if (error.code === "ERR_NETWORK") {
+        setAlertProps({
+          title: "Something went wrong",
+          text: "We're sorry, something went wrong on our end. Please try again later." || "An error occurred",
+          subTitle: "",
+          subLink: false,
+          isError: true
+        });
+      }else{
+
+        setAlertProps({
+          title: error.response.data.error.message.title,
+          text: error.response.data.error.message.body || "An error occurred",
+          subTitle: "",
+          subLink: false,
+          isError: true
+        });
+      }
     }
   }
 
@@ -111,7 +128,7 @@ const ManageLoanComponent = () => {
           // setLoans(updatedLoanData);
               
             } catch (error) {
-              displayError("An error occurred while fetching the loan details.", "Request Failed");
+              displayError("We're sorry, something went wrong on our end. Please try again later.", "Request Failed");
             }
             setLoading(false);
           }, 3000);
@@ -124,15 +141,19 @@ const ManageLoanComponent = () => {
           displayError("Session expired please login again.", "Session Expired")
           break;
         case 500:
-          displayError("An error occurred while fetching loan details.", "Request Failed")
+          displayError("We're sorry, something went wrong on our end. Please try again later.", "Request Failed")
+          break;
+        case 502:
+          displayError("We're sorry, something went wrong on our end. Please try again later.", "Request Failed")
           break;
         default:
-          displayError("An error occurred while fetching loan details.", "Request Failed")
+          displayError("We're sorry, something went wrong on our end. Please try again later.", "Request Failed")
           break;
       }
   };
 
   useEffect(() => {
+    console.log(isNoLoan);
       GetAllLoans();
       GetllApplication();
   }, [])
@@ -213,7 +234,7 @@ const ManageLoanComponent = () => {
   const LoansCards = ({ status }) => {
     const filteredLoans = loans?.filter((loan) => loan.status === status);
 
-    if (filteredLoans?.length === 0) {
+    if (filteredLoans?.length === 0 || !filteredLoans) {
       if (status === "CLOSED") {
         return (
           <div className="loans-unavailable">
@@ -223,17 +244,24 @@ const ManageLoanComponent = () => {
             </h1>
           </div>
         );
+      }else if (status === "DISBURSED"){
+        setIsNoLoan(true)
+        return (
+          <></>
+        )
+      }
+      else if (status === "APPROVED"){
+        setIsNoLoan(true)
+        return (
+          <></>
+        )
       }else{
         return (
-          <div className="loans-unavailable">
-            <img src={Separator} alt="ml-sep" style={{ marginBottom: '10px' }}/>
-            <h1>
-              You have no current loans.
-            </h1>
-          </div>
+          <></>
         )
       }
     }
+    setIsNoLoan(false)
 
     return filteredLoans?.map((loan, key) => {
       let statusChecker = LoanStatusChecker(loan.status);
@@ -275,33 +303,56 @@ const ManageLoanComponent = () => {
     }
     else{
       const compareRefNumber = (loan_1, loan_2) => {
-        let newPendingLoan = [];
-        if (loan_1.length != 0) {
-          console.log("sdfg");
-          if (loan_1.length > loan_2.length) {
-            for (let index = 0; index < loan_2.length; index++) {
-              const element = loan_2[index];
-              if (loan_1[index].ref_num !== element.ref_num) {
-                newPendingLoan.push(loan_2[index])
-              }
-            }
-            return newPendingLoan
-          }else if (loan_1.length < loan_2.length) {
-            for (let index = 0; index < loan_1.length; index++) {
-              const element = loan_1[index];
-              if (loan_2[index].ref_num !== element.ref_num) {
-                newPendingLoan.push(loan_2[index])
-              }
-            }
-            return newPendingLoan
-          }
+        // let newPendingLoan = [];
+        // if (loan_1.length !== 0) {
+        //   if (loan_1.length > loan_2.length) {
+        //     for (let index = 0; index < loan_2.length; index++) {
+        //       const element = loan_2[index];
+        //       if (loan_1[index].ref_num !== element.ref_num) {
+        //         console.log(index, loan_1[index].ref_num, element.ref_num);
+        //         newPendingLoan.push(loan_2[index])
+        //       }
+        //       console.log("asd",index, loan_1[index].ref_num, element.ref_num);
+        //       // newPendingLoan = []
+        //     }
+        //     return newPendingLoan
+        //   }else if (loan_1.length < loan_2.length) {
+        //     for (let index = 0; index < loan_1.length; index++) {
+        //       const element = loan_1[index];
+        //       console.log("zxcv");
+        //       if (loan_2[index].ref_num !== element.ref_num) {
+        //         newPendingLoan.push(loan_2[index])
+        //       }
+        //     }
+        //     return newPendingLoan
+        //   }
+        //   else if (loan_1.length === loan_2.length) {
+        //     for (let index = 0; index < loan_1.length; index++) {
+        //       const element = loan_1[index];
+        //       console.log("ghjk");
+        //       if (loan_2[index].ref_num !== element.ref_num) {
+        //         newPendingLoan.push(loan_2[index])
+        //       }
+        //     }
+        //     return newPendingLoan
+        //   }
           
-          
-        }else{
-          console.log("heeee");
+        // }
 
-          return loan_2
+        // return loan_2
+
+        if (loan_1.length !== 0) {
+          const refInLoans = loan_1.map(obj => obj.ref_num);
+          const refInPending = loan_2.map(obj => obj.ref_num);
+
+          const commonRefNum = refInLoans.filter(ref_num => refInPending.includes(ref_num));
+
+          const filteredPending = loan_2.filter(obj => !commonRefNum.includes(obj.ref_num));
+
+          return filteredPending
         }
+        return loan_2
+
       }
       let pend = compareRefNumber(loans, pendingLoans);
 
@@ -443,6 +494,14 @@ const ManageLoanComponent = () => {
               {loading ? (
                 <LoadingComponent containerStyle="container-loading" />
               ) : (
+                isNoLoan ?
+                  <div className="loans-unavailable">
+                    <img src={Separator} alt="ml-sep" style={{ marginBottom: '10px' }}/>
+                    <h1>
+                      You have no current loans.
+                    </h1>
+                  </div> 
+                : 
                 loans?.length != 0 ?
                 <>
                   <CurrentLoansCards />
@@ -454,13 +513,19 @@ const ManageLoanComponent = () => {
                   <>
                     <PendingLoans/>
                   </>
-                : 
-                <></>
+                :
+                <div className="loans-unavailable">
+                  <img src={Separator} alt="ml-sep" style={{ marginBottom: '10px' }}/>
+                  <h1>
+                    You have no current loans.
+                  </h1>
+                </div> 
+                
               )}
               {loading ? (
                 <></>
               ) : (
-                pendingLoans?.length != 0 && loans?.length != 0?
+                pendingLoans?.length !== 0 && loans?.length !== 0?
                 <>
                   <PendingLoans/>
                 </>

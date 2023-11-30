@@ -11,7 +11,7 @@ const MakeGetRequest = async (url, params) => {
   try {
     const response = await HatchITAxiosInstance.get(url, {
       params: { ...params },
-      responseType: "json",
+      // responseType: "json",
     });
 
     return {
@@ -19,6 +19,12 @@ const MakeGetRequest = async (url, params) => {
       status: response.status,
     };
   } catch (error) {
+    if (error.code === "ERR_NETWORK") {
+      return {
+        error,
+        status: 500,
+      };
+    }
     return {
       error,
       status: error.response.status,

@@ -294,6 +294,8 @@ const AddLoan = async (req, res, next) => {
             customer_id: customerDetails.customer_id,
             ckyc_id: customerDetails.ckyc_id,
             full_name: full_name.replace(/NULL|null/g, ""),
+            first_name: customerDetails.first_name,
+            last_name: customerDetails.last_name,
             contact_number: customerDetails.mobile_number,
             email: customerDetails.email,
             business_name: "",

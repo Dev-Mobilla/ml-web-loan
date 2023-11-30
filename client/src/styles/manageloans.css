@@ -14,6 +14,7 @@
 
 .manage-loans .body-bg {
   width: 100%;
+  margin-bottom: 200px;
 }
 
 .manage-loans .past-loan-card {
@@ -413,7 +414,7 @@
 
 @media screen and (min-width: 360px) and (max-width: 480px) {
   .manage-loans .body-bg {
-    margin-top: 40px;
+    margin-top: 50px;
   }
   .manage-loans .past-loan-card {
     margin-top: 100px;
@@ -461,10 +462,12 @@
   .manage-loans .custom-button.details-btn,
   .manage-loans .custom-button.approved-btn,
   .manage-loans .custom-button.pending-btn {
-    font-size: 15px;
+    font-size: 14px;
     width: 100px;
     height: 30px;
     border-radius: var(--radius);
+    padding-left: 5px;
+    padding-right: 5px;
   }
   .manage-loans .loan-type.past,
   .manage-loans .loan-type.current {
@@ -492,7 +495,7 @@
 
 @media screen and (min-width: 481px) and (max-width: 768px) {
   .manage-loans .body-bg {
-    margin: 40px auto;
+    margin: 50px auto;
     width: 100%;
   }
   .manage-loans .past-loan-card {
@@ -573,7 +576,7 @@
 
 @media screen and (min-width: 769px) and (max-width: 1350px) {
   .manage-loans .body-bg {
-    margin: 53px auto;
+    margin: 100px auto;
     width: 90%;
   }
   .manage-loans .header {

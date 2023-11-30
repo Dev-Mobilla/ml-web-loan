@@ -159,42 +159,52 @@ const CollateralDetailsComponent = () => {
   const formatValue = (value) => {
     return typeof value === "number" ||
       (typeof value === "string" && value.trim() !== "")
-      ? value
+      ? value.toUpperCase()
       : "";
   };
 
+  // const excludedFields = [
+  //   "picture_of_vehicle_1",
+  //   "picture_of_vehicle_2",
+  //   "picture_of_vehicle_3",
+  //   "picture_of_vehicle_4",
+  //   "picture_of_vehicle_5",
+  //   "picture_of_vehicle_6",
+  //   "picture_of_vehicle_7",
+  //   "or",
+  //   "cr",
+  //   "set_1_stencil",
+  //   "set_2_stencil",
+  //   "set_3_stencil",
+  //   "comprehensive_insurance",
+  //   "item_remarks",
+  // ];
+
   const excludedFields = [
-    "picture_of_vehicle_1",
-    "picture_of_vehicle_2",
-    "picture_of_vehicle_3",
-    "picture_of_vehicle_4",
-    "picture_of_vehicle_5",
-    "picture_of_vehicle_6",
-    "picture_of_vehicle_7",
-    "or",
-    "cr",
-    "set_1_stencil",
-    "set_2_stencil",
-    "set_3_stencil",
-    "comprehensive_insurance",
-    "item_remarks",
+    "tct_cct",
+    "property_description",
+    "land_title",
   ];
 
-  const col = fields.filter(
-    (field) =>
-      ![
-        "Unit",
-        "Vehicle Description",
-        "Principal Amount (PHP)",
-        "Appraised Amount (PHP)",
-        ...excludedFields,
-      ].includes(field.name)
+  // const col = fields.filter(
+  //   (field) =>
+  //     ![
+  //       "Unit",
+  //       "Vehicle Description",
+  //       "Principal Amount (PHP)",
+  //       "Appraised Amount (PHP)",
+  //       ...excludedFields,
+  //     ].includes(field.name)
+  // );
+
+   const col = fields.filter(
+    (field) => field.type !== "file" && !excludedFields.includes(field.name)
   );
 
   return (
     <div className="loan-details">
       <TopbarComponent />
-      <CustomHeader title="Manage Existing Loan" />
+      <CustomHeader title="Collateral Details" />
       {alertModal && (
         <AlertModalComponent
           message={alertMessage}

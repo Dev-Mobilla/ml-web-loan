@@ -183,6 +183,7 @@
     letter-spacing: 0.5px;
     border-radius: var(--radius);
     cursor: pointer;
+    border: none;
 }
 
 .mobile-header .mobile-header--line{
