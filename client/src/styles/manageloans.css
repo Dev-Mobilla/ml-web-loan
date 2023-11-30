@@ -473,6 +473,9 @@
   .manage-loans .loan-type.current {
     font-size: 19px;
   }
+  .manage-loans .loan-type.pending {
+    font-size: 19px;
+  }
   .manage-loans .reference-txt {
     font-size: 14px;
     width: 165px;
