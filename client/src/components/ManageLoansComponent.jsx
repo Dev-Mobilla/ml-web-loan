@@ -382,9 +382,9 @@ const ManageLoanComponent = () => {
     }
   }
 
+  const PastLoansCards = () => <LoansCards status="CLOSED" />;
   const CurrentLoansCards = () => <LoansCards status="DISBURSED" />;
   const ApprovedLoansCards = () => <LoansCards status="APPROVED" />;
-  const PastLoansCards = () => <LoansCards status="CLOSED" />;
 
   const LoanTypeIconHandler = (loanType) => {
     return loansIcon?.map((icon) => {
@@ -494,7 +494,7 @@ const ManageLoanComponent = () => {
               {loading ? (
                 <LoadingComponent containerStyle="container-loading" />
               ) : (
-                isNoLoan ?
+                isNoLoan && pendingLoans?.length === 0?
                   <div className="loans-unavailable">
                     <img src={Separator} alt="ml-sep" style={{ marginBottom: '10px' }}/>
                     <h1>
