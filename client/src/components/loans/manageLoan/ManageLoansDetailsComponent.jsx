@@ -92,6 +92,17 @@ const ManageLoansDetailsComponent = () => {
     text: "Pay Now",
   });
 
+  const [loanDetails, setLoanDetails] = useState({
+    dueAmount: "",
+    feesAndCharges: "",
+    paymentDueDate: "",
+    loanType: "",
+    reference: "",
+    status: "",
+    total: "",
+    paymentStatus: "",
+  });
+
   useEffect(() => {
 
     const showCustomAlert = async () => {
@@ -101,7 +112,8 @@ const ManageLoansDetailsComponent = () => {
         if (
           response.data.respcode === "1" &&
           response.data.respmsg === "SUCCESS" &&
-          response.data.accountNo === LoanReference
+          response.data.accountNo === LoanReference &&
+          loanDetails.paymentStatus === "UNPAID"
         ) {
           const title = "Payment Processed";
           const text =
@@ -126,17 +138,6 @@ const ManageLoansDetailsComponent = () => {
     }
 
   }, [LoanReference]);
-
-  const [loanDetails, setLoanDetails] = useState({
-    dueAmount: "",
-    feesAndCharges: "",
-    paymentDueDate: "",
-    loanType: "",
-    reference: "",
-    status: "",
-    total: "",
-    paymentStatus: "",
-  });
 
   const displayError = ({ message, title }) => {
     setAlertModal(true);
@@ -591,7 +592,7 @@ const ManageLoansDetailsComponent = () => {
       if (error.code == 401) {
         setAlertProps({
           message: error.displayMessage,
-          title: "Request Failed",
+          title: "",
           color: "#ff6562",
           onClose: handleModalClose,
         });

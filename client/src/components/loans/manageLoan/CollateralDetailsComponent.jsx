@@ -159,7 +159,7 @@ const CollateralDetailsComponent = () => {
   const formatValue = (value) => {
     return typeof value === "number" ||
       (typeof value === "string" && value.trim() !== "")
-      ? value.toUpperCase()
+      ? value
       : "";
   };
 
