@@ -414,8 +414,6 @@ const CustomerRequirementComponent = () => {
           hatchitReqBody
         );
 
-        console.log("niagi diri po!!");
-
         location.state = null;
         sessionStorage.clear();
 
@@ -441,7 +439,6 @@ const CustomerRequirementComponent = () => {
         loading: false,
         text: "Just a moment",
       });
-      console.log("error ni", error);
       if (error.status == 401 && error.data?.code == "INVALID_OTP") {
         error.code = "INVALID_OTP"
         ErrorHandler(error);
@@ -451,6 +448,8 @@ const CustomerRequirementComponent = () => {
       }
       else if (error.status == 409) {
           ErrorHandler(error);
+      }else if (error.code == "ERR_NETWORK") {
+        ErrorHandler(error);
       }
       else{
         ErrorHandler(error.response);
@@ -459,7 +458,6 @@ const CustomerRequirementComponent = () => {
   };
 
   const ErrorHandler = (error) => {
-    console.log("error handler", error);
     if (error.status == 409) {
       setShowAlert(true);
       setAlertProps({
@@ -660,7 +658,10 @@ const CustomerRequirementComponent = () => {
         if (error.status == 401 && error.data?.code == "INVALID_OTP") {
           error.code = "INVALID_OTP"
           ErrorHandler(error);
-        }else{
+        }else if (error.code == "ERR_NETWORK") {
+          ErrorHandler(error);
+        }
+        else{
           ErrorHandler(error.response);
         }
       }

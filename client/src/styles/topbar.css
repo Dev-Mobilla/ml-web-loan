@@ -31,17 +31,20 @@
 }
 
 @media screen and (min-width: 360px) and (max-width: 480px) {
-  .top-bar {
+  /* .top-bar {
     height: 40px;
     background-size: 250px;
     background-repeat: no-repeat;
     max-width:100%;
     padding: 10px 10px;
-  }
-  .topbar-group{
+  } */
+  /* .topbar-group{
     height: 90px;
     padding: 10px 10px;
 
+  } */
+  .topbar-group, .top-bar{
+    display: none;
   }
   #logout-button{
     height: 30px;
@@ -49,7 +52,7 @@
 
 }
 @media screen and (min-width: 481px) and (max-width: 768px) {
-  .top-bar {
+  /* .top-bar {
     height: 40px;
     max-width: 290px;
     background-size: 85%;
@@ -61,6 +64,9 @@
     height: 80px;
     padding: 10px 10px;
 
+  } */
+  .topbar-group{
+    display: none;
   }
   #logout-button{
     height: 30px;

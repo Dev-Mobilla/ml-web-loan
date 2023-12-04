@@ -163,11 +163,39 @@
     top: 7px;
     width: 53px;
 }
+.mobile-header{
+    margin: 30px 0 20px 0;
+}
+
+.mobile-header .manage-loan--btn{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+.mobile-header .manage-loan-btn{
+    color: white;
+    background: var(--red);
+    outline: none;
+    border-color: var(--red);
+    font-size: 16px;
+    padding: 8px 13px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    border-radius: var(--radius);
+    cursor: pointer;
+    border: none;
+}
+
+.mobile-header .mobile-header--line{
+    width: 89%;
+}
+
 @media screen and (min-width: 360px) and (max-width: 480px)  {
     .header {
-        width: 100%;
+        /* width: 100%;
         height: 120px;
-        top: 0;
+        top: 0; */
+        display: none;
     }
     .header .overlap-group {
         width: 100%;
@@ -265,9 +293,10 @@
 }
  @media screen and (min-width: 481px) and (max-width: 768px)  {
     .header {
-        width: 100%;
+        /* width: 100%;
         height: 500px;
-        top:0px;
+        top:0px; */
+        display: none;
     }
     .header .overlap-group {
         width: 100%;
