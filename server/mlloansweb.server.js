@@ -20,7 +20,7 @@ const options = {
   cert: fs.readFileSync('server.cert')
 }
 
-// const server = https.createServer(options, app);
+const server = https.createServer(options, app);
 
 app.use(express.json());
 
@@ -50,7 +50,7 @@ app.get('/*', (req, res) => {
 });
 
 
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   Logger.loggerInfo.addContext("context", "ML LOANS");
   Logger.loggerInfo.info(`Server listening on port: ${PORT}`);
   console.log("Https Server listening on port: ", PORT);
