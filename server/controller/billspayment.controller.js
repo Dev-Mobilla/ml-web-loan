@@ -22,12 +22,10 @@ const GetServiceFee = async (req, res, next) => {
     };
 
     const response = await axios.get(url, config);
-    console.log("response", response);
     res.status(200).send(response.data);
     SuccessLogger(response.url, response.status, `GET SERVICE FEE: ${JSON.stringify(response.data)}`);
 
   } catch (error) {
-    console.log("service fee");
     next(error);
   }
 };
@@ -93,7 +91,7 @@ const PayNow = async (req, res, next) => {
     SuccessLogger(url, 200, `REQ DATA: ${JSON.stringify(data)}`);
 
     const response = await axios.post(url, data, config);
-    console.log("response post:", response);
+
     const { billspayStatus, paymentStatus, kptn, createdDate } = response.data.data;
 
     SuccessLogger(url, 200, `BILLSPAY DATA: ${JSON.stringify(response.data.data)}`);
@@ -113,8 +111,8 @@ const PayNow = async (req, res, next) => {
       
       if (kp7BillsPay.respcode === "1" && kp7BillsPay.respmsg === "SUCCESS") {
 
-        res.status(200).json(response.data);
         SuccessLogger(response.url, response.status, `KPTN: ${kptn}, PAY BILLS: ${JSON.stringify(response.data.data)}, KP7: ${kp7BillsPay.respmsg}`);
+        res.status(200).json(response.data);
 
       }else if (kp7BillsPay.respcode === "0" && kp7BillsPay.respmsg === "Transaction not found.") {
 
@@ -181,7 +179,6 @@ const PayNow = async (req, res, next) => {
       throw response
     }
   } catch (error) {
-    console.log("pay bills",error.response.data.error);
     next(error);
   }
 };

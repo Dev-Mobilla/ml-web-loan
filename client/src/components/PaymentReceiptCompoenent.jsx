@@ -99,13 +99,14 @@ const PaymentReceiptCompoenent = () => {
               <div className="transaction-section">
                 <p className="transaction-label">Receiver Name</p>
                 <p className="transaction-value">
+                <span className="firstname">
+                    {paymentData.accountLastName}
+                  </span>
+                  ,
                   <span className="lastname">
                     {paymentData.accountFirstName}
                   </span>
-                  ,
-                  <span className="firstname">
-                    {paymentData.accountLastName}
-                  </span>
+                  
                 </p>
               </div>
               <div className="transaction-section">
