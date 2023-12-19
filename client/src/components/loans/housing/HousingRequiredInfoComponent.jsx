@@ -132,7 +132,7 @@ const HousingRequiredInfoComponent = () => {
                     <div className="loan-content">
                     <CustomInput
                         styles="loan-ammount"
-                        label="Estimated Vehicle Price"
+                        label="Estimated Housing Price"
                         placeholder="0.00"
                         inputVal={estimatedVehiclePrice}
                         onChangeHandler={(e) =>
