@@ -255,13 +255,13 @@ const ManageLoanComponent = () => {
           </div>
         );
       }else if (status === "DISBURSED"){
-        setIsNoLoan(true)
+        // setIsNoLoan(true)
         return (
           <></>
         )
       }
       else if (status === "APPROVED"){
-        setIsNoLoan(true)
+        // setIsNoLoan(true)
         return (
           <></>
         )
