@@ -40,7 +40,7 @@ const ManageLoanComponent = () => {
   const [alertProps, setAlertProps] = useState({});
   const [pendingLoans, setPendingLoans] = useState([]);
   const [showAlert, setShowAlert] = useState(false);
-  const [isNoLoan, setIsNoLoan] = useState(false);
+  // const [isNoLoan, setIsNoLoan] = useState(false);
 
   const { Vehicle, QCL, HousingLoan, Pension, SBL } = CustomIcon;
 
@@ -72,7 +72,6 @@ const ManageLoanComponent = () => {
         
       }
     } catch (error) {
-      console.log(error);
       setLoading(false);
       setAlertModal(false)
       setShowAlert(true);
@@ -165,7 +164,6 @@ const ManageLoanComponent = () => {
   };
 
   useEffect(() => {
-    console.log(isNoLoan);
       GetAllLoans();
       GetllApplication();
   }, [])
@@ -244,7 +242,6 @@ const ManageLoanComponent = () => {
   };
 
   const LoansCards = ({ status }) => {
-    console.log(loans, status);
     const filteredLoans = loans?.filter((loan) => loan.status === status);
 
     if (filteredLoans?.length === 0 || !filteredLoans) {
@@ -258,7 +255,6 @@ const ManageLoanComponent = () => {
           </div>
         );
       }else if (status === "DISBURSED"){
-        // console.log("dff");
         setIsNoLoan(true)
         return (
           <></>
