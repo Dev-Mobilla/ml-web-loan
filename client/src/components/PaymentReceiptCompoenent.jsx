@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { CustomButton, CustomHeader, TopbarComponent } from "./index";
 import "../styles/paymentReceipt.css";
+// import { MockPaymentReceipt } from "../utils/MockData";
+import {ToDecimal} from "../utils/DataFunctions";
 
 const PaymentReceiptCompoenent = () => {
   const navigate = useNavigate();
@@ -41,16 +43,21 @@ const PaymentReceiptCompoenent = () => {
     return null; 
   }
 
+  // const { paymentData, createdDate, kptn, mobileNumber } = MockPaymentReceipt
   const { paymentData, createdDate, kptn, mobileNumber } = location.state;
 
   const date = createdDate;
 
   const parsedDate = new Date(date.replace(/-/g, "/"));
 
-  const day = parsedDate.getDate();
-  const month = new Intl.DateTimeFormat("en-US", { month: "short" }).format(
-    parsedDate
-  );
+  const day = parsedDate.toLocaleDateString('en-US', {
+    day: '2-digit',
+  });;
+
+  const month = parsedDate.toLocaleDateString('en-US', {
+    month: "short",
+  });
+
   const year = parsedDate.getFullYear();
   const time = parsedDate.toLocaleTimeString("en-US", {
     hour: "numeric",
@@ -59,6 +66,12 @@ const PaymentReceiptCompoenent = () => {
   });
 
   const newCreatedDate = `${day} ${month} ${year} ${time}`;
+
+  const amount = ToDecimal(paymentData.amount);
+
+  const total = ToDecimal(paymentData.amount + paymentData.serviceFee);
+
+  const serviceFee = ToDecimal(paymentData.serviceFee);
 
   return (
     <div className="payment-receipt--wrapper">
@@ -78,7 +91,7 @@ const PaymentReceiptCompoenent = () => {
             <div className="payment-receipt-icon">{SuccessIcon}</div>
             <div className="payment-header--details">
               <p className="pay-bills">Pay Bills</p>
-              <p className="amount">{`Php ${paymentData.amount}`}</p>
+              <p className="amount">{`Php ${amount}`}</p>
               <p className="paid-date">{newCreatedDate}</p>
             </div>
             <hr style={{ borderColor: "#dcdcdc70", borderWidth: "0.5px" }} />
@@ -100,11 +113,11 @@ const PaymentReceiptCompoenent = () => {
                 <p className="transaction-label">Receiver Name</p>
                 <p className="transaction-value">
                 <span className="lastname">
-                    {paymentData.accountLastName}
+                    {paymentData.accountLastName.toUpperCase()}
                   </span>
-                  ,
+                  ,{' '}
                   <span className="firstname">
-                    {paymentData.accountFirstName}
+                    {paymentData.accountFirstName.toUpperCase()}
                   </span>
                   
                 </p>
@@ -119,7 +132,8 @@ const PaymentReceiptCompoenent = () => {
               </div>
               <div className="transaction-section">
                 <p className="transaction-label">Biller</p>
-                <p className="transaction-value">{paymentData.loanType}</p>
+                <p className="transaction-value" style={{ lineHeight:'20px' }}>ML VEHICLE LOANS AND <br /> FINANCING</p>
+                {/* <p className="transaction-value">{paymentData.loanType}</p> */}
               </div>
             </div>
             <div className="transaction-amount">
@@ -128,18 +142,18 @@ const PaymentReceiptCompoenent = () => {
               </div>
               <div className="transaction-section">
                 <p className="transaction-label">Amount Sent</p>
-                <p className="transaction-value">{`Php ${paymentData.amount.toLocaleString()}`}</p>
+                <p className="transaction-value">{`Php ${amount}`}</p>
               </div>
               <div className="transaction-section">
                 <p className="transaction-label">Service Fee</p>
-                <p className="transaction-value">{`Php ${paymentData.serviceFee}`}</p>
+                <p className="transaction-value">{`Php ${serviceFee}`}</p>
               </div>
             </div>
             <div className="transaction-total">
               <div className="transaction-section">
                 <p className="transaction-label total">Total</p>
                 <p className="transaction-value">{`Php ${
-                  (paymentData.amount + paymentData.serviceFee).toLocaleString()
+                  total
                 }`}</p>
               </div>
             </div>

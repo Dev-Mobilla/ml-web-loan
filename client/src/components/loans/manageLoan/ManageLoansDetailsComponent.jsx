@@ -31,6 +31,7 @@ import { CheckKP7Transaction } from "../../../api/mlloan.api";
 import { getCookieData } from "../../../utils/CookieChecker";
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
+import {CapitalizeString} from "../../../utils/DataFunctions";
 
 const ConfirmationModal = ({ isOpen, onClose, onConfirm }) => {
   if (!isOpen) return null;
@@ -476,12 +477,12 @@ const ManageLoansDetailsComponent = () => {
         text: "Just a moment",
       });
 
-      setTimeout(() => {
-        setShowLoading({
-          loading: true,
-          text: "We're almost there!",
-        });
-      }, 1000);
+      // setTimeout(() => {
+      //   setShowLoading({
+      //     loading: true,
+      //     text: "We're almost there!",
+      //   });
+      // }, 1000);
       const serviceFeeResponse = await GetServiceFee(amount);
       const serviceFee = serviceFeeResponse.data.totalServiceFee;
       const thresholdResponse = await GetThresholdAmount();
@@ -605,7 +606,7 @@ const ManageLoansDetailsComponent = () => {
       else{
         setAlertProps({
           message: "We're sorry, something went wrong on our end. Please try again later.",
-          title: "Request Failed",
+          title: "",
           color: "#ff6562",
           onClose: handleModalClose,
         });
@@ -736,7 +737,7 @@ const ManageLoansDetailsComponent = () => {
         );
       } else if (paymentResponse.data.billspayStatus === "POSTED") {
         sessionStorage.setItem("CzsVjSXBdoZT2UyN8OV0eA==", paymentResponse.data.kptn);
-        navigate("/vehicle-loan/payment-receipt", {
+        navigate("/loan/payment-receipt", {
           state: {
             paymentData: paymentData,
             createdDate: paymentResponse.data.createdDate,
@@ -1122,7 +1123,7 @@ const ManageLoansDetailsComponent = () => {
                       ))
                     ) : (
                       <div style={{ marginTop: "10px" }}>
-                        <p>{message}</p>
+                        <p>{CapitalizeString(message)}</p>
                       </div>
                     )}
                   </div>
