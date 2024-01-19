@@ -67,16 +67,16 @@ const CapitalizeString = (word) => {
 
 const ToDecimal = (number) => {
 
-    const isDecimal = /\d\.\d{2}$/
-    // let val = 30000.000
+    const isTwoDecimal = /\d\.\d{2}$/
+    const isOneDecimal = /\d\.\d{1}$/   
 
-    return typeof(number) === "number" ? isDecimal.test(number) 
+    return typeof(number) === "number" ? isOneDecimal.test(number) || isTwoDecimal.test(number)
             ? number.toLocaleString(undefined, { useGrouping: true }) 
             : number.toLocaleString(undefined, { useGrouping: true }).concat(".00")
             : number ;
 
-    // return typeof(val) === "number" ? isDecimal.test(val)
-    //         ? val.toLocaleString(undefined, { useGrouping: true, style: 'decimal' })
+    // return typeof(val) === "number" ? isOneDecimal.test(val) || isTwoDecimal.test(val)
+    //         ? val.toLocaleString(undefined, { useGrouping: true }) 
     //         : val.toLocaleString(undefined, { useGrouping: true }).concat(".00")
     //         : val ;
 }
