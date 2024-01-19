@@ -730,11 +730,19 @@ const ManageLoansDetailsComponent = () => {
       }
 
       if (paymentResponse.data.billspayStatus === "FAILED") {
-        throw createError(
-          200,
-          "Bills Failed Transaction - Refund",
-          "Your payment has not been processed due to a technical issue. Please try again."
-        );
+        // throw createError(
+        //   500,
+        //   "Bills Failed Transaction - Refund",
+        //   "Your payment has not been processed due to a technical issue. Please try again later."
+        // );
+        setAlertModal(true);
+        setAlertProps({
+          title: "",
+          message: "Your payment has not been processed due to a technical issue. Please try again later.",
+          subTitle: "",
+          isError: true
+        });
+
       } else if (paymentResponse.data.billspayStatus === "POSTED") {
         sessionStorage.setItem("CzsVjSXBdoZT2UyN8OV0eA==", paymentResponse.data.kptn);
         navigate("/loan/payment-receipt", {
