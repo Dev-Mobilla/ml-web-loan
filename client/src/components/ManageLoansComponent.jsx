@@ -403,7 +403,8 @@ const ManageLoanComponent = () => {
   };
 
   const AddBtnHandler = () => {
-    setModal(true);
+    // setModal(true);
+    window.open("https://forms.gle/fn9F2wG1RBT64Mga6", "_blank");
   };
 
   const ContinueBtnHandler = () => {

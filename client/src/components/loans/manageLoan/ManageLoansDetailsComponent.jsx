@@ -331,7 +331,7 @@ const ManageLoansDetailsComponent = () => {
         pageMargins: [40, 60, 40, 60],
         background: [
           {
-            text: "REPRINTED",
+            text: "M LHUILLIER FINANCIAL SERVICES, INC.",
             fontSize: 20,
             color: "gray",
             opacity: 0.2,
@@ -984,6 +984,7 @@ const ManageLoansDetailsComponent = () => {
                 }
                 
                 <div className="h-card-text">
+                  {/* <div className="h-ltxt">Small Business Loan</div> */}
                   <div className="h-ltxt">{loanDetails.loanType}</div>
                   <div className="h-lrefno">
                     Ref. no. {loanDetails.reference}
@@ -1020,32 +1021,32 @@ const ManageLoansDetailsComponent = () => {
               {loanDetails.status?.toLowerCase() !== "closed" ? (
                 <>
                   <div className="input-group">
-                    <div className="input-label">Due this month</div>
+                    <div className="input-label">Monthly Amortization:</div>
                     <div className="input-wrapper">
                       <input
                         className="disable-data"
-                        value={loanDetails.dueAmount}
-                        disabled
+                        value={`₱ ${loanDetails.dueAmount}`}
+                        // disabled
                       />
                     </div>
                   </div>
                   <div className="input-group">
-                    <div className="input-label">Late fees &amp; charges</div>
+                    <div className="input-label">Late fees &amp; charges:</div>
                     <div className="input-wrapper">
                       <input
                         className="disable-data"
-                        value={loanDetails.feesAndCharges}
-                        disabled
+                        value={`₱ ${loanDetails.feesAndCharges}`}
+                        // disabled
                       />
                     </div>
                   </div>
                   <div className="input-group">
-                    <div className="input-label">Payment due by</div>
+                    <div className="input-label">Payment due on:</div>
                     <div className="input-wrapper">
                       <input
                         className="disable-data"
                         value={loanDetails.paymentDueDate}
-                        disabled
+                        // disabled
                       />
                     </div>
                   </div>
@@ -1070,13 +1071,7 @@ const ManageLoansDetailsComponent = () => {
 
               {loanDetails.status?.toLowerCase() === "disbursed" &&
               loanDetails.paymentStatus === "UNPAID" ? (
-                <div className="note">
-                  <div className="paynote">
-                    <p>
-                      Please pay on or before the due date to avoid late payment
-                      charges
-                    </p>
-                  </div>
+                <>
                   <div className="pay-btn" onClick={handlePayNow}>
                     <button
                       className={`pay-now-button ${payNowBtn.classname}`}
@@ -1087,6 +1082,16 @@ const ManageLoansDetailsComponent = () => {
                       {/* Pay Now */}
                     </button>
                   </div>
+                <div className="note">
+                  <div className="paynote">
+                    <p>
+                      Payment typically take up to five(5) minutes to post.
+                    </p>
+                    <p>
+                      Please pay on or before the due date to avoid late payment
+                      charges
+                    </p>
+                  </div>
 
                   {showModal && (
                     <PaymentDetailsModalComponent
@@ -1096,6 +1101,7 @@ const ManageLoansDetailsComponent = () => {
                     />
                   )}
                 </div>
+                </>
               ) : (
                 <></>
               )}
@@ -1121,6 +1127,15 @@ const ManageLoansDetailsComponent = () => {
                   <div className="rec-payment-txt">
                     <h1>Recent Payments</h1>
                   </div>
+                  {/* <div className="payment-count">
+                    <p>
+                        <span>Paid: </span>
+                        <span>
+                          <span className="make-bold">4</span>
+                          /60</span>
+                    </p>
+                  </div> */}
+                  <br />
                   <div className="rc-details">
                     {paymentsHistory ? (
                       paymentsHistory.map((payment, index) => (
@@ -1134,6 +1149,40 @@ const ManageLoansDetailsComponent = () => {
                         <p>{CapitalizeString(message)}</p>
                       </div>
                     )}
+                          {/* {
+                            paymentsHistory ? (
+                              <table>
+                                <thead>
+                                  <tr>
+                                    <th>Schedule</th>
+                                    <th>Amount Paid</th>
+                                    <th>Status</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  {
+                                    paymentsHistory.map((payment, index) => (
+                                      <>
+                                        <tr className="tooltip" key={index}>
+                                          <td>{payment.paid_date}</td>
+                                          <td>{payment.paid_amount}</td>
+                                          <td>Posted</td>
+                                          <td className="chevron">&#x203A;</td>
+                                          <td className="tooltiptext">
+                                            <span>{payment.paid_date}</span>
+                                            <span>16:23</span>
+                                          </td>
+                                        </tr>
+                                      </>
+                                    ))
+                                  }
+                                </tbody>
+                              </table>
+                            ) : (
+                              <div style={{ marginTop: "10px" }}>
+                              <p>{CapitalizeString(message)}</p>
+                            </div>
+                          )} */}
                   </div>
                 </div>
                 : <></>

@@ -250,10 +250,12 @@
   font-family: "Roboto", Helvetica;
   font-size: 20px;
   font-weight: 500;
-  background-image: url(https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e492714fd92dc35e55a22f/img/addbtn-card-1@2x.png);
-  background-size: 100% 100%;
+  background-color: #198754;
+  /* background-image: url(https://anima-uploads.s3.amazonaws.com/projects/64e41d552340cba66b90f01a/releases/64e492714fd92dc35e55a22f/img/addbtn-card-1@2x.png);
+  background-size: 100% 100%; */
   color: var(--white);
   border: none;
+  border-radius: var(--radius);
 }
 
 .manage-loans .current-loan-btn-container,
