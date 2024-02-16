@@ -14,13 +14,14 @@ const ManageLoanCardComponent = ({
   OnBtnClick,
   btnType,
   disabled,
+  componentKey
 }) => {
   return (
-    <div className={loanCardName}>
+    <div className={loanCardName} key={componentKey}>
       <div className={cardContainer}>
         <div className="icon-content">
           <div className="loan-type-wrapper">
-            <div className="hlmng-icon">
+            <div className="hlmng-icon" key={componentKey}>
               <div className="overlap-4">{icon}</div>
             </div>
             <div className="details-overlap-3">

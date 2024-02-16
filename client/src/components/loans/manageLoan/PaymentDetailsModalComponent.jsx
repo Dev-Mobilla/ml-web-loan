@@ -79,7 +79,10 @@ const PaymentDetailsModalComponent = ({
                 EventHandler={closeModal}
               />
               <CustomButton
-                name={`Pay ₱${paymentData.total}`}
+                name={`Pay ₱${paymentData.total.toLocaleString(undefined, {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                })}`}
                 styles="payment-pay-btn"
                 EventHandler={handlePayment}
               />

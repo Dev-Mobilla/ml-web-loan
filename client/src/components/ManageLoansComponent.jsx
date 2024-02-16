@@ -21,80 +21,37 @@ import Separator from '../assets/icons/sep.png'
 const ManageLoanComponent = () => {
   const navigate = useNavigate();
   const [modal, setModal] = useState(false);
-  const [referenceInput, setReferenceInput] = useState("");
-  const [inputErrorMsg, setInputErrorMsg] = useState("");
-  const [inputErrorStyle, setInputErrorStyle] = useState("");
-  // const [loans, setLoans] = useState([{
+  // const [loans, setLoans] = useState([
+  //   {
   //   loan_type: {loan_type_name: 'Car Loan'},
   //   ref_num: "MCROTKECGVQ",
   //   status: "CLOSED"
   // },
-  // {
-  //   loan_type: {loan_type_name: 'Car Loan'},
-  //   ref_num: "MCROTKECGVQ",
-  //   status: "DISBURSED"
-  // }]);
+  //   {
+  //     loan_type: {loan_type_name: 'Car Loan'},
+  //     ref_num: "MCROTKECGVQ",
+  //     status: "APPROVED"
+  //   },
+  //   {
+  //     loan_type: {loan_type_name: 'Car Loan'},
+  //     ref_num: "MCROTKECGVQ",
+  //     status: "DISBURSED"
+  //   },
+  //   {
+  //     loan_type: {loan_type_name: 'Car Loan'},
+  //     ref_num: "MCROTKECGVQ",
+  //     status: "PENDING"
+  //   }
+  // ]);
   const [loans, setLoans] = useState([]);
   const [loading, setLoading] = useState(false);
   const [alertModal, setAlertModal] = useState(false);
   const [alertProps, setAlertProps] = useState({});
-  const [pendingLoans, setPendingLoans] = useState([]);
   const [showAlert, setShowAlert] = useState(false);
-  // const [isNoLoan, setIsNoLoan] = useState(false);
 
   const { Vehicle, QCL, HousingLoan, Pension, SBL } = CustomIcon;
 
-  const IsInputError = (errorMsg, errorStyle) => {
-    setInputErrorMsg(errorMsg);
-    setInputErrorStyle(errorStyle);
-  };
-  const GetllApplication = async () => {
-    try {
-      const getCkycId = GetCookieByName(process.env.REACT_APP_ACCOUNT_COOKIE_NAME);
-
-      const getApplications = await GetAllApplications(getCkycId?.ckycId)
-
-      if (getApplications.data.length !== 0) {
-        const applications = getApplications.data
-
-        const newApplications = applications?.map((item, key) => {
-          item.status = "PENDING"
-
-          return item
-        })
-
-        setPendingLoans(newApplications);
-        // setPendingLoans([]);
-        // setLoading(false)
-        // if (loans?.length === 0) {
-        //   setLoading(false)
-        // }
-        
-      }
-    } catch (error) {
-      setLoading(false);
-      setAlertModal(false)
-      setShowAlert(true);
-      if (error.code === "ERR_NETWORK") {
-        setAlertProps({
-          title: "Something went wrong",
-          text: "We're sorry, something went wrong on our end. Please try again later." || "An error occurred",
-          subTitle: "",
-          subLink: false,
-          isError: true
-        });
-      }else{
-
-        setAlertProps({
-          title: error.response.data.error.message.title,
-          text: error.response.data.error.message.body || "An error occurred",
-          subTitle: "",
-          subLink: false,
-          isError: true
-        });
-      }
-    }
-  }
+  const Loanstatus = ["DISBURSED", "APPROVED", "PENDING"];
 
   const GetAllLoans = async () => {
       const getCkycId = GetCookieByName(process.env.REACT_APP_ACCOUNT_COOKIE_NAME);
@@ -165,14 +122,18 @@ const ManageLoanComponent = () => {
 
   useEffect(() => {
       GetAllLoans();
-      GetllApplication();
   }, [])
+
 
   useEffect(() => {
 
-    !modal
-      ? IsInputError("", "")
-      : IsInputError(inputErrorMsg, inputErrorStyle);
+    const setToggleModalOutside = (event) => {
+      if (modal) {
+        const classNameBtn = event.target.className === "submit-modal";
+  
+        setModal(!classNameBtn);
+      }
+    };
 
     window.addEventListener("click", setToggleModalOutside);
 
@@ -242,57 +203,27 @@ const ManageLoanComponent = () => {
   };
 
   const LoansCards = ({ status }) => {
-    const filteredLoans = loans?.filter((loan) => loan.status === status);
 
-    if (filteredLoans?.length === 0 || !filteredLoans) {
-      if (status === "CLOSED") {
-        return (
-          <div className="loans-unavailable">
-            <img src={Separator} alt="ml-sep" style={{ marginBottom: '10px' }}/>
-            <h1>
-              You have no past loans.
-            </h1>
-          </div>
-        );
-      }else if (status === "DISBURSED"){
-        // setIsNoLoan(true)
-        return (
-          <></>
-        )
-      }
-      else if (status === "APPROVED"){
-        // setIsNoLoan(true)
-        return (
-          <></>
-        )
-      }else{
-        return (
-          <></>
-        )
-      }
-    }
-    // setIsNoLoan(false)
-
-    return filteredLoans?.map((loan, key) => {
+    return loans?.filter((loan) => loan.status === status).map((loan, key) =>{
       let statusChecker = LoanStatusChecker(loan.status);
-
       return (
         <ManageLoanCardComponent
           loanType={loan.loan_type.loan_type_name}
           referenceNo={loan.ref_num}
-          key={key}
+          componentKey={loan.ref_num}
+          key={loan.ref_num}
           icon={LoanTypeIconHandler(loan.loan_type.loan_type_name)}
           btnName={statusChecker.btnName}
           btnStyle={statusChecker.btnStyle}
           disabled={statusChecker.isDisabled}
           loanCardName="loan-card"
           cardContainer={`loan-card-container ${
-            status === "DISBURSED" || status === "APPROVED"
+            Loanstatus.includes(status)
               ? "current-loan"
               : "past-loan"
           }`}
           loantypeTxt={`loan-type ${
-            status === "DISBURSED" || status === "APPROVED" ? "current" : "past"
+            Loanstatus.includes(status) ? "current" : "past"
           }`}
           referenceTxt="reference-txt"
           OnBtnClick={() =>
@@ -304,97 +235,10 @@ const ManageLoanComponent = () => {
     });
   };
 
-  const PendingLoans = () => {
-
-    if (pendingLoans.length === 0 || !pendingLoans) {
-      return (
-       <></>
-      );
-    }
-    else{
-      const compareRefNumber = (loan_1, loan_2) => {
-        // let newPendingLoan = [];
-        // if (loan_1.length !== 0) {
-        //   if (loan_1.length > loan_2.length) {
-        //     for (let index = 0; index < loan_2.length; index++) {
-        //       const element = loan_2[index];
-        //       if (loan_1[index].ref_num !== element.ref_num) {
-        //         console.log(index, loan_1[index].ref_num, element.ref_num);
-        //         newPendingLoan.push(loan_2[index])
-        //       }
-        //       console.log("asd",index, loan_1[index].ref_num, element.ref_num);
-        //       // newPendingLoan = []
-        //     }
-        //     return newPendingLoan
-        //   }else if (loan_1.length < loan_2.length) {
-        //     for (let index = 0; index < loan_1.length; index++) {
-        //       const element = loan_1[index];
-        //       console.log("zxcv");
-        //       if (loan_2[index].ref_num !== element.ref_num) {
-        //         newPendingLoan.push(loan_2[index])
-        //       }
-        //     }
-        //     return newPendingLoan
-        //   }
-        //   else if (loan_1.length === loan_2.length) {
-        //     for (let index = 0; index < loan_1.length; index++) {
-        //       const element = loan_1[index];
-        //       console.log("ghjk");
-        //       if (loan_2[index].ref_num !== element.ref_num) {
-        //         newPendingLoan.push(loan_2[index])
-        //       }
-        //     }
-        //     return newPendingLoan
-        //   }
-          
-        // }
-
-        // return loan_2
-
-        if (loan_1.length !== 0) {
-          const refInLoans = loan_1.map(obj => obj.ref_num);
-          const refInPending = loan_2.map(obj => obj.ref_num);
-
-          const commonRefNum = refInLoans.filter(ref_num => refInPending.includes(ref_num));
-
-          const filteredPending = loan_2.filter(obj => !commonRefNum.includes(obj.ref_num));
-
-          return filteredPending
-        }
-        return loan_2
-
-      }
-      let pend = compareRefNumber(loans, pendingLoans);
-
-      return pend?.map((pendLoan, key) => {
-        let statusChecker = LoanStatusChecker(pendLoan.status);
-
-        return (
-          <ManageLoanCardComponent
-            loanType={pendLoan.loan_type_name}
-            referenceNo={pendLoan.ref_num}
-            key={key}
-            icon={LoanTypeIconHandler(pendLoan.loan_type_name)}
-            btnName={statusChecker.btnName}
-            btnStyle={statusChecker.btnStyle}
-            disabled={statusChecker.isDisabled}
-            loanCardName="loan-card"
-            cardContainer={`loan-card-container current-loan`}
-            loantypeTxt={`loan-type pending`}
-            referenceTxt="reference-txt"
-            OnBtnClick={() =>
-              CardBtnClick(pendLoan.ref_num, pendLoan.loan_type_name)
-            }
-            btnType="button"
-          />
-        );
-      })
-    }
-  }
-
   const CurrentLoansCards = () => <LoansCards status="DISBURSED" />;
   const ApprovedLoansCards = () => <LoansCards status="APPROVED" />;
   const PastLoansCards = () => <LoansCards status="CLOSED" />;
+  const PendingLoansCards = () => <LoansCards status="PENDING" />;
 
   const LoanTypeIconHandler = (loanType) => {
     return loansIcon?.map((icon) => {
@@ -403,21 +247,11 @@ const ManageLoanComponent = () => {
   };
 
   const AddBtnHandler = () => {
-    // setModal(true);
-    window.open("https://forms.gle/fn9F2wG1RBT64Mga6", "_blank");
+    setModal(true);
   };
-
+  
   const ContinueBtnHandler = () => {
-    if (referenceInput === "") {
-      IsInputError("Please input reference number", "border-red");
-    } else {
-      // console.log("dfsfdg");
-    }
-  };
-
-  const OnInpputChange = (e) => {
-    setReferenceInput(e.target.value);
-    IsInputError("", "");
+    window.open("https://forms.gle/fn9F2wG1RBT64Mga6", "_blank");
   };
 
   const CardBtnClick = (referenceNo, type) => {
@@ -437,13 +271,21 @@ const ManageLoanComponent = () => {
     }
   };
 
-  const setToggleModalOutside = (event) => {
-    if (modal) {
-      const classNameBtn = event.target.className === "submit-modal";
+  const HasCurrentLoanDisplay = () => {
 
-      setModal(!classNameBtn);
-    }
-  };
+    return loans?.length !== 0 && loans?.filter((loan) => Loanstatus.includes(loan.status)).length !== 0;
+  }
+
+  const LoanUnavailable = (status) => {
+    return (
+      <div className="loans-unavailable">
+        <img src={Separator} alt="ml-sep" style={{ marginBottom: '10px' }}/>
+        <h1>
+          You have no {status} loans.
+        </h1>
+      </div> 
+    )
+  }
 
   return (
     <div className="manage-loans">
@@ -466,20 +308,18 @@ const ManageLoanComponent = () => {
       {modal ? (
         <div className="submit-modal">
           <CustomSubmitModal
-            label="Loan Reference Number"
+            label="Note:"
             labelClass="modal-label"
             containerClass="modal-container"
             wrapperClass="modal-wrapper"
             inptBtnWrapper="modal-inputbtn-wrapper"
-            inputWrapperClass={`modal-input-wrapper ${inputErrorStyle}`}
+            inputWrapperClass={`modal-input-wrapper`}
             modalBtnWrapper="modal-btn-wrapper"
             modalBtn="modal-button"
             inputType="text"
-            inputValue={referenceInput}
-            placeHolder="Ref. No"
+            inputValue={`If your loan is not listed here, kindly fill out the provided form after clicking the “Continue” button. Thank you`}
+            placeHolder=""
             onclickHandler={ContinueBtnHandler}
-            onInputChange={OnInpputChange}
-            inputError={inputErrorMsg}
           />
         </div>
       ) : (
@@ -505,40 +345,14 @@ const ManageLoanComponent = () => {
               {loading ? (
                 <LoadingComponent containerStyle="container-loading" />
               ) : (
-                loans?.length !== 0?
+                HasCurrentLoanDisplay() ?
                 <>
                   <CurrentLoansCards />
                   <ApprovedLoansCards />
+                  <PendingLoansCards/>
                 </>
                 : 
-                <div className="loans-unavailable">
-                  <img src={Separator} alt="ml-sep" style={{ marginBottom: '10px' }}/>
-                  <h1>
-                    You have no current loans.
-                  </h1>
-                </div> 
-                
-              )}
-            </div>
-            <div className="past-loan-card">
-              <div className="past-loan-btn-container">
-                <div className="pastloanstxt">Pending Loans</div>
-              </div>
-
-              {loading ? (
-                <LoadingComponent containerStyle="container-loading" />
-              ) : (
-                pendingLoans?.length !== 0?
-                <>
-                  <PendingLoans/>
-                </>
-                : 
-                <div className="loans-unavailable">
-                <img src={Separator} alt="ml-sep" style={{ marginBottom: '10px' }}/>
-                <h1>
-                  You have no pending loans.
-                </h1>
-             </div>
+                LoanUnavailable("current")
               )}
             </div>
             <div className="past-loan-card">
@@ -549,17 +363,12 @@ const ManageLoanComponent = () => {
               {loading ? (
                 <LoadingComponent containerStyle="container-loading" />
               ) : (
-                loans?.length != 0 ?
+                loans?.length !== 0 && loans?.filter(loan => loan.status === "CLOSED").length !== 0?
                 <>
                   <PastLoansCards />
                 </>
                 : 
-                <div className="loans-unavailable">
-                  <img src={Separator} alt="ml-sep" style={{ marginBottom: '10px' }}/>
-                  <h1>
-                    You have no past loans.
-                  </h1>
-               </div>
+                LoanUnavailable("past")
               )}
             </div>
           </div>

@@ -139,7 +139,8 @@ input[type="date"]:valid::before {
   max-width: 600px;
   margin: 0 auto;
   display: flex;
-  justify-content: start;
+  /* justify-content: start; */
+  justify-content: left;
   align-items: center;
   padding: 5px;
 }

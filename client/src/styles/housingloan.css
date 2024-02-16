@@ -90,7 +90,7 @@
 
 .input-label{
   text-align: end;
-  width: 200px;
+  /* width: 200px; */
 }
 
 .remarks {
@@ -114,7 +114,8 @@
 .collateral-input {
   flex-grow: 1;
   display: flex;
-  justify-content: end !important;
+  /* justify-content: end !important; */
+  justify-content: right !important;
 }
 
 /* .input-wrapper input, */
@@ -286,7 +287,7 @@
 
 .tooltip .tooltiptext {
   visibility: hidden;
-  width: 160px;
+  width: 200px;
   background-color: rgba(0, 0, 0, 0.89);
   color: #fff;
   text-align: center;

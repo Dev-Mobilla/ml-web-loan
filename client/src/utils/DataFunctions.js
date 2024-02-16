@@ -26,11 +26,6 @@ const CheckSessionStorage = () => {
     for (let index = 0; index < sessionStorage.length; index++) {
         const getSession = sessionStorage.key(index);
         const getItem = sessionStorage.getItem(getSession);
-  
-        // if (getItem) {
-            
-        // }
-
 
         return isComplete = false
     }
@@ -71,9 +66,11 @@ const ToDecimal = (number) => {
     const isOneDecimal = /\d\.\d{1}$/   
 
     return typeof(number) === "number" ? isOneDecimal.test(number) || isTwoDecimal.test(number)
-            ? number.toLocaleString(undefined, { useGrouping: true }) 
-            : number.toLocaleString(undefined, { useGrouping: true }).concat(".00")
-            : number ;
+            ? number.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) 
+            : Number(number).toLocaleString(undefined, { minimumFractionDigits: 2,
+                maximumFractionDigits: 2 })
+            : Number(number).toLocaleString(undefined, { minimumFractionDigits: 2,
+                maximumFractionDigits: 2 });
 
     // return typeof(val) === "number" ? isOneDecimal.test(val) || isTwoDecimal.test(val)
     //         ? val.toLocaleString(undefined, { useGrouping: true }) 
