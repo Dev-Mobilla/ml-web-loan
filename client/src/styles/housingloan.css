@@ -88,6 +88,11 @@
   color: var(--text-gray);
 }
 
+.input-label{
+  text-align: end;
+  /* width: 200px; */
+}
+
 .remarks {
   display: flex;
   justify-content: space-around;
@@ -109,10 +114,11 @@
 .collateral-input {
   flex-grow: 1;
   display: flex;
-  justify-content: end !important;
+  /* justify-content: end !important; */
+  justify-content: right !important;
 }
 
-.input-wrapper input,
+/* .input-wrapper input, */
 .collateral-input input {
   width: 157px;
   height: 38px;
@@ -125,6 +131,22 @@
   font-weight: 400;
   line-height: 30px;
   text-align: right;
+}
+
+.input-wrapper input.disable-data{
+  width: 157px;
+  height: 38px;
+  padding: 10px;
+  /* border-radius: var(--radius);
+  border: 1px solid;
+  border-color: var(--text-gray); */
+  outline: none;
+  border: none;
+  margin-right: 10px;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 30px;
+  text-align: left;
 }
 
 .collateral-input input {
@@ -171,13 +193,14 @@
 }
 
 .note .paynote {
-  width: 250px;
+  /* width: 250px; */
   font-weight: 400;
   font-style: italic;
   font-size: 14px;
   color: #888888;
   line-height: 16px;
   letter-spacing: -0.3px;
+  margin: 20px 0;
 }
 .rec-payment-txt {
   color: var(--text-red);
@@ -209,9 +232,9 @@
   margin-left: 110px;
 }
 
-.disable-data {
+/* .disable-data {
   background-color: #ebebeb;
-}
+} */
 
 .payment-history {
   display: flex;
@@ -221,7 +244,85 @@
   margin: 10px 0px;
 }
 
-@media screen and (min-width: 360px) and (max-width: 480px) {
+.payment-history .payment-count{
+  font-style: italic;
+  margin: 5px 0;
+}
+
+.payment-count span.make-bold{
+  font-weight: 600;
+}
+
+.rc-details table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+.rc-details th {
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.rc-details td, th {
+  /* border: 1px solid #dddddd; */
+  text-align: left;
+  padding: 8px;
+}
+
+.rc-details tr:hover {
+  /* background-color: #dddddd; */
+}
+
+.rc-details tr td.chevron{
+  font-weight: 600;
+  font-size: 17px;
+}
+
+.tooltip {
+  position: relative;
+  /* display: inline-block; */
+  /* border-bottom: 1px dotted black; */
+  align-items: center;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 200px;
+  background-color: rgba(0, 0, 0, 0.89);
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px 5px;
+  
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+  top: 100%;
+  left: 40%;
+  margin-left: -60px;
+  display: flex;
+  justify-content: space-around;
+  opacity: 0.8;
+  transition: opacity 2s;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
+.tooltip .tooltiptext::after {
+  content: " ";
+  position: absolute;
+  bottom: 100%;  /* At the top of the tooltip */
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent black transparent;
+}
+
+@media screen and (min-width: 355px) and (max-width: 480px) {
   .housing-content {
     padding: 10px 15px 10px 15px;
   }
@@ -231,7 +332,7 @@
   }
 
   .loan-details .card {
-    padding: 15px;
+    padding: 10px;
   }
 
   .loan-details .h-card {
@@ -240,13 +341,14 @@
   }
 
   .card .h-card-header img {
-    width: 50%;
-    height: 50px;
+    width: 30%;
+    height: 30px;
   }
 
   .loan-details .input-group {
     justify-content: end;
     width: 300px;
+    margin-bottom: 15px;
   }
 
   .input-label {
@@ -266,25 +368,27 @@
   }
 
   .hl-inputs {
-    margin-top: 20px;
+    margin-top: 30px;
   }
 
   .h-ltxt {
     font-size: 18px;
+    margin-left: 5px;
   }
 
   .h-lrefno {
     font-size: 14px;
+    margin-left: 5px;
   }
 
   .hl-inputs .input-label {
     font-size: 16px;
-    width: 150px;
+    width: 170px;
     padding-right: 10px;
   }
 
   .hl-inputs .input-wrapper input {
-    width: 130px;
+    width: 120px;
     height: 32px;
     font-size: 16px;
     font-weight: 400;
@@ -299,16 +403,16 @@
     justify-content: start !important;
   }
 
-  .note {
+  /* .note {
     width: 300px;
-  }
+  } */
 
   .note .paynote {
     min-width: 140px;
-    max-width: 210px;
+    /* max-width: 210px; */
     width: fit-content;
-    margin-right: 10px;
-    font-size: 14px;
+    margin: 15px 20px;
+    font-size: 15px;
   }
 
   .pay-now-button {
@@ -343,6 +447,12 @@
   }
   .loan-details .payment-history {
     width: 300px;
+  }
+  .btns{
+    margin: 20px 5px 20px 0;
+  }
+  .rc-details th{
+    font-size: 14px;
   }
 }
 
@@ -415,15 +525,15 @@
     font-weight: 400;
   }
 
-  .note {
+  /* .note {
     width: 400px;
     justify-content: space-between;
     align-items: center;
-  }
+  } */
 
   .note .paynote {
-    min-width: 140px;
-    max-width: 210px;
+    /* min-width: 140px; */
+    /* max-width: 210px; */
     width: fit-content;
     margin-right: 10px;
     font-size: 15px;

@@ -29,7 +29,8 @@
 .modal-header span {
   color: var(--white);
   display: flex;
-  justify-content: end;
+  justify-content: right;
+  /* justify-content: end; */
   font-size: 32px;
 }
 

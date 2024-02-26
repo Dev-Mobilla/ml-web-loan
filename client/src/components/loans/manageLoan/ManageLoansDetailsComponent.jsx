@@ -31,7 +31,7 @@ import { CheckKP7Transaction } from "../../../api/mlloan.api";
 import { getCookieData } from "../../../utils/CookieChecker";
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
-import {CapitalizeString} from "../../../utils/DataFunctions";
+import {CapitalizeString, ToDecimal} from "../../../utils/DataFunctions";
 
 const ConfirmationModal = ({ isOpen, onClose, onConfirm }) => {
   if (!isOpen) return null;
@@ -104,6 +104,10 @@ const ManageLoansDetailsComponent = () => {
     paymentStatus: "",
   });
 
+  const [paymentCount, setPaymentCount] = useState({count:0, paid:0});
+
+  const Loanstatus = ["DISBURSED", "APPROVED", "PENDING"];
+
   useEffect(() => {
 
     const showCustomAlert = async () => {
@@ -134,9 +138,9 @@ const ManageLoansDetailsComponent = () => {
       }
     };
 
-    if (LoanReference) {
-      showCustomAlert();
-    }
+    // if (LoanReference) {
+    //   showCustomAlert();
+    // }
 
   }, [LoanReference]);
 
@@ -185,7 +189,10 @@ const ManageLoansDetailsComponent = () => {
               title: "Error",
             });
           }
-
+          if (Loanstatus.includes(loan.status)) {
+            PaymentHistoryHandler();
+            PaymentCount();
+          }
           setIsLoading(false);
         }, 3000);
         break;
@@ -331,7 +338,7 @@ const ManageLoansDetailsComponent = () => {
         pageMargins: [40, 60, 40, 60],
         background: [
           {
-            text: "REPRINTED",
+            text: "M LHUILLIER FINANCIAL SERVICES, INC.",
             fontSize: 20,
             color: "gray",
             opacity: 0.2,
@@ -477,12 +484,6 @@ const ManageLoansDetailsComponent = () => {
         text: "Just a moment",
       });
 
-      // setTimeout(() => {
-      //   setShowLoading({
-      //     loading: true,
-      //     text: "We're almost there!",
-      //   });
-      // }, 1000);
       const serviceFeeResponse = await GetServiceFee(amount);
       const serviceFee = serviceFeeResponse.data.totalServiceFee;
       const thresholdResponse = await GetThresholdAmount();
@@ -602,6 +603,32 @@ const ManageLoansDetailsComponent = () => {
           classname: "",
           text: "Pay Now",
         });
+      }else if (error.response.status == 500) {
+        if (error.response.data.error.error.status === 401) {
+          setAlertProps({
+            message: "Looks like your session has expired. Please refresh the page and login again. Thank you.",
+            title: "",
+            color: "#ff6562",
+            onClose: handleModalClose,
+          });
+          setPayNowBtn({
+            isDisable: false,
+            classname: "",
+            text: "Pay Now",
+          });
+        }else{
+          setAlertProps({
+            message: "We're sorry, something went wrong on our end. Please try again later.",
+            title: "",
+            color: "#ff6562",
+            onClose: handleModalClose,
+          });
+          setPayNowBtn({
+            isDisable: false,
+            classname: "",
+            text: "Pay Now",
+          });
+        }
       }
       else{
         setAlertProps({
@@ -840,16 +867,18 @@ const ManageLoansDetailsComponent = () => {
   };
 
   useEffect(() => {
+    
     if (Location.state && LoanReference && LoanType) {
       LoanDetailsHandler();
-      PaymentHistoryHandler();
     } else {
       navigate(`/manage-loans`);
     }
+
   }, []);
 
   const OnModalCloseHandler = () => {
     setAlertModal(false);
+    navigate(0);
   };
 
   const DownloadIcon = (
@@ -946,6 +975,26 @@ const ManageLoansDetailsComponent = () => {
 
   }
 
+  const PaymentCount = async () => {
+    const { data } = await GetLoanPaymentSchedule({
+      reference: LoanReference,
+    });
+
+    if (!data.error) {
+      const paymentStatus = ["PAID", "paid"];
+
+      function Paid(data) {
+        return data?.filter(payment => paymentStatus.includes(payment.status)).length;
+      }
+
+      setPaymentCount({
+        count:data.count,
+        paid: Paid(data.data)
+      })
+    }
+    
+  }
+
   return (
     <div className="loan-details">
       <div className="div">
@@ -984,6 +1033,7 @@ const ManageLoansDetailsComponent = () => {
                 }
                 
                 <div className="h-card-text">
+                  {/* <div className="h-ltxt">Small Business Loan</div> */}
                   <div className="h-ltxt">{loanDetails.loanType}</div>
                   <div className="h-lrefno">
                     Ref. no. {loanDetails.reference}
@@ -1020,32 +1070,35 @@ const ManageLoansDetailsComponent = () => {
               {loanDetails.status?.toLowerCase() !== "closed" ? (
                 <>
                   <div className="input-group">
-                    <div className="input-label">Due this month</div>
+                    <div className="input-label">Monthly Amortization:</div>
                     <div className="input-wrapper">
                       <input
                         className="disable-data"
-                        value={loanDetails.dueAmount}
-                        disabled
+                        value={`₱ ${ToDecimal(loanDetails.dueAmount)}`}
+                        // disabled
+                        readOnly
                       />
                     </div>
                   </div>
                   <div className="input-group">
-                    <div className="input-label">Late fees &amp; charges</div>
+                    <div className="input-label">Late fees &amp; charges:</div>
                     <div className="input-wrapper">
                       <input
                         className="disable-data"
-                        value={loanDetails.feesAndCharges}
-                        disabled
+                        value={`₱ ${loanDetails.feesAndCharges}`}
+                        // disabled
+                        readOnly
                       />
                     </div>
                   </div>
                   <div className="input-group">
-                    <div className="input-label">Payment due by</div>
+                    <div className="input-label">Payment due on:</div>
                     <div className="input-wrapper">
                       <input
                         className="disable-data"
                         value={loanDetails.paymentDueDate}
-                        disabled
+                        // disabled
+                        readOnly
                       />
                     </div>
                   </div>
@@ -1070,13 +1123,7 @@ const ManageLoansDetailsComponent = () => {
 
               {loanDetails.status?.toLowerCase() === "disbursed" &&
               loanDetails.paymentStatus === "UNPAID" ? (
-                <div className="note">
-                  <div className="paynote">
-                    <p>
-                      Please pay on or before the due date to avoid late payment
-                      charges
-                    </p>
-                  </div>
+                <>
                   <div className="pay-btn" onClick={handlePayNow}>
                     <button
                       className={`pay-now-button ${payNowBtn.classname}`}
@@ -1087,6 +1134,16 @@ const ManageLoansDetailsComponent = () => {
                       {/* Pay Now */}
                     </button>
                   </div>
+                <div className="note">
+                  <div className="paynote">
+                    <p>
+                      Payment typically take up to five(5) minutes to post.
+                    </p>
+                    <p>
+                      Please pay on or before the due date to avoid late payment
+                      charges
+                    </p>
+                  </div>
 
                   {showModal && (
                     <PaymentDetailsModalComponent
@@ -1096,6 +1153,7 @@ const ManageLoansDetailsComponent = () => {
                     />
                   )}
                 </div>
+                </>
               ) : (
                 <></>
               )}
@@ -1121,19 +1179,49 @@ const ManageLoansDetailsComponent = () => {
                   <div className="rec-payment-txt">
                     <h1>Recent Payments</h1>
                   </div>
+                  <div className="payment-count">
+                    <p>
+                        <span>Paid: </span>
+                        <span>
+                          <span className="make-bold">{paymentCount.paid}</span>
+                          /{paymentCount.count}</span>
+                    </p>
+                  </div>
+                  <br />
                   <div className="rc-details">
-                    {paymentsHistory ? (
-                      paymentsHistory.map((payment, index) => (
-                        <div className="hl-transactions" key={index}>
-                          <div className="date">{payment.paid_date}</div>
-                          <div className="ammount">{payment.paid_amount}</div>
-                        </div>
-                      ))
-                    ) : (
-                      <div style={{ marginTop: "10px" }}>
-                        <p>{CapitalizeString(message)}</p>
-                      </div>
-                    )}
+                          {
+                            paymentsHistory ? (
+                              <table>
+                                <thead>
+                                  <tr>
+                                    <th>Schedule</th>
+                                    <th>Amount Paid</th>
+                                    <th>Status</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  {
+                                    paymentsHistory.map((payment, index) => (
+                                      <>
+                                        <tr className="tooltip" key={index}>
+                                          <td>{payment.due_date}</td>
+                                          <td>{ToDecimal(payment.paid_amount)}</td>
+                                          <td style={{ color:"green" }}>posted</td>
+                                          {/* <td className="chevron">&#x203A;</td> */}
+                                          <td className="tooltiptext">
+                                            <span>Paid Date: {payment.paid_date}</span>
+                                          </td>
+                                        </tr>
+                                      </>
+                                    ))
+                                  }
+                                </tbody>
+                              </table>
+                            ) : (
+                              <div style={{ marginTop: "10px" }}>
+                              <p>{CapitalizeString(message)}</p>
+                            </div>
+                          )}
                   </div>
                 </div>
                 : <></>
