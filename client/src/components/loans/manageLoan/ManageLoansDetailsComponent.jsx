@@ -1189,18 +1189,6 @@ const ManageLoansDetailsComponent = () => {
                   </div>
                   <br />
                   <div className="rc-details">
-                    {/* {paymentsHistory ? (
-                      paymentsHistory.map((payment, index) => (
-                        <div className="hl-transactions" key={index}>
-                          <div className="date">{payment.due_date}</div>
-                          <div className="ammount">{payment.paid_amount}</div>
-                        </div>
-                      ))
-                    ) : (
-                      <div style={{ marginTop: "10px" }}>
-                        <p>{CapitalizeString(message)}</p>
-                      </div>
-                    )} */}
                           {
                             paymentsHistory ? (
                               <table>
@@ -1218,11 +1206,10 @@ const ManageLoansDetailsComponent = () => {
                                         <tr className="tooltip" key={index}>
                                           <td>{payment.due_date}</td>
                                           <td>{ToDecimal(payment.paid_amount)}</td>
-                                          <td style={{ color:"green" }}>Posted</td>
-                                          <td className="chevron">&#x203A;</td>
+                                          <td style={{ color:"green" }}>posted</td>
+                                          {/* <td className="chevron">&#x203A;</td> */}
                                           <td className="tooltiptext">
                                             <span>Paid Date: {payment.paid_date}</span>
-                                            {/* <span>16:23</span> */}
                                           </td>
                                         </tr>
                                       </>
