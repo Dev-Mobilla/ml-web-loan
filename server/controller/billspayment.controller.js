@@ -8,6 +8,7 @@ const handleApiError = (message) => {
 };
 
 const API_BASE_URL = process.env.API_SYMPH_BASE_URL;
+const BY_PASS_CAPTCHA = process.env.ML_WEB_RECAPTCHA_BYPASS;
 
 const GetServiceFee = async (req, res, next) => {
   try {
@@ -15,6 +16,7 @@ const GetServiceFee = async (req, res, next) => {
     const config = {
       headers: {
         Cookie: req.headers.cookie,
+        "x-recaptcha-bypass-key": BY_PASS_CAPTCHA
       },
       params: {
         amount: req.query.amount,
@@ -36,6 +38,7 @@ const GetThresholdAmount = async (req, res, next) => {
     const config = {
       headers: {
         Cookie: req.headers.cookie,
+        "x-recaptcha-bypass-key": BY_PASS_CAPTCHA
       },
     };
 
@@ -53,6 +56,7 @@ const ValidateAccountNumber = async (req, res, next) => {
     const config = {
       headers: {
         Cookie: req.headers.cookie,
+        "x-recaptcha-bypass-key": BY_PASS_CAPTCHA
       },
     };
 
@@ -77,6 +81,7 @@ const PayNow = async (req, res, next) => {
     const config = {
       headers: {
         Cookie: req.headers.cookie,
+        "x-recaptcha-bypass-key": BY_PASS_CAPTCHA
       },
     };
 
@@ -207,6 +212,7 @@ const RefundBillsPayment = async (kptn) => {
                     "x-hash": x_hash,
                     "Accept": "application/json",
                     "Content-Type": "application/json",
+                    "x-recaptcha-bypass-key": BY_PASS_CAPTCHA
                 };
 
                 const config = {
@@ -261,6 +267,7 @@ const UpdateBillsPayment = async (reqBody, kptn) => {
                 "x-hash": x_hash,
                 "Accept": "application/json",
                 "Content-Type": "application/json",
+                "x-recaptcha-bypass-key": BY_PASS_CAPTCHA
             };
 
             const config = {
@@ -330,6 +337,7 @@ const CheckKP7Transaction = async (transactionId) => {
    let config = {
       headers: {
         Authorization: `Basic ${auth}`,
+        // "x-recaptcha-bypass-key": BY_PASS_CAPTCHA
       }
    }
 
