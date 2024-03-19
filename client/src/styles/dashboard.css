@@ -103,6 +103,9 @@
 }
 
 @media screen and (min-width: 360px) and (max-width: 480px) {
+  .dashboard{
+    margin-bottom: 3rem;
+  }
   .dashboard .content-card--wrapper{
     display: block;
   }

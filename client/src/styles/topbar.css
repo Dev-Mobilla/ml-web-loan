@@ -30,7 +30,7 @@
   font-weight: 500;
 }
 
-@media screen and (min-width: 360px) and (max-width: 480px) {
+@media screen and (min-width: 355px) and (max-width: 480px) {
   /* .top-bar {
     height: 40px;
     background-size: 250px;
