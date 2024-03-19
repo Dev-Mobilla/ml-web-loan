@@ -1074,7 +1074,7 @@ const ManageLoansDetailsComponent = () => {
                     <div className="input-wrapper">
                       <input
                         className="disable-data"
-                        value={`₱ ${ToDecimal(loanDetails.dueAmount)}`}
+                        value={`₱ ${loanDetails.dueAmount}`}
                         // disabled
                         readOnly
                       />
@@ -1205,7 +1205,8 @@ const ManageLoansDetailsComponent = () => {
                                       <>
                                         <tr className="tooltip" key={index}>
                                           <td>{payment.due_date}</td>
-                                          <td>{ToDecimal(payment.paid_amount)}</td>
+                                          <td>{payment.paid_amount}</td>
+                                          {/* <td>{ToDecimal(payment.paid_amount)}</td> */}
                                           <td style={{ color:"green" }}>posted</td>
                                           {/* <td className="chevron">&#x203A;</td> */}
                                           <td className="tooltiptext">
