@@ -1,5 +1,5 @@
 .alertbackground {
-  height: 105%;
+  height: 110vh;
   /* background: var(--white); */
   position: fixed;
   display: flex;

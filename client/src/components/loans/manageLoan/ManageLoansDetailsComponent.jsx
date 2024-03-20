@@ -203,12 +203,32 @@ const ManageLoansDetailsComponent = () => {
         });
         break;
       case 500:
-        displayError({
-          title: "Network Error",
-          message: "An error occurred while fetching loan details.",
-        });
+        let code = response.error.code;
+        let data = response.error.response.data;
+        if (code === "ERR_BAD_RESPONSE" && !data.data) {
+          console.log(data);
+          setIsLoading(false);
+          setLoanDetails({
+            dueAmount: "",
+            feesAndCharges: "",
+            paymentDueDate: "",
+            reference: "",
+            loanType: LoanType,
+            status: data.status,
+            total: "",
+            paymentStatus: "",
+          });
+        }else{
+          setIsLoading(false);
+          displayError({
+            title: "Network Error",
+            message: "An error occurred while fetching loan details.",
+          });
+        }
+
         break;
       default:
+        setIsLoading(false);
         displayError({
           title: "Network Error",
           message: "An error occurred while fetching loan details.",
@@ -878,7 +898,7 @@ const ManageLoansDetailsComponent = () => {
 
   const OnModalCloseHandler = () => {
     setAlertModal(false);
-    navigate(0);
+    // navigate(0);
   };
 
   const DownloadIcon = (
@@ -1206,9 +1226,7 @@ const ManageLoansDetailsComponent = () => {
                                         <tr className="tooltip" key={index}>
                                           <td>{payment.due_date}</td>
                                           <td>{payment.paid_amount}</td>
-                                          {/* <td>{ToDecimal(payment.paid_amount)}</td> */}
-                                          <td style={{ color:"green" }}>posted</td>
-                                          {/* <td className="chevron">&#x203A;</td> */}
+                                          <td style={{ color:"green" }}>Posted</td>
                                           <td className="tooltiptext">
                                             <span>Paid Date: {payment.paid_date}</span>
                                           </td>
