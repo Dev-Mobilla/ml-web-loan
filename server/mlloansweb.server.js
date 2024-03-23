@@ -31,6 +31,7 @@ app.use(cors(
   }
   ))
   
+
   //ROUTES
 app.use('/api/ml-loans/symph', PUBLIC_ROUTER);
 // ml add loan
@@ -38,7 +39,6 @@ app.use('/api/ml-loans/loans', ML_PUBLIC_ROUTER);
 // direct symph api
 app.use('/api/loans/symph', SYMPH_API_ROUTER);
 app.use('/api/ml-loans', Auth , ML_LOAN_ROUTER);
-
 // MIDDLEWARES
 app.use(ErrorLogger)
 app.use(ErrorResponder);
@@ -48,7 +48,6 @@ app.use(express.static(path.join(__dirname, '../client/build')));
 app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
 });
-
 
 server.listen(PORT, () => {
   Logger.loggerInfo.addContext("context", "ML LOANS");

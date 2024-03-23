@@ -7,5 +7,5 @@ module.exports = {
     SYMPH_API_ROUTER,
     ML_LOAN_ROUTER,
     PUBLIC_ROUTER,
-    ML_PUBLIC_ROUTER
+    ML_PUBLIC_ROUTER,
 }
