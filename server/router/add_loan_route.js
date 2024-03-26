@@ -1,7 +1,7 @@
 const express = require("express");
 const ML_PUBLIC_ROUTER = express.Router();
 const LoanApplicationsController = require("../controller/loan_application_controller");
-
+const GetQualifiedEmployees = require('../controller/salary_loan.controller')
 
 // ML_PUBLIC_ROUTER.post("/create-loan/sample", async (req, res) => {
 //   const reqBody = req.body.data;
@@ -80,7 +80,7 @@ const LoanApplicationsController = require("../controller/loan_application_contr
 //   }
 
 // });
-
+ML_PUBLIC_ROUTER.get('/get-qualified-employees',GetQualifiedEmployees.getQualifiedEmployees)
 ML_PUBLIC_ROUTER.post('/create-loan', LoanApplicationsController.AddLoan)
 ML_PUBLIC_ROUTER.get("/ml-loans/tables", LoanApplicationsController.getAllLoanApplicants);
 
